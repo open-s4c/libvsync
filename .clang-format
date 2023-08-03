@@ -1,0 +1,69 @@
+AlignAfterOpenBracket                     : Align
+AlignConsecutiveAssignments               : true
+AlignConsecutiveDeclarations              : false
+AlignConsecutiveMacros                    : true
+AlignEscapedNewlines                      : Right
+AlignOperands                             : true
+AlignTrailingComments                     : true
+AllowAllArgumentsOnNextLine               : false
+AllowAllParametersOfDeclarationOnNextLine : false
+AllowShortBlocksOnASingleLine             : Empty
+AllowShortCaseLabelsOnASingleLine         : false
+AllowShortFunctionsOnASingleLine          : None
+AllowShortIfStatementsOnASingleLine       : Never
+AllowShortLoopsOnASingleLine              : false
+AlwaysBreakAfterReturnType                : TopLevelDefinitions
+AlwaysBreakBeforeMultilineStrings         : true
+BinPackArguments                          : true
+BinPackParameters                         : true
+BreakBeforeBinaryOperators                : None
+BreakBeforeBraces                         : Linux
+BreakBeforeTernaryOperators               : false
+BreakStringLiterals                       : true
+ColumnLimit                               : 80
+ContinuationIndentWidth                   : 4
+DeriveLineEnding                          : false
+DerivePointerAlignment                    : false
+ExperimentalAutoDetectBinPacking          : false
+IncludeBlocks                             : Merge
+IndentCaseLabels                          : true
+IndentGotoLabels                          : false
+IndentPPDirectives                        : BeforeHash
+IndentWidth                               : 4
+IndentWrappedFunctionNames                : false
+KeepEmptyLinesAtTheStartOfBlocks          : false
+Language                                  : Cpp
+MaxEmptyLinesToKeep                       : 2
+PointerAlignment                          : Right
+ReflowComments                            : true
+SortIncludes                              : false
+SpaceAfterCStyleCast                      : false
+SpaceAfterLogicalNot                      : false
+SpaceBeforeAssignmentOperators            : true
+SpaceBeforeParens                         : ControlStatements
+SpaceBeforeSquareBrackets                 : false
+SpaceInEmptyBlock                         : false
+SpaceInEmptyParentheses                   : false
+SpacesBeforeTrailingComments              : 1
+SpacesInCStyleCastParentheses             : false
+SpacesInConditionalStatement              : false
+SpacesInContainerLiterals                 : false
+SpacesInParentheses                       : false
+SpacesInSquareBrackets                    : false
+TabWidth                                  : 4
+UseTab                                    : Never
+ForEachMacros:
+- await_while
+- await_do
+# How to format } while_await() ?
+
+StatementMacros:
+- V_DEFINE_FUNC
+
+WhitespaceSensitiveMacros:
+- V_ASM
+
+TypenameMacros:
+- V_MAP_T
+- V_MAP_R
+- V_MAP_A
