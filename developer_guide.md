@@ -16,7 +16,7 @@ are be too long for one header file, or they can be modularized. If that is the 
 it will belong to `<vsync/queue/algorithm.h>` and other internal modules will be under
 `<vsync/queue/internal/algorithm/algorithm.h>`.
 
-Check [the current categories.](api/vsync/README.md).
+Check [the current categories.](doc/api/vsync/README.md).
 
 ### Header guard
 
