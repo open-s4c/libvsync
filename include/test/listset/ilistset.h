@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #ifndef VTEST_ILISTSET_H
 #define VTEST_ILISTSET_H
 
@@ -43,14 +44,14 @@ vatomic64_t g_retire_count = VATOMIC_INIT(0);
 static inline listset_mock_node_t *
 vlistset_node_to_mock(vlistset_node_t *lnode)
 {
-	return lnode ? container_of(lnode, listset_mock_node_t, list_node) : NULL;
+	return lnode ? V_CONTAINER_OF(lnode, listset_mock_node_t, list_node) : NULL;
 }
 
 static inline void
 _free_callback(smr_node_t *node, void *args)
 {
 	listset_mock_node_t *mock =
-		container_of(node, listset_mock_node_t, smr_node);
+		V_CONTAINER_OF(node, listset_mock_node_t, smr_node);
 	vmem_free(mock);
 	V_UNUSED(args);
 }

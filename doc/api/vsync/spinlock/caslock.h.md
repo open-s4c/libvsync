@@ -4,7 +4,7 @@ _Simple spinlock based on compare-and-swap (CAS)._
 CAS is implemented with vatomic32_cmpxchg or a variant.
 
 
-## Example:
+### Example:
 
 
 
@@ -63,7 +63,7 @@ main(void)
 |---|---|
 | [CASLOCK_INIT](caslock.h.md#macro-caslock_init) | Initializer of `caslock_t`.  |
 
-###  Macro `CASLOCK_INIT`
+##  Macro `CASLOCK_INIT`
 
 ```c
 CASLOCK_INIT()
@@ -84,7 +84,7 @@ _Initializer of_ `caslock_t`_._
 | [caslock_tryacquire](caslock.h.md#function-caslock_tryacquire) | Tries to acquire the CAS lock.  |
 | [caslock_release](caslock.h.md#function-caslock_release) | Releases the CAS lock.  |
 
-###  Function `caslock_init`
+##  Function `caslock_init`
 
 ```c
 static void caslock_init(caslock_t *l)
@@ -102,7 +102,7 @@ _Initializes the CAS lock._
 > **Note:** alternatively use `CASLOCK_INIT`. 
 
 
-###  Function `caslock_acquire`
+##  Function `caslock_acquire`
 
 ```c
 static void caslock_acquire(caslock_t *l)
@@ -119,7 +119,7 @@ _Acquires the CAS lock._
 
 
 
-###  Function `caslock_tryacquire`
+##  Function `caslock_tryacquire`
 
 ```c
 static vbool_t caslock_tryacquire(caslock_t *l)
@@ -140,7 +140,7 @@ _Tries to acquire the CAS lock._
 
 
 
-###  Function `caslock_release`
+##  Function `caslock_release`
 
 ```c
 static void caslock_release(caslock_t *l)

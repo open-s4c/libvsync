@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #ifndef VQUEUE_UB_LF_RECYCLE_H
 #define VQUEUE_UB_LF_RECYCLE_H
 /*******************************************************************************
@@ -103,8 +104,9 @@ vqueue_ub_destroy(vqueue_ub_t *q, vqueue_ub_node_handler_t retire, void *arg)
 
 	while (curr) {
 		next = vatomicptr_stamped_get_pointer(&curr->next);
-		if (curr != &q->sentinel)
+		if (curr != &q->sentinel) {
 			retire(curr, arg);
+		}
 		curr = next;
 	}
 }
@@ -123,12 +125,26 @@ vqueue_ub_enq(vqueue_ub_t *q, vqueue_ub_node_t *qnode, void *data)
 	vuint8_t l_stamp	   = 0;
 	vuint8_t next_stamp	   = 0;
 	vuint8_t t_stamp	   = 0;
+	vuint8_t stamp		   = 0;
 	vbool_t cas_succeeded  = false;
 
 	ASSERT(q);
 	ASSERT(qnode);
 	qnode->data = data;
-	vatomicptr_stamped_set(&qnode->next, NULL, 0);
+
+#if !defined(VSYNC_VERIFICATION)
+	// We skip this read for verification, because it will fail on reading
+	// uninitialized memory. Which is true when qnode is freshly allocation and
+	// not recycled. Nevertheless, we know in reality the trashy stamp value
+	// will not be an issue.
+	vatomicptr_stamped_get(&qnode->next, &stamp);
+#endif
+	// Because qnode might be recycled, we don't want to reset the stamp to
+	// not increase ABA chances. So we keep the stamp value as is.
+	// If it is used for the first time it will still be ok to have a trashy
+	// stamp, we can start the count from any place that is not zero.
+	vatomicptr_stamped_set(&qnode->next, NULL, stamp);
+
 	while (true) {
 		last = vatomicptr_stamped_get(&q->tail, &l_stamp);
 		next = vatomicptr_stamped_get(&last->next, &next_stamp);
@@ -239,8 +255,9 @@ vqueue_ub_deq(vqueue_ub_t *q, vqueue_ub_node_handler_t retire, void *arg)
 				/* LP */
 				if (vatomicptr_stamped_cmpxchg(&q->head, first, f_stamp, next,
 											   (f_stamp + 1))) {
-					if (first != &q->sentinel)
+					if (first != &q->sentinel) {
 						retire(first, arg);
+					}
 					return data;
 				}
 			}

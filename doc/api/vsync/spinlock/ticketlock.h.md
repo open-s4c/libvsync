@@ -4,7 +4,7 @@ _Classic ticketlock with two 32-bit variables (owner and next)._
 Ticketlock is a simple, fair lock (guarantees FIFO order).
 
 
-## Example:
+### Example:
 
 
 
@@ -67,7 +67,7 @@ main(void)
 | [ticketlock_release](ticketlock.h.md#function-ticketlock_release) | Releases the ticketlock.  |
 | [ticketlock_has_waiters](ticketlock.h.md#function-ticketlock_has_waiters) | Checks whether there are threads waiting to acquire the lock.  |
 
-###  Function `ticketlock_init`
+##  Function `ticketlock_init`
 
 ```c
 static void ticketlock_init(ticketlock_t *l)
@@ -85,7 +85,7 @@ _Initializes the ticketlock._
 > **Note:** alternatively use `TICKETLOCK_INIT`. 
 
 
-###  Function `ticketlock_acquire`
+##  Function `ticketlock_acquire`
 
 ```c
 static void ticketlock_acquire(ticketlock_t *l)
@@ -102,7 +102,7 @@ _Acquires the ticketlock._
 
 
 
-###  Function `ticketlock_tryacquire`
+##  Function `ticketlock_tryacquire`
 
 ```c
 static vbool_t ticketlock_tryacquire(ticketlock_t *l)
@@ -123,7 +123,7 @@ _Tries to acquire the ticketlock._
 
 
 
-###  Function `ticketlock_release`
+##  Function `ticketlock_release`
 
 ```c
 static void ticketlock_release(ticketlock_t *l)
@@ -140,7 +140,7 @@ _Releases the ticketlock._
 
 
 
-###  Function `ticketlock_has_waiters`
+##  Function `ticketlock_has_waiters`
 
 ```c
 static vbool_t ticketlock_has_waiters(ticketlock_t *l)

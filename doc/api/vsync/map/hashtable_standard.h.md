@@ -10,7 +10,7 @@ The table consists of `VHASHTABLE_BUCKET_COUNT` number of buckets with a default
 > **Note:** users may easily build their own hashtables e.g. when dynamic allocation of the table is needed. Users can use [vsync/map/listset_lf.h](listset_lf.h.md) or any other listset e.g. [vsync/map/listset_lazy.h](listset_lazy.h.md) depending on the user needs. [listset_lf.h](listset_lf.h.md) and [listset_lazy.h](listset_lazy.h.md) can provide performance benefits under high contention and oversubscription scenarios. If memory overhead is not an issue and the buckets can grow long then skiplist_lf.h can be a better fit.
 
 
-## Example:
+### Example:
 
 
 
@@ -76,7 +76,7 @@ smr_rwlock_lib_t g_rwlock_lib = {thread_rw_read_acq, thread_rw_read_rel,
 void
 free_callback(smr_node_t *node, void *arg)
 {
-    entry_t *entry = container_of(node, entry_t, smr_node);
+    entry_t *entry = V_CONTAINER_OF(node, entry_t, smr_node);
     free(entry);
     V_UNUSED(arg);
 }
@@ -84,7 +84,7 @@ free_callback(smr_node_t *node, void *arg)
 void
 retire_callback(vhashtable_entry_t *node, void *arg)
 {
-    entry_t *entry = container_of(node, entry_t, ht_entry);
+    entry_t *entry = V_CONTAINER_OF(node, entry_t, ht_entry);
     gdump_retire(&g_gdump, &entry->smr_node, free_callback, NULL);
     V_UNUSED(arg);
 }
@@ -92,7 +92,7 @@ retire_callback(vhashtable_entry_t *node, void *arg)
 int
 cmp_callback(vhashtable_entry_t *node, vhashtable_key_t key)
 {
-    entry_t *entry = container_of(node, entry_t, ht_entry);
+    entry_t *entry = V_CONTAINER_OF(node, entry_t, ht_entry);
 
     if (entry->key == key)
         return 0;
@@ -125,7 +125,7 @@ reader_writer(void)
         vhashtable_entry_t *node =
             vhashtable_get(&g_hash_tbl, key, hashit(key));
         if (node) {
-            entry = container_of(node, entry_t, ht_entry);
+            entry = V_CONTAINER_OF(node, entry_t, ht_entry);
             printf("entry with key %lu exists\n", entry->key);
             assert(key == entry->key);
             success = vhashtable_remove(&g_hash_tbl, key, hashit(key));
@@ -217,7 +217,7 @@ main(void)
 | [vhashtable_remove](hashtable_standard.h.md#function-vhashtable_remove) | Removes the entry associated with the given key from the the hashtable.  |
 | [vhashtable_get_entries_count](hashtable_standard.h.md#function-vhashtable_get_entries_count) | Returns the count of entries currently available in the hashtable.  |
 
-###  Function `vhashtable_init`
+##  Function `vhashtable_init`
 
 ```c
 static void vhashtable_init(vhashtable_t *table, vhashtable_entry_retire_t retire_cb, void *retire_cb_arg, vhashtable_cmp_key_t cmp_cb)
@@ -238,7 +238,7 @@ _Initializes the hashtable._
 > **Note:** must be called before threads start accessing the hashtable. 
 
 
-###  Function `vhashtable_destroy`
+##  Function `vhashtable_destroy`
 
 ```c
 static void vhashtable_destroy(vhashtable_t *table)
@@ -256,7 +256,7 @@ _Retires all entries in the hashtable._
 > **Note:** this function is not thread-safe, can be called iff all threads are done accessing the hashtable. 
 
 
-###  Function `vhashtable_insert`
+##  Function `vhashtable_insert`
 
 ```c
 static vbool_t vhashtable_insert(vhashtable_t *table, vhashtable_key_t key, vhashtable_entry_t *val, vsize_t hash_idx)
@@ -281,7 +281,7 @@ _Inserts the given_ `entry` _into the hashtable._
 > **Note:** this function must be called inside an SMR critical section. 
 
 
-###  Function `vhashtable_get`
+##  Function `vhashtable_get`
 
 ```c
 static vhashtable_entry_t* vhashtable_get(vhashtable_t *table, vhashtable_key_t key, vsize_t hash_idx)
@@ -305,7 +305,7 @@ _Looks for the entry associated with the given_ `key`_._
 > **Note:** this function must be called inside an SMR critical section. 
 
 
-###  Function `vhashtable_remove`
+##  Function `vhashtable_remove`
 
 ```c
 static vbool_t vhashtable_remove(vhashtable_t *table, vhashtable_key_t key, vsize_t hash_idx)
@@ -328,7 +328,7 @@ _Removes the entry associated with the given key from the the hashtable._
 
 
 
-###  Function `vhashtable_get_entries_count`
+##  Function `vhashtable_get_entries_count`
 
 ```c
 static vuint64_t vhashtable_get_entries_count(vhashtable_t *table)

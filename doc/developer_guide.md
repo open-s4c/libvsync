@@ -1,8 +1,8 @@
-# LibVSync Developer Guide
+# libvsync Developer Guide
 
 [[_TOC_]]
 
-LibVSync is a header-only library. Any new algorithm needs to be in a header file.
+libvsync is a header-only library. Any new algorithm needs to be in a header file.
 
 Let us assume you want to add a new algorithm called `algorithm.h`. You then add `algorithm.h`
 to one of the subdirectories of `include` folder. The subdirectories determine the group
@@ -16,7 +16,7 @@ are be too long for one header file, or they can be modularized. If that is the 
 it will belong to `<vsync/queue/algorithm.h>` and other internal modules will be under
 `<vsync/queue/internal/algorithm/algorithm.h>`.
 
-Check [the current categories.](doc/api/vsync/README.md).
+Check [the current categories.](api/vsync/README.md).
 
 ### Header guard
 
@@ -87,7 +87,7 @@ static inline void valgo_init(valog_t *algo) {
 
     algo->... = ...;
 }
-- Mark header functions as `static inline`. Current LibVSync defines all header functions as `static inline`, however, this might change in the future.
+- Mark header functions as `static inline`. Current libvsync defines all header functions as `static inline`, however, this might change in the future.
 - Do **not** define global or thread local variables (e.g. using `__thread`) in your header.
 - All additional debugging related code must be guarded by macros that are turned off by default. For printing use `<vsync/commong/dbg.h>`.
 
@@ -184,7 +184,7 @@ Developers can only use a subset of standard headers, check the bellow list:
 ## Memory Allocation
 
 - Avoid memory allocation at all costs. You can assume the memory objects given to you as a parameter by
-the user. In LibVSync we rely on the embedding  approach. Your data structure object will be a part of
+the user. In libvsync we rely on the embedding  approach. Your data structure object will be a part of
 the user object. Users then can use it as follows:
 
 ```c

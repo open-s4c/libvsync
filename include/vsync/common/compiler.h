@@ -1,13 +1,12 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #ifndef VSYNC_COMPILER_H
 #define VSYNC_COMPILER_H
 
-#ifndef offsetof
-	#define offsetof(st, m) __builtin_offsetof(st, m)
-#endif
+#include <vsync/vtypes.h>
 
 #ifndef likely
 	#define likely(x) __builtin_expect(!!(x), 1)
@@ -17,6 +16,12 @@
 	#define unlikely(x) __builtin_expect(!!(x), 0)
 #endif
 
+#if defined(offsetof)
+	#define V_OFFSET_OF(_st_, _m_) offsetof(_st_, _m_)
+#else
+	#define V_OFFSET_OF(_st_, _m_) __builtin_offsetof(_st_, _m_)
+#endif
+
 #ifndef barrier
 	#define barrier()                                                          \
 		{                                                                      \
@@ -24,7 +29,10 @@
 		}
 #endif
 
-#ifndef container_of
+#if defined(container_of)
+	#define V_CONTAINER_OF(_ptr_, _type_, _member_)                            \
+		container_of(_ptr_, _type_, _member_)
+#else
 	/**
 	 *  @brief Calculate address of struct that contains a certain member from
 	 *  the address of the member.
@@ -34,13 +42,13 @@
 	 *  - Use the C-Standard macro 'offsetof' for the address offset; returned
 	 *    type is 'vsize_t'.
 	 *
-	 *  @param ptr Pointer to the member of the container structure.
-	 *  @param type Type of the container structure.
-	 *  @param member Name of the struct member.
+	 *  @param _ptr_ Pointer to the member of the container structure.
+	 *  @param _type_ Type of the container structure.
+	 *  @param _member_ Name of the struct member.
 	 *  @return Pointer to struct of type, which contains ptr.
 	 */
-	#define container_of(ptr, type, member)                                    \
-		((type *)((((uintptr_t)(ptr)) - offsetof(type, member))))
+	#define V_CONTAINER_OF(_ptr_, _type_, _member_)                            \
+		((_type_ *)((((vuintptr_t)(_ptr_)) - V_OFFSET_OF(_type_, _member_))))
 #endif
 
 #endif

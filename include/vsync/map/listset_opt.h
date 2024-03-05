@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #ifndef VLISTSET_OPT_H
 #define VLISTSET_OPT_H
 /*******************************************************************************
@@ -312,8 +313,9 @@ _vlistset_validate(vlistset_t *lst, vlistset_node_t *pred,
 
 	/* find pred and confirm pred->next = curr */
 	while (node != tail && lst->cmp_fun(node, key) < 0) {
-		if (node == pred)
+		if (node == pred) {
 			return vatomicptr_read(&pred->next) == curr ? true : false;
+		}
 		node = vatomicptr_read(&node->next);
 	}
 	return false;

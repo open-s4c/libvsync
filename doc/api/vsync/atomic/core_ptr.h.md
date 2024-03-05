@@ -32,7 +32,7 @@ Please do not include this file directly, instead use:
 | [vatomicptr_cmpxchg_rel](core_ptr.h.md#function-vatomicptr_cmpxchg_rel) | Writes value v in a if e is the current value.  |
 | [vatomicptr_cmpxchg_rlx](core_ptr.h.md#function-vatomicptr_cmpxchg_rlx) | Writes value v in a if e is the current value.  |
 
-###  Function `vatomicptr_init`
+##  Function `vatomicptr_init`
 
 ```c
 static void vatomicptr_init(vatomicptr_t *a, void *v)
@@ -53,7 +53,7 @@ The initialization is equivalent to an [vatomicptr_write()](core_ptr.h.md#functi
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomicptr_read`
+##  Function `vatomicptr_read`
 
 ```c
 static void* vatomicptr_read(vatomicptr_t *a)
@@ -73,7 +73,7 @@ _Returns the value of the atomic variable pointed by a._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomicptr_read_acq`
+##  Function `vatomicptr_read_acq`
 
 ```c
 static void* vatomicptr_read_acq(vatomicptr_t *a)
@@ -93,7 +93,7 @@ _Returns the value of the atomic variable pointed by a._
 **Memory ordering**: acquire 
 
 
-###  Function `vatomicptr_read_rlx`
+##  Function `vatomicptr_read_rlx`
 
 ```c
 static void* vatomicptr_read_rlx(vatomicptr_t *a)
@@ -113,7 +113,7 @@ _Returns the value of the atomic variable pointed by a._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomicptr_write`
+##  Function `vatomicptr_write`
 
 ```c
 static void vatomicptr_write(vatomicptr_t *a, void *v)
@@ -132,7 +132,7 @@ _Writes value v in the atomic variable pointed by a._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomicptr_write_rel`
+##  Function `vatomicptr_write_rel`
 
 ```c
 static void vatomicptr_write_rel(vatomicptr_t *a, void *v)
@@ -151,7 +151,7 @@ _Writes value v in the atomic variable pointed by a._
 **Memory ordering**: release 
 
 
-###  Function `vatomicptr_write_rlx`
+##  Function `vatomicptr_write_rlx`
 
 ```c
 static void vatomicptr_write_rlx(vatomicptr_t *a, void *v)
@@ -170,7 +170,7 @@ _Writes value v in the atomic variable pointed by a._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomicptr_xchg`
+##  Function `vatomicptr_xchg`
 
 ```c
 static void* vatomicptr_xchg(vatomicptr_t *a, void *v)
@@ -191,7 +191,7 @@ _Writes v in a and returns old value._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomicptr_xchg_acq`
+##  Function `vatomicptr_xchg_acq`
 
 ```c
 static void* vatomicptr_xchg_acq(vatomicptr_t *a, void *v)
@@ -212,7 +212,7 @@ _Writes v in a and returns old value._
 **Memory ordering**: acquire 
 
 
-###  Function `vatomicptr_xchg_rel`
+##  Function `vatomicptr_xchg_rel`
 
 ```c
 static void* vatomicptr_xchg_rel(vatomicptr_t *a, void *v)
@@ -233,7 +233,7 @@ _Writes v in a and returns old value._
 **Memory ordering**: release 
 
 
-###  Function `vatomicptr_xchg_rlx`
+##  Function `vatomicptr_xchg_rlx`
 
 ```c
 static void* vatomicptr_xchg_rlx(vatomicptr_t *a, void *v)
@@ -254,7 +254,7 @@ _Writes v in a and returns old value._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomicptr_cmpxchg`
+##  Function `vatomicptr_cmpxchg`
 
 ```c
 static void* vatomicptr_cmpxchg(vatomicptr_t *a, void *e, void *v)
@@ -275,7 +275,7 @@ _Writes value v in a if e is the current value._
 
 
 
-###  Function `vatomicptr_cmpxchg_acq`
+##  Function `vatomicptr_cmpxchg_acq`
 
 ```c
 static void* vatomicptr_cmpxchg_acq(vatomicptr_t *a, void *e, void *v)
@@ -296,7 +296,7 @@ _Writes value v in a if e is the current value._
 
 
 
-###  Function `vatomicptr_cmpxchg_rel`
+##  Function `vatomicptr_cmpxchg_rel`
 
 ```c
 static void* vatomicptr_cmpxchg_rel(vatomicptr_t *a, void *e, void *v)
@@ -317,7 +317,7 @@ _Writes value v in a if e is the current value._
 
 
 
-###  Function `vatomicptr_cmpxchg_rlx`
+##  Function `vatomicptr_cmpxchg_rlx`
 
 ```c
 static void* vatomicptr_cmpxchg_rlx(vatomicptr_t *a, void *e, void *v)

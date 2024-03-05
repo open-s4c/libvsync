@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #ifndef VSMR_NODE_H
 #define VSMR_NODE_H
 
@@ -21,9 +22,11 @@ typedef struct smr_node_s {
 } smr_node_t;
 
 #if defined(VSYNC_VERIFICATION)
-	#define V_SMR_NODE_BUFF_SIZE 2
+	#define V_SMR_NODE_BUFF_SIZE 2U
 #else
-	#define V_SMR_NODE_BUFF_SIZE 16
+	#if !defined(V_SMR_NODE_BUFF_SIZE)
+		#define V_SMR_NODE_BUFF_SIZE 4U
+	#endif
 #endif
 
 typedef struct smr_node_buff_s {

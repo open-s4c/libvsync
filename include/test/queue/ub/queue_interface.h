@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #ifndef VSYNC_QUEUE_INTERFACE
 #define VSYNC_QUEUE_INTERFACE
 
@@ -82,7 +83,7 @@ _queue_free(smr_node_t *node, void *arg)
 {
 #if defined(VQUEUE_UB_LF)
 	V_UNUSED(arg);
-	queue_node_t *qnode = container_of(node, queue_node_t, smr_node);
+	queue_node_t *qnode = V_CONTAINER_OF(node, queue_node_t, smr_node);
 	vmem_free(qnode);
 #else
 	ASSERT(0 && "should not be possible");

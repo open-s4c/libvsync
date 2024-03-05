@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #ifndef VSYNC_VERIFY_UTILS_H
 #define VSYNC_VERIFY_UTILS_H
 
@@ -9,6 +10,10 @@
 #include <vsync/common/macros.h>
 
 #if defined(VSYNC_VERIFICATION)
+	#if defined(VSYNC_VERIFICATION_DAT3M)
+	#else
+		#include <genmc.h>
+	#endif
 static inline void
 verification_ignore(void)
 {

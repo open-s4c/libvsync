@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #ifndef VIHASHABLE_H
 #define VIHASHABLE_H
 
@@ -39,13 +40,13 @@ vsize_t g_sanity_evict_count = 0;
 static inline hash_entry_t *
 _hnode_to_entry(vhashtable_entry_t *node)
 {
-	return node ? container_of(node, hash_entry_t, hnode) : NULL;
+	return node ? V_CONTAINER_OF(node, hash_entry_t, hnode) : NULL;
 }
 
 static inline hash_entry_t *
 _snode_to_entry(smr_node_t *node)
 {
-	return node ? container_of(node, hash_entry_t, smr_node) : NULL;
+	return node ? V_CONTAINER_OF(node, hash_entry_t, smr_node) : NULL;
 }
 
 static inline void

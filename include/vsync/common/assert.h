@@ -1,13 +1,17 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #ifndef VSYNC_COMMON_ASSERT_H
 #define VSYNC_COMMON_ASSERT_H
 
+/* We include vtypes here to make sure vfreestanding.h inclusion (if available)
+ * precedes the inclusion of this header. Through vfreestanding.h external users
+ * can define their own ASSERT which should overwrite ours */
+#include <vsync/vtypes.h>
+
 #ifndef ASSERT
-	/* TODO: on `VSYNC_VERIFICATION` for dat3m we might need to call a special
-	 * thing */
 	#include <assert.h>
 	#define ASSERT(V) assert(V)
 #endif

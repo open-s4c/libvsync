@@ -120,7 +120,7 @@ Please do not include this file directly, instead use:
 | [vatomic8_dec_rel](core_u8.h.md#function-vatomic8_dec_rel) | Decrements the value of a.  |
 | [vatomic8_dec_rlx](core_u8.h.md#function-vatomic8_dec_rlx) | Decrements the value of a.  |
 
-###  Function `vatomic8_init`
+##  Function `vatomic8_init`
 
 ```c
 static void vatomic8_init(vatomic8_t *a, vuint8_t v)
@@ -141,7 +141,7 @@ The initialization is equivalent to an [vatomic8_write()](core_u8.h.md#function-
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic8_read`
+##  Function `vatomic8_read`
 
 ```c
 static vuint8_t vatomic8_read(vatomic8_t *a)
@@ -161,7 +161,7 @@ _Returns the value of the atomic variable pointed by a._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic8_read_acq`
+##  Function `vatomic8_read_acq`
 
 ```c
 static vuint8_t vatomic8_read_acq(vatomic8_t *a)
@@ -181,7 +181,7 @@ _Returns the value of the atomic variable pointed by a._
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic8_read_rlx`
+##  Function `vatomic8_read_rlx`
 
 ```c
 static vuint8_t vatomic8_read_rlx(vatomic8_t *a)
@@ -201,7 +201,7 @@ _Returns the value of the atomic variable pointed by a._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic8_write`
+##  Function `vatomic8_write`
 
 ```c
 static void vatomic8_write(vatomic8_t *a, vuint8_t v)
@@ -220,7 +220,7 @@ _Writes value v in the atomic variable pointed by a._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic8_write_rel`
+##  Function `vatomic8_write_rel`
 
 ```c
 static void vatomic8_write_rel(vatomic8_t *a, vuint8_t v)
@@ -239,7 +239,7 @@ _Writes value v in the atomic variable pointed by a._
 **Memory ordering**: release 
 
 
-###  Function `vatomic8_write_rlx`
+##  Function `vatomic8_write_rlx`
 
 ```c
 static void vatomic8_write_rlx(vatomic8_t *a, vuint8_t v)
@@ -258,7 +258,7 @@ _Writes value v in the atomic variable pointed by a._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic8_xchg`
+##  Function `vatomic8_xchg`
 
 ```c
 static vuint8_t vatomic8_xchg(vatomic8_t *a, vuint8_t v)
@@ -279,7 +279,7 @@ _Writes v in a and returns old value._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic8_xchg_acq`
+##  Function `vatomic8_xchg_acq`
 
 ```c
 static vuint8_t vatomic8_xchg_acq(vatomic8_t *a, vuint8_t v)
@@ -300,7 +300,7 @@ _Writes v in a and returns old value._
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic8_xchg_rel`
+##  Function `vatomic8_xchg_rel`
 
 ```c
 static vuint8_t vatomic8_xchg_rel(vatomic8_t *a, vuint8_t v)
@@ -321,7 +321,7 @@ _Writes v in a and returns old value._
 **Memory ordering**: release 
 
 
-###  Function `vatomic8_xchg_rlx`
+##  Function `vatomic8_xchg_rlx`
 
 ```c
 static vuint8_t vatomic8_xchg_rlx(vatomic8_t *a, vuint8_t v)
@@ -342,7 +342,7 @@ _Writes v in a and returns old value._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic8_cmpxchg`
+##  Function `vatomic8_cmpxchg`
 
 ```c
 static vuint8_t vatomic8_cmpxchg(vatomic8_t *a, vuint8_t e, vuint8_t v)
@@ -363,7 +363,7 @@ _Writes value v in a if e is the current value._
 
 
 
-###  Function `vatomic8_cmpxchg_acq`
+##  Function `vatomic8_cmpxchg_acq`
 
 ```c
 static vuint8_t vatomic8_cmpxchg_acq(vatomic8_t *a, vuint8_t e, vuint8_t v)
@@ -384,7 +384,7 @@ _Writes value v in a if e is the current value._
 
 
 
-###  Function `vatomic8_cmpxchg_rel`
+##  Function `vatomic8_cmpxchg_rel`
 
 ```c
 static vuint8_t vatomic8_cmpxchg_rel(vatomic8_t *a, vuint8_t e, vuint8_t v)
@@ -405,7 +405,7 @@ _Writes value v in a if e is the current value._
 
 
 
-###  Function `vatomic8_cmpxchg_rlx`
+##  Function `vatomic8_cmpxchg_rlx`
 
 ```c
 static vuint8_t vatomic8_cmpxchg_rlx(vatomic8_t *a, vuint8_t e, vuint8_t v)
@@ -426,7 +426,7 @@ _Writes value v in a if e is the current value._
 
 
 
-###  Function `vatomic8_get_max`
+##  Function `vatomic8_get_max`
 
 ```c
 static vuint8_t vatomic8_get_max(vatomic8_t *a, vuint8_t v)
@@ -447,7 +447,7 @@ _Writes v to a if v is greater than *a and returns the old value._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic8_get_max_acq`
+##  Function `vatomic8_get_max_acq`
 
 ```c
 static vuint8_t vatomic8_get_max_acq(vatomic8_t *a, vuint8_t v)
@@ -468,7 +468,7 @@ _Writes v to a if v is greater than *a and returns the old value._
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic8_get_max_rel`
+##  Function `vatomic8_get_max_rel`
 
 ```c
 static vuint8_t vatomic8_get_max_rel(vatomic8_t *a, vuint8_t v)
@@ -489,7 +489,7 @@ _Writes v to a if v is greater than *a and returns the old value._
 **Memory ordering**: release 
 
 
-###  Function `vatomic8_get_max_rlx`
+##  Function `vatomic8_get_max_rlx`
 
 ```c
 static vuint8_t vatomic8_get_max_rlx(vatomic8_t *a, vuint8_t v)
@@ -510,7 +510,7 @@ _Writes v to a if v is greater than *a and returns the old value._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic8_max_get`
+##  Function `vatomic8_max_get`
 
 ```c
 static vuint8_t vatomic8_max_get(vatomic8_t *a, vuint8_t v)
@@ -531,7 +531,7 @@ _Writes v to a if v is greater than *a and returns the new value._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic8_max_get_acq`
+##  Function `vatomic8_max_get_acq`
 
 ```c
 static vuint8_t vatomic8_max_get_acq(vatomic8_t *a, vuint8_t v)
@@ -552,7 +552,7 @@ _Writes v to a if v is greater than *a and returns the new value._
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic8_max_get_rel`
+##  Function `vatomic8_max_get_rel`
 
 ```c
 static vuint8_t vatomic8_max_get_rel(vatomic8_t *a, vuint8_t v)
@@ -573,7 +573,7 @@ _Writes v to a if v is greater than *a and returns the new value._
 **Memory ordering**: release 
 
 
-###  Function `vatomic8_max_get_rlx`
+##  Function `vatomic8_max_get_rlx`
 
 ```c
 static vuint8_t vatomic8_max_get_rlx(vatomic8_t *a, vuint8_t v)
@@ -594,7 +594,7 @@ _Writes v to a if v is greater than *a and returns the new value._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic8_max`
+##  Function `vatomic8_max`
 
 ```c
 static void vatomic8_max(vatomic8_t *a, vuint8_t v)
@@ -613,7 +613,7 @@ _Writes v to a if v is greater than *a._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic8_max_rel`
+##  Function `vatomic8_max_rel`
 
 ```c
 static void vatomic8_max_rel(vatomic8_t *a, vuint8_t v)
@@ -632,7 +632,7 @@ _Writes v to a if v is greater than *a._
 **Memory ordering**: release 
 
 
-###  Function `vatomic8_max_rlx`
+##  Function `vatomic8_max_rlx`
 
 ```c
 static void vatomic8_max_rlx(vatomic8_t *a, vuint8_t v)
@@ -651,7 +651,7 @@ _Writes v to a if v is greater than *a._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic8_get_and`
+##  Function `vatomic8_get_and`
 
 ```c
 static vuint8_t vatomic8_get_and(vatomic8_t *a, vuint8_t v)
@@ -672,7 +672,7 @@ _Applies bitwise and to the value of a and returns the old value._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic8_get_and_acq`
+##  Function `vatomic8_get_and_acq`
 
 ```c
 static vuint8_t vatomic8_get_and_acq(vatomic8_t *a, vuint8_t v)
@@ -693,7 +693,7 @@ _Applies bitwise and to the value of a and returns the old value._
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic8_get_and_rel`
+##  Function `vatomic8_get_and_rel`
 
 ```c
 static vuint8_t vatomic8_get_and_rel(vatomic8_t *a, vuint8_t v)
@@ -714,7 +714,7 @@ _Applies bitwise and to the value of a and returns the old value._
 **Memory ordering**: release 
 
 
-###  Function `vatomic8_get_and_rlx`
+##  Function `vatomic8_get_and_rlx`
 
 ```c
 static vuint8_t vatomic8_get_and_rlx(vatomic8_t *a, vuint8_t v)
@@ -735,7 +735,7 @@ _Applies bitwise and to the value of a and returns the old value._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic8_and_get`
+##  Function `vatomic8_and_get`
 
 ```c
 static vuint8_t vatomic8_and_get(vatomic8_t *a, vuint8_t v)
@@ -756,7 +756,7 @@ _Applies bitwise and operation with v to the value of a and returns the new valu
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic8_and_get_acq`
+##  Function `vatomic8_and_get_acq`
 
 ```c
 static vuint8_t vatomic8_and_get_acq(vatomic8_t *a, vuint8_t v)
@@ -777,7 +777,7 @@ _Applies bitwise and operation with v to the value of a and returns the new valu
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic8_and_get_rel`
+##  Function `vatomic8_and_get_rel`
 
 ```c
 static vuint8_t vatomic8_and_get_rel(vatomic8_t *a, vuint8_t v)
@@ -798,7 +798,7 @@ _Applies bitwise and operation with v to the value of a and returns the new valu
 **Memory ordering**: release 
 
 
-###  Function `vatomic8_and_get_rlx`
+##  Function `vatomic8_and_get_rlx`
 
 ```c
 static vuint8_t vatomic8_and_get_rlx(vatomic8_t *a, vuint8_t v)
@@ -819,7 +819,7 @@ _Applies bitwise and operation with v to the value of a and returns the new valu
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic8_and`
+##  Function `vatomic8_and`
 
 ```c
 static void vatomic8_and(vatomic8_t *a, vuint8_t v)
@@ -838,7 +838,7 @@ _Applies bitwise and operation with v to the value of a._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic8_and_rel`
+##  Function `vatomic8_and_rel`
 
 ```c
 static void vatomic8_and_rel(vatomic8_t *a, vuint8_t v)
@@ -857,7 +857,7 @@ _Applies bitwise and operation with v to the value of a._
 **Memory ordering**: release 
 
 
-###  Function `vatomic8_and_rlx`
+##  Function `vatomic8_and_rlx`
 
 ```c
 static void vatomic8_and_rlx(vatomic8_t *a, vuint8_t v)
@@ -876,7 +876,7 @@ _Applies bitwise and operation with v to the value of a._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic8_get_or`
+##  Function `vatomic8_get_or`
 
 ```c
 static vuint8_t vatomic8_get_or(vatomic8_t *a, vuint8_t v)
@@ -897,7 +897,7 @@ _Applies bitwise or operation with v to the value of a and returns the old value
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic8_get_or_acq`
+##  Function `vatomic8_get_or_acq`
 
 ```c
 static vuint8_t vatomic8_get_or_acq(vatomic8_t *a, vuint8_t v)
@@ -918,7 +918,7 @@ _Applies bitwise or operation with v to the value of a and returns the old value
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic8_get_or_rel`
+##  Function `vatomic8_get_or_rel`
 
 ```c
 static vuint8_t vatomic8_get_or_rel(vatomic8_t *a, vuint8_t v)
@@ -939,7 +939,7 @@ _Applies bitwise or operation with v to the value of a and returns the old value
 **Memory ordering**: release 
 
 
-###  Function `vatomic8_get_or_rlx`
+##  Function `vatomic8_get_or_rlx`
 
 ```c
 static vuint8_t vatomic8_get_or_rlx(vatomic8_t *a, vuint8_t v)
@@ -960,7 +960,7 @@ _Applies bitwise or operation with v to the value of a and returns the old value
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic8_or_get`
+##  Function `vatomic8_or_get`
 
 ```c
 static vuint8_t vatomic8_or_get(vatomic8_t *a, vuint8_t v)
@@ -981,7 +981,7 @@ _Applies bitwise or operation with v to the value of a and returns the new value
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic8_or_get_acq`
+##  Function `vatomic8_or_get_acq`
 
 ```c
 static vuint8_t vatomic8_or_get_acq(vatomic8_t *a, vuint8_t v)
@@ -1002,7 +1002,7 @@ _Applies bitwise or operation with v to the value of a and returns the new value
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic8_or_get_rel`
+##  Function `vatomic8_or_get_rel`
 
 ```c
 static vuint8_t vatomic8_or_get_rel(vatomic8_t *a, vuint8_t v)
@@ -1023,7 +1023,7 @@ _Applies bitwise or operation with v to the value of a and returns the new value
 **Memory ordering**: release 
 
 
-###  Function `vatomic8_or_get_rlx`
+##  Function `vatomic8_or_get_rlx`
 
 ```c
 static vuint8_t vatomic8_or_get_rlx(vatomic8_t *a, vuint8_t v)
@@ -1044,7 +1044,7 @@ _Applies bitwise or operation with v to the value of a and returns the new value
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic8_or`
+##  Function `vatomic8_or`
 
 ```c
 static void vatomic8_or(vatomic8_t *a, vuint8_t v)
@@ -1063,7 +1063,7 @@ _Applies bitwise or operation with v to the value of a._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic8_or_rel`
+##  Function `vatomic8_or_rel`
 
 ```c
 static void vatomic8_or_rel(vatomic8_t *a, vuint8_t v)
@@ -1082,7 +1082,7 @@ _Applies bitwise or operation with v to the value of a._
 **Memory ordering**: release 
 
 
-###  Function `vatomic8_or_rlx`
+##  Function `vatomic8_or_rlx`
 
 ```c
 static void vatomic8_or_rlx(vatomic8_t *a, vuint8_t v)
@@ -1101,7 +1101,7 @@ _Applies bitwise or operation with v to the value of a._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic8_get_xor`
+##  Function `vatomic8_get_xor`
 
 ```c
 static vuint8_t vatomic8_get_xor(vatomic8_t *a, vuint8_t v)
@@ -1122,7 +1122,7 @@ _Applies bitwise xor operation with v to the value of a and returns the old valu
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic8_get_xor_acq`
+##  Function `vatomic8_get_xor_acq`
 
 ```c
 static vuint8_t vatomic8_get_xor_acq(vatomic8_t *a, vuint8_t v)
@@ -1143,7 +1143,7 @@ _Applies bitwise xor operation with v to the value of a and returns the old valu
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic8_get_xor_rel`
+##  Function `vatomic8_get_xor_rel`
 
 ```c
 static vuint8_t vatomic8_get_xor_rel(vatomic8_t *a, vuint8_t v)
@@ -1164,7 +1164,7 @@ _Applies bitwise xor operation with v to the value of a and returns the old valu
 **Memory ordering**: release 
 
 
-###  Function `vatomic8_get_xor_rlx`
+##  Function `vatomic8_get_xor_rlx`
 
 ```c
 static vuint8_t vatomic8_get_xor_rlx(vatomic8_t *a, vuint8_t v)
@@ -1185,7 +1185,7 @@ _Applies bitwise xor operation with v to the value of a and returns the old valu
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic8_xor_get`
+##  Function `vatomic8_xor_get`
 
 ```c
 static vuint8_t vatomic8_xor_get(vatomic8_t *a, vuint8_t v)
@@ -1206,7 +1206,7 @@ _Applies bitwise xor operation with v to the value of a and returns the new valu
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic8_xor_get_acq`
+##  Function `vatomic8_xor_get_acq`
 
 ```c
 static vuint8_t vatomic8_xor_get_acq(vatomic8_t *a, vuint8_t v)
@@ -1227,7 +1227,7 @@ _Applies bitwise xor operation with v to the value of a and returns the new valu
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic8_xor_get_rel`
+##  Function `vatomic8_xor_get_rel`
 
 ```c
 static vuint8_t vatomic8_xor_get_rel(vatomic8_t *a, vuint8_t v)
@@ -1248,7 +1248,7 @@ _Applies bitwise xor operation with v to the value of a and returns the new valu
 **Memory ordering**: release 
 
 
-###  Function `vatomic8_xor_get_rlx`
+##  Function `vatomic8_xor_get_rlx`
 
 ```c
 static vuint8_t vatomic8_xor_get_rlx(vatomic8_t *a, vuint8_t v)
@@ -1269,7 +1269,7 @@ _Applies bitwise xor operation with v to the value of a and returns the new valu
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic8_xor`
+##  Function `vatomic8_xor`
 
 ```c
 static void vatomic8_xor(vatomic8_t *a, vuint8_t v)
@@ -1288,7 +1288,7 @@ _Applies bitwise xor opeation with v to the value of a._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic8_xor_rel`
+##  Function `vatomic8_xor_rel`
 
 ```c
 static void vatomic8_xor_rel(vatomic8_t *a, vuint8_t v)
@@ -1307,7 +1307,7 @@ _Applies bitwise xor opeation with v to the value of a._
 **Memory ordering**: release 
 
 
-###  Function `vatomic8_xor_rlx`
+##  Function `vatomic8_xor_rlx`
 
 ```c
 static void vatomic8_xor_rlx(vatomic8_t *a, vuint8_t v)
@@ -1326,7 +1326,7 @@ _Applies bitwise xor opeation with v to the value of a._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic8_get_add`
+##  Function `vatomic8_get_add`
 
 ```c
 static vuint8_t vatomic8_get_add(vatomic8_t *a, vuint8_t v)
@@ -1347,7 +1347,7 @@ _Adds v to the value of a and returns the old value._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic8_get_add_acq`
+##  Function `vatomic8_get_add_acq`
 
 ```c
 static vuint8_t vatomic8_get_add_acq(vatomic8_t *a, vuint8_t v)
@@ -1368,7 +1368,7 @@ _Adds v to the value of a and returns the old value._
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic8_get_add_rel`
+##  Function `vatomic8_get_add_rel`
 
 ```c
 static vuint8_t vatomic8_get_add_rel(vatomic8_t *a, vuint8_t v)
@@ -1389,7 +1389,7 @@ _Adds v to the value of a and returns the old value._
 **Memory ordering**: release 
 
 
-###  Function `vatomic8_get_add_rlx`
+##  Function `vatomic8_get_add_rlx`
 
 ```c
 static vuint8_t vatomic8_get_add_rlx(vatomic8_t *a, vuint8_t v)
@@ -1410,7 +1410,7 @@ _Adds v to the value of a and returns the old value._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic8_add_get`
+##  Function `vatomic8_add_get`
 
 ```c
 static vuint8_t vatomic8_add_get(vatomic8_t *a, vuint8_t v)
@@ -1431,7 +1431,7 @@ _Adds v to the value of a and returns the new value._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic8_add_get_acq`
+##  Function `vatomic8_add_get_acq`
 
 ```c
 static vuint8_t vatomic8_add_get_acq(vatomic8_t *a, vuint8_t v)
@@ -1452,7 +1452,7 @@ _Adds v to the value of a and returns the new value._
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic8_add_get_rel`
+##  Function `vatomic8_add_get_rel`
 
 ```c
 static vuint8_t vatomic8_add_get_rel(vatomic8_t *a, vuint8_t v)
@@ -1473,7 +1473,7 @@ _Adds v to the value of a and returns the new value._
 **Memory ordering**: release 
 
 
-###  Function `vatomic8_add_get_rlx`
+##  Function `vatomic8_add_get_rlx`
 
 ```c
 static vuint8_t vatomic8_add_get_rlx(vatomic8_t *a, vuint8_t v)
@@ -1494,7 +1494,7 @@ _Adds v to the value of a and returns the new value._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic8_add`
+##  Function `vatomic8_add`
 
 ```c
 static void vatomic8_add(vatomic8_t *a, vuint8_t v)
@@ -1513,7 +1513,7 @@ _Adds v to the value of a._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic8_add_rel`
+##  Function `vatomic8_add_rel`
 
 ```c
 static void vatomic8_add_rel(vatomic8_t *a, vuint8_t v)
@@ -1532,7 +1532,7 @@ _Adds v to the value of a._
 **Memory ordering**: release 
 
 
-###  Function `vatomic8_add_rlx`
+##  Function `vatomic8_add_rlx`
 
 ```c
 static void vatomic8_add_rlx(vatomic8_t *a, vuint8_t v)
@@ -1551,7 +1551,7 @@ _Adds v to the value of a._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic8_get_inc`
+##  Function `vatomic8_get_inc`
 
 ```c
 static vuint8_t vatomic8_get_inc(vatomic8_t *a)
@@ -1571,7 +1571,7 @@ _Increments the value of a and returns the old value._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic8_get_inc_acq`
+##  Function `vatomic8_get_inc_acq`
 
 ```c
 static vuint8_t vatomic8_get_inc_acq(vatomic8_t *a)
@@ -1591,7 +1591,7 @@ _Increments the value of a and returns the old value._
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic8_get_inc_rel`
+##  Function `vatomic8_get_inc_rel`
 
 ```c
 static vuint8_t vatomic8_get_inc_rel(vatomic8_t *a)
@@ -1611,7 +1611,7 @@ _Increments the value of a and returns the old value._
 **Memory ordering**: release 
 
 
-###  Function `vatomic8_get_inc_rlx`
+##  Function `vatomic8_get_inc_rlx`
 
 ```c
 static vuint8_t vatomic8_get_inc_rlx(vatomic8_t *a)
@@ -1631,7 +1631,7 @@ _Increments the value of a and returns the old value._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic8_inc_get`
+##  Function `vatomic8_inc_get`
 
 ```c
 static vuint8_t vatomic8_inc_get(vatomic8_t *a)
@@ -1651,7 +1651,7 @@ _Increments the value of a and returns the new value._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic8_inc_get_acq`
+##  Function `vatomic8_inc_get_acq`
 
 ```c
 static vuint8_t vatomic8_inc_get_acq(vatomic8_t *a)
@@ -1671,7 +1671,7 @@ _Increments the value of a and returns the new value._
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic8_inc_get_rel`
+##  Function `vatomic8_inc_get_rel`
 
 ```c
 static vuint8_t vatomic8_inc_get_rel(vatomic8_t *a)
@@ -1691,7 +1691,7 @@ _Increments the value of a and returns the new value._
 **Memory ordering**: release 
 
 
-###  Function `vatomic8_inc_get_rlx`
+##  Function `vatomic8_inc_get_rlx`
 
 ```c
 static vuint8_t vatomic8_inc_get_rlx(vatomic8_t *a)
@@ -1711,7 +1711,7 @@ _Increments the value of a and returns the new value._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic8_inc`
+##  Function `vatomic8_inc`
 
 ```c
 static void vatomic8_inc(vatomic8_t *a)
@@ -1729,7 +1729,7 @@ _Increments the value of a._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic8_inc_rel`
+##  Function `vatomic8_inc_rel`
 
 ```c
 static void vatomic8_inc_rel(vatomic8_t *a)
@@ -1747,7 +1747,7 @@ _Increments the value of a._
 **Memory ordering**: release 
 
 
-###  Function `vatomic8_inc_rlx`
+##  Function `vatomic8_inc_rlx`
 
 ```c
 static void vatomic8_inc_rlx(vatomic8_t *a)
@@ -1765,7 +1765,7 @@ _Increments the value of a._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic8_get_sub`
+##  Function `vatomic8_get_sub`
 
 ```c
 static vuint8_t vatomic8_get_sub(vatomic8_t *a, vuint8_t v)
@@ -1786,7 +1786,7 @@ _Substracts v from a and returns the old value._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic8_get_sub_acq`
+##  Function `vatomic8_get_sub_acq`
 
 ```c
 static vuint8_t vatomic8_get_sub_acq(vatomic8_t *a, vuint8_t v)
@@ -1807,7 +1807,7 @@ _Substracts v from a and returns the old value._
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic8_get_sub_rel`
+##  Function `vatomic8_get_sub_rel`
 
 ```c
 static vuint8_t vatomic8_get_sub_rel(vatomic8_t *a, vuint8_t v)
@@ -1828,7 +1828,7 @@ _Substracts v from a and returns the old value._
 **Memory ordering**: release 
 
 
-###  Function `vatomic8_get_sub_rlx`
+##  Function `vatomic8_get_sub_rlx`
 
 ```c
 static vuint8_t vatomic8_get_sub_rlx(vatomic8_t *a, vuint8_t v)
@@ -1849,7 +1849,7 @@ _Substracts v from a and returns the old value._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic8_sub_get`
+##  Function `vatomic8_sub_get`
 
 ```c
 static vuint8_t vatomic8_sub_get(vatomic8_t *a, vuint8_t v)
@@ -1870,7 +1870,7 @@ _Substracts v from a and returns the new value._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic8_sub_get_acq`
+##  Function `vatomic8_sub_get_acq`
 
 ```c
 static vuint8_t vatomic8_sub_get_acq(vatomic8_t *a, vuint8_t v)
@@ -1891,7 +1891,7 @@ _Substracts v from a and returns the new value._
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic8_sub_get_rel`
+##  Function `vatomic8_sub_get_rel`
 
 ```c
 static vuint8_t vatomic8_sub_get_rel(vatomic8_t *a, vuint8_t v)
@@ -1912,7 +1912,7 @@ _Substracts v from a and returns the new value._
 **Memory ordering**: release 
 
 
-###  Function `vatomic8_sub_get_rlx`
+##  Function `vatomic8_sub_get_rlx`
 
 ```c
 static vuint8_t vatomic8_sub_get_rlx(vatomic8_t *a, vuint8_t v)
@@ -1933,7 +1933,7 @@ _Substracts v from a and returns the new value._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic8_sub`
+##  Function `vatomic8_sub`
 
 ```c
 static void vatomic8_sub(vatomic8_t *a, vuint8_t v)
@@ -1952,7 +1952,7 @@ _Substracts v from a._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic8_sub_rel`
+##  Function `vatomic8_sub_rel`
 
 ```c
 static void vatomic8_sub_rel(vatomic8_t *a, vuint8_t v)
@@ -1971,7 +1971,7 @@ _Substracts v from a._
 **Memory ordering**: release 
 
 
-###  Function `vatomic8_sub_rlx`
+##  Function `vatomic8_sub_rlx`
 
 ```c
 static void vatomic8_sub_rlx(vatomic8_t *a, vuint8_t v)
@@ -1990,7 +1990,7 @@ _Substracts v from a._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic8_get_dec`
+##  Function `vatomic8_get_dec`
 
 ```c
 static vuint8_t vatomic8_get_dec(vatomic8_t *a)
@@ -2010,7 +2010,7 @@ _Decrements the value of a and returns the old value._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic8_get_dec_acq`
+##  Function `vatomic8_get_dec_acq`
 
 ```c
 static vuint8_t vatomic8_get_dec_acq(vatomic8_t *a)
@@ -2030,7 +2030,7 @@ _Decrements the value of a and returns the old value._
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic8_get_dec_rel`
+##  Function `vatomic8_get_dec_rel`
 
 ```c
 static vuint8_t vatomic8_get_dec_rel(vatomic8_t *a)
@@ -2050,7 +2050,7 @@ _Decrements the value of a and returns the old value._
 **Memory ordering**: release 
 
 
-###  Function `vatomic8_get_dec_rlx`
+##  Function `vatomic8_get_dec_rlx`
 
 ```c
 static vuint8_t vatomic8_get_dec_rlx(vatomic8_t *a)
@@ -2070,7 +2070,7 @@ _Decrements the value of a and returns the old value._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic8_dec_get`
+##  Function `vatomic8_dec_get`
 
 ```c
 static vuint8_t vatomic8_dec_get(vatomic8_t *a)
@@ -2090,7 +2090,7 @@ _Decrements the value of a and returns the new value._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic8_dec_get_acq`
+##  Function `vatomic8_dec_get_acq`
 
 ```c
 static vuint8_t vatomic8_dec_get_acq(vatomic8_t *a)
@@ -2110,7 +2110,7 @@ _Decrements the value of a and returns the new value._
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic8_dec_get_rel`
+##  Function `vatomic8_dec_get_rel`
 
 ```c
 static vuint8_t vatomic8_dec_get_rel(vatomic8_t *a)
@@ -2130,7 +2130,7 @@ _Decrements the value of a and returns the new value._
 **Memory ordering**: release 
 
 
-###  Function `vatomic8_dec_get_rlx`
+##  Function `vatomic8_dec_get_rlx`
 
 ```c
 static vuint8_t vatomic8_dec_get_rlx(vatomic8_t *a)
@@ -2150,7 +2150,7 @@ _Decrements the value of a and returns the new value._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic8_dec`
+##  Function `vatomic8_dec`
 
 ```c
 static void vatomic8_dec(vatomic8_t *a)
@@ -2168,7 +2168,7 @@ _Decrements the value of a._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic8_dec_rel`
+##  Function `vatomic8_dec_rel`
 
 ```c
 static void vatomic8_dec_rel(vatomic8_t *a)
@@ -2186,7 +2186,7 @@ _Decrements the value of a._
 **Memory ordering**: release 
 
 
-###  Function `vatomic8_dec_rlx`
+##  Function `vatomic8_dec_rlx`
 
 ```c
 static void vatomic8_dec_rlx(vatomic8_t *a)

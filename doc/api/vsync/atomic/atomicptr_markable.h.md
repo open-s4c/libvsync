@@ -7,7 +7,7 @@ _C implementation of AtomicMarkableReference in Java._
 Extends `vatomicptr_t` to `vatomicptr_markable_t`. The LSB of the address is utilized as a mark.
 
 
-## References:
+### References:
  [AtomicMarkableReference](https://bit.ly/2FqwH8u) 
 
 ---
@@ -17,7 +17,7 @@ Extends `vatomicptr_t` to `vatomicptr_markable_t`. The LSB of the address is uti
 |---|---|
 | [V_ATOMICPTR_MARKABLE_IS_ALIGNED](atomicptr_markable.h.md#macro-v_atomicptr_markable_is_aligned) | Evaluates to `true`, if the given pointer `_ptr_` is 4-byte-aligned.  |
 
-###  Macro `V_ATOMICPTR_MARKABLE_IS_ALIGNED`
+##  Macro `V_ATOMICPTR_MARKABLE_IS_ALIGNED`
 
 ```c
 V_ATOMICPTR_MARKABLE_IS_ALIGNED(_ptr_)
@@ -54,7 +54,7 @@ _Evaluates to_ `true`_, if the given pointer_ `_ptr_` _is 4-byte-aligned._
 | [vatomicptr_markable_get_mark_acq](atomicptr_markable.h.md#function-vatomicptr_markable_get_mark_acq) | Returns the mark value of `a`.  |
 | [vatomicptr_markable_get_mark_rlx](atomicptr_markable.h.md#function-vatomicptr_markable_get_mark_rlx) | Returns the mark value of `a`.  |
 
-###  Function `vatomicptr_markable_cmpxchg`
+##  Function `vatomicptr_markable_cmpxchg`
 
 ```c
 static vbool_t vatomicptr_markable_cmpxchg(vatomicptr_markable_t *a, void *e_v, vbool_t e_m, void *v, vbool_t m)
@@ -79,7 +79,7 @@ _Compares and exchanges the address and mark value in_ `a`_._
 
 
 
-###  Function `vatomicptr_markable_cmpxchg_acq`
+##  Function `vatomicptr_markable_cmpxchg_acq`
 
 ```c
 static vbool_t vatomicptr_markable_cmpxchg_acq(vatomicptr_markable_t *a, void *e_v, vbool_t e_m, void *v, vbool_t m)
@@ -104,7 +104,7 @@ _Compares and exchanges the address and mark value in_ `a`_._
 
 
 
-###  Function `vatomicptr_markable_cmpxchg_rel`
+##  Function `vatomicptr_markable_cmpxchg_rel`
 
 ```c
 static vbool_t vatomicptr_markable_cmpxchg_rel(vatomicptr_markable_t *a, void *e_v, vbool_t e_m, void *v, vbool_t m)
@@ -129,7 +129,7 @@ _Compares and exchanges the address and mark value in_ `a`_._
 
 
 
-###  Function `vatomicptr_markable_cmpxchg_rlx`
+##  Function `vatomicptr_markable_cmpxchg_rlx`
 
 ```c
 static vbool_t vatomicptr_markable_cmpxchg_rlx(vatomicptr_markable_t *a, void *e_v, vbool_t e_m, void *v, vbool_t m)
@@ -154,7 +154,7 @@ _Compares and exchanges the address and mark value in_ `a`_._
 
 
 
-###  Function `vatomicptr_markable_attempt_mark`
+##  Function `vatomicptr_markable_attempt_mark`
 
 ```c
 static vbool_t vatomicptr_markable_attempt_mark(vatomicptr_markable_t *a, void *e_v, vbool_t m)
@@ -177,7 +177,7 @@ _Attemps to update the mark in_ `a`_._
 
 
 
-###  Function `vatomicptr_markable_attempt_mark_acq`
+##  Function `vatomicptr_markable_attempt_mark_acq`
 
 ```c
 static vbool_t vatomicptr_markable_attempt_mark_acq(vatomicptr_markable_t *a, void *e_v, vbool_t m)
@@ -200,7 +200,7 @@ _Attemps to update the mark in_ `a`_._
 
 
 
-###  Function `vatomicptr_markable_attempt_mark_rel`
+##  Function `vatomicptr_markable_attempt_mark_rel`
 
 ```c
 static vbool_t vatomicptr_markable_attempt_mark_rel(vatomicptr_markable_t *a, void *e_v, vbool_t m)
@@ -223,7 +223,7 @@ _Attemps to update the mark in_ `a`_._
 
 
 
-###  Function `vatomicptr_markable_attempt_mark_rlx`
+##  Function `vatomicptr_markable_attempt_mark_rlx`
 
 ```c
 static vbool_t vatomicptr_markable_attempt_mark_rlx(vatomicptr_markable_t *a, void *e_v, vbool_t m)
@@ -246,7 +246,7 @@ _Attemps to update the mark in_ `a`_._
 
 
 
-###  Function `vatomicptr_markable_set`
+##  Function `vatomicptr_markable_set`
 
 ```c
 static void vatomicptr_markable_set(vatomicptr_markable_t *a, void *v, vbool_t m)
@@ -265,7 +265,7 @@ _Sets the address and mark of a to the given_ `v` _and_ `m`_._
 
 
 
-###  Function `vatomicptr_markable_set_rel`
+##  Function `vatomicptr_markable_set_rel`
 
 ```c
 static void vatomicptr_markable_set_rel(vatomicptr_markable_t *a, void *v, vbool_t m)
@@ -284,7 +284,7 @@ _Sets the address and mark of a to the given_ `v` _and_ `m`_._
 
 
 
-###  Function `vatomicptr_markable_set_rlx`
+##  Function `vatomicptr_markable_set_rlx`
 
 ```c
 static void vatomicptr_markable_set_rlx(vatomicptr_markable_t *a, void *v, vbool_t m)
@@ -303,7 +303,7 @@ _Sets the address and mark of a to the given_ `v` _and_ `m`_._
 
 
 
-###  Function `vatomicptr_markable_get`
+##  Function `vatomicptr_markable_get`
 
 ```c
 static void* vatomicptr_markable_get(vatomicptr_markable_t *a, vbool_t *out_m)
@@ -323,7 +323,7 @@ _Returns the address value of a._
 
 
 
-###  Function `vatomicptr_markable_get_acq`
+##  Function `vatomicptr_markable_get_acq`
 
 ```c
 static void* vatomicptr_markable_get_acq(vatomicptr_markable_t *a, vbool_t *out_m)
@@ -343,7 +343,7 @@ _Returns the address value of a._
 
 
 
-###  Function `vatomicptr_markable_get_rlx`
+##  Function `vatomicptr_markable_get_rlx`
 
 ```c
 static void* vatomicptr_markable_get_rlx(vatomicptr_markable_t *a, vbool_t *out_m)
@@ -363,7 +363,7 @@ _Returns the address value of a._
 
 
 
-###  Function `vatomicptr_markable_get_pointer`
+##  Function `vatomicptr_markable_get_pointer`
 
 ```c
 static void* vatomicptr_markable_get_pointer(vatomicptr_markable_t *a)
@@ -382,7 +382,7 @@ _Returns the address value of_ `a`_._
 
 
 
-###  Function `vatomicptr_markable_get_pointer_acq`
+##  Function `vatomicptr_markable_get_pointer_acq`
 
 ```c
 static void* vatomicptr_markable_get_pointer_acq(vatomicptr_markable_t *a)
@@ -401,7 +401,7 @@ _Returns the address value of_ `a`_._
 
 
 
-###  Function `vatomicptr_markable_get_pointer_rlx`
+##  Function `vatomicptr_markable_get_pointer_rlx`
 
 ```c
 static void* vatomicptr_markable_get_pointer_rlx(vatomicptr_markable_t *a)
@@ -420,7 +420,7 @@ _Returns the address value of_ `a`_._
 
 
 
-###  Function `vatomicptr_markable_get_mark`
+##  Function `vatomicptr_markable_get_mark`
 
 ```c
 static vbool_t vatomicptr_markable_get_mark(vatomicptr_markable_t *a)
@@ -441,7 +441,7 @@ _Returns the mark value of_ `a`_._
 
 
 
-###  Function `vatomicptr_markable_get_mark_acq`
+##  Function `vatomicptr_markable_get_mark_acq`
 
 ```c
 static vbool_t vatomicptr_markable_get_mark_acq(vatomicptr_markable_t *a)
@@ -462,7 +462,7 @@ _Returns the mark value of_ `a`_._
 
 
 
-###  Function `vatomicptr_markable_get_mark_rlx`
+##  Function `vatomicptr_markable_get_mark_rlx`
 
 ```c
 static vbool_t vatomicptr_markable_get_mark_rlx(vatomicptr_markable_t *a)

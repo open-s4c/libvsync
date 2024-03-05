@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #ifndef XBO_H
 #define XBO_H
 /*******************************************************************************
@@ -83,8 +84,9 @@ static inline void
 xbo_backoff(xbo_t *xbo, xbo_cb *nop, xbo_cb *cb)
 {
 #ifndef VSYNC_VERIFICATION
-	for (vuint32_t i = 0; i < xbo->max; ++i)
+	for (vuint32_t i = 0; i < xbo->max; ++i) {
 		nop();
+	}
 
 	xbo->value = xbo->value == 0 ? 1 : xbo->value * xbo->factor;
 

@@ -6,7 +6,7 @@ _Recursive ticketlock implementation using recursive.h._
 see [vsync/spinlock/ticketlock.h](ticketlock.h.md)
 
 
-## Example:
+### Example:
 
 
 
@@ -69,7 +69,7 @@ main(void)
 |---|---|
 | [REC_TICKETLOCK_INIT](rec_ticketlock.h.md#macro-rec_ticketlock_init) | Initializer of `rec_ticketlock`.  |
 
-###  Macro `REC_TICKETLOCK_INIT`
+##  Macro `REC_TICKETLOCK_INIT`
 
 ```c
 REC_TICKETLOCK_INIT()
@@ -90,7 +90,7 @@ _Initializer of_ `rec_ticketlock`_._
 | [rec_ticketlock_release](rec_ticketlock.h.md#function-rec_ticketlock_release) | Releases the recursive ticketlock.  |
 | [rec_ticketlock_tryacquire](rec_ticketlock.h.md#function-rec_ticketlock_tryacquire) | Tries to acquire the recursive ticketlock.  |
 
-###  Function `rec_ticketlock_init`
+##  Function `rec_ticketlock_init`
 
 ```c
 static void rec_ticketlock_init(rec_ticketlock_t *l)
@@ -108,7 +108,7 @@ _Initializes the recursive ticketlock._
 > **Note:** alternatively use `REC_TICKETLOCK_INIT`. 
 
 
-###  Function `rec_ticketlock_acquire`
+##  Function `rec_ticketlock_acquire`
 
 ```c
 static void rec_ticketlock_acquire(rec_ticketlock_t *l, vuint32_t id)
@@ -128,7 +128,7 @@ This function can be called multiple times by the same thread, consecutively.
 
 
 
-###  Function `rec_ticketlock_release`
+##  Function `rec_ticketlock_release`
 
 ```c
 static void rec_ticketlock_release(rec_ticketlock_t *l)
@@ -147,7 +147,7 @@ To fully release the lock, this function should be called the same number of tim
 
 
 
-###  Function `rec_ticketlock_tryacquire`
+##  Function `rec_ticketlock_tryacquire`
 
 ```c
 static vbool_t rec_ticketlock_tryacquire(rec_ticketlock_t *l, vuint32_t id)

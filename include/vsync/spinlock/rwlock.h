@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #ifndef VSYNC_RWLOCK_WP_H
 #define VSYNC_RWLOCK_WP_H
 
@@ -86,7 +87,7 @@ rwlock_init(rwlock_t *l)
 static inline void
 rwlock_write_acquire(rwlock_t *l)
 {
-	vatomic32_await_eq_set_rlx(&l->wb, 0, 1);
+	vatomic32_await_eq_set_rlx(&l->wb, 0, 1U);
 	semaphore_acquire(&l->rs, l->n); // acquire fence
 }
 /**
@@ -99,7 +100,7 @@ rwlock_write_acquire(rwlock_t *l)
 static inline vbool_t
 rwlock_write_tryacquire(rwlock_t *l)
 {
-	if (vatomic32_cmpxchg_rlx(&l->wb, 0, 1) != 0) {
+	if (vatomic32_cmpxchg_rlx(&l->wb, 0, 1U) != 0) {
 		/* would block because of another writer */
 		return false;
 	}
@@ -130,7 +131,7 @@ static inline void
 rwlock_read_acquire(rwlock_t *l)
 {
 	vatomic32_await_eq_rlx(&l->wb, 0);
-	semaphore_acquire(&l->rs, 1); // acquire fence
+	semaphore_acquire(&l->rs, 1U); // acquire fence
 }
 /**
  * Tries to acquire the read lock.
@@ -145,7 +146,7 @@ rwlock_read_tryacquire(rwlock_t *l)
 	if (vatomic32_read_rlx(&l->wb)) { // relaxed read
 		return false;
 	}
-	return semaphore_tryacquire(&l->rs, 1); // acquire fence
+	return semaphore_tryacquire(&l->rs, 1U); // acquire fence
 }
 /**
  * Releases the read lock.
@@ -155,6 +156,31 @@ rwlock_read_tryacquire(rwlock_t *l)
 static inline void
 rwlock_read_release(rwlock_t *l)
 {
-	semaphore_release(&l->rs, 1); // release fence
+	semaphore_release(&l->rs, 1U); // release fence
+}
+/**
+ * Returns true if a writer has acquired the lock, or waiting on the readers to
+ * release it.
+ *
+ * @param l address of rwlock_t object.
+ * @return true a writer has acquired or waiting on readers to release the lock.
+ * @return false the lock is not acquired by a writer.
+ */
+static inline vbool_t
+rwlock_acquired_by_writer(rwlock_t *l)
+{
+	return vatomic32_read(&l->wb) > 0;
+}
+/**
+ * Returns true if the lock is acquired by readers.
+ *
+ * @param  l address of rwlock_t object.
+ * @return true if the lock is acquired by readers.
+ * @return false if the lock is not acquired by readers.
+ */
+static inline vbool_t
+rwlock_acquired_by_readers(rwlock_t *l)
+{
+	return vatomic32_read(&l->rs.s) > 0;
 }
 #endif

@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #ifndef VATOMIC_CONFIG_H
 #define VATOMIC_CONFIG_H
 /*******************************************************************************
@@ -25,7 +26,13 @@
  * operations.
  ******************************************************************************/
 #ifdef DOC
+	// Note: We need to define this, for the macro to be documented in our
+	// documentation. However, we actually don't want to document anything
+	// in our library which is hidden behind `VSYNC_VERIFICATION`, since
+	// those would be internal implementation details. Thus we undefine
+	// the macro again immediately.
 	#define VSYNC_VERIFICATION
+	#undef VSYNC_VERIFICATION
 #elif defined(VSYNC_VERIFICATION)
 	#define VATOMIC_BUILTINS
 	#define VATOMIC_DISABLE_POLITE_AWAIT

@@ -107,7 +107,7 @@ Please do not include this file directly, instead use:
 | [vatomic64_await_ge_set_rel](await_u64.h.md#function-vatomic64_await_ge_set_rel) | Politely awaits the value pointed by a to be greater than or equal to c, setting v to a once the condition is satisfied.  |
 | [vatomic64_await_ge_set_rlx](await_u64.h.md#function-vatomic64_await_ge_set_rlx) | Politely awaits the value pointed by a to be greater than or equal to c, setting v to a once the condition is satisfied.  |
 
-###  Function `vatomic64_await_lt`
+##  Function `vatomic64_await_lt`
 
 ```c
 static vuint64_t vatomic64_await_lt(vatomic64_t *a, vuint64_t v)
@@ -130,7 +130,7 @@ The return value is the first read value that satisfies the condition, as if rea
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic64_await_lt_acq`
+##  Function `vatomic64_await_lt_acq`
 
 ```c
 static vuint64_t vatomic64_await_lt_acq(vatomic64_t *a, vuint64_t v)
@@ -153,7 +153,7 @@ The return value is the first read value that satisfies the condition, as if rea
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic64_await_lt_rlx`
+##  Function `vatomic64_await_lt_rlx`
 
 ```c
 static vuint64_t vatomic64_await_lt_rlx(vatomic64_t *a, vuint64_t v)
@@ -176,7 +176,7 @@ The return value is the first read value that satisfies the condition, as if rea
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic64_await_le`
+##  Function `vatomic64_await_le`
 
 ```c
 static vuint64_t vatomic64_await_le(vatomic64_t *a, vuint64_t v)
@@ -199,7 +199,7 @@ The return value is the first read value that satisfies the condition, as if rea
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic64_await_le_acq`
+##  Function `vatomic64_await_le_acq`
 
 ```c
 static vuint64_t vatomic64_await_le_acq(vatomic64_t *a, vuint64_t v)
@@ -222,7 +222,7 @@ The return value is the first read value that satisfies the condition, as if rea
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic64_await_le_rlx`
+##  Function `vatomic64_await_le_rlx`
 
 ```c
 static vuint64_t vatomic64_await_le_rlx(vatomic64_t *a, vuint64_t v)
@@ -245,7 +245,7 @@ The return value is the first read value that satisfies the condition, as if rea
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic64_await_gt`
+##  Function `vatomic64_await_gt`
 
 ```c
 static vuint64_t vatomic64_await_gt(vatomic64_t *a, vuint64_t v)
@@ -268,7 +268,7 @@ The return value is the first read value that satisfies the condition, as if rea
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic64_await_gt_acq`
+##  Function `vatomic64_await_gt_acq`
 
 ```c
 static vuint64_t vatomic64_await_gt_acq(vatomic64_t *a, vuint64_t v)
@@ -291,7 +291,7 @@ The return value is the first read value that satisfies the condition, as if rea
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic64_await_gt_rlx`
+##  Function `vatomic64_await_gt_rlx`
 
 ```c
 static vuint64_t vatomic64_await_gt_rlx(vatomic64_t *a, vuint64_t v)
@@ -314,7 +314,7 @@ The return value is the first read value that satisfies the condition, as if rea
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic64_await_ge`
+##  Function `vatomic64_await_ge`
 
 ```c
 static vuint64_t vatomic64_await_ge(vatomic64_t *a, vuint64_t v)
@@ -337,7 +337,7 @@ The return value is the first read value that satisfies the condition, as if rea
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic64_await_ge_acq`
+##  Function `vatomic64_await_ge_acq`
 
 ```c
 static vuint64_t vatomic64_await_ge_acq(vatomic64_t *a, vuint64_t v)
@@ -360,7 +360,7 @@ The return value is the first read value that satisfies the condition, as if rea
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic64_await_ge_rlx`
+##  Function `vatomic64_await_ge_rlx`
 
 ```c
 static vuint64_t vatomic64_await_ge_rlx(vatomic64_t *a, vuint64_t v)
@@ -383,7 +383,7 @@ The return value is the first read value that satisfies the condition, as if rea
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic64_await_neq`
+##  Function `vatomic64_await_neq`
 
 ```c
 static vuint64_t vatomic64_await_neq(vatomic64_t *a, vuint64_t v)
@@ -406,7 +406,7 @@ The return value is the first read value that satisfies the condition, as if rea
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic64_await_neq_acq`
+##  Function `vatomic64_await_neq_acq`
 
 ```c
 static vuint64_t vatomic64_await_neq_acq(vatomic64_t *a, vuint64_t v)
@@ -429,7 +429,7 @@ The return value is the first read value that satisfies the condition, as if rea
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic64_await_neq_rlx`
+##  Function `vatomic64_await_neq_rlx`
 
 ```c
 static vuint64_t vatomic64_await_neq_rlx(vatomic64_t *a, vuint64_t v)
@@ -452,7 +452,7 @@ The return value is the first read value that satisfies the condition, as if rea
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic64_await_eq`
+##  Function `vatomic64_await_eq`
 
 ```c
 static vuint64_t vatomic64_await_eq(vatomic64_t *a, vuint64_t v)
@@ -475,7 +475,7 @@ The return value is the first read value that satisfies the condition, as if rea
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic64_await_eq_acq`
+##  Function `vatomic64_await_eq_acq`
 
 ```c
 static vuint64_t vatomic64_await_eq_acq(vatomic64_t *a, vuint64_t v)
@@ -498,7 +498,7 @@ The return value is the first read value that satisfies the condition, as if rea
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic64_await_eq_rlx`
+##  Function `vatomic64_await_eq_rlx`
 
 ```c
 static vuint64_t vatomic64_await_eq_rlx(vatomic64_t *a, vuint64_t v)
@@ -521,7 +521,7 @@ The return value is the first read value that satisfies the condition, as if rea
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic64_await_eq_add`
+##  Function `vatomic64_await_eq_add`
 
 ```c
 static vuint64_t vatomic64_await_eq_add(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -543,7 +543,7 @@ _Politely awaits the value pointed by a to be equal to c, adding v to a once the
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic64_await_eq_add_acq`
+##  Function `vatomic64_await_eq_add_acq`
 
 ```c
 static vuint64_t vatomic64_await_eq_add_acq(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -565,7 +565,7 @@ _Politely awaits the value pointed by a to be equal to c, adding v to a once the
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic64_await_eq_add_rel`
+##  Function `vatomic64_await_eq_add_rel`
 
 ```c
 static vuint64_t vatomic64_await_eq_add_rel(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -587,7 +587,7 @@ _Politely awaits the value pointed by a to be equal to c, adding v to a once the
 **Memory ordering**: release 
 
 
-###  Function `vatomic64_await_eq_add_rlx`
+##  Function `vatomic64_await_eq_add_rlx`
 
 ```c
 static vuint64_t vatomic64_await_eq_add_rlx(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -609,7 +609,7 @@ _Politely awaits the value pointed by a to be equal to c, adding v to a once the
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic64_await_eq_sub`
+##  Function `vatomic64_await_eq_sub`
 
 ```c
 static vuint64_t vatomic64_await_eq_sub(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -631,7 +631,7 @@ _Politely awaits the value pointed by a to be equal to c, subtracting v to a onc
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic64_await_eq_sub_acq`
+##  Function `vatomic64_await_eq_sub_acq`
 
 ```c
 static vuint64_t vatomic64_await_eq_sub_acq(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -653,7 +653,7 @@ _Politely awaits the value pointed by a to be equal to c, subtracting v to a onc
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic64_await_eq_sub_rel`
+##  Function `vatomic64_await_eq_sub_rel`
 
 ```c
 static vuint64_t vatomic64_await_eq_sub_rel(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -675,7 +675,7 @@ _Politely awaits the value pointed by a to be equal to c, subtracting v to a onc
 **Memory ordering**: release 
 
 
-###  Function `vatomic64_await_eq_sub_rlx`
+##  Function `vatomic64_await_eq_sub_rlx`
 
 ```c
 static vuint64_t vatomic64_await_eq_sub_rlx(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -697,7 +697,7 @@ _Politely awaits the value pointed by a to be equal to c, subtracting v to a onc
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic64_await_eq_set`
+##  Function `vatomic64_await_eq_set`
 
 ```c
 static vuint64_t vatomic64_await_eq_set(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -719,7 +719,7 @@ _Politely awaits the value pointed by a to be equal to c, setting v to a once th
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic64_await_eq_set_acq`
+##  Function `vatomic64_await_eq_set_acq`
 
 ```c
 static vuint64_t vatomic64_await_eq_set_acq(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -741,7 +741,7 @@ _Politely awaits the value pointed by a to be equal to c, setting v to a once th
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic64_await_eq_set_rel`
+##  Function `vatomic64_await_eq_set_rel`
 
 ```c
 static vuint64_t vatomic64_await_eq_set_rel(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -763,7 +763,7 @@ _Politely awaits the value pointed by a to be equal to c, setting v to a once th
 **Memory ordering**: release 
 
 
-###  Function `vatomic64_await_eq_set_rlx`
+##  Function `vatomic64_await_eq_set_rlx`
 
 ```c
 static vuint64_t vatomic64_await_eq_set_rlx(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -785,7 +785,7 @@ _Politely awaits the value pointed by a to be equal to c, setting v to a once th
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic64_await_neq_add`
+##  Function `vatomic64_await_neq_add`
 
 ```c
 static vuint64_t vatomic64_await_neq_add(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -807,7 +807,7 @@ _Politely awaits the value pointed by a to be different than c, adding v to a on
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic64_await_neq_add_acq`
+##  Function `vatomic64_await_neq_add_acq`
 
 ```c
 static vuint64_t vatomic64_await_neq_add_acq(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -829,7 +829,7 @@ _Politely awaits the value pointed by a to be different than c, adding v to a on
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic64_await_neq_add_rel`
+##  Function `vatomic64_await_neq_add_rel`
 
 ```c
 static vuint64_t vatomic64_await_neq_add_rel(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -851,7 +851,7 @@ _Politely awaits the value pointed by a to be different than c, adding v to a on
 **Memory ordering**: release 
 
 
-###  Function `vatomic64_await_neq_add_rlx`
+##  Function `vatomic64_await_neq_add_rlx`
 
 ```c
 static vuint64_t vatomic64_await_neq_add_rlx(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -873,7 +873,7 @@ _Politely awaits the value pointed by a to be different than c, adding v to a on
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic64_await_neq_sub`
+##  Function `vatomic64_await_neq_sub`
 
 ```c
 static vuint64_t vatomic64_await_neq_sub(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -895,7 +895,7 @@ _Politely awaits the value pointed by a to be different than c, subtracting v to
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic64_await_neq_sub_acq`
+##  Function `vatomic64_await_neq_sub_acq`
 
 ```c
 static vuint64_t vatomic64_await_neq_sub_acq(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -917,7 +917,7 @@ _Politely awaits the value pointed by a to be different than c, subtracting v to
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic64_await_neq_sub_rel`
+##  Function `vatomic64_await_neq_sub_rel`
 
 ```c
 static vuint64_t vatomic64_await_neq_sub_rel(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -939,7 +939,7 @@ _Politely awaits the value pointed by a to be different than c, subtracting v to
 **Memory ordering**: release 
 
 
-###  Function `vatomic64_await_neq_sub_rlx`
+##  Function `vatomic64_await_neq_sub_rlx`
 
 ```c
 static vuint64_t vatomic64_await_neq_sub_rlx(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -961,7 +961,7 @@ _Politely awaits the value pointed by a to be different than c, subtracting v to
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic64_await_neq_set`
+##  Function `vatomic64_await_neq_set`
 
 ```c
 static vuint64_t vatomic64_await_neq_set(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -983,7 +983,7 @@ _Politely awaits the value pointed by a to be different than c, setting v to a o
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic64_await_neq_set_acq`
+##  Function `vatomic64_await_neq_set_acq`
 
 ```c
 static vuint64_t vatomic64_await_neq_set_acq(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1005,7 +1005,7 @@ _Politely awaits the value pointed by a to be different than c, setting v to a o
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic64_await_neq_set_rel`
+##  Function `vatomic64_await_neq_set_rel`
 
 ```c
 static vuint64_t vatomic64_await_neq_set_rel(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1027,7 +1027,7 @@ _Politely awaits the value pointed by a to be different than c, setting v to a o
 **Memory ordering**: release 
 
 
-###  Function `vatomic64_await_neq_set_rlx`
+##  Function `vatomic64_await_neq_set_rlx`
 
 ```c
 static vuint64_t vatomic64_await_neq_set_rlx(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1049,7 +1049,7 @@ _Politely awaits the value pointed by a to be different than c, setting v to a o
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic64_await_lt_add`
+##  Function `vatomic64_await_lt_add`
 
 ```c
 static vuint64_t vatomic64_await_lt_add(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1071,7 +1071,7 @@ _Politely awaits the value pointed by a to be less than c, adding v to a once th
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic64_await_lt_add_acq`
+##  Function `vatomic64_await_lt_add_acq`
 
 ```c
 static vuint64_t vatomic64_await_lt_add_acq(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1093,7 +1093,7 @@ _Politely awaits the value pointed by a to be less than c, adding v to a once th
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic64_await_lt_add_rel`
+##  Function `vatomic64_await_lt_add_rel`
 
 ```c
 static vuint64_t vatomic64_await_lt_add_rel(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1115,7 +1115,7 @@ _Politely awaits the value pointed by a to be less than c, adding v to a once th
 **Memory ordering**: release 
 
 
-###  Function `vatomic64_await_lt_add_rlx`
+##  Function `vatomic64_await_lt_add_rlx`
 
 ```c
 static vuint64_t vatomic64_await_lt_add_rlx(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1137,7 +1137,7 @@ _Politely awaits the value pointed by a to be less than c, adding v to a once th
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic64_await_lt_sub`
+##  Function `vatomic64_await_lt_sub`
 
 ```c
 static vuint64_t vatomic64_await_lt_sub(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1159,7 +1159,7 @@ _Politely awaits the value pointed by a to be less than c, subtracting v to a on
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic64_await_lt_sub_acq`
+##  Function `vatomic64_await_lt_sub_acq`
 
 ```c
 static vuint64_t vatomic64_await_lt_sub_acq(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1181,7 +1181,7 @@ _Politely awaits the value pointed by a to be less than c, subtracting v to a on
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic64_await_lt_sub_rel`
+##  Function `vatomic64_await_lt_sub_rel`
 
 ```c
 static vuint64_t vatomic64_await_lt_sub_rel(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1203,7 +1203,7 @@ _Politely awaits the value pointed by a to be less than c, subtracting v to a on
 **Memory ordering**: release 
 
 
-###  Function `vatomic64_await_lt_sub_rlx`
+##  Function `vatomic64_await_lt_sub_rlx`
 
 ```c
 static vuint64_t vatomic64_await_lt_sub_rlx(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1225,7 +1225,7 @@ _Politely awaits the value pointed by a to be less than c, subtracting v to a on
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic64_await_lt_set`
+##  Function `vatomic64_await_lt_set`
 
 ```c
 static vuint64_t vatomic64_await_lt_set(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1247,7 +1247,7 @@ _Politely awaits the value pointed by a to be less than c, setting v to a once t
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic64_await_lt_set_acq`
+##  Function `vatomic64_await_lt_set_acq`
 
 ```c
 static vuint64_t vatomic64_await_lt_set_acq(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1269,7 +1269,7 @@ _Politely awaits the value pointed by a to be less than c, setting v to a once t
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic64_await_lt_set_rel`
+##  Function `vatomic64_await_lt_set_rel`
 
 ```c
 static vuint64_t vatomic64_await_lt_set_rel(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1291,7 +1291,7 @@ _Politely awaits the value pointed by a to be less than c, setting v to a once t
 **Memory ordering**: release 
 
 
-###  Function `vatomic64_await_lt_set_rlx`
+##  Function `vatomic64_await_lt_set_rlx`
 
 ```c
 static vuint64_t vatomic64_await_lt_set_rlx(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1313,7 +1313,7 @@ _Politely awaits the value pointed by a to be less than c, setting v to a once t
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic64_await_le_add`
+##  Function `vatomic64_await_le_add`
 
 ```c
 static vuint64_t vatomic64_await_le_add(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1335,7 +1335,7 @@ _Politely awaits the value pointed by a to be less than or equal to c, adding v 
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic64_await_le_add_acq`
+##  Function `vatomic64_await_le_add_acq`
 
 ```c
 static vuint64_t vatomic64_await_le_add_acq(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1357,7 +1357,7 @@ _Politely awaits the value pointed by a to be less than or equal to c, adding v 
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic64_await_le_add_rel`
+##  Function `vatomic64_await_le_add_rel`
 
 ```c
 static vuint64_t vatomic64_await_le_add_rel(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1379,7 +1379,7 @@ _Politely awaits the value pointed by a to be less than or equal to c, adding v 
 **Memory ordering**: release 
 
 
-###  Function `vatomic64_await_le_add_rlx`
+##  Function `vatomic64_await_le_add_rlx`
 
 ```c
 static vuint64_t vatomic64_await_le_add_rlx(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1401,7 +1401,7 @@ _Politely awaits the value pointed by a to be less than or equal to c, adding v 
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic64_await_le_sub`
+##  Function `vatomic64_await_le_sub`
 
 ```c
 static vuint64_t vatomic64_await_le_sub(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1423,7 +1423,7 @@ _Politely awaits the value pointed by a to be less than or equal to c, subtracti
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic64_await_le_sub_acq`
+##  Function `vatomic64_await_le_sub_acq`
 
 ```c
 static vuint64_t vatomic64_await_le_sub_acq(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1445,7 +1445,7 @@ _Politely awaits the value pointed by a to be less than or equal to c, subtracti
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic64_await_le_sub_rel`
+##  Function `vatomic64_await_le_sub_rel`
 
 ```c
 static vuint64_t vatomic64_await_le_sub_rel(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1467,7 +1467,7 @@ _Politely awaits the value pointed by a to be less than or equal to c, subtracti
 **Memory ordering**: release 
 
 
-###  Function `vatomic64_await_le_sub_rlx`
+##  Function `vatomic64_await_le_sub_rlx`
 
 ```c
 static vuint64_t vatomic64_await_le_sub_rlx(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1489,7 +1489,7 @@ _Politely awaits the value pointed by a to be less than or equal to c, subtracti
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic64_await_le_set`
+##  Function `vatomic64_await_le_set`
 
 ```c
 static vuint64_t vatomic64_await_le_set(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1511,7 +1511,7 @@ _Politely awaits the value pointed by a to be less than or equal to c, setting v
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic64_await_le_set_acq`
+##  Function `vatomic64_await_le_set_acq`
 
 ```c
 static vuint64_t vatomic64_await_le_set_acq(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1533,7 +1533,7 @@ _Politely awaits the value pointed by a to be less than or equal to c, setting v
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic64_await_le_set_rel`
+##  Function `vatomic64_await_le_set_rel`
 
 ```c
 static vuint64_t vatomic64_await_le_set_rel(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1555,7 +1555,7 @@ _Politely awaits the value pointed by a to be less than or equal to c, setting v
 **Memory ordering**: release 
 
 
-###  Function `vatomic64_await_le_set_rlx`
+##  Function `vatomic64_await_le_set_rlx`
 
 ```c
 static vuint64_t vatomic64_await_le_set_rlx(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1577,7 +1577,7 @@ _Politely awaits the value pointed by a to be less than or equal to c, setting v
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic64_await_gt_add`
+##  Function `vatomic64_await_gt_add`
 
 ```c
 static vuint64_t vatomic64_await_gt_add(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1599,7 +1599,7 @@ _Politely awaits the value pointed by a to be greater than c, adding v to a once
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic64_await_gt_add_acq`
+##  Function `vatomic64_await_gt_add_acq`
 
 ```c
 static vuint64_t vatomic64_await_gt_add_acq(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1621,7 +1621,7 @@ _Politely awaits the value pointed by a to be greater than c, adding v to a once
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic64_await_gt_add_rel`
+##  Function `vatomic64_await_gt_add_rel`
 
 ```c
 static vuint64_t vatomic64_await_gt_add_rel(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1643,7 +1643,7 @@ _Politely awaits the value pointed by a to be greater than c, adding v to a once
 **Memory ordering**: release 
 
 
-###  Function `vatomic64_await_gt_add_rlx`
+##  Function `vatomic64_await_gt_add_rlx`
 
 ```c
 static vuint64_t vatomic64_await_gt_add_rlx(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1665,7 +1665,7 @@ _Politely awaits the value pointed by a to be greater than c, adding v to a once
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic64_await_gt_sub`
+##  Function `vatomic64_await_gt_sub`
 
 ```c
 static vuint64_t vatomic64_await_gt_sub(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1687,7 +1687,7 @@ _Politely awaits the value pointed by a to be greater than c, subtracting v to a
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic64_await_gt_sub_acq`
+##  Function `vatomic64_await_gt_sub_acq`
 
 ```c
 static vuint64_t vatomic64_await_gt_sub_acq(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1709,7 +1709,7 @@ _Politely awaits the value pointed by a to be greater than c, subtracting v to a
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic64_await_gt_sub_rel`
+##  Function `vatomic64_await_gt_sub_rel`
 
 ```c
 static vuint64_t vatomic64_await_gt_sub_rel(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1731,7 +1731,7 @@ _Politely awaits the value pointed by a to be greater than c, subtracting v to a
 **Memory ordering**: release 
 
 
-###  Function `vatomic64_await_gt_sub_rlx`
+##  Function `vatomic64_await_gt_sub_rlx`
 
 ```c
 static vuint64_t vatomic64_await_gt_sub_rlx(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1753,7 +1753,7 @@ _Politely awaits the value pointed by a to be greater than c, subtracting v to a
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic64_await_gt_set`
+##  Function `vatomic64_await_gt_set`
 
 ```c
 static vuint64_t vatomic64_await_gt_set(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1775,7 +1775,7 @@ _Politely awaits the value pointed by a to be greater than c, setting v to a onc
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic64_await_gt_set_acq`
+##  Function `vatomic64_await_gt_set_acq`
 
 ```c
 static vuint64_t vatomic64_await_gt_set_acq(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1797,7 +1797,7 @@ _Politely awaits the value pointed by a to be greater than c, setting v to a onc
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic64_await_gt_set_rel`
+##  Function `vatomic64_await_gt_set_rel`
 
 ```c
 static vuint64_t vatomic64_await_gt_set_rel(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1819,7 +1819,7 @@ _Politely awaits the value pointed by a to be greater than c, setting v to a onc
 **Memory ordering**: release 
 
 
-###  Function `vatomic64_await_gt_set_rlx`
+##  Function `vatomic64_await_gt_set_rlx`
 
 ```c
 static vuint64_t vatomic64_await_gt_set_rlx(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1841,7 +1841,7 @@ _Politely awaits the value pointed by a to be greater than c, setting v to a onc
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic64_await_ge_add`
+##  Function `vatomic64_await_ge_add`
 
 ```c
 static vuint64_t vatomic64_await_ge_add(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1863,7 +1863,7 @@ _Politely awaits the value pointed by a to be greater than or equal to c, adding
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic64_await_ge_add_acq`
+##  Function `vatomic64_await_ge_add_acq`
 
 ```c
 static vuint64_t vatomic64_await_ge_add_acq(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1885,7 +1885,7 @@ _Politely awaits the value pointed by a to be greater than or equal to c, adding
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic64_await_ge_add_rel`
+##  Function `vatomic64_await_ge_add_rel`
 
 ```c
 static vuint64_t vatomic64_await_ge_add_rel(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1907,7 +1907,7 @@ _Politely awaits the value pointed by a to be greater than or equal to c, adding
 **Memory ordering**: release 
 
 
-###  Function `vatomic64_await_ge_add_rlx`
+##  Function `vatomic64_await_ge_add_rlx`
 
 ```c
 static vuint64_t vatomic64_await_ge_add_rlx(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1929,7 +1929,7 @@ _Politely awaits the value pointed by a to be greater than or equal to c, adding
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic64_await_ge_sub`
+##  Function `vatomic64_await_ge_sub`
 
 ```c
 static vuint64_t vatomic64_await_ge_sub(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1951,7 +1951,7 @@ _Politely awaits the value pointed by a to be greater than or equal to c, subtra
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic64_await_ge_sub_acq`
+##  Function `vatomic64_await_ge_sub_acq`
 
 ```c
 static vuint64_t vatomic64_await_ge_sub_acq(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1973,7 +1973,7 @@ _Politely awaits the value pointed by a to be greater than or equal to c, subtra
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic64_await_ge_sub_rel`
+##  Function `vatomic64_await_ge_sub_rel`
 
 ```c
 static vuint64_t vatomic64_await_ge_sub_rel(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -1995,7 +1995,7 @@ _Politely awaits the value pointed by a to be greater than or equal to c, subtra
 **Memory ordering**: release 
 
 
-###  Function `vatomic64_await_ge_sub_rlx`
+##  Function `vatomic64_await_ge_sub_rlx`
 
 ```c
 static vuint64_t vatomic64_await_ge_sub_rlx(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -2017,7 +2017,7 @@ _Politely awaits the value pointed by a to be greater than or equal to c, subtra
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic64_await_ge_set`
+##  Function `vatomic64_await_ge_set`
 
 ```c
 static vuint64_t vatomic64_await_ge_set(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -2039,7 +2039,7 @@ _Politely awaits the value pointed by a to be greater than or equal to c, settin
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic64_await_ge_set_acq`
+##  Function `vatomic64_await_ge_set_acq`
 
 ```c
 static vuint64_t vatomic64_await_ge_set_acq(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -2061,7 +2061,7 @@ _Politely awaits the value pointed by a to be greater than or equal to c, settin
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic64_await_ge_set_rel`
+##  Function `vatomic64_await_ge_set_rel`
 
 ```c
 static vuint64_t vatomic64_await_ge_set_rel(vatomic64_t *a, vuint64_t c, vuint64_t v)
@@ -2083,7 +2083,7 @@ _Politely awaits the value pointed by a to be greater than or equal to c, settin
 **Memory ordering**: release 
 
 
-###  Function `vatomic64_await_ge_set_rlx`
+##  Function `vatomic64_await_ge_set_rlx`
 
 ```c
 static vuint64_t vatomic64_await_ge_set_rlx(vatomic64_t *a, vuint64_t c, vuint64_t v)

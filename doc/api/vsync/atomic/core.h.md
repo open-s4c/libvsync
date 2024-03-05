@@ -38,7 +38,7 @@ Major configuration options are described in [config.h](config.h.md).
 | [vatomic_cpu_pause](core.h.md#macro-vatomic_cpu_pause) | Calls CPU pause instruction if available, e.g., `PAUSE` in x86.  |
 | [VATOMIC_DISABLE_MACRO_UNDEF](core.h.md#macro-vatomic_disable_macro_undef) | Disables undefines of non-exported macros.  |
 
-###  Macro `VATOMIC_INIT`
+##  Macro `VATOMIC_INIT`
 
 ```c
 VATOMIC_INIT(v)
@@ -49,7 +49,7 @@ _Initializes an atomic variable with value v._
 
 
 
-###  Macro `vatomicptr`
+##  Macro `vatomicptr`
 
 ```c
 vatomicptr(T)
@@ -62,7 +62,7 @@ _Declares an atomic pointer type._
 When declaring an atomic pointer it may be useful to annotate it with the original type. Use [vatomicptr(T)](core.h.md#macro-vatomicptr) macro for that.
 
 
-## Example:
+### Example:
 
 
 
@@ -75,7 +75,7 @@ typedef struct mcs_node_s {
  
 
 
-###  Macro `vatomic_cpu_pause`
+##  Macro `vatomic_cpu_pause`
 
 ```c
 vatomic_cpu_pause()
@@ -88,7 +88,7 @@ _Calls CPU pause instruction if available, e.g.,_ `PAUSE` _in x86._
 Tight spinloops often overuse the memory subsytem. This macro calls an architecture-dependent instruction to slowdown spinloops (`PAUSE` in x86 and `YIELD` in aarch64). Define `VSYNC_DISABLE_POLITE_AWAIT` to disable the effect of this macro.
 
 
-## Example:
+### Example:
 
 
 
@@ -99,7 +99,7 @@ while (!vatomic_read(&flag)) vatomic_cpu_pause();
  
 
 
-###  Macro `VATOMIC_DISABLE_MACRO_UNDEF`
+##  Macro `VATOMIC_DISABLE_MACRO_UNDEF`
 
  
 _Disables undefines of non-exported macros._ 
@@ -118,7 +118,7 @@ By default, all non-exported macros are undefined at the end of [atomic.h](../at
 | [vatomic_fence_rel](core.h.md#function-vatomic_fence_rel) | Executes an atomic fence with release memory order.  |
 | [vatomic_fence_rlx](core.h.md#function-vatomic_fence_rlx) | Executes an atomic fence with relaxed memory order.  |
 
-###  Function `vatomic_fence`
+##  Function `vatomic_fence`
 
 ```c
 static void vatomic_fence(void)
@@ -127,7 +127,7 @@ _Executes an atomic fence with seq_cst memory order._
 
 
 
-###  Function `vatomic_fence_acq`
+##  Function `vatomic_fence_acq`
 
 ```c
 static void vatomic_fence_acq(void)
@@ -136,7 +136,7 @@ _Executes an atomic fence with acquire memory order._
 
 
 
-###  Function `vatomic_fence_rel`
+##  Function `vatomic_fence_rel`
 
 ```c
 static void vatomic_fence_rel(void)
@@ -145,7 +145,7 @@ _Executes an atomic fence with release memory order._
 
 
 
-###  Function `vatomic_fence_rlx`
+##  Function `vatomic_fence_rlx`
 
 ```c
 static void vatomic_fence_rlx(void)

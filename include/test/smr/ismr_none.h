@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #ifndef VSYNC_ISMR_NONE_H
 #define VSYNC_ISMR_NONE_H
 
@@ -21,6 +22,7 @@ locked_trace_t global_trace;
 typedef struct {
 	smr_node_t *address;
 	smr_node_destroy_fun callback;
+	void *args;
 } smr_none_retire_info_t;
 
 
@@ -29,7 +31,7 @@ _ismr_none_destroy_all_cb(trace_unit_t *unit)
 {
 	ASSERT(unit);
 	smr_none_retire_info_t *info = (smr_none_retire_info_t *)unit->key;
-	info->callback(info->address, NULL);
+	info->callback(info->address, info->args);
 	free(info);
 	return true;
 }
@@ -47,8 +49,7 @@ ismr_enter(vsize_t tid)
 }
 
 static inline void
-ismr_retire(vsize_t tid, smr_node_t *node, smr_node_destroy_fun fun,
-			vbool_t local)
+_ismr_none_trace(smr_node_t *node, smr_node_destroy_fun fun, void *args)
 {
 	/**
 	 * SMR_NONE means there is no SMR installed
@@ -61,13 +62,28 @@ ismr_retire(vsize_t tid, smr_node_t *node, smr_node_destroy_fun fun,
 	if (info) {
 		info->address  = node;
 		info->callback = fun;
+		info->args	   = args;
 
 		locked_trace_add(&global_trace, (vuintptr_t)info);
 	} else {
 		ASSERT(0 && "allocation failed");
 	}
+}
+
+static inline void
+ismr_retire(vsize_t tid, smr_node_t *node, smr_node_destroy_fun fun,
+			vbool_t local)
+{
+	_ismr_none_trace(node, fun, NULL);
 	V_UNUSED(tid, local);
 }
+
+static inline void
+ismr_retire_with_arg(smr_node_t *node, smr_node_destroy_fun fun, void *args)
+{
+	_ismr_none_trace(node, fun, args);
+}
+
 static inline void
 ismr_exit(vsize_t tid)
 {

@@ -60,7 +60,7 @@ Optimized atomic implementations are available for ARMv7 (32 and 64 bits) and AR
 For further configuration flags, please refer to [config.h](config.h.md).
 
 
-## Example:
+### Example:
 
 
 

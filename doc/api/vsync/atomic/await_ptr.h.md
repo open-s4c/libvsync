@@ -31,7 +31,7 @@ Please do not include this file directly, instead use:
 | [vatomicptr_await_neq_set_rel](await_ptr.h.md#function-vatomicptr_await_neq_set_rel) | Politely awaits the value pointed by a to be different than c, setting v to a once the condition is satisfied.  |
 | [vatomicptr_await_neq_set_rlx](await_ptr.h.md#function-vatomicptr_await_neq_set_rlx) | Politely awaits the value pointed by a to be different than c, setting v to a once the condition is satisfied.  |
 
-###  Function `vatomicptr_await_neq`
+##  Function `vatomicptr_await_neq`
 
 ```c
 static void* vatomicptr_await_neq(vatomicptr_t *a, void *v)
@@ -54,7 +54,7 @@ The return value is the first read value that satisfies the condition, as if rea
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomicptr_await_neq_acq`
+##  Function `vatomicptr_await_neq_acq`
 
 ```c
 static void* vatomicptr_await_neq_acq(vatomicptr_t *a, void *v)
@@ -77,7 +77,7 @@ The return value is the first read value that satisfies the condition, as if rea
 **Memory ordering**: acquire 
 
 
-###  Function `vatomicptr_await_neq_rlx`
+##  Function `vatomicptr_await_neq_rlx`
 
 ```c
 static void* vatomicptr_await_neq_rlx(vatomicptr_t *a, void *v)
@@ -100,7 +100,7 @@ The return value is the first read value that satisfies the condition, as if rea
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomicptr_await_eq`
+##  Function `vatomicptr_await_eq`
 
 ```c
 static void* vatomicptr_await_eq(vatomicptr_t *a, void *v)
@@ -123,7 +123,7 @@ The return value is the first read value that satisfies the condition, as if rea
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomicptr_await_eq_acq`
+##  Function `vatomicptr_await_eq_acq`
 
 ```c
 static void* vatomicptr_await_eq_acq(vatomicptr_t *a, void *v)
@@ -146,7 +146,7 @@ The return value is the first read value that satisfies the condition, as if rea
 **Memory ordering**: acquire 
 
 
-###  Function `vatomicptr_await_eq_rlx`
+##  Function `vatomicptr_await_eq_rlx`
 
 ```c
 static void* vatomicptr_await_eq_rlx(vatomicptr_t *a, void *v)
@@ -169,7 +169,7 @@ The return value is the first read value that satisfies the condition, as if rea
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomicptr_await_eq_set`
+##  Function `vatomicptr_await_eq_set`
 
 ```c
 static void* vatomicptr_await_eq_set(vatomicptr_t *a, void *c, void *v)
@@ -191,7 +191,7 @@ _Politely awaits the value pointed by a to be equal to c, setting v to a once th
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomicptr_await_eq_set_acq`
+##  Function `vatomicptr_await_eq_set_acq`
 
 ```c
 static void* vatomicptr_await_eq_set_acq(vatomicptr_t *a, void *c, void *v)
@@ -213,7 +213,7 @@ _Politely awaits the value pointed by a to be equal to c, setting v to a once th
 **Memory ordering**: acquire 
 
 
-###  Function `vatomicptr_await_eq_set_rel`
+##  Function `vatomicptr_await_eq_set_rel`
 
 ```c
 static void* vatomicptr_await_eq_set_rel(vatomicptr_t *a, void *c, void *v)
@@ -235,7 +235,7 @@ _Politely awaits the value pointed by a to be equal to c, setting v to a once th
 **Memory ordering**: release 
 
 
-###  Function `vatomicptr_await_eq_set_rlx`
+##  Function `vatomicptr_await_eq_set_rlx`
 
 ```c
 static void* vatomicptr_await_eq_set_rlx(vatomicptr_t *a, void *c, void *v)
@@ -257,7 +257,7 @@ _Politely awaits the value pointed by a to be equal to c, setting v to a once th
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomicptr_await_neq_set`
+##  Function `vatomicptr_await_neq_set`
 
 ```c
 static void* vatomicptr_await_neq_set(vatomicptr_t *a, void *c, void *v)
@@ -279,7 +279,7 @@ _Politely awaits the value pointed by a to be different than c, setting v to a o
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomicptr_await_neq_set_acq`
+##  Function `vatomicptr_await_neq_set_acq`
 
 ```c
 static void* vatomicptr_await_neq_set_acq(vatomicptr_t *a, void *c, void *v)
@@ -301,7 +301,7 @@ _Politely awaits the value pointed by a to be different than c, setting v to a o
 **Memory ordering**: acquire 
 
 
-###  Function `vatomicptr_await_neq_set_rel`
+##  Function `vatomicptr_await_neq_set_rel`
 
 ```c
 static void* vatomicptr_await_neq_set_rel(vatomicptr_t *a, void *c, void *v)
@@ -323,7 +323,7 @@ _Politely awaits the value pointed by a to be different than c, setting v to a o
 **Memory ordering**: release 
 
 
-###  Function `vatomicptr_await_neq_set_rlx`
+##  Function `vatomicptr_await_neq_set_rlx`
 
 ```c
 static void* vatomicptr_await_neq_set_rlx(vatomicptr_t *a, void *c, void *v)

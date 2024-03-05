@@ -17,7 +17,7 @@ The configuration defined in this file is typically applied to the whole project
 | [VATOMIC_DISABLE_ARM64_LSE](config.h.md#macro-vatomic_disable_arm64_lse) | Do not use ARM64 LSE instructions for atomic operations.  |
 | [VATOMIC_ENABLE_ARM64_LXE](config.h.md#macro-vatomic_enable_arm64_lxe) | use ARM64 LSE instructions in slow path of LXSX for atomic operations.  |
 
-###  Macro `VSYNC_VERIFICATION`
+##  Macro `VSYNC_VERIFICATION`
 
  
 _enables vsyncer verification._ 
@@ -26,14 +26,14 @@ _enables vsyncer verification._
 Define VSYNC_VERIFICATION to enable verification with vsyncer, GenMC and Dartagnan. This uses compiler builtins for the implementation of atomic operations. 
 
 
-###  Macro `VATOMIC_ENABLE_FENCE_RLX_NOP`
+##  Macro `VATOMIC_ENABLE_FENCE_RLX_NOP`
 
  
 _maps_ `vatomic_fence_rlx` _to a NOP instruction, otherwise to nothing._ 
 
 
 
-###  Macro `VATOMIC_DISABLE_POLITE_AWAIT`
+##  Macro `VATOMIC_DISABLE_POLITE_AWAIT`
 
  
 _disables polite await in x86_64 and aarch64._ 
@@ -42,7 +42,7 @@ _disables polite await in x86_64 and aarch64._
 By default, `vatomic_await_` functions use polite await strategies with `PAUSE` or `WFE` instructions in x86_64 and arm64, respectively. Define VATOMIC_DISABLE_POLITE_AWAIT to busy loop without such instructions. 
 
 
-###  Macro `VATOMIC_BUILTINS`
+##  Macro `VATOMIC_BUILTINS`
 
  
 _uses_ `__atomic` _compiler builtins to implement atomic operations._ 
@@ -51,21 +51,21 @@ _uses_ `__atomic` _compiler builtins to implement atomic operations._
 Unless VATOMIC_BUILTINS is defined, arm32 and aarch64 architectures employ custom assembly as atomics implementation. Other architectures, including x86_64, always employ compiler builtins. 
 
 
-###  Macro `VATOMIC_ENABLE_ATOMIC_SC`
+##  Macro `VATOMIC_ENABLE_ATOMIC_SC`
 
  
 _turns barrier mode of all atomic operations and fences to seq_cst._ 
 
 
 
-###  Macro `VATOMIC_ENABLE_ATOMIC_RLX`
+##  Macro `VATOMIC_ENABLE_ATOMIC_RLX`
 
  
 _turns barrier mode of all atomic operations and fences to relaxed._ 
 
 
 
-###  Macro `VATOMIC_DISABLE_ARM64_LSE`
+##  Macro `VATOMIC_DISABLE_ARM64_LSE`
 
  
 _Do not use ARM64 LSE instructions for atomic operations._ 
@@ -74,7 +74,7 @@ _Do not use ARM64 LSE instructions for atomic operations._
 If the compiler is configured to emit LSE instructions with some flag such as -march=armv8-a+lse, vatomic uses LSE instructions. Defining this flag disables the use of these instructions. 
 
 
-###  Macro `VATOMIC_ENABLE_ARM64_LXE`
+##  Macro `VATOMIC_ENABLE_ARM64_LXE`
 
  
 _use ARM64 LSE instructions in slow path of LXSX for atomic operations._ 

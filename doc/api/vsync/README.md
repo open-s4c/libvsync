@@ -1,5 +1,5 @@
 #  vsync
-_LibVSync is library of robust atomics, synchronization primitives, concurrent data structures and safe memory reclamation schemes._ 
+_libvsync is library of robust atomics, synchronization primitives, concurrent data structures and safe memory reclamation schemes._ 
 
 ---
 ## File Index

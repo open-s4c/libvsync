@@ -6,7 +6,7 @@ _Unbounded blocking total queue._
 Consumers can run in parallel to producers. Consumers block other consumers, but not producers and vice versa.
 
 
-## Example:
+### Example:
 
 
 
@@ -87,7 +87,7 @@ main(void)
 
 
 
-## References:
+### References:
 
 Maurice Herlihy, Nir Shavit - [The Art of Multiprocessor Programming 10.4](https://dl.acm.org/doi/pdf/10.5555/2385452) 
 
@@ -103,7 +103,7 @@ Maurice Herlihy, Nir Shavit - [The Art of Multiprocessor Programming 10.4](https
 | [vqueue_ub_destroy](unbounded_queue_total.h.md#function-vqueue_ub_destroy) | Destroys all remaining nodes in the queue.  |
 | [vqueue_ub_empty](unbounded_queue_total.h.md#function-vqueue_ub_empty) | Check if the queue is empty.  |
 
-###  Function `vqueue_ub_init`
+##  Function `vqueue_ub_init`
 
 ```c
 static void vqueue_ub_init(vqueue_ub_t *q)
@@ -122,7 +122,7 @@ Initialize queue.
 
 
 
-###  Function `vqueue_ub_enq`
+##  Function `vqueue_ub_enq`
 
 ```c
 static void vqueue_ub_enq(vqueue_ub_t *q, vqueue_ub_node_t *qnode, void *data)
@@ -141,7 +141,7 @@ _Enqueue the given node_ `qnode` _in the given queue_ `q`_._
 
 
 
-###  Function `vqueue_ub_get_length`
+##  Function `vqueue_ub_get_length`
 
 ```c
 static vsize_t vqueue_ub_get_length(vqueue_ub_t *q)
@@ -160,7 +160,7 @@ _Returns the length of the queue._
 
 
 
-###  Function `vqueue_ub_deq`
+##  Function `vqueue_ub_deq`
 
 ```c
 static void * vqueue_ub_deq(vqueue_ub_t *q, vqueue_ub_node_handler_t retire, void *retire_arg)
@@ -183,7 +183,7 @@ _Dequeue a node from the given queue_ `q`_._
 
 
 
-###  Function `vqueue_ub_destroy`
+##  Function `vqueue_ub_destroy`
 
 ```c
 static void vqueue_ub_destroy(vqueue_ub_t *q, vqueue_ub_node_handler_t retire, void *retire_arg)
@@ -204,7 +204,7 @@ _Destroys all remaining nodes in the queue._
 
 
 
-###  Function `vqueue_ub_empty`
+##  Function `vqueue_ub_empty`
 
 ```c
 static vbool_t vqueue_ub_empty(vqueue_ub_t *q)
