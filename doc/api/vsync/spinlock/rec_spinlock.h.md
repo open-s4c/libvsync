@@ -4,7 +4,7 @@ _Recursive spinlock implementation using recursive.h._
 see [caslock.h](caslock.h.md)
 
 
-## Example:
+### Example:
 
 
 
@@ -67,7 +67,7 @@ main(void)
 |---|---|
 | [REC_SPINLOCK_INIT](rec_spinlock.h.md#macro-rec_spinlock_init) | Initializer of `rec_spinlock`.  |
 
-###  Macro `REC_SPINLOCK_INIT`
+##  Macro `REC_SPINLOCK_INIT`
 
 ```c
 REC_SPINLOCK_INIT()
@@ -88,7 +88,7 @@ _Initializer of_ `rec_spinlock`_._
 | [rec_spinlock_acquire](rec_spinlock.h.md#function-rec_spinlock_acquire) | Acquires the recursive spinlock.  |
 | [rec_spinlock_release](rec_spinlock.h.md#function-rec_spinlock_release) | Releases the recursive spinlock.  |
 
-###  Function `rec_spinlock_init`
+##  Function `rec_spinlock_init`
 
 ```c
 static void rec_spinlock_init(rec_spinlock_t *l)
@@ -106,7 +106,7 @@ _Initializes the recursive spinlock._
 > **Note:** alternatively use `REC_SPINLOCK_INIT`. 
 
 
-###  Function `rec_spinlock_tryacquire`
+##  Function `rec_spinlock_tryacquire`
 
 ```c
 static vbool_t rec_spinlock_tryacquire(rec_spinlock_t *l, vuint32_t id)
@@ -128,7 +128,7 @@ _Tries to acquire the recursive spinlock._
 
 
 
-###  Function `rec_spinlock_acquire`
+##  Function `rec_spinlock_acquire`
 
 ```c
 static void rec_spinlock_acquire(rec_spinlock_t *l, vuint32_t id)
@@ -146,7 +146,7 @@ _Acquires the recursive spinlock._
 
 
 
-###  Function `rec_spinlock_release`
+##  Function `rec_spinlock_release`
 
 ```c
 static void rec_spinlock_release(rec_spinlock_t *l)

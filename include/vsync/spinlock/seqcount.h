@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #ifndef VSYNC_SEQCOUNT_H
 #define VSYNC_SEQCOUNT_H
 /*******************************************************************************
@@ -27,7 +28,7 @@
 typedef vatomic32_t seqcount_t;
 typedef vuint32_t seqvalue_t;
 
-#define SEQCOUNT_STEP 2
+#define SEQCOUNT_STEP 2U
 
 /** Initializer of `seqcount_t`. */
 #define SEQCOUNT_INIT() VATOMIC_INIT(0)
@@ -60,7 +61,7 @@ static inline seqvalue_t
 seqcount_wbegin(seqcount_t *sc)
 {
 	seqvalue_t s = vatomic32_read_rlx(sc);
-	vatomic32_write_rlx(sc, s + 1);
+	vatomic32_write_rlx(sc, s + 1U);
 	vatomic_fence_rel();
 	return s;
 }
@@ -86,7 +87,7 @@ seqcount_wend(seqcount_t *sc, seqvalue_t s)
 static inline seqvalue_t
 seqcount_rbegin(seqcount_t *sc)
 {
-	seqvalue_t s = vatomic32_read_acq(sc) & ~1;
+	seqvalue_t s = vatomic32_read_acq(sc) & ~1U;
 	return s;
 }
 /**

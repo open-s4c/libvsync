@@ -6,7 +6,7 @@ MCS lock is a scalable lock that guarantees FIFO order. The MCS lock forms a que
 Note that this implementation is not reentrant.
 
 
-## Example:
+### Example:
 
 
 
@@ -71,7 +71,7 @@ main(void)
 
 
 
-## References:
+### References:
 
 J.Mellor-Crummey, M.L.Scott - [Algorithms for scalable synchronization on shared-memory multiprocessors. ACM Trans. on Computer Systems. 1991] 
 
@@ -82,7 +82,7 @@ J.Mellor-Crummey, M.L.Scott - [Algorithms for scalable synchronization on shared
 |---|---|
 | [MCSLOCK_INIT](mcslock.h.md#macro-mcslock_init) | Initializer of `mcslock_t`.  |
 
-###  Macro `MCSLOCK_INIT`
+##  Macro `MCSLOCK_INIT`
 
 ```c
 MCSLOCK_INIT()
@@ -104,7 +104,7 @@ _Initializer of_ `mcslock_t`_._
 | [mcslock_release](mcslock.h.md#function-mcslock_release) | Releases the MCS lock.  |
 | [mcslock_has_waiters](mcslock.h.md#function-mcslock_has_waiters) | Returns whether there is a thread waiting to acquire the MCS lock.  |
 
-###  Function `mcslock_init`
+##  Function `mcslock_init`
 
 ```c
 static void mcslock_init(mcslock_t *l)
@@ -122,7 +122,7 @@ _Initializes the MCS lock._
 > **Note:** alternatively use `MCSLOCK_INIT`. 
 
 
-###  Function `mcslock_tryacquire`
+##  Function `mcslock_tryacquire`
 
 ```c
 static vbool_t mcslock_tryacquire(mcslock_t *l, mcs_node_t *node)
@@ -144,7 +144,7 @@ _Tries to acquire the MCS lock._
 
 
 
-###  Function `mcslock_acquire`
+##  Function `mcslock_acquire`
 
 ```c
 static void mcslock_acquire(mcslock_t *l, mcs_node_t *node)
@@ -162,7 +162,7 @@ _Acquires the MCS lock._
 
 
 
-###  Function `mcslock_release`
+##  Function `mcslock_release`
 
 ```c
 static void mcslock_release(mcslock_t *l, mcs_node_t *node)
@@ -180,7 +180,7 @@ _Releases the MCS lock._
 
 
 
-###  Function `mcslock_has_waiters`
+##  Function `mcslock_has_waiters`
 
 ```c
 static vbool_t mcslock_has_waiters(mcslock_t *l, mcs_node_t *node)

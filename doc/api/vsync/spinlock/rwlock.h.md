@@ -34,7 +34,7 @@ read_release:
 
 
 
-## Example:
+### Example:
 
 
 
@@ -118,7 +118,7 @@ main(void)
 | [RWLOCK_INITN](rwlock.h.md#macro-rwlock_initn) | Initializer of `rwlock_t`.  |
 | [RWLOCK_INIT](rwlock.h.md#macro-rwlock_init) | Initializer of `rwlock_t` with the default number of resources.  |
 
-###  Macro `RWLOCK_INITN`
+##  Macro `RWLOCK_INITN`
 
 ```c
 RWLOCK_INITN(N)
@@ -129,7 +129,7 @@ _Initializer of_ `rwlock_t`_._
 
 
 
-###  Macro `RWLOCK_INIT`
+##  Macro `RWLOCK_INIT`
 
 ```c
 RWLOCK_INIT()
@@ -152,8 +152,10 @@ _Initializer of_ `rwlock_t` _with the default number of resources._
 | [rwlock_read_acquire](rwlock.h.md#function-rwlock_read_acquire) | Acquires the read lock.  |
 | [rwlock_read_tryacquire](rwlock.h.md#function-rwlock_read_tryacquire) | Tries to acquire the read lock.  |
 | [rwlock_read_release](rwlock.h.md#function-rwlock_read_release) | Releases the read lock.  |
+| [rwlock_acquired_by_writer](rwlock.h.md#function-rwlock_acquired_by_writer) | Returns true if a writer has acquired the lock, or waiting on the readers to release it.  |
+| [rwlock_acquired_by_readers](rwlock.h.md#function-rwlock_acquired_by_readers) | Returns true if the lock is acquired by readers.  |
 
-###  Function `rwlock_init`
+##  Function `rwlock_init`
 
 ```c
 static void rwlock_init(rwlock_t *l)
@@ -171,7 +173,7 @@ _Initializes the rwlock._
 > **Note:** alternatively use `RWLOCK_INIT`. 
 
 
-###  Function `rwlock_write_acquire`
+##  Function `rwlock_write_acquire`
 
 ```c
 static void rwlock_write_acquire(rwlock_t *l)
@@ -188,7 +190,7 @@ _Acquires the write lock._
 
 
 
-###  Function `rwlock_write_tryacquire`
+##  Function `rwlock_write_tryacquire`
 
 ```c
 static vbool_t rwlock_write_tryacquire(rwlock_t *l)
@@ -209,7 +211,7 @@ _Tries to acquire the write lock._
 
 
 
-###  Function `rwlock_write_release`
+##  Function `rwlock_write_release`
 
 ```c
 static void rwlock_write_release(rwlock_t *l)
@@ -226,7 +228,7 @@ _Releases the write lock._
 
 
 
-###  Function `rwlock_read_acquire`
+##  Function `rwlock_read_acquire`
 
 ```c
 static void rwlock_read_acquire(rwlock_t *l)
@@ -243,7 +245,7 @@ _Acquires the read lock._
 
 
 
-###  Function `rwlock_read_tryacquire`
+##  Function `rwlock_read_tryacquire`
 
 ```c
 static vbool_t rwlock_read_tryacquire(rwlock_t *l)
@@ -264,7 +266,7 @@ _Tries to acquire the read lock._
 
 
 
-###  Function `rwlock_read_release`
+##  Function `rwlock_read_release`
 
 ```c
 static void rwlock_read_release(rwlock_t *l)
@@ -278,6 +280,48 @@ _Releases the read lock._
 
 - `l`: address of rwlock_t object. 
 
+
+
+
+##  Function `rwlock_acquired_by_writer`
+
+```c
+static vbool_t rwlock_acquired_by_writer(rwlock_t *l)
+``` 
+_Returns true if a writer has acquired the lock, or waiting on the readers to release it._ 
+
+
+
+
+**Parameters:**
+
+- `l`: address of rwlock_t object. 
+
+
+**Returns:** true a writer has acquired or waiting on readers to release the lock. 
+
+**Returns:** false the lock is not acquired by a writer. 
+
+
+
+##  Function `rwlock_acquired_by_readers`
+
+```c
+static vbool_t rwlock_acquired_by_readers(rwlock_t *l)
+``` 
+_Returns true if the lock is acquired by readers._ 
+
+
+
+
+**Parameters:**
+
+- `l`: address of rwlock_t object. 
+
+
+**Returns:** true if the lock is acquired by readers. 
+
+**Returns:** false if the lock is not acquired by readers. 
 
 
 

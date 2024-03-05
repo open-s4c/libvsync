@@ -44,7 +44,7 @@ Treiber, R.K., 1986. Systems programming: Coping with parallelism.
 |---|---|
 | [QUACK_INIT](quack.h.md#macro-quack_init) | Initializer of quack.  |
 
-###  Macro `QUACK_INIT`
+##  Macro `QUACK_INIT`
 
 ```c
 QUACK_INIT()
@@ -66,7 +66,7 @@ _Initializer of quack._
 | [quack_popall](quack.h.md#function-quack_popall) | Pops all elements from the quack in LIFO order.  |
 | [quack_reverse](quack.h.md#function-quack_reverse) | Reverse order of elements taken from the quack (from LIFO to FIFO or vice-versa).  |
 
-###  Function `quack_init`
+##  Function `quack_init`
 
 ```c
 static void quack_init(quack_t *s)
@@ -83,7 +83,7 @@ _Initializes quack._
 
 
 
-###  Function `quack_push`
+##  Function `quack_push`
 
 ```c
 static void quack_push(quack_t *q, quack_node_t *n)
@@ -101,7 +101,7 @@ _Pushes node into the quack._
 
 
 
-###  Function `quack_is_empty`
+##  Function `quack_is_empty`
 
 ```c
 static vbool_t quack_is_empty(quack_t *const q)
@@ -120,7 +120,7 @@ _Checks if quack is empty._
 
 
 
-###  Function `quack_popall`
+##  Function `quack_popall`
 
 ```c
 static quack_node_t* quack_popall(quack_t *q)
@@ -141,7 +141,7 @@ The user is responsible for iterating over the elements (accessible with `next` 
 
 
 
-###  Function `quack_reverse`
+##  Function `quack_reverse`
 
 ```c
 static quack_node_t* quack_reverse(quack_node_t *n)

@@ -2,7 +2,7 @@
 _Test, Test and Set lock._ 
 
 
-## Example:
+### Example:
 
 
 
@@ -55,7 +55,7 @@ main(void)
 
 
 
-## References:
+### References:
 
 Maurice Herlihy, Nir Shavit - [The Art of Multiprocessor Programming 7.3](https://dl.acm.org/doi/pdf/10.5555/2385452) 
 
@@ -66,7 +66,7 @@ Maurice Herlihy, Nir Shavit - [The Art of Multiprocessor Programming 7.3](https:
 |---|---|
 | [TTASLOCK_INIT](ttaslock.h.md#macro-ttaslock_init) | Initializer of `ttaslock_t`.  |
 
-###  Macro `TTASLOCK_INIT`
+##  Macro `TTASLOCK_INIT`
 
 ```c
 TTASLOCK_INIT()
@@ -87,7 +87,7 @@ _Initializer of_ `ttaslock_t`_._
 | [ttaslock_tryacquire](ttaslock.h.md#function-ttaslock_tryacquire) | Tries to acquire the TTAS lock.  |
 | [ttaslock_release](ttaslock.h.md#function-ttaslock_release) | Releases the TTAS lock.  |
 
-###  Function `ttaslock_init`
+##  Function `ttaslock_init`
 
 ```c
 static void ttaslock_init(ttaslock_t *l)
@@ -105,7 +105,7 @@ _Initializes the TTAS lock._
 > **Note:** alternatively use `TTASLOCK_INIT`. 
 
 
-###  Function `ttaslock_acquire`
+##  Function `ttaslock_acquire`
 
 ```c
 static void ttaslock_acquire(ttaslock_t *l)
@@ -122,7 +122,7 @@ _Acquires the TAS lock._
 
 
 
-###  Function `ttaslock_tryacquire`
+##  Function `ttaslock_tryacquire`
 
 ```c
 static vbool_t ttaslock_tryacquire(ttaslock_t *l)
@@ -143,7 +143,7 @@ _Tries to acquire the TTAS lock._
 
 
 
-###  Function `ttaslock_release`
+##  Function `ttaslock_release`
 
 ```c
 static void ttaslock_release(ttaslock_t *l)

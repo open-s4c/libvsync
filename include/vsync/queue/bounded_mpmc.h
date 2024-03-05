@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #ifndef VQUEUE_BOUNDED_H
 #define VQUEUE_BOUNDED_H
 /*******************************************************************************
@@ -67,7 +68,8 @@ bounded_mpmc_init(bounded_mpmc_t *q, void **b, vuint32_t s)
  *
  * @return QUEUE_BOUNDED_OK if successful.
  * @return QUEUE_BOUNDED_FULL if queue is full.
- * @return QUEUE_AGAIN if failed to enqueue, the caller should try again.
+ * @return QUEUE_BOUNDED_AGAIN if failed to enqueue, the caller should try
+ * again.
  */
 static inline bounded_ret_t
 bounded_mpmc_enq(bounded_mpmc_t *q, void *v)
@@ -102,7 +104,8 @@ bounded_mpmc_enq(bounded_mpmc_t *q, void *v)
  *
  * @return QUEUE_BOUNDED_OK if successful.
  * @return QUEUE_BOUNDED_EMPTY if queue is empty.
- * @return QUEUE_AGAIN if failed to dequeue, the caller should try again.
+ * @return QUEUE_BOUNDED_AGAIN if failed to dequeue, the caller should try
+ * again.
  */
 static inline bounded_ret_t
 bounded_mpmc_deq(bounded_mpmc_t *q, void **v)

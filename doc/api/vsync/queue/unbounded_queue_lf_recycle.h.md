@@ -10,7 +10,7 @@ _Lock-free recycle unbounded queue._
 > **Note:** maintain a thread local free node list that you place retired nodes on and reuse them for new allocations, unless the list is empty
 
 
-## Example:
+### Example:
 
 
 
@@ -163,7 +163,7 @@ main(void)
 - maintain local pool per thread
 - when a thread retires a node, add the node to the local pool
 - when a thread wants to allocate a new node fetch a node from the local unless it is not empty. If it is empty, allocate it with your normal allocator e.g. memalign> **Note:** the above suggestions works well for threads that perform roughly the same number of enqueues and dequeues. If that is not the case, a thread needs a strategy of stealing nodes from other pools.
-## References:
+### References:
 
 
 Maurice Herlihy, Nir Shavit - [The Art of Multiprocessor Programming 10.6](https://dl.acm.org/doi/pdf/10.5555/2385452) 
@@ -180,7 +180,7 @@ Maurice Herlihy, Nir Shavit - [The Art of Multiprocessor Programming 10.6](https
 | [vqueue_ub_deq](unbounded_queue_lf_recycle.h.md#function-vqueue_ub_deq) | Dequeue a node from the given queue `q`.  |
 | [vqueue_ub_get_length](unbounded_queue_lf_recycle.h.md#function-vqueue_ub_get_length) | Iterate through the queue nodes and count them.  |
 
-###  Function `vqueue_ub_init`
+##  Function `vqueue_ub_init`
 
 ```c
 static void vqueue_ub_init(vqueue_ub_t *q)
@@ -199,7 +199,7 @@ _Initialize the queue._
 
 
 
-###  Function `vqueue_ub_destroy`
+##  Function `vqueue_ub_destroy`
 
 ```c
 static void vqueue_ub_destroy(vqueue_ub_t *q, vqueue_ub_node_handler_t retire, void *arg)
@@ -222,7 +222,7 @@ _Destroys all remaining nodes in the queue._
 
 
 
-###  Function `vqueue_ub_enq`
+##  Function `vqueue_ub_enq`
 
 ```c
 static void vqueue_ub_enq(vqueue_ub_t *q, vqueue_ub_node_t *qnode, void *data)
@@ -241,7 +241,7 @@ _Enqueue the given node_ `qnode` _in the given queue_ `q`_._
 
 
 
-###  Function `vqueue_ub_empty`
+##  Function `vqueue_ub_empty`
 
 ```c
 static vbool_t vqueue_ub_empty(vqueue_ub_t *q)
@@ -264,7 +264,7 @@ _Check if the queue is empty._
 
 
 
-###  Function `vqueue_ub_deq`
+##  Function `vqueue_ub_deq`
 
 ```c
 static void* vqueue_ub_deq(vqueue_ub_t *q, vqueue_ub_node_handler_t retire, void *arg)
@@ -287,7 +287,7 @@ _Dequeue a node from the given queue_ `q`_._
 
 
 
-###  Function `vqueue_ub_get_length`
+##  Function `vqueue_ub_get_length`
 
 ```c
 static vsize_t vqueue_ub_get_length(vqueue_ub_t *q)

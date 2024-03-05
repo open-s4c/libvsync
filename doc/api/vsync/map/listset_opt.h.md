@@ -6,7 +6,7 @@ _This implementation is an optimized verison of listset_fine._
 It uses fine grained locking (one lock per node) to serialize all operations. This implementation allows for list traversal without acquiring locks. Locks are only acquired to validate the traversal results and performing the operations.
 
 
-## Example:
+### Example:
 
 
 
@@ -73,7 +73,7 @@ smr_rwlock_lib_t g_rwlock_lib = {thread_rw_read_acq, thread_rw_read_rel,
 void
 free_cb(smr_node_t *snode, void *args)
 {
-    data_t *data = container_of(snode, data_t, smr_node);
+    data_t *data = V_CONTAINER_OF(snode, data_t, smr_node);
     free(data);
     (void)args;
 }
@@ -212,7 +212,7 @@ main(void)
 
 
 
-## References:
+### References:
 
 Maurice Herlihy, Nir Shavit - [The Art of Multiprocessor Programming 9.6](https://dl.acm.org/doi/pdf/10.5555/2385452) 
 
@@ -227,7 +227,7 @@ Maurice Herlihy, Nir Shavit - [The Art of Multiprocessor Programming 9.6](https:
 | [vlistset_remove](listset_opt.h.md#function-vlistset_remove) | Removes the node associated with the given key from the listset.  |
 | [vlistset_get](listset_opt.h.md#function-vlistset_get) | Looks for the listset node associated with the given key.  |
 
-###  Function `vlistset_init`
+##  Function `vlistset_init`
 
 ```c
 static void vlistset_init(vlistset_t *lst, vlistset_handle_node_t retire_fun, void *retire_fun_arg, vlistset_cmp_key_t cmp_fun)
@@ -247,7 +247,7 @@ _Initializes the given vlistset_t object_ `lst`_._
 
 
 
-###  Function `vlistset_destroy`
+##  Function `vlistset_destroy`
 
 ```c
 static void vlistset_destroy(vlistset_t *lst)
@@ -264,7 +264,7 @@ _Destroys all the remaining nodes in the listset._
 
 
 
-###  Function `vlistset_add`
+##  Function `vlistset_add`
 
 ```c
 static vbool_t vlistset_add(vlistset_t *lst, vlistset_key_t key, vlistset_node_t *node)
@@ -292,7 +292,7 @@ The node is only inserted if there is no other node associated with the given ke
 > **Note:** must be called inside SMR critical section. 
 
 
-###  Function `vlistset_remove`
+##  Function `vlistset_remove`
 
 ```c
 static vbool_t vlistset_remove(vlistset_t *lst, vlistset_key_t key)
@@ -315,7 +315,7 @@ _Removes the node associated with the given key from the listset._
 > **Note:** must be called inside SMR critical section. 
 
 
-###  Function `vlistset_get`
+##  Function `vlistset_get`
 
 ```c
 static vlistset_node_t* vlistset_get(vlistset_t *lst, vlistset_key_t key)

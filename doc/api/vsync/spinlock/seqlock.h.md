@@ -4,7 +4,7 @@ _Multi-writer multi-reader optimistic lock._
 In seqlock writers are only blocked by writers but not by readers. Readers optimistically read shared variables and subsequently check their consistency. If any of the shared variables has been updated while being read, the readers must retry.
 
 
-## Example:
+### Example:
 
 
 
@@ -90,7 +90,7 @@ main(void)
 |---|---|
 | [SEQ_LOCK_INIT](seqlock.h.md#macro-seq_lock_init) | Initializer of `seqlock_t`.  |
 
-###  Macro `SEQ_LOCK_INIT`
+##  Macro `SEQ_LOCK_INIT`
 
 ```c
 SEQ_LOCK_INIT()
@@ -112,7 +112,7 @@ _Initializer of_ `seqlock_t`_._
 | [seqlock_rbegin](seqlock.h.md#function-seqlock_rbegin) | Begins reader critical section.  |
 | [seqlock_rend](seqlock.h.md#function-seqlock_rend) | Ends reader critical section.  |
 
-###  Function `seqlock_init`
+##  Function `seqlock_init`
 
 ```c
 static void seqlock_init(seqlock_t *seq)
@@ -130,7 +130,7 @@ _Initializes the seqlock._
 > **Note:** alternatively use `SEQ_LOCK_INIT`. 
 
 
-###  Function `seqlock_acquire`
+##  Function `seqlock_acquire`
 
 ```c
 static void seqlock_acquire(seqlock_t *seq)
@@ -150,7 +150,7 @@ _Acquires the lock in write-mode._
 > **Note:** only writers need to call this function, in order to enter the critical section. 
 
 
-###  Function `seqlock_release`
+##  Function `seqlock_release`
 
 ```c
 static void seqlock_release(seqlock_t *seq)
@@ -170,7 +170,7 @@ _Releases the lock in write-mode._
 > **Note:** only writers need to call this function, once they are done accessing the critical section. 
 
 
-###  Function `seqlock_rbegin`
+##  Function `seqlock_rbegin`
 
 ```c
 static seqvalue_t seqlock_rbegin(seqlock_t *seq)
@@ -193,7 +193,7 @@ This function returns a value that must be later passed to `seqlock_rend`.
 
 
 
-###  Function `seqlock_rend`
+##  Function `seqlock_rend`
 
 ```c
 static vbool_t seqlock_rend(seqlock_t *seq, seqvalue_t sv)

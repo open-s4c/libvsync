@@ -6,7 +6,7 @@ A seqcount allows a writer to modify shared variables without being blocked by r
 > **Note:** this algorithm is suitable for one writer, multiple readers. See [vsync/spinlock/seqlock.h](seqlock.h.md) for multiple writer support.
 
 
-## Example:
+### Example:
 
 
 
@@ -89,7 +89,7 @@ main(void)
 
 
 
-## References:
+### References:
  [The seqcount latch lock type](https://lwn.net/Articles/831540/) 
 
 ---
@@ -99,7 +99,7 @@ main(void)
 |---|---|
 | [SEQCOUNT_INIT](seqcount.h.md#macro-seqcount_init) | Initializer of `seqcount_t`.  |
 
-###  Macro `SEQCOUNT_INIT`
+##  Macro `SEQCOUNT_INIT`
 
 ```c
 SEQCOUNT_INIT()
@@ -121,7 +121,7 @@ _Initializer of_ `seqcount_t`_._
 | [seqcount_rbegin](seqcount.h.md#function-seqcount_rbegin) | Begins reader critical section.  |
 | [seqcount_rend](seqcount.h.md#function-seqcount_rend) | Tries to end the reader critical section.  |
 
-###  Function `seqcount_init`
+##  Function `seqcount_init`
 
 ```c
 static void seqcount_init(seqcount_t *sc)
@@ -139,7 +139,7 @@ _Initializes seqcount._
 > **Note:** alternatively use `SEQCOUNT_INIT`. 
 
 
-###  Function `seqcount_wbegin`
+##  Function `seqcount_wbegin`
 
 ```c
 static seqvalue_t seqcount_wbegin(seqcount_t *sc)
@@ -161,7 +161,7 @@ This function can only be called by a single thread. If multiple writers are nec
 > **Note:** Can be called by a single thread. 
 
 
-###  Function `seqcount_wend`
+##  Function `seqcount_wend`
 
 ```c
 static void seqcount_wend(seqcount_t *sc, seqvalue_t s)
@@ -179,7 +179,7 @@ _Ends writer critical section._
 
 
 
-###  Function `seqcount_rbegin`
+##  Function `seqcount_rbegin`
 
 ```c
 static seqvalue_t seqcount_rbegin(seqcount_t *sc)
@@ -200,7 +200,7 @@ _Begins reader critical section._
 
 
 
-###  Function `seqcount_rend`
+##  Function `seqcount_rend`
 
 ```c
 static vbool_t seqcount_rend(seqcount_t *sc, seqvalue_t s)

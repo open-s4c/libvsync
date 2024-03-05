@@ -1,3 +1,5 @@
+set(V_TEST_LABELS "CROSS")
+
 # Create a generator expression with a list of `-I/path/to/include_directory`
 # flags The genex is adapted from the recommended approach here in the CMake
 # manual:
@@ -41,77 +43,96 @@ v_add_bin_test(NAME atomicptr_stamped COMMAND atomicptr_stamped)
 # to undefine these macros in vatomic_cleanup.h. Macro leftovers that are
 # intended must be whitelisted below or added.
 # ##############################################################################
+if(NOT CMAKE_CROSSCOMPILING)
+    add_custom_command(
+        OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/base-definitions.h"
+        COMMAND
+            ${CMAKE_C_COMPILER} ${CFLAGS} -dM -E #
+            -include stdint.h #
+            -include stddef.h #
+            -include inttypes.h #
+            -include limits.h #
+            -include assert.h #
+            -include stdbool.h #
+            - < /dev/null #
+            | sort #
+            > "${CMAKE_CURRENT_BINARY_DIR}/base-definitions.h")
 
-add_custom_command(
-    OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/base-definitions.h"
-    COMMAND
-        ${CMAKE_C_COMPILER} ${CFLAGS} -dM -E #
-        -include stdint.h #
-        -include stddef.h #
-        -include inttypes.h #
-        -include limits.h #
-        -include assert.h #
-        -include stdbool.h #
-        - < /dev/null #
-        | sort #
-        > "${CMAKE_CURRENT_BINARY_DIR}/base-definitions.h")
+    add_custom_target(base-definitions
+                      DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/base-definitions.h")
 
-add_custom_target(base-definitions
-                  DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/base-definitions.h")
+    add_custom_command(
+        OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/vatomic-definitions.h"
+        COMMAND
+            ${CMAKE_C_COMPILER} ${CFLAGS} -dM -E #
+            "${VATOMIC_INC}" #
+            -include stdint.h #
+            -include stddef.h #
+            -include inttypes.h #
+            -include limits.h #
+            -include assert.h #
+            -include stdbool.h #
+            -include vsync/atomic.h #
+            -include vsync/atomic/atomicptr_markable.h #
+            -include vsync/atomic/atomicptr_stamped.h #
+            - < /dev/null #
+            | sort #
+            > vatomic-definitions.h
+        VERBATIM COMMAND_EXPAND_LISTS
+        # Rerunning whenever vsync changes is a very conservative option, that
+        # should definitely work
+        DEPENDS vsync)
 
-add_custom_command(
-    OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/vatomic-definitions.h"
-    COMMAND
-        ${CMAKE_C_COMPILER} ${CFLAGS} -dM -E #
-        "${VATOMIC_INC}" #
-        -include stdint.h #
-        -include stddef.h #
-        -include inttypes.h #
-        -include limits.h #
-        -include assert.h #
-        -include stdbool.h #
-        -include vsync/atomic.h #
-        -include vsync/atomic/atomicptr_markable.h #
-        -include vsync/atomic/atomicptr_stamped.h #
-        - < /dev/null #
-        | sort #
-        > vatomic-definitions.h
-    VERBATIM COMMAND_EXPAND_LISTS
-    # Rerunning whenever vsync changes is a very conservative option, that
-    # should definitely work
-    DEPENDS vsync)
+    add_custom_target(
+        vatomic-definitions
+        DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/vatomic-definitions.h")
 
-add_custom_target(vatomic-definitions
-                  DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/vatomic-definitions.h")
+    add_custom_command(
+        OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/leftovers.txt"
+        COMMAND
+            diff "${CMAKE_CURRENT_BINARY_DIR}/base-definitions.h"
+            "${CMAKE_CURRENT_BINARY_DIR}/vatomic-definitions.h" #
+            | grep -e '^>' #
+            | cut -d' ' -f3 #
+            | cut -d'\(' -f1 #
+            | grep -E -v
+            --file=${CMAKE_CURRENT_SOURCE_DIR}/leftover_patterns.txt #
+            | tee "${CMAKE_CURRENT_BINARY_DIR}/leftovers.txt" #
+        DEPENDS base-definitions #
+                vatomic-definitions #
+                "${CMAKE_CURRENT_SOURCE_DIR}/leftover_patterns.txt")
 
-add_custom_command(
-    OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/leftovers.txt"
-    COMMAND
-        diff "${CMAKE_CURRENT_BINARY_DIR}/base-definitions.h"
-        "${CMAKE_CURRENT_BINARY_DIR}/vatomic-definitions.h" #
-        | grep -e '^>' #
-        | cut -d' ' -f3 #
-        | cut -d'\(' -f1 #
-        | grep -E -v --file=${CMAKE_CURRENT_SOURCE_DIR}/leftover_patterns.txt #
-        | tee "${CMAKE_CURRENT_BINARY_DIR}/leftovers.txt" #
-    DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/base-definitions.h"
-            "${CMAKE_CURRENT_BINARY_DIR}/vatomic-definitions.h"
-            "${CMAKE_CURRENT_SOURCE_DIR}/leftover_patterns.txt")
+    add_custom_target(leftovers ALL
+                      DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/leftovers.txt")
 
-add_custom_target(leftovers ALL
-                  DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/leftovers.txt")
+    set(LEFTOVERS "${CMAKE_CURRENT_BINARY_DIR}/leftovers.txt")
+    set(LEFTOVERS_CHECK_CMD
+        "\
+    if [[ -f ${LEFTOVERS} ]] && [[ ! -s ${LEFTOVERS} ]]; \
+    then cat ${LEFTOVERS} && true; \
+    else cat ${LEFTOVERS} && false; \
+    fi")
 
-set(LEFTOVERS "${CMAKE_CURRENT_BINARY_DIR}/leftovers.txt")
-set(LEFTOVERS_CHECK_CMD
-    "\
-if [[ -f ${LEFTOVERS} ]] && [[ ! -s ${LEFTOVERS} ]]; \
-then cat ${LEFTOVERS} && true; \
-else cat ${LEFTOVERS} && false; \
-fi")
+    set(BUILD_LEFTOVERS_CMD "build-leftovers")
+    set(LEFTOVERS_TEST "macro-leftovers-test")
 
-add_test(NAME macro-leftovers-test COMMAND bash -c "${LEFTOVERS_CHECK_CMD}"
-                                           DEPENDS leftovers)
+    add_test(NAME ${LEFTOVERS_TEST} COMMAND bash -c "${LEFTOVERS_CHECK_CMD}"
+                                            DEPENDS leftovers)
 
+    # add fixtures to trigger leftovers generation without calling make
+    # explicitly
+
+    add_test(NAME "${BUILD_LEFTOVERS_CMD}"
+             COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target
+                     leftovers)
+
+    set_tests_properties("${BUILD_LEFTOVERS_CMD}"
+                         PROPERTIES FIXTURES_SETUP "${BUILD_LEFTOVERS_CMD}")
+
+    set_tests_properties("${LEFTOVERS_TEST}"
+                         PROPERTIES FIXTURES_REQUIRED "${BUILD_LEFTOVERS_CMD}")
+
+endif()
 # ##############################################################################
 # generate an expanded vatomic file for manual inspection
 # ##############################################################################

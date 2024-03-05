@@ -120,7 +120,7 @@ Please do not include this file directly, instead use:
 | [vatomic16_dec_rel](core_u16.h.md#function-vatomic16_dec_rel) | Decrements the value of a.  |
 | [vatomic16_dec_rlx](core_u16.h.md#function-vatomic16_dec_rlx) | Decrements the value of a.  |
 
-###  Function `vatomic16_init`
+##  Function `vatomic16_init`
 
 ```c
 static void vatomic16_init(vatomic16_t *a, vuint16_t v)
@@ -141,7 +141,7 @@ The initialization is equivalent to an [vatomic16_write()](core_u16.h.md#functio
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic16_read`
+##  Function `vatomic16_read`
 
 ```c
 static vuint16_t vatomic16_read(vatomic16_t *a)
@@ -161,7 +161,7 @@ _Returns the value of the atomic variable pointed by a._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic16_read_acq`
+##  Function `vatomic16_read_acq`
 
 ```c
 static vuint16_t vatomic16_read_acq(vatomic16_t *a)
@@ -181,7 +181,7 @@ _Returns the value of the atomic variable pointed by a._
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic16_read_rlx`
+##  Function `vatomic16_read_rlx`
 
 ```c
 static vuint16_t vatomic16_read_rlx(vatomic16_t *a)
@@ -201,7 +201,7 @@ _Returns the value of the atomic variable pointed by a._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic16_write`
+##  Function `vatomic16_write`
 
 ```c
 static void vatomic16_write(vatomic16_t *a, vuint16_t v)
@@ -220,7 +220,7 @@ _Writes value v in the atomic variable pointed by a._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic16_write_rel`
+##  Function `vatomic16_write_rel`
 
 ```c
 static void vatomic16_write_rel(vatomic16_t *a, vuint16_t v)
@@ -239,7 +239,7 @@ _Writes value v in the atomic variable pointed by a._
 **Memory ordering**: release 
 
 
-###  Function `vatomic16_write_rlx`
+##  Function `vatomic16_write_rlx`
 
 ```c
 static void vatomic16_write_rlx(vatomic16_t *a, vuint16_t v)
@@ -258,7 +258,7 @@ _Writes value v in the atomic variable pointed by a._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic16_xchg`
+##  Function `vatomic16_xchg`
 
 ```c
 static vuint16_t vatomic16_xchg(vatomic16_t *a, vuint16_t v)
@@ -279,7 +279,7 @@ _Writes v in a and returns old value._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic16_xchg_acq`
+##  Function `vatomic16_xchg_acq`
 
 ```c
 static vuint16_t vatomic16_xchg_acq(vatomic16_t *a, vuint16_t v)
@@ -300,7 +300,7 @@ _Writes v in a and returns old value._
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic16_xchg_rel`
+##  Function `vatomic16_xchg_rel`
 
 ```c
 static vuint16_t vatomic16_xchg_rel(vatomic16_t *a, vuint16_t v)
@@ -321,7 +321,7 @@ _Writes v in a and returns old value._
 **Memory ordering**: release 
 
 
-###  Function `vatomic16_xchg_rlx`
+##  Function `vatomic16_xchg_rlx`
 
 ```c
 static vuint16_t vatomic16_xchg_rlx(vatomic16_t *a, vuint16_t v)
@@ -342,7 +342,7 @@ _Writes v in a and returns old value._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic16_cmpxchg`
+##  Function `vatomic16_cmpxchg`
 
 ```c
 static vuint16_t vatomic16_cmpxchg(vatomic16_t *a, vuint16_t e, vuint16_t v)
@@ -363,7 +363,7 @@ _Writes value v in a if e is the current value._
 
 
 
-###  Function `vatomic16_cmpxchg_acq`
+##  Function `vatomic16_cmpxchg_acq`
 
 ```c
 static vuint16_t vatomic16_cmpxchg_acq(vatomic16_t *a, vuint16_t e, vuint16_t v)
@@ -384,7 +384,7 @@ _Writes value v in a if e is the current value._
 
 
 
-###  Function `vatomic16_cmpxchg_rel`
+##  Function `vatomic16_cmpxchg_rel`
 
 ```c
 static vuint16_t vatomic16_cmpxchg_rel(vatomic16_t *a, vuint16_t e, vuint16_t v)
@@ -405,7 +405,7 @@ _Writes value v in a if e is the current value._
 
 
 
-###  Function `vatomic16_cmpxchg_rlx`
+##  Function `vatomic16_cmpxchg_rlx`
 
 ```c
 static vuint16_t vatomic16_cmpxchg_rlx(vatomic16_t *a, vuint16_t e, vuint16_t v)
@@ -426,7 +426,7 @@ _Writes value v in a if e is the current value._
 
 
 
-###  Function `vatomic16_get_max`
+##  Function `vatomic16_get_max`
 
 ```c
 static vuint16_t vatomic16_get_max(vatomic16_t *a, vuint16_t v)
@@ -447,7 +447,7 @@ _Writes v to a if v is greater than *a and returns the old value._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic16_get_max_acq`
+##  Function `vatomic16_get_max_acq`
 
 ```c
 static vuint16_t vatomic16_get_max_acq(vatomic16_t *a, vuint16_t v)
@@ -468,7 +468,7 @@ _Writes v to a if v is greater than *a and returns the old value._
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic16_get_max_rel`
+##  Function `vatomic16_get_max_rel`
 
 ```c
 static vuint16_t vatomic16_get_max_rel(vatomic16_t *a, vuint16_t v)
@@ -489,7 +489,7 @@ _Writes v to a if v is greater than *a and returns the old value._
 **Memory ordering**: release 
 
 
-###  Function `vatomic16_get_max_rlx`
+##  Function `vatomic16_get_max_rlx`
 
 ```c
 static vuint16_t vatomic16_get_max_rlx(vatomic16_t *a, vuint16_t v)
@@ -510,7 +510,7 @@ _Writes v to a if v is greater than *a and returns the old value._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic16_max_get`
+##  Function `vatomic16_max_get`
 
 ```c
 static vuint16_t vatomic16_max_get(vatomic16_t *a, vuint16_t v)
@@ -531,7 +531,7 @@ _Writes v to a if v is greater than *a and returns the new value._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic16_max_get_acq`
+##  Function `vatomic16_max_get_acq`
 
 ```c
 static vuint16_t vatomic16_max_get_acq(vatomic16_t *a, vuint16_t v)
@@ -552,7 +552,7 @@ _Writes v to a if v is greater than *a and returns the new value._
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic16_max_get_rel`
+##  Function `vatomic16_max_get_rel`
 
 ```c
 static vuint16_t vatomic16_max_get_rel(vatomic16_t *a, vuint16_t v)
@@ -573,7 +573,7 @@ _Writes v to a if v is greater than *a and returns the new value._
 **Memory ordering**: release 
 
 
-###  Function `vatomic16_max_get_rlx`
+##  Function `vatomic16_max_get_rlx`
 
 ```c
 static vuint16_t vatomic16_max_get_rlx(vatomic16_t *a, vuint16_t v)
@@ -594,7 +594,7 @@ _Writes v to a if v is greater than *a and returns the new value._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic16_max`
+##  Function `vatomic16_max`
 
 ```c
 static void vatomic16_max(vatomic16_t *a, vuint16_t v)
@@ -613,7 +613,7 @@ _Writes v to a if v is greater than *a._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic16_max_rel`
+##  Function `vatomic16_max_rel`
 
 ```c
 static void vatomic16_max_rel(vatomic16_t *a, vuint16_t v)
@@ -632,7 +632,7 @@ _Writes v to a if v is greater than *a._
 **Memory ordering**: release 
 
 
-###  Function `vatomic16_max_rlx`
+##  Function `vatomic16_max_rlx`
 
 ```c
 static void vatomic16_max_rlx(vatomic16_t *a, vuint16_t v)
@@ -651,7 +651,7 @@ _Writes v to a if v is greater than *a._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic16_get_and`
+##  Function `vatomic16_get_and`
 
 ```c
 static vuint16_t vatomic16_get_and(vatomic16_t *a, vuint16_t v)
@@ -672,7 +672,7 @@ _Applies bitwise and to the value of a and returns the old value._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic16_get_and_acq`
+##  Function `vatomic16_get_and_acq`
 
 ```c
 static vuint16_t vatomic16_get_and_acq(vatomic16_t *a, vuint16_t v)
@@ -693,7 +693,7 @@ _Applies bitwise and to the value of a and returns the old value._
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic16_get_and_rel`
+##  Function `vatomic16_get_and_rel`
 
 ```c
 static vuint16_t vatomic16_get_and_rel(vatomic16_t *a, vuint16_t v)
@@ -714,7 +714,7 @@ _Applies bitwise and to the value of a and returns the old value._
 **Memory ordering**: release 
 
 
-###  Function `vatomic16_get_and_rlx`
+##  Function `vatomic16_get_and_rlx`
 
 ```c
 static vuint16_t vatomic16_get_and_rlx(vatomic16_t *a, vuint16_t v)
@@ -735,7 +735,7 @@ _Applies bitwise and to the value of a and returns the old value._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic16_and_get`
+##  Function `vatomic16_and_get`
 
 ```c
 static vuint16_t vatomic16_and_get(vatomic16_t *a, vuint16_t v)
@@ -756,7 +756,7 @@ _Applies bitwise and operation with v to the value of a and returns the new valu
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic16_and_get_acq`
+##  Function `vatomic16_and_get_acq`
 
 ```c
 static vuint16_t vatomic16_and_get_acq(vatomic16_t *a, vuint16_t v)
@@ -777,7 +777,7 @@ _Applies bitwise and operation with v to the value of a and returns the new valu
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic16_and_get_rel`
+##  Function `vatomic16_and_get_rel`
 
 ```c
 static vuint16_t vatomic16_and_get_rel(vatomic16_t *a, vuint16_t v)
@@ -798,7 +798,7 @@ _Applies bitwise and operation with v to the value of a and returns the new valu
 **Memory ordering**: release 
 
 
-###  Function `vatomic16_and_get_rlx`
+##  Function `vatomic16_and_get_rlx`
 
 ```c
 static vuint16_t vatomic16_and_get_rlx(vatomic16_t *a, vuint16_t v)
@@ -819,7 +819,7 @@ _Applies bitwise and operation with v to the value of a and returns the new valu
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic16_and`
+##  Function `vatomic16_and`
 
 ```c
 static void vatomic16_and(vatomic16_t *a, vuint16_t v)
@@ -838,7 +838,7 @@ _Applies bitwise and operation with v to the value of a._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic16_and_rel`
+##  Function `vatomic16_and_rel`
 
 ```c
 static void vatomic16_and_rel(vatomic16_t *a, vuint16_t v)
@@ -857,7 +857,7 @@ _Applies bitwise and operation with v to the value of a._
 **Memory ordering**: release 
 
 
-###  Function `vatomic16_and_rlx`
+##  Function `vatomic16_and_rlx`
 
 ```c
 static void vatomic16_and_rlx(vatomic16_t *a, vuint16_t v)
@@ -876,7 +876,7 @@ _Applies bitwise and operation with v to the value of a._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic16_get_or`
+##  Function `vatomic16_get_or`
 
 ```c
 static vuint16_t vatomic16_get_or(vatomic16_t *a, vuint16_t v)
@@ -897,7 +897,7 @@ _Applies bitwise or operation with v to the value of a and returns the old value
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic16_get_or_acq`
+##  Function `vatomic16_get_or_acq`
 
 ```c
 static vuint16_t vatomic16_get_or_acq(vatomic16_t *a, vuint16_t v)
@@ -918,7 +918,7 @@ _Applies bitwise or operation with v to the value of a and returns the old value
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic16_get_or_rel`
+##  Function `vatomic16_get_or_rel`
 
 ```c
 static vuint16_t vatomic16_get_or_rel(vatomic16_t *a, vuint16_t v)
@@ -939,7 +939,7 @@ _Applies bitwise or operation with v to the value of a and returns the old value
 **Memory ordering**: release 
 
 
-###  Function `vatomic16_get_or_rlx`
+##  Function `vatomic16_get_or_rlx`
 
 ```c
 static vuint16_t vatomic16_get_or_rlx(vatomic16_t *a, vuint16_t v)
@@ -960,7 +960,7 @@ _Applies bitwise or operation with v to the value of a and returns the old value
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic16_or_get`
+##  Function `vatomic16_or_get`
 
 ```c
 static vuint16_t vatomic16_or_get(vatomic16_t *a, vuint16_t v)
@@ -981,7 +981,7 @@ _Applies bitwise or operation with v to the value of a and returns the new value
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic16_or_get_acq`
+##  Function `vatomic16_or_get_acq`
 
 ```c
 static vuint16_t vatomic16_or_get_acq(vatomic16_t *a, vuint16_t v)
@@ -1002,7 +1002,7 @@ _Applies bitwise or operation with v to the value of a and returns the new value
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic16_or_get_rel`
+##  Function `vatomic16_or_get_rel`
 
 ```c
 static vuint16_t vatomic16_or_get_rel(vatomic16_t *a, vuint16_t v)
@@ -1023,7 +1023,7 @@ _Applies bitwise or operation with v to the value of a and returns the new value
 **Memory ordering**: release 
 
 
-###  Function `vatomic16_or_get_rlx`
+##  Function `vatomic16_or_get_rlx`
 
 ```c
 static vuint16_t vatomic16_or_get_rlx(vatomic16_t *a, vuint16_t v)
@@ -1044,7 +1044,7 @@ _Applies bitwise or operation with v to the value of a and returns the new value
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic16_or`
+##  Function `vatomic16_or`
 
 ```c
 static void vatomic16_or(vatomic16_t *a, vuint16_t v)
@@ -1063,7 +1063,7 @@ _Applies bitwise or operation with v to the value of a._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic16_or_rel`
+##  Function `vatomic16_or_rel`
 
 ```c
 static void vatomic16_or_rel(vatomic16_t *a, vuint16_t v)
@@ -1082,7 +1082,7 @@ _Applies bitwise or operation with v to the value of a._
 **Memory ordering**: release 
 
 
-###  Function `vatomic16_or_rlx`
+##  Function `vatomic16_or_rlx`
 
 ```c
 static void vatomic16_or_rlx(vatomic16_t *a, vuint16_t v)
@@ -1101,7 +1101,7 @@ _Applies bitwise or operation with v to the value of a._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic16_get_xor`
+##  Function `vatomic16_get_xor`
 
 ```c
 static vuint16_t vatomic16_get_xor(vatomic16_t *a, vuint16_t v)
@@ -1122,7 +1122,7 @@ _Applies bitwise xor operation with v to the value of a and returns the old valu
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic16_get_xor_acq`
+##  Function `vatomic16_get_xor_acq`
 
 ```c
 static vuint16_t vatomic16_get_xor_acq(vatomic16_t *a, vuint16_t v)
@@ -1143,7 +1143,7 @@ _Applies bitwise xor operation with v to the value of a and returns the old valu
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic16_get_xor_rel`
+##  Function `vatomic16_get_xor_rel`
 
 ```c
 static vuint16_t vatomic16_get_xor_rel(vatomic16_t *a, vuint16_t v)
@@ -1164,7 +1164,7 @@ _Applies bitwise xor operation with v to the value of a and returns the old valu
 **Memory ordering**: release 
 
 
-###  Function `vatomic16_get_xor_rlx`
+##  Function `vatomic16_get_xor_rlx`
 
 ```c
 static vuint16_t vatomic16_get_xor_rlx(vatomic16_t *a, vuint16_t v)
@@ -1185,7 +1185,7 @@ _Applies bitwise xor operation with v to the value of a and returns the old valu
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic16_xor_get`
+##  Function `vatomic16_xor_get`
 
 ```c
 static vuint16_t vatomic16_xor_get(vatomic16_t *a, vuint16_t v)
@@ -1206,7 +1206,7 @@ _Applies bitwise xor operation with v to the value of a and returns the new valu
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic16_xor_get_acq`
+##  Function `vatomic16_xor_get_acq`
 
 ```c
 static vuint16_t vatomic16_xor_get_acq(vatomic16_t *a, vuint16_t v)
@@ -1227,7 +1227,7 @@ _Applies bitwise xor operation with v to the value of a and returns the new valu
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic16_xor_get_rel`
+##  Function `vatomic16_xor_get_rel`
 
 ```c
 static vuint16_t vatomic16_xor_get_rel(vatomic16_t *a, vuint16_t v)
@@ -1248,7 +1248,7 @@ _Applies bitwise xor operation with v to the value of a and returns the new valu
 **Memory ordering**: release 
 
 
-###  Function `vatomic16_xor_get_rlx`
+##  Function `vatomic16_xor_get_rlx`
 
 ```c
 static vuint16_t vatomic16_xor_get_rlx(vatomic16_t *a, vuint16_t v)
@@ -1269,7 +1269,7 @@ _Applies bitwise xor operation with v to the value of a and returns the new valu
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic16_xor`
+##  Function `vatomic16_xor`
 
 ```c
 static void vatomic16_xor(vatomic16_t *a, vuint16_t v)
@@ -1288,7 +1288,7 @@ _Applies bitwise xor opeation with v to the value of a._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic16_xor_rel`
+##  Function `vatomic16_xor_rel`
 
 ```c
 static void vatomic16_xor_rel(vatomic16_t *a, vuint16_t v)
@@ -1307,7 +1307,7 @@ _Applies bitwise xor opeation with v to the value of a._
 **Memory ordering**: release 
 
 
-###  Function `vatomic16_xor_rlx`
+##  Function `vatomic16_xor_rlx`
 
 ```c
 static void vatomic16_xor_rlx(vatomic16_t *a, vuint16_t v)
@@ -1326,7 +1326,7 @@ _Applies bitwise xor opeation with v to the value of a._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic16_get_add`
+##  Function `vatomic16_get_add`
 
 ```c
 static vuint16_t vatomic16_get_add(vatomic16_t *a, vuint16_t v)
@@ -1347,7 +1347,7 @@ _Adds v to the value of a and returns the old value._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic16_get_add_acq`
+##  Function `vatomic16_get_add_acq`
 
 ```c
 static vuint16_t vatomic16_get_add_acq(vatomic16_t *a, vuint16_t v)
@@ -1368,7 +1368,7 @@ _Adds v to the value of a and returns the old value._
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic16_get_add_rel`
+##  Function `vatomic16_get_add_rel`
 
 ```c
 static vuint16_t vatomic16_get_add_rel(vatomic16_t *a, vuint16_t v)
@@ -1389,7 +1389,7 @@ _Adds v to the value of a and returns the old value._
 **Memory ordering**: release 
 
 
-###  Function `vatomic16_get_add_rlx`
+##  Function `vatomic16_get_add_rlx`
 
 ```c
 static vuint16_t vatomic16_get_add_rlx(vatomic16_t *a, vuint16_t v)
@@ -1410,7 +1410,7 @@ _Adds v to the value of a and returns the old value._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic16_add_get`
+##  Function `vatomic16_add_get`
 
 ```c
 static vuint16_t vatomic16_add_get(vatomic16_t *a, vuint16_t v)
@@ -1431,7 +1431,7 @@ _Adds v to the value of a and returns the new value._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic16_add_get_acq`
+##  Function `vatomic16_add_get_acq`
 
 ```c
 static vuint16_t vatomic16_add_get_acq(vatomic16_t *a, vuint16_t v)
@@ -1452,7 +1452,7 @@ _Adds v to the value of a and returns the new value._
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic16_add_get_rel`
+##  Function `vatomic16_add_get_rel`
 
 ```c
 static vuint16_t vatomic16_add_get_rel(vatomic16_t *a, vuint16_t v)
@@ -1473,7 +1473,7 @@ _Adds v to the value of a and returns the new value._
 **Memory ordering**: release 
 
 
-###  Function `vatomic16_add_get_rlx`
+##  Function `vatomic16_add_get_rlx`
 
 ```c
 static vuint16_t vatomic16_add_get_rlx(vatomic16_t *a, vuint16_t v)
@@ -1494,7 +1494,7 @@ _Adds v to the value of a and returns the new value._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic16_add`
+##  Function `vatomic16_add`
 
 ```c
 static void vatomic16_add(vatomic16_t *a, vuint16_t v)
@@ -1513,7 +1513,7 @@ _Adds v to the value of a._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic16_add_rel`
+##  Function `vatomic16_add_rel`
 
 ```c
 static void vatomic16_add_rel(vatomic16_t *a, vuint16_t v)
@@ -1532,7 +1532,7 @@ _Adds v to the value of a._
 **Memory ordering**: release 
 
 
-###  Function `vatomic16_add_rlx`
+##  Function `vatomic16_add_rlx`
 
 ```c
 static void vatomic16_add_rlx(vatomic16_t *a, vuint16_t v)
@@ -1551,7 +1551,7 @@ _Adds v to the value of a._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic16_get_inc`
+##  Function `vatomic16_get_inc`
 
 ```c
 static vuint16_t vatomic16_get_inc(vatomic16_t *a)
@@ -1571,7 +1571,7 @@ _Increments the value of a and returns the old value._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic16_get_inc_acq`
+##  Function `vatomic16_get_inc_acq`
 
 ```c
 static vuint16_t vatomic16_get_inc_acq(vatomic16_t *a)
@@ -1591,7 +1591,7 @@ _Increments the value of a and returns the old value._
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic16_get_inc_rel`
+##  Function `vatomic16_get_inc_rel`
 
 ```c
 static vuint16_t vatomic16_get_inc_rel(vatomic16_t *a)
@@ -1611,7 +1611,7 @@ _Increments the value of a and returns the old value._
 **Memory ordering**: release 
 
 
-###  Function `vatomic16_get_inc_rlx`
+##  Function `vatomic16_get_inc_rlx`
 
 ```c
 static vuint16_t vatomic16_get_inc_rlx(vatomic16_t *a)
@@ -1631,7 +1631,7 @@ _Increments the value of a and returns the old value._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic16_inc_get`
+##  Function `vatomic16_inc_get`
 
 ```c
 static vuint16_t vatomic16_inc_get(vatomic16_t *a)
@@ -1651,7 +1651,7 @@ _Increments the value of a and returns the new value._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic16_inc_get_acq`
+##  Function `vatomic16_inc_get_acq`
 
 ```c
 static vuint16_t vatomic16_inc_get_acq(vatomic16_t *a)
@@ -1671,7 +1671,7 @@ _Increments the value of a and returns the new value._
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic16_inc_get_rel`
+##  Function `vatomic16_inc_get_rel`
 
 ```c
 static vuint16_t vatomic16_inc_get_rel(vatomic16_t *a)
@@ -1691,7 +1691,7 @@ _Increments the value of a and returns the new value._
 **Memory ordering**: release 
 
 
-###  Function `vatomic16_inc_get_rlx`
+##  Function `vatomic16_inc_get_rlx`
 
 ```c
 static vuint16_t vatomic16_inc_get_rlx(vatomic16_t *a)
@@ -1711,7 +1711,7 @@ _Increments the value of a and returns the new value._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic16_inc`
+##  Function `vatomic16_inc`
 
 ```c
 static void vatomic16_inc(vatomic16_t *a)
@@ -1729,7 +1729,7 @@ _Increments the value of a._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic16_inc_rel`
+##  Function `vatomic16_inc_rel`
 
 ```c
 static void vatomic16_inc_rel(vatomic16_t *a)
@@ -1747,7 +1747,7 @@ _Increments the value of a._
 **Memory ordering**: release 
 
 
-###  Function `vatomic16_inc_rlx`
+##  Function `vatomic16_inc_rlx`
 
 ```c
 static void vatomic16_inc_rlx(vatomic16_t *a)
@@ -1765,7 +1765,7 @@ _Increments the value of a._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic16_get_sub`
+##  Function `vatomic16_get_sub`
 
 ```c
 static vuint16_t vatomic16_get_sub(vatomic16_t *a, vuint16_t v)
@@ -1786,7 +1786,7 @@ _Substracts v from a and returns the old value._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic16_get_sub_acq`
+##  Function `vatomic16_get_sub_acq`
 
 ```c
 static vuint16_t vatomic16_get_sub_acq(vatomic16_t *a, vuint16_t v)
@@ -1807,7 +1807,7 @@ _Substracts v from a and returns the old value._
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic16_get_sub_rel`
+##  Function `vatomic16_get_sub_rel`
 
 ```c
 static vuint16_t vatomic16_get_sub_rel(vatomic16_t *a, vuint16_t v)
@@ -1828,7 +1828,7 @@ _Substracts v from a and returns the old value._
 **Memory ordering**: release 
 
 
-###  Function `vatomic16_get_sub_rlx`
+##  Function `vatomic16_get_sub_rlx`
 
 ```c
 static vuint16_t vatomic16_get_sub_rlx(vatomic16_t *a, vuint16_t v)
@@ -1849,7 +1849,7 @@ _Substracts v from a and returns the old value._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic16_sub_get`
+##  Function `vatomic16_sub_get`
 
 ```c
 static vuint16_t vatomic16_sub_get(vatomic16_t *a, vuint16_t v)
@@ -1870,7 +1870,7 @@ _Substracts v from a and returns the new value._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic16_sub_get_acq`
+##  Function `vatomic16_sub_get_acq`
 
 ```c
 static vuint16_t vatomic16_sub_get_acq(vatomic16_t *a, vuint16_t v)
@@ -1891,7 +1891,7 @@ _Substracts v from a and returns the new value._
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic16_sub_get_rel`
+##  Function `vatomic16_sub_get_rel`
 
 ```c
 static vuint16_t vatomic16_sub_get_rel(vatomic16_t *a, vuint16_t v)
@@ -1912,7 +1912,7 @@ _Substracts v from a and returns the new value._
 **Memory ordering**: release 
 
 
-###  Function `vatomic16_sub_get_rlx`
+##  Function `vatomic16_sub_get_rlx`
 
 ```c
 static vuint16_t vatomic16_sub_get_rlx(vatomic16_t *a, vuint16_t v)
@@ -1933,7 +1933,7 @@ _Substracts v from a and returns the new value._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic16_sub`
+##  Function `vatomic16_sub`
 
 ```c
 static void vatomic16_sub(vatomic16_t *a, vuint16_t v)
@@ -1952,7 +1952,7 @@ _Substracts v from a._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic16_sub_rel`
+##  Function `vatomic16_sub_rel`
 
 ```c
 static void vatomic16_sub_rel(vatomic16_t *a, vuint16_t v)
@@ -1971,7 +1971,7 @@ _Substracts v from a._
 **Memory ordering**: release 
 
 
-###  Function `vatomic16_sub_rlx`
+##  Function `vatomic16_sub_rlx`
 
 ```c
 static void vatomic16_sub_rlx(vatomic16_t *a, vuint16_t v)
@@ -1990,7 +1990,7 @@ _Substracts v from a._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic16_get_dec`
+##  Function `vatomic16_get_dec`
 
 ```c
 static vuint16_t vatomic16_get_dec(vatomic16_t *a)
@@ -2010,7 +2010,7 @@ _Decrements the value of a and returns the old value._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic16_get_dec_acq`
+##  Function `vatomic16_get_dec_acq`
 
 ```c
 static vuint16_t vatomic16_get_dec_acq(vatomic16_t *a)
@@ -2030,7 +2030,7 @@ _Decrements the value of a and returns the old value._
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic16_get_dec_rel`
+##  Function `vatomic16_get_dec_rel`
 
 ```c
 static vuint16_t vatomic16_get_dec_rel(vatomic16_t *a)
@@ -2050,7 +2050,7 @@ _Decrements the value of a and returns the old value._
 **Memory ordering**: release 
 
 
-###  Function `vatomic16_get_dec_rlx`
+##  Function `vatomic16_get_dec_rlx`
 
 ```c
 static vuint16_t vatomic16_get_dec_rlx(vatomic16_t *a)
@@ -2070,7 +2070,7 @@ _Decrements the value of a and returns the old value._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic16_dec_get`
+##  Function `vatomic16_dec_get`
 
 ```c
 static vuint16_t vatomic16_dec_get(vatomic16_t *a)
@@ -2090,7 +2090,7 @@ _Decrements the value of a and returns the new value._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic16_dec_get_acq`
+##  Function `vatomic16_dec_get_acq`
 
 ```c
 static vuint16_t vatomic16_dec_get_acq(vatomic16_t *a)
@@ -2110,7 +2110,7 @@ _Decrements the value of a and returns the new value._
 **Memory ordering**: acquire 
 
 
-###  Function `vatomic16_dec_get_rel`
+##  Function `vatomic16_dec_get_rel`
 
 ```c
 static vuint16_t vatomic16_dec_get_rel(vatomic16_t *a)
@@ -2130,7 +2130,7 @@ _Decrements the value of a and returns the new value._
 **Memory ordering**: release 
 
 
-###  Function `vatomic16_dec_get_rlx`
+##  Function `vatomic16_dec_get_rlx`
 
 ```c
 static vuint16_t vatomic16_dec_get_rlx(vatomic16_t *a)
@@ -2150,7 +2150,7 @@ _Decrements the value of a and returns the new value._
 **Memory ordering**: relaxed 
 
 
-###  Function `vatomic16_dec`
+##  Function `vatomic16_dec`
 
 ```c
 static void vatomic16_dec(vatomic16_t *a)
@@ -2168,7 +2168,7 @@ _Decrements the value of a._
 **Memory ordering**: seq_cst 
 
 
-###  Function `vatomic16_dec_rel`
+##  Function `vatomic16_dec_rel`
 
 ```c
 static void vatomic16_dec_rel(vatomic16_t *a)
@@ -2186,7 +2186,7 @@ _Decrements the value of a._
 **Memory ordering**: release 
 
 
-###  Function `vatomic16_dec_rlx`
+##  Function `vatomic16_dec_rlx`
 
 ```c
 static void vatomic16_dec_rlx(vatomic16_t *a)

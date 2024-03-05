@@ -4,7 +4,7 @@ _Counting Semaphore._
 see [vsync/spinlock/rwlock.h](rwlock.h.md)
 
 
-## Example:
+### Example:
 
 
 
@@ -63,7 +63,7 @@ main(void)
 |---|---|
 | [SEMAPHORE_INIT](semaphore.h.md#macro-semaphore_init) | Initializer of `semaphore_t` with n resources.  |
 
-###  Macro `SEMAPHORE_INIT`
+##  Macro `SEMAPHORE_INIT`
 
 ```c
 SEMAPHORE_INIT(n)
@@ -84,7 +84,7 @@ _Initializer of_ `semaphore_t` _with n resources._
 | [semaphore_tryacquire](semaphore.h.md#function-semaphore_tryacquire) | Tries to acquire i resources of the semaphore if available.  |
 | [semaphore_release](semaphore.h.md#function-semaphore_release) | Releases i resources of the semaphore.  |
 
-###  Function `semaphore_init`
+##  Function `semaphore_init`
 
 ```c
 static void semaphore_init(semaphore_t *s, vuint32_t n)
@@ -103,7 +103,7 @@ _Initializes the semaphore._
 > **Note:** alternatively use `SEMAPHORE_INIT` 
 
 
-###  Function `semaphore_acquire`
+##  Function `semaphore_acquire`
 
 ```c
 static void semaphore_acquire(semaphore_t *s, vuint32_t i)
@@ -125,7 +125,7 @@ other blocks until enough resources are available in the semaphore.
 
 
 
-###  Function `semaphore_tryacquire`
+##  Function `semaphore_tryacquire`
 
 ```c
 static vbool_t semaphore_tryacquire(semaphore_t *s, vuint32_t i)
@@ -149,7 +149,7 @@ _Tries to acquire i resources of the semaphore if available._
 
 
 
-###  Function `semaphore_release`
+##  Function `semaphore_release`
 
 ```c
 static void semaphore_release(semaphore_t *s, vuint32_t i)

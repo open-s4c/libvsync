@@ -6,7 +6,7 @@ _Single-producer, single-consumer, wait-free bounded queue._
 Implementation of the classic single-producer, single-consumer, wait-free bounded queue algorithm.
 
 
-## Example:
+### Example:
 
 
 
@@ -93,7 +93,7 @@ main(void)
 
 
 
-## References:
+### References:
 
 L. Lamport. - [Specifying concurrent program modules](ACM Transactions on Programming Languages and Systems, 5(2):190-222, 1983.) 
 
@@ -106,7 +106,7 @@ L. Lamport. - [Specifying concurrent program modules](ACM Transactions on Progra
 | [bounded_spsc_enq](bounded_spsc.h.md#function-bounded_spsc_enq) | Tries to enqueue a value.  |
 | [bounded_spsc_deq](bounded_spsc.h.md#function-bounded_spsc_deq) | Tries to dequeue a value.  |
 
-###  Function `bounded_spsc_init`
+##  Function `bounded_spsc_init`
 
 ```c
 static void bounded_spsc_init(bounded_spsc_t *q, void **b, vuint32_t s)
@@ -125,7 +125,7 @@ _Initializes the given queue object._
 
 
 
-###  Function `bounded_spsc_enq`
+##  Function `bounded_spsc_enq`
 
 ```c
 static bounded_ret_t bounded_spsc_enq(bounded_spsc_t *q, void *v)
@@ -147,7 +147,7 @@ _Tries to enqueue a value._
 
 
 
-###  Function `bounded_spsc_deq`
+##  Function `bounded_spsc_deq`
 
 ```c
 static bounded_ret_t bounded_spsc_deq(bounded_spsc_t *q, void **v)

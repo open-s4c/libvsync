@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #ifndef VSYNC_SMR_INTERFACE_H
 #define VSYNC_SMR_INTERFACE_H
 
@@ -11,14 +12,13 @@
 	#include <test/smr/ismr_cleanup.h>
 #elif defined(SMR_KCLEANUP)
 	#include <test/smr/ismr_kcleanup.h>
-#elif defined(SMR_HM_EBR)
-	#include <test/smr/ismr_hm_ebr.h>
 #elif defined(SMR_EBR)
 	#include <test/smr/ismr_ebr.h>
+#elif defined(SMR_GUS)
+	#include <test/smr/ismr_gus.h>
 #else
 	// can be multiple
 	#include <test/smr/ismr_gdump.h>
 #endif
-
 
 #endif

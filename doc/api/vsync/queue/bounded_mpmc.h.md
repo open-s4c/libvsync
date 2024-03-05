@@ -6,7 +6,7 @@ _Lockless, multi-producer, multi-consumer bounded queue._
 The queue has a bounded size and returns errors in case the queue is full, empty, or if there is contention while trying to reserve an entry to enqueue or dequeue.
 
 
-## Example:
+### Example:
 
 
 
@@ -103,7 +103,7 @@ Typically, one tries to enqueue or dequeue as long the return value is different
 The retrying loop can be combined with exponential backoff.
 
 
-## References:
+### References:
  This is a variation of the algorithm in buf_ring.h of FreeBSD 8.0.0. 
 
 ---
@@ -115,7 +115,7 @@ The retrying loop can be combined with exponential backoff.
 | [bounded_mpmc_enq](bounded_mpmc.h.md#function-bounded_mpmc_enq) | Tries to enqueue a value.  |
 | [bounded_mpmc_deq](bounded_mpmc.h.md#function-bounded_mpmc_deq) | Tries to dequeue a value.  |
 
-###  Function `bounded_mpmc_init`
+##  Function `bounded_mpmc_init`
 
 ```c
 static void bounded_mpmc_init(bounded_mpmc_t *q, void **b, vuint32_t s)
@@ -134,7 +134,7 @@ _Initializes the given queue object._
 
 
 
-###  Function `bounded_mpmc_enq`
+##  Function `bounded_mpmc_enq`
 
 ```c
 static bounded_ret_t bounded_mpmc_enq(bounded_mpmc_t *q, void *v)
@@ -154,11 +154,11 @@ _Tries to enqueue a value._
 
 **Returns:** QUEUE_BOUNDED_FULL if queue is full. 
 
-**Returns:** QUEUE_AGAIN if failed to enqueue, the caller should try again. 
+**Returns:** QUEUE_BOUNDED_AGAIN if failed to enqueue, the caller should try again. 
 
 
 
-###  Function `bounded_mpmc_deq`
+##  Function `bounded_mpmc_deq`
 
 ```c
 static bounded_ret_t bounded_mpmc_deq(bounded_mpmc_t *q, void **v)
@@ -178,7 +178,7 @@ _Tries to dequeue a value._
 
 **Returns:** QUEUE_BOUNDED_EMPTY if queue is empty. 
 
-**Returns:** QUEUE_AGAIN if failed to dequeue, the caller should try again. 
+**Returns:** QUEUE_BOUNDED_AGAIN if failed to dequeue, the caller should try again. 
 
 
 

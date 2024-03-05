@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #ifndef VSYNC_UTILS_MATH_H
 #define VSYNC_UTILS_MATH_H
 
@@ -67,8 +68,14 @@ v_pow2_round_down(vuint32_t v)
  * Returns the parameter with the lowest value.
  *
  */
+
 #ifndef VMIN
-	#define VMIN(_a_, _b_) ((_a_) < (_b_) ? (_a_) : (_b_))
+	#define VMIN(_a_, _b_)                                                     \
+		({                                                                     \
+			__typeof__(_a_) _a = (_a_);                                        \
+			__typeof__(_b_) _b = (_b_);                                        \
+			_a < _b ? _a : _b;                                                 \
+		})
 #endif
 
 /**

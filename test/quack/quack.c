@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #include <pthread.h>
 #include <vsync/common/assert.h>
 #include <stdlib.h>
@@ -42,7 +43,7 @@ consumer(void)
 	await_do {
 		quack_node_t *n = quack_reverse(quack_popall(&quack));
 		for (; n != NULL; n = n->next) {
-			node_t *nn = container_of(n, node_t, node);
+			node_t *nn = V_CONTAINER_OF(n, node_t, node);
 			nn->v	   = VUINT32_MAX;
 			vatomic32_inc_rlx(&g_cnt_out);
 		}

@@ -8,7 +8,7 @@ This is a non-blocking, multi-producer, multi-consumer queue protected by a spin
 > **Note:** This queue implementation is very simple and may be inefficient due to the spinlock bottleneck. Prefer using [bounded_mpmc.h](bounded_mpmc.h.md) instead.
 
 
-## Example:
+### Example:
 
 
 
@@ -113,7 +113,7 @@ main(void)
 | [bounded_locked_deq](bounded_locked.h.md#function-bounded_locked_deq) | Tries to dequeue a value.  |
 | [bounded_locked_empty](bounded_locked.h.md#function-bounded_locked_empty) | Tests whether queue is empty without performing an action.  |
 
-###  Function `bounded_locked_init`
+##  Function `bounded_locked_init`
 
 ```c
 static void bounded_locked_init(bounded_locked_t *q, void **b, vuint32_t s)
@@ -132,7 +132,7 @@ _Initializes the given queue object._
 
 
 
-###  Function `bounded_locked_enq`
+##  Function `bounded_locked_enq`
 
 ```c
 static bounded_ret_t bounded_locked_enq(bounded_locked_t *q, void *v)
@@ -156,7 +156,7 @@ _Tries to enqueue a value._
 
 
 
-###  Function `bounded_locked_deq`
+##  Function `bounded_locked_deq`
 
 ```c
 static bounded_ret_t bounded_locked_deq(bounded_locked_t *q, void **v)
@@ -181,7 +181,7 @@ _Tries to dequeue a value._
 > **Note:** The output parameter `v` is only set when QUEUE_BOUNDED_OK is returned. 
 
 
-###  Function `bounded_locked_empty`
+##  Function `bounded_locked_empty`
 
 ```c
 static vbool_t bounded_locked_empty(bounded_locked_t *q)

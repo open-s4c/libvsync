@@ -8,7 +8,7 @@ Operating conditions
 - Concurrent Queue operations must be called inside the critical section of SMR.
 - It is recommended to dedicate a special thread for SMR recycling, which operates in the background and periodically attempts to recycle retired nodes.
 - Detached/retired nodes **must be retired** to the SMR and not freed directly.
-## Example:
+### Example:
 
 
 
@@ -70,7 +70,7 @@ smr_rwlock_lib_t g_rwlock_lib = {thread_rw_read_acq, thread_rw_read_rel,
 void
 free_cb(smr_node_t *node, void *args)
 {
-    vqueue_ub_node_t *qnode = container_of(node, vqueue_ub_node_t, smr_node);
+    vqueue_ub_node_t *qnode = V_CONTAINER_OF(node, vqueue_ub_node_t, smr_node);
     free(qnode);
     (void)args;
 }
@@ -177,7 +177,7 @@ main(void)
 
 
 
-## References:
+### References:
 
 Maurice Herlihy, Nir Shavit - [The Art of Multiprocessor Programming 10.5](https://dl.acm.org/doi/pdf/10.5555/2385452) 
 
@@ -193,7 +193,7 @@ Maurice Herlihy, Nir Shavit - [The Art of Multiprocessor Programming 10.5](https
 | [vqueue_ub_get_length](unbounded_queue_lf.h.md#function-vqueue_ub_get_length) | Returns the length of the queue.  |
 | [vqueue_ub_empty](unbounded_queue_lf.h.md#function-vqueue_ub_empty) | Checks if the queue is empty.  |
 
-###  Function `vqueue_ub_init`
+##  Function `vqueue_ub_init`
 
 ```c
 static void vqueue_ub_init(vqueue_ub_t *q)
@@ -212,7 +212,7 @@ _Initializes the queue._
 
 
 
-###  Function `vqueue_ub_destroy`
+##  Function `vqueue_ub_destroy`
 
 ```c
 static void vqueue_ub_destroy(vqueue_ub_t *q, vqueue_ub_node_handler_t retire, void *arg)
@@ -233,7 +233,7 @@ _Destroys all remaining nodes in the queue._
 
 
 
-###  Function `vqueue_ub_enq`
+##  Function `vqueue_ub_enq`
 
 ```c
 static void vqueue_ub_enq(vqueue_ub_t *q, vqueue_ub_node_t *qnode, void *data)
@@ -252,7 +252,7 @@ _Enqueues the given node_ `qnode` _in the given queue_ `q`_._
 
 
 
-###  Function `vqueue_ub_deq`
+##  Function `vqueue_ub_deq`
 
 ```c
 static void* vqueue_ub_deq(vqueue_ub_t *q, vqueue_ub_node_handler_t retire, void *retire_arg)
@@ -275,7 +275,7 @@ _Dequeues a node from the given queue_ `q`_._
 
 
 
-###  Function `vqueue_ub_get_length`
+##  Function `vqueue_ub_get_length`
 
 ```c
 static vsize_t vqueue_ub_get_length(vqueue_ub_t *q)
@@ -296,7 +296,7 @@ _Returns the length of the queue._
 
 
 
-###  Function `vqueue_ub_empty`
+##  Function `vqueue_ub_empty`
 
 ```c
 static vbool_t vqueue_ub_empty(vqueue_ub_t *q)

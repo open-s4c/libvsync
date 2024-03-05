@@ -76,6 +76,8 @@ set(FATOMIC_max atomic8 atomic16 atomic32 atomic64 atomicsz)
 # * compat: dispatch + backwards-compatible atomic*_ interface
 if(LIBVSYNC_OPEN_DISTRO_TESTING)
     set(TC_VARIANTS core)
+elseif(LIBVSYNC_DRC_DISTRO_TESTING)
+    set(TC_VARIANTS core dispatch)
 else()
     set(TC_VARIANTS core dispatch compat)
 endif()

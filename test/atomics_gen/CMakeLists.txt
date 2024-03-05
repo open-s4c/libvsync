@@ -1,3 +1,4 @@
+set(V_TEST_LABELS "CROSS")
 # currently not installed with distros
 if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/templates)
     add_subdirectory(templates)

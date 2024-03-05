@@ -75,9 +75,11 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(libvsync)
 ```
 
+
+
 ## Developer Guide
 
-If you would like to contribute to libvsync, check out [developer guide](developer_guide.md).
+If you would like to contribute to libvsync, check out [developer guide](doc/developer_guide.md).
 
 ## License
 This library is distributed under the [MIT](LICENSE) license.
@@ -91,7 +93,6 @@ The current version of libvsync does not contain `gdump`. Users can replace `gdu
 
 - Note that due to the fact that model checkers do not scale well with respect to number of threads/operations, our verification is not complete and cannot guarantee the absence of bugs. However, it does
 increase confidence in our implementations especially on hardware with WMM (e.g ARM).
-
 
 ## Acknowledgement
 

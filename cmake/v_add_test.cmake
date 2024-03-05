@@ -34,6 +34,13 @@ function(v_add_bin_test)
         )
     endif()
 
+    # Add a label to the test based on the parent directories, e.g.
+    # "datastruct/queue/bbq", which would match on `-L datastruct` as well as
+    # `-L bbq`.
+    cmake_path(GET CMAKE_CURRENT_SOURCE_DIR PARENT_PATH parent_dir)
+    cmake_path(RELATIVE_PATH parent_dir BASE_DIRECTORY "${PROJECT_SOURCE_DIR}"
+               OUTPUT_VARIABLE test_dir_label)
+
     add_test(NAME "${TST_NAME}" COMMAND "${TST_COMMAND}"
                                         ${TST_UNPARSED_ARGUMENTS})
 
@@ -49,6 +56,10 @@ function(v_add_bin_test)
         set_tests_properties("${TST_NAME}" PROPERTIES FIXTURES_REQUIRED
                                                       "build_${TST_COMMAND}")
     endif()
+    if(V_TEST_LABELS)
+        list(APPEND test_dir_label ${V_TEST_LABELS})
+    endif()
+    set_tests_properties("${TST_NAME}" PROPERTIES LABELS "${test_dir_label}")
 
 endfunction()
 
