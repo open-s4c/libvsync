@@ -261,7 +261,7 @@ _Destroys all the remaining nodes in the listset._
 
 **Parameters:**
 
-- `lst`: address of vlistset_t object 
+- `lst`: address of vlistset_t object. 
 
 
 

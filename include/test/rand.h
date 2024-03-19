@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #ifndef VSYNC_UTILS_RAND
 #define VSYNC_UTILS_RAND
 
@@ -132,7 +133,7 @@ random_init_seed(unsigned int seed)
 #endif
 }
 /**
- *  Wraps rand to generate a more of evenly distributed random number
+ * Wraps rand to generate a more of evenly distributed random number
  * @param range
  * @pre range <= 0x0FFFFFF
  * @return vuint32_t
@@ -222,7 +223,7 @@ random_next_int64(vuint64_t min, vuint64_t max, vuint16_t alignment)
  * will be as follows
  * 	~ 20%  0
  * 	~ 20%  1
- * 	~ 60%  1
+ * 	~ 60%  2
  * @note the sum of the array elements should be exactly 100 (i.e. 100%)
  * @param probabilities an array of the probabilities one wants to achieve
  * @param length of the "probabilities" array

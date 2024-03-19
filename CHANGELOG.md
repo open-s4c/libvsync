@@ -11,6 +11,12 @@ is not guaranteed to result in increment of major version.
 Please note that the version correlates to the internal libvsync, which is a superset of
 what exists in open-s4c libvsync.
 
+### [3.4.0]
+
+### Changed
+
+- Minor documentation updates
+
 ## [3.3.1]
 
 ### Changed

@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.16)
 project(
     libvsync
     LANGUAGES C
-    VERSION 3.3.1
+    VERSION 3.4.0
     DESCRIPTION "Verified library of atomics, synchronization primitives and concurrent data structures")
 
 option(LIBVSYNC_ADDRESS_SANITIZER "Compile with -fsanitize=address" "off")
