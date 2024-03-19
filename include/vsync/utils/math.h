@@ -29,7 +29,7 @@ v_log2(vuint32_t v)
 static inline vuint32_t
 v_pow2_round_up(vuint32_t v)
 {
-	ASSERT(v != 1U);
+	ASSERT(v != 0);
 	return v == 1U ? 1U : 1U << (V_NUM_32 - (vuint32_t)__builtin_clz(v - 1U));
 }
 

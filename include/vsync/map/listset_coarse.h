@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #ifndef VLISTSET_COARSE_H
 #define VLISTSET_COARSE_H
 /*******************************************************************************
@@ -75,7 +76,7 @@ vlistset_init(vlistset_t *lst, vlistset_handle_node_t retire_fun,
  *
  * @note call only after thread join, or after all threads finished accessing
  * the given vlistset_t object.
- * @param lst address of vlistset_t object
+ * @param lst address of vlistset_t object.
  */
 static inline void
 vlistset_destroy(vlistset_t *lst)
