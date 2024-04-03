@@ -23,7 +23,12 @@ jobs:
       - run: mkdir build && cd build && cmake .. -DLIBVSYNC_ADDRESS_SANITIZER=on && make && ctest
   Run-Checks:
     runs-on: ubuntu-latest
-    container: ghcr.io/open-s4c/libvsync:lilith-verify-test
+    container:
+      image: ghcr.io/open-s4c/libvsync:lilith-verify-test
+      credentials:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
