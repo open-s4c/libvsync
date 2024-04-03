@@ -27,5 +27,11 @@ jobs:
     steps:
       - run: which vsyncer
       - run: which cmake
-      - run: mkdir build && cd build && cmake .. -DVSYNCER_CHECK=on && make && ctest -R check*
+      - run: pwd
+      - run: ls
+      - run: mkdir build
+      - run: cd build
+      - run: cmake .. -DVSYNCER_CHECK=on
+      - run: make
+      - run: ctest -R check*
 
