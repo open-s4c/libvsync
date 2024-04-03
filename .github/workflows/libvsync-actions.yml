@@ -33,6 +33,8 @@ jobs:
       - run: ls
       - run: mkdir build
       - run: cd build
+      - run: pwd
+      - run: ls
       - run: cmake .. -DVSYNCER_CHECK=on
       - run: make
       - run: ctest -R check*
