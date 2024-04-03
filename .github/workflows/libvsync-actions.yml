@@ -33,7 +33,7 @@ jobs:
       - run: cmake -S. -Bbuild -DVSYNCER_CHECK=ON
       - run: cmake --build build
       - name: Check spinlocks
-        run: ctest --test-dir build/test/spinlock -R check* --output-on-failure
+        run: ctest --test-dir build/test/spinlock -R check* -V
       - name: Check quack
         run: ctest --test-dir build/test/quack -R check* --output-on-failure
       - name: Check queue
