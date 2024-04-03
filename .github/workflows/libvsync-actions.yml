@@ -30,7 +30,7 @@ jobs:
       - name: Run Checks
         run: echo "Workspace = ${{ github.workspace }},  Repo= ${{ github.repository }}"
       - run: pwd
-      - run: cmake -S${{ github.workspace }} -Bbuild -DVSYNCER_CHECK=ON
+      - run: cmake -S. -Bbuild -DVSYNCER_CHECK=ON
       - run: cmake --build build
       - run: ctest --test-dir build -R check*
       # - name: Check out repository code
