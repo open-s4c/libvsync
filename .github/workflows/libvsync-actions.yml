@@ -32,7 +32,12 @@ jobs:
       - run: pwd
       - run: cmake -S. -Bbuild -DVSYNCER_CHECK=ON
       - run: cmake --build build
-      - run: ctest --test-dir build -R check*
+      - name: Check spinlocks
+        run: ctest --test-dir build/test/spinlock -R check* --output-on-failure
+      - name: Check quack
+        run: ctest --test-dir build/test/quack -R check* --output-on-failure
+      - name: Check queue
+        run: ctest --test-dir build/test/queue -R check* --output-on-failure
       # - name: Check out repository code
       #   uses: actions/checkout@v4
       # - run: which vsyncer
