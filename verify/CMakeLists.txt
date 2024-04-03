@@ -10,7 +10,7 @@ target_compile_definitions(
                     _GNU_SOURCE)
 
 # add all subdirectories
-file(GLOB SUBDIRS ${CMAKE_SOURCE_DIR}/test/*)
+file(GLOB SUBDIRS ${CMAKE_SOURCE_DIR}/verify/*)
 foreach(child ${SUBDIRS})
     if(IS_DIRECTORY "${child}")
         add_subdirectory(${child})
