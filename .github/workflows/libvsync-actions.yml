@@ -26,7 +26,6 @@ jobs:
     container:
       image: ghcr.io/open-s4c/libvsync:lilith-verify-test
       credentials:
-          registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
     steps:
