@@ -68,7 +68,6 @@ v_pow2_round_down(vuint32_t v)
  * Returns the parameter with the lowest value.
  *
  */
-
 #ifndef VMIN
 	#define VMIN(_a_, _b_)                                                     \
 		({                                                                     \
@@ -123,5 +122,21 @@ v_pow2_round_down(vuint32_t v)
 #ifndef VIS_EVEN
 	#define VIS_EVEN(_v_) (((_v_)&1U) == 0U)
 #endif
+
+/**
+ * Returns least `N` where `N >= divisor` and `N % dividend` equals zero.
+ *
+ * @param divisor the divisor.
+ * @param dividend the dividend.
+ * @return vsize_t N.
+ */
+static inline vsize_t
+v_least_containing_multiple(vsize_t divisor, vsize_t dividend)
+{
+	ASSERT(dividend);
+	vsize_t result = ((divisor + (dividend - 1U)) / dividend) * dividend;
+	ASSERT(result >= divisor);
+	return result;
+}
 
 #endif

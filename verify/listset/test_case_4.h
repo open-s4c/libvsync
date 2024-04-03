@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 /* Preinsert keys \in [0, 1] in all lists */
 #define INIT_K1 0
 #define INIT_K2 1

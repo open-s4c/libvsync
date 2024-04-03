@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #include <stdio.h>
 #include <time.h>
 #include <vsync/common/assert.h>
