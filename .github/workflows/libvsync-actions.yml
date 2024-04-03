@@ -28,7 +28,6 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
         with:
-          lfs: true
           token: ${{ secrets.GITHUB_TOKEN }}
       - run: which vsyncer
       - run: which cmake
