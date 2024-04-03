@@ -21,3 +21,10 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
       - run: mkdir build && cd build && cmake .. -DLIBVSYNC_ADDRESS_SANITIZER=on && make && ctest
+  Run-Checks:
+    runs-on: ubuntu-latest
+    container: ghcr.io/open-s4c/vsyncer:main
+    steps:
+      - run: which vsyncer
+      - run: mkdir build && cd build && cmake .. -DVSYNCER_CHECK=on && make && ctest -R check*
+
