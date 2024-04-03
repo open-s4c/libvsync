@@ -38,6 +38,8 @@ jobs:
         run: ctest --test-dir build/test/quack -R check* --output-on-failure
       - name: Check queue
         run: ctest --test-dir build/test/queue -R check* --output-on-failure
+      - name: Run verify checks
+        run: ctest --test-dir build/verify -R check* --output-on-failure
       # - name: Check out repository code
       #   uses: actions/checkout@v4
       # - run: which vsyncer
