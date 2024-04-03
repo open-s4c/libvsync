@@ -23,8 +23,9 @@ jobs:
       - run: mkdir build && cd build && cmake .. -DLIBVSYNC_ADDRESS_SANITIZER=on && make && ctest
   Run-Checks:
     runs-on: ubuntu-latest
-    container: ghcr.io/open-s4c/vsyncer:main
+    container: ghcr.io/open-s4c/libvsync:lilith/verify-test
     steps:
       - run: which vsyncer
+      - run: which cmake
       - run: mkdir build && cd build && cmake .. -DVSYNCER_CHECK=on && make && ctest -R check*
 
