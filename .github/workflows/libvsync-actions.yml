@@ -28,11 +28,10 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
       - name: Run Checks
-        run: |
-          echo "Workspace = ${{ github.workspace }},  Repo= ${{ github.repository }}"
-          cmake -S${{ github.workspace }} -Bbuild -DVSYNCER_CHECK=ON
-          cmake --build build
-          ctest --test-dir build -R check*
+        run: echo "Workspace = ${{ github.workspace }},  Repo= ${{ github.repository }}"
+        run: cmake -S${{ github.workspace }} -Bbuild -DVSYNCER_CHECK=ON
+        run: cmake --build build
+        run: ctest --test-dir build -R check*
       # - name: Check out repository code
       #   uses: actions/checkout@v4
       # - run: which vsyncer
