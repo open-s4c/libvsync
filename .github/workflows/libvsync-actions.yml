@@ -25,6 +25,8 @@ jobs:
     runs-on: ubuntu-latest
     container: ghcr.io/open-s4c/libvsync:lilith-verify-test
     steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
       - run: which vsyncer
       - run: which cmake
       - run: pwd
