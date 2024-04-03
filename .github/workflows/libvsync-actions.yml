@@ -27,16 +27,24 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
-      - run: which vsyncer
-      - run: which cmake
-      - run: WS=$(pwd)
-      - run: ls
-      - run: mkdir $WS/build
-      - run: echo $WS
-      - run: cd $WS/build
-      - run: pwd
-      - run: ls
-      - run: cmake .. -DVSYNCER_CHECK=on
-      - run: make
-      - run: ctest -R check*
+      - name: Run Checks
+        run: |
+          echo "Workspace = ${{ github.workspace }},  Repo= ${{ github.repository }}"
+          cmake -S${{ github.workspace }} -Bbuild -DVSYNCER_CHECK=ON
+          cmake --build build
+          ctest --test-dir build -R check*
+      # - name: Check out repository code
+      #   uses: actions/checkout@v4
+      # - run: which vsyncer
+      # - run: which cmake
+      # - run: WS=$(pwd)
+      # - run: ls
+      # - run: mkdir $WS/build
+      # - run: echo "$WS"
+      # - run: cd $WS/build
+      # - run: pwd
+      # - run: ls
+      # - run: cmake .. -DVSYNCER_CHECK=on
+      # - run: make
+      # - run: ctest -R check*
 
