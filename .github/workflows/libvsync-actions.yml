@@ -25,9 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/open-s4c/libvsync:lilith-verify-test
-      credentials:
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+      options: --user root
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
