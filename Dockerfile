@@ -8,5 +8,5 @@ RUN apt-get update  \
         tree \
         xxd  \
         bc \
+        software-properties-common \
     && rm -rf /var/lib/apt/lists/*
-
