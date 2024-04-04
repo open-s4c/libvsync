@@ -23,7 +23,7 @@ jobs:
       - run: mkdir build && cd build && cmake .. -DLIBVSYNC_ADDRESS_SANITIZER=on && make && ctest
   Run-Checks:
     runs-on: ubuntu-latest
-    container: ghcr.io/open-s4c/libvsync:lilith-verify-test
+    container: ghcr.io/open-s4c/vsyncer-ci
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
