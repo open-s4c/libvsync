@@ -15,4 +15,4 @@ jobs:
       - name: Build Verification Clients for ${{ matrix.test-dir }}
         run: cmake --build build/${{ matrix.test-dir }}
       - name: Run Verification
-      - run: ctest --test-dir build/${{ matrix.test-dir }} -R check* --output-on-failure
+        run: ctest --test-dir build/${{ matrix.test-dir }} -R check* --output-on-failure
