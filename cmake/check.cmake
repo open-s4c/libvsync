@@ -69,13 +69,6 @@ function(add_vsyncer_check)
                 ${CMAKE_CURRENT_SOURCE_DIR}/${VSYNCER_CHECK_SOURCE})
         endif()
 
-        if(${VSYNCER_CHECK_USE_GENMC10})
-            set(GENMC10_PATH "/usr/share/genmc10")
-            set(GENM10_ENV
-                "VSYNCER_GENMC_INCLUDE_PATH=${GENMC10_PATH}/include/genmc/include/"
-            )
-        endif()
-
         set(CMD
             ${TOOLKIT_CMD}
             env
@@ -168,8 +161,9 @@ function(add_vsyncer_check)
                 # the model checker path to use genmc 10
                 set(CMD
                     env GENMC_SET_OPTIONS=${GENMC10_OPTIONS} #
+                    GENMC_CMD=/usr/share/genmc10/bin/genmc #
                     ${CMD} #
-                    "--model-checker-path" "${GENMC10_PATH}/bin")
+                )
             endif()
 
             if(${VSYNCER_CHECK_FULL})
