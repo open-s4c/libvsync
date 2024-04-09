@@ -6,7 +6,7 @@ jobs:
     container: ghcr.io/open-s4c/vsyncer-ci:dev
     strategy:
       matrix:
-        test-dir: ["test/spinlock", "test/quack", "verify/unbounded_queue", "verify/listset"]
+        test-dir: [ {p: "test", c: "spinlock"}, {p: "test", c: "quack"}, {p: "verify", c: "unbounded_queue"}, {p: "verify", c: "listset"} ]
     steps:
       - name: Print vsyncer version
         run: vsyncer version
@@ -15,12 +15,12 @@ jobs:
       - name: Configure Verification
         run: cmake -S. -Bbuild -DVSYNCER_CHECK=ON
       - name: Build Verification Clients for ${{ matrix.test-dir }}
-        run: cmake --build build/${{ matrix.test-dir }}
+        run: cmake --build build/${{ matrix.test-dir.p }}/${{ matrix.test-dir.c }}
       - name: Run Verification
-        run: ctest --test-dir build/${{ matrix.test-dir }} -R check* --output-on-failure
+        run: ctest --test-dir build/${{ matrix.test-dir.p }}/${{ matrix.test-dir.c }} -R check* --output-on-failure
       - name: Upload vsyncer report
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: check-report-${{ matrix.test-dir }}
+          name: check-report-${{ matrix.test-dir.c }}
           path: build/logs
