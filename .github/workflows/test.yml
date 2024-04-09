@@ -1,7 +1,7 @@
 name: libvsync testing
 on: [push, pull_request]
 jobs:
-  Run-Checks:
+  Run-Tests:
     runs-on: ubuntu-latest
     strategy:
       matrix:
