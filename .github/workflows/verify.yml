@@ -1,0 +1,18 @@
+name: libvsync verification
+on: [push, pull_request]
+jobs:
+  Run-Checks:
+    runs-on: ubuntu-latest
+    container: ghcr.io/open-s4c/vsyncer-ci:dev
+    strategy:
+      matrix:
+        test-dir: ["test/spinlock", "test/quack", "verify/unbounded_queue", "verify/listset"]
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Configure Verification
+        run: cmake -S. -Bbuild -DVSYNCER_CHECK=ON
+      - name: Build Verification Clients for ${{ matrix.test-dir }}
+        run: cmake --build build/${{ matrix.test-dir }}
+      - name: Run Verification
+      - run: ctest --test-dir build/${{ matrix.test-dir }} -R check* --output-on-failure
