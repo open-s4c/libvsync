@@ -3,7 +3,7 @@ on: [push, pull_request]
 jobs:
   Run-Checks:
     runs-on: ubuntu-latest
-    container: ghcr.io/open-s4c/vsyncer-ci:dev
+    container: ghcr.io/open-s4c/vsyncer-ci:sha-7c70ead014ef2e9d9e6f7a7a1b1c3b1f687ca77c
     strategy:
       matrix:
         test-dir: ["test/spinlock", "test/quack", "verify/unbounded_queue", "verify/listset"]
