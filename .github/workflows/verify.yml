@@ -3,11 +3,13 @@ on: [push, pull_request]
 jobs:
   Run-Checks:
     runs-on: ubuntu-latest
-    container: ghcr.io/open-s4c/vsyncer-ci:sha-f3cadc494b99c1e9df9008addf5ae8c76e9f8b05
+    container: ghcr.io/open-s4c/vsyncer-ci:dev
     strategy:
       matrix:
         test-dir: ["test/spinlock", "test/quack", "verify/unbounded_queue", "verify/listset"]
     steps:
+      - name: Print vsyncer version
+        run: vsyncer version
       - name: Check out repository code
         uses: actions/checkout@v4
       - name: Configure Verification
@@ -15,4 +17,10 @@ jobs:
       - name: Build Verification Clients for ${{ matrix.test-dir }}
         run: cmake --build build/${{ matrix.test-dir }}
       - name: Run Verification
-        run: ctest --test-dir build/${{ matrix.test-dir }} -R check* -V
+        run: ctest --test-dir build/${{ matrix.test-dir }} -R check* --output-on-failure
+      - name: Upload vsyncer report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: check-report
+          path: build/logs
