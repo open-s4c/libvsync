@@ -1,0 +1,17 @@
+name: libvsync testing
+on: [push, pull_request]
+jobs:
+  Run-Checks:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        config: ["-DLIBVSYNC_ADDRESS_SANITIZER=on", "-DLIBVSYNC_ADDRESS_SANITIZER=off"]
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Configure Testing
+        run: cmake -S. -Bbuild ${{ matrix.config }}
+      - name: Build Tests
+        run: cmake --build build
+      - name: Run Tests
+        run: ctest --test-dir build
