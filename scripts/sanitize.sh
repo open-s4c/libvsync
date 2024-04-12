@@ -23,7 +23,7 @@ set -e
 
 echo "Running sanatize on $(pwd)"
 
-FILES=$(git ls-files '*.h' '*.c' | grep -v "/build/" | grep -v "/test/" | grep -v "/verify/" | grep -v "tmplr/")
+FILES=$(git ls-files '*.h' '*.c' | grep -v "/build/" | grep -v "test/" | grep -v "verify/" | grep -v "tmplr/")
 
 #YEAR=$(date +%Y)
 
@@ -32,7 +32,7 @@ COPYRIGHT_TEXT="\
 /*\n\
  * Copyright (C) Huawei Technologies Co., Ltd. <RANGE>. All rights reserved.\n\
  * SPDX-License-Identifier: MIT\n\
- */\n"
+ */\n\n"
 
 declare -a VTYPE_HEADERS=("<vsync/vstdint.h>" "<stdint.h>" "<stdbool.h>" "<inttypes.h>" "<stdbool.h>" "<stddef.h>")
 declare -a VTYPE_TYPES=("size_t" "bool")
