@@ -34,11 +34,25 @@ if(VSYNC_MEMCPY_S_EXISTS)
     target_compile_definitions(vsync INTERFACE "VSYNC_MEMCPY_S_EXISTS")
 endif()
 
+##############################################################
+#   Important Config must be set
+##############################################################
+set(ATOMICS_DIR ${PROJECT_SOURCE_DIR}/include/vsync/atomic)
+
+##############################################################
+#   Commands
+##############################################################
+add_custom_target(clang-format-apply ALL
+    COMMAND env STYLE=${PROJECT_SOURCE_DIR}/.clang-format SILENT=true
+    ${PROJECT_SOURCE_DIR}/scripts/clang-format.sh ${CMAKE_CURRENT_SOURCE_DIR})
+
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     set(LIBVSYNC_OPEN_DISTRO_TESTING "on")
     enable_testing()
+    add_subdirectory(template)
     add_subdirectory(test)
     add_subdirectory(verify)
+    add_subdirectory(tmplr)
     if(LIBVSYNC_ADDRESS_SANITIZER)
         target_compile_options(vsync INTERFACE -fsanitize=address)
         target_compile_definitions(vsync INTERFACE VSYNC_ADDRESS_SANITIZER)
