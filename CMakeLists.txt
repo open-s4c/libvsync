@@ -46,6 +46,13 @@ add_custom_target(clang-format-apply ALL
     COMMAND env STYLE=${PROJECT_SOURCE_DIR}/.clang-format SILENT=true
     ${PROJECT_SOURCE_DIR}/scripts/clang-format.sh ${CMAKE_CURRENT_SOURCE_DIR})
 
+add_custom_target(
+    sanitize-vsync
+    COMMAND ${PROJECT_SOURCE_DIR}/scripts/sanitize.sh
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+add_dependencies(clang-format-apply sanitize-vsync)
+
+
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     set(LIBVSYNC_OPEN_DISTRO_TESTING "on")
     enable_testing()
