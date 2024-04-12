@@ -12,6 +12,6 @@ jobs:
       - name: Configure Testing
         run: cmake -S. -Bbuild ${{ matrix.config }}
       - name: Build Tests
-        run: cmake --build build
+        run: cmake --build build/test build/verify
       - name: Run Tests
         run: ctest --test-dir build

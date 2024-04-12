@@ -9,6 +9,8 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
+          with:
+            fetch-depth: "0"
       - name: Configure
         run: cmake -S. -Bbuild
       - name: Run ${{ matrix.target }}
