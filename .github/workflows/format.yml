@@ -1,0 +1,20 @@
+name: libvsync everything in sync
+on: [push, pull_request]
+jobs:
+  Run-Format-Checks:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target: ["clang-format-apply", "vatomic-generate", "vatomic-test-generate"]
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Configure
+        run: cmake -S. -Bbuild
+      - name: Run ${{ matrix.target }}
+        run: cmake --build build --target ${{ matrix.target }}
+      - name: Check things match expectation
+        run: cmake --build build --target diff-check ||
+            (echo "Run 'make ${{ matrix.target }}' and commit" && false)
+
+
