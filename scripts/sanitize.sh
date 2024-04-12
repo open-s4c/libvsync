@@ -61,7 +61,7 @@ for f in ${FILES}; do
     sed -i -e '$a\' ${f}
 
     # add copy write notice to public files
-    if [[ "$f" == */include/vsync/* ]]; then
+    if [[ "$f" == include/vsync/* ]]; then
         EXP_END=$(git log --follow --format=%ad --date=format:'%Y' $f | head -1)
         EXP_START=$(git log --follow --format=%ad --date=format:'%Y' $f | tail -1)
 
