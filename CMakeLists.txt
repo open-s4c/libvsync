@@ -42,16 +42,26 @@ set(ATOMICS_DIR ${PROJECT_SOURCE_DIR}/include/vsync/atomic)
 ##############################################################
 #   Commands
 ##############################################################
+set(FMT_CMD ${PROJECT_SOURCE_DIR}/scripts/clang-format.sh
+               ${CMAKE_SOURCE_DIR})
+set(STYLE_FILE ${PROJECT_SOURCE_DIR}/.clang-format)
+
 add_custom_target(clang-format-apply ALL
-    COMMAND env STYLE=${PROJECT_SOURCE_DIR}/.clang-format SILENT=true
-    ${PROJECT_SOURCE_DIR}/scripts/clang-format.sh ${CMAKE_CURRENT_SOURCE_DIR})
+    COMMAND env STYLE=${STYLE_FILE} SILENT=true ${FMT_CMD})
+
+add_custom_target(clang-format-check ALL
+    COMMAND env STYLE=${STYLE_FILE} ${FMT_CMD})
 
 add_custom_target(
     sanitize-vsync
     COMMAND ${PROJECT_SOURCE_DIR}/scripts/sanitize.sh
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
+
+add_custom_target(diff-check COMMAND git --no-pager diff --exit-code)
+
 add_dependencies(clang-format-apply sanitize-vsync)
 
+add_dependencies(clang-format-check sanitize-vsync)
 
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     set(LIBVSYNC_OPEN_DISTRO_TESTING "on")
