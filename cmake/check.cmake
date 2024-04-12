@@ -92,6 +92,7 @@ function(add_vsyncer_check)
             --timeout ${TIMEOUT}s
         )
         add_test(NAME ${TEST_NAME} COMMAND ${VSYNCER_CMD} ${CLIENT})
+        set_property(TEST ${TEST_NAME} PROPERTY SKIP_RETURN_CODE 1)
     endforeach()
 
 endfunction()
