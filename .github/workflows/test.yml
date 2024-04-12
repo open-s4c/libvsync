@@ -6,12 +6,13 @@ jobs:
     strategy:
       matrix:
         config: ["-DLIBVSYNC_ADDRESS_SANITIZER=on", "-DLIBVSYNC_ADDRESS_SANITIZER=off"]
+        dir: ["test", "verify"]
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
       - name: Configure Testing
         run: cmake -S. -Bbuild ${{ matrix.config }}
       - name: Build Tests
-        run: cmake --build build/test build/verify
+        run: cmake --build build/${{ matrix.dir }}
       - name: Run Tests
         run: ctest --test-dir build
