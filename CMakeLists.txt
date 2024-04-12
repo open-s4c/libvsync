@@ -65,6 +65,7 @@ add_dependencies(clang-format-check sanitize-vsync)
 
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     set(LIBVSYNC_OPEN_DISTRO_TESTING "on")
+    include(${CMAKE_SOURCE_DIR}/cmake/check.cmake)
     enable_testing()
     add_subdirectory(template)
     add_subdirectory(test)
