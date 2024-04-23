@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #ifndef VTEST_VMEM_H
 #define VTEST_VMEM_H
 
@@ -86,7 +87,7 @@ static inline void
 vmem_free_cb(void *ptr, void *arg)
 {
 	V_UNUSED(arg);
-	return vmem_free(ptr);
+	vmem_free(ptr);
 }
 
 

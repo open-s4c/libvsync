@@ -1,0 +1,6 @@
+THIS IS A FILE
+_tmpl_map(VAR, value);
+_tmpl_begin(Y=[[something]]);
+--> Y
+_tmpl_end;
+AND IT HAS ALREADY ENDED

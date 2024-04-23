@@ -1,0 +1,61 @@
+name: libvsync actions
+on: [push, pull_request]
+jobs:
+  ###########################################################################
+  Run-Tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        config: ["-DLIBVSYNC_ADDRESS_SANITIZER=on", "-DLIBVSYNC_ADDRESS_SANITIZER=off"]
+        dir: ["test", "verify"]
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Configure Testing
+        run: cmake -S. -Bbuild ${{ matrix.config }}
+      - name: Build Tests
+        run: cmake --build build/${{ matrix.dir }}
+      - name: Run Tests
+        run: ctest --test-dir build/${{ matrix.dir }}
+  ###########################################################################
+  Run-Checks:
+    runs-on: ubuntu-latest
+    container: ghcr.io/open-s4c/vsyncer-ci:sha-5f9eab426f2608a9fac2eabf15c7614c73a81736
+    strategy:
+      matrix:
+        test-dir: [ {p: "test", c: "spinlock"}, {p: "test", c: "quack"},  {p: "test", c: "queue"}, {p: "verify", c: "unbounded_queue"}, {p: "verify", c: "listset"} ]
+    steps:
+      - name: Print vsyncer version
+        run: vsyncer version
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Configure Verification
+        run: cmake -S. -Bbuild -DVSYNCER_CHECK=ON
+      - name: Build Verification Clients for ${{ matrix.test-dir }}
+        run: cmake --build build/${{ matrix.test-dir.p }}/${{ matrix.test-dir.c }}
+      - name: Run Verification
+        run: ctest --test-dir build/${{ matrix.test-dir.p }}/${{ matrix.test-dir.c }} -R check* --output-on-failure
+      - name: Upload vsyncer report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: check-report-${{ matrix.test-dir.c }}
+          path: build/logs
+  ###########################################################################
+  Run-Format-Checks:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target: ["clang-format-apply", "vatomic-generate", "vatomic-test-generate"]
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Configure
+        run: cmake -S. -Bbuild
+      - name: Run ${{ matrix.target }}
+        run: cmake --build build --target ${{ matrix.target }}
+      - name: Check things match expectation
+        run: cmake --build build --target diff-check ||
+            (echo "Run 'make ${{ matrix.target }}' and commit" && false)

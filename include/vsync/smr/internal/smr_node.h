@@ -13,8 +13,12 @@ struct smr_node_s;
 
 typedef void (*smr_node_destroy_fun)(struct smr_node_s *, void *args);
 
+typedef struct smr_node_core_s {
+	struct smr_node_core_s *next;
+} smr_node_core_t;
+
 typedef struct smr_node_s {
-	struct smr_node_s *next;
+	smr_node_core_t core; /* keep as first field */
 	int type; /* type is currently used only by kcleanup and once kcleanup gets
 				 updated this will be removed */
 	smr_node_destroy_fun destroy_fun;
@@ -32,7 +36,7 @@ typedef struct smr_node_s {
 typedef struct smr_node_buff_s {
 	smr_node_t *buffer[V_SMR_NODE_BUFF_SIZE];
 	vsize_t idx;
-} VSYNC_CACHEALIGN smr_node_buff_t;
+} smr_node_buff_t;
 
 static inline void
 smr_node_buff_init(smr_node_buff_t *buff)
@@ -48,10 +52,11 @@ smr_node_buff_insert(smr_node_buff_t *buff, smr_node_t *node,
 	ASSERT(buff);
 	node->destroy_fun	  = destroy_fun;
 	node->destroy_fun_arg = destroy_fun_arg;
-	node->next			  = NULL;
+	node->core.next		  = NULL;
 	if (buff->idx < V_SMR_NODE_BUFF_SIZE) {
 		buff->buffer[buff->idx] = node;
-		node->next = buff->idx == 0 ? NULL : buff->buffer[buff->idx - 1];
+		node->core.next =
+			buff->idx == 0 ? NULL : &buff->buffer[buff->idx - 1]->core;
 		buff->idx++;
 		return true;
 	}
