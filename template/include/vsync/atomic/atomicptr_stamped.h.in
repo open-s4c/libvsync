@@ -1,0 +1,208 @@
+#ifndef VSYNC_ATOMICPTR_STAMPED_H
+#define VSYNC_ATOMICPTR_STAMPED_H
+/*******************************************************************************
+ * @file  atomicptr_stamped.h
+ * @brief C implementation of AtomicstampedReference in Java
+ * @pre Addresses must be 128-byte aligned in order to use vatomicptr_stamped_t.
+ *
+ * Extends `vatomicptr_t` to `vatomicptr_stamped_t`.
+ * The 7 LSBs of the address are used as a stamp.
+ *
+ * @cite [AtomicstampedReference](https://bit.ly/2TWl11a)
+ ******************************************************************************/
+_tmpl_begin(=);
+AUTOGEN
+_tmpl_end;
+#define _tmpl_mute
+#include <vsync/atomic/tmplr.h>
+#define _tmpl_unmute
+#include <vsync/common/assert.h>
+#include <vsync/atomic.h>
+#include <vsync/vtypes.h>
+
+typedef vatomicptr_t vatomicptr_stamped_t;
+
+#define vatomicptr_stamped(_type_) vatomicptr_stamped_t
+
+#define V_ATOMICPTR_STAMPED_REQUIRED_ALIGNMENT 128U
+
+/** @cond DO_NOT_DOCUMENT */
+
+#define V_ATOMICPTR_STAMPED_STAMP_MASK   ((vuintptr_t)0x7F)
+#define V_ATOMICPTR_STAMPED_ADDRESS_MASK (~(V_ATOMICPTR_STAMPED_STAMP_MASK))
+
+
+/**
+ * Extracts the address without the stamp from `_a_`
+ *
+ */
+#define V_ATOMICPTR_STAMPED_GET_ADDRESS(_a_)                                   \
+    ((void *)(((vuintptr_t)(_a_)) & V_ATOMICPTR_STAMPED_ADDRESS_MASK))
+
+/**
+ * Extracts the stamp without the address from `_a_`
+ *
+ */
+#define V_ATOMICPTR_STAMPED_GET_STAMP(_a_)                                     \
+    ((vuint8_t)(((vuintptr_t)(_a_)) & V_ATOMICPTR_STAMPED_STAMP_MASK))
+
+/**
+ *  Combines address `_a_` with stamp `_stamp_`
+ *
+ * @note we use V_ATOMICPTR_STAMPED_GET_STAMP on stamp for overflow!
+ */
+#define V_ATOMICPTR_STAMPED_COMBINE_ADDRESS_STAMP(_a_, _stamp_)                \
+    ((void *)(vuintptr_t)(((vuintptr_t)(_a_)) |                                \
+                          ((vuintptr_t)V_ATOMICPTR_STAMPED_GET_STAMP(          \
+                              _stamp_))))
+/** @endcond */
+
+/**
+ * Evaluates to `true`, if the given pointer `_ptr_` is 128-byte-aligned.
+ */
+#define V_ATOMICPTR_STAMPED_IS_ALIGNED(_ptr_)                                  \
+    ((((vuintptr_t)(_ptr_)) & V_ATOMICPTR_STAMPED_STAMP_MASK) == 0)
+
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // vatomicptr_stamped_cmpxchg
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(MO = [[seq; acq; rel; rlx]]);
+/**
+ * Compares and exchanges the address and stamp value in `a`.
+ *
+ * @param a address of vatomicptr_stamped_t object.
+ * @param e_v expected address value.
+ * @param e_stamp expected stamp value.
+ * @param v new address value to set.
+ * @param stamp new stamp value to set.
+ * @return true address and stamp were set.
+ * @return false address and stamp were not updated, because either the current
+ * address value in `a` != `e_v`, or the current stamp value in `a` !=
+ * `e_stamp`.
+ */
+static inline vbool_t
+vatomicptr_stamped_cmpxchg_MS(vatomicptr_stamped_t *a, void *e_v,
+                              vuint8_t e_stamp, void *v, vuint8_t stamp)
+{
+    void *old = NULL;
+    void *exp = NULL;
+    void *val = NULL;
+
+    ASSERT(V_ATOMICPTR_STAMPED_IS_ALIGNED(e_v));
+    ASSERT(V_ATOMICPTR_STAMPED_IS_ALIGNED(v));
+
+    exp = V_ATOMICPTR_STAMPED_COMBINE_ADDRESS_STAMP(e_v, e_stamp);
+    val = V_ATOMICPTR_STAMPED_COMBINE_ADDRESS_STAMP(v, stamp);
+    old = vatomicptr_cmpxchg_MS(a, exp, val);
+    return old == exp;
+}
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // vatomicptr_stamped_attempt_stamp
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(MO = [[seq; acq; rel; rlx]]);
+/**
+ * Attemps to update the stamp in `a`.
+ *
+ * @param a address of vatomicptr_stamped_t object.
+ * @param e_v expected address value.
+ * @param stamp new stamp value.
+ * @return true stamp was set to `stamp`.
+ * @return false stamp is not set, because current address value in `a` !=
+ * `e_v`.
+ */
+static inline vbool_t
+vatomicptr_stamped_attempt_stamp_MS(vatomicptr_stamped_t *a, void *e_v,
+                                    vuint8_t stamp)
+{
+    void *new_val = NULL;
+    void *ret     = NULL;
+    void *old_val = vatomicptr_read(a);
+    ASSERT(V_ATOMICPTR_STAMPED_IS_ALIGNED(e_v));
+    if (V_ATOMICPTR_STAMPED_GET_ADDRESS(old_val) != e_v) {
+        return false;
+    }
+    new_val = V_ATOMICPTR_STAMPED_COMBINE_ADDRESS_STAMP(e_v, stamp);
+    ret     = vatomicptr_cmpxchg_MS(a, old_val, new_val);
+    return ret == old_val;
+}
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // vatomicptr_stamped_set
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(MO = [[seq; rel; rlx]]);
+/**
+ * Sets the address and stamp of a to the given `v` and `stamp`.
+ *
+ * @param a address of vatomicptr_stamped_t object.
+ * @param v address value to set.
+ * @param stamp stamp value to set.
+ */
+static inline void
+vatomicptr_stamped_set_MS(vatomicptr_stamped_t *a, void *v, vuint8_t stamp)
+{
+    ASSERT(V_ATOMICPTR_STAMPED_IS_ALIGNED(v));
+    void *n = V_ATOMICPTR_STAMPED_COMBINE_ADDRESS_STAMP(v, stamp);
+    vatomicptr_write_MS(a, n);
+}
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // vatomicptr_stamped_get
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(MO = [[seq; acq; rlx]]);
+/**
+ * Returns the address value of a.
+ *
+ * @param a address of vatomicptr_stamped_t object.
+ * @param out_stamp output param of type vuint8_t. The stamp value in `a`.
+ * @return void* address value in `a`.
+ */
+static inline void *
+vatomicptr_stamped_get_MS(vatomicptr_stamped_t *a, vuint8_t *out_stamp)
+{
+    void *val  = vatomicptr_read_MS(a);
+    *out_stamp = V_ATOMICPTR_STAMPED_GET_STAMP(val);
+    return V_ATOMICPTR_STAMPED_GET_ADDRESS(val);
+}
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // vatomicptr_stamped_get_pointer
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(MO = [[seq; acq; rlx]]);
+/**
+ * Returns the address value of `a`.
+ *
+ * @param a address of vatomicptr_stamped_t object.
+ * @return void* stored address in `a`.
+ */
+static inline void *
+vatomicptr_stamped_get_pointer_MS(vatomicptr_stamped_t *a)
+{
+    vuint8_t stamp = 0;
+    return vatomicptr_stamped_get_MS(a, &stamp);
+}
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // vatomicptr_stamped_get_stamp
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(MO = [[seq; acq; rlx]]);
+/**
+ * Returns the stamp value of `a`.
+ *
+ * @param a address of vatomicptr_stamped_t object.
+ * @return stamp value in `a`.
+ */
+static inline vuint8_t
+vatomicptr_stamped_get_stamp_MS(vatomicptr_stamped_t *a)
+{
+    vuint8_t stamp = 0;
+    (void)vatomicptr_stamped_get_MS(a, &stamp);
+    return stamp;
+}
+_tmpl_end;
+#undef V_ATOMICPTR_STAMPED_EXTRACT_ADDRESS
+#undef V_ATOMICPTR_STAMPED_EXTRACT_STAMP
+#undef V_ATOMICPTR_STAMPED_GET_ADDRESS
+#undef V_ATOMICPTR_STAMPED_GET_STAMP
+#undef V_ATOMICPTR_STAMPED_COMBINE_ADDRESS_STAMP
+#endif /* VSYNC_ATOMICPTR_STAMPED_H */

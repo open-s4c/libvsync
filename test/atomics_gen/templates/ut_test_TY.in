@@ -1,0 +1,769 @@
+_tmpl_begin(=);
+AUTOGEN
+_tmpl_end;
+#include <vsync/atomic.h>
+#include <vsync/common/assert.h>
+#include <vsync/common/dbg.h>
+#define _tmpl_mute
+#include <vsync/atomic/tmplr.h>
+#include <vsync/atomic/core.h.in>
+#define _tmpl_unmute
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // init values
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_map(MAP_INIT_ptr, NULL);
+_tmpl_map(MAP_INIT_u8,  (TT)1);
+_tmpl_map(MAP_INIT_u16, (TT)1);
+_tmpl_map(MAP_INIT_u32, (TT)1);
+_tmpl_map(MAP_INIT_u64, (TT)1);
+_tmpl_map(MAP_INIT_sz,  (TT)1);
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // max values
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_map(MAP_MAX_ptr, (void *)VUINTPTR_MAX);
+_tmpl_map(MAP_MAX_u8, VUINT8_MAX);
+_tmpl_map(MAP_MAX_u16, VUINT16_MAX);
+_tmpl_map(MAP_MAX_u32, VUINT32_MAX);
+_tmpl_map(MAP_MAX_u64, VUINT64_MAX);
+_tmpl_map(MAP_MAX_sz,  SIZE_MAX);
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // READ
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]])
+#define BYTE_WIDTH 8U
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // READ
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz; ptr]], MO = [[seq; acq; rlx]]);
+/*****************************************************************************
+ * UnitTest: _vatomic_read_MS
+ *****************************************************************************/
+static inline void
+ut_atomic_TY_read_MS(void)
+{
+    AA obj = {MAP_INIT_TY};
+    TT val = _vatomic_read_MS(&obj);
+    ASSERT(val == MAP_INIT_TY);
+    V_UNUSED(val);
+}
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // INIT
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz; ptr]]);
+/*****************************************************************************
+ * UnitTest: _vatomic_init
+ *****************************************************************************/
+static inline void
+ut_atomic_TY_init(void)
+{
+    AA obj = {MAP_INIT_TY};
+    TT val = _vatomic_read(&obj);
+    ASSERT(val == MAP_INIT_TY);
+    _vatomic_init(&obj, MAP_MAX_TY);
+    val = _vatomic_read(&obj);
+    ASSERT(val == MAP_MAX_TY);
+    V_UNUSED(val);
+}
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // WRITE
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz; ptr]], MO = [[seq; rel; rlx]]);
+/*****************************************************************************
+ * UnitTest: _vatomic_write_MS
+ *****************************************************************************/
+static inline void
+ut_atomic_TY_write_MS(void)
+{
+    AA obj = {MAP_INIT_TY};
+    TT val = _vatomic_read(&obj);
+    ASSERT(val == MAP_INIT_TY);
+    _vatomic_write_MS(&obj, MAP_MAX_TY);
+    val = _vatomic_read(&obj);
+    ASSERT(val == MAP_MAX_TY);
+    V_UNUSED(val);
+}
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // XCHG
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz; ptr]], MO = [[seq; acq; rel; rlx]]);
+/*****************************************************************************
+ * UnitTest: _vatomic_xchg_MS
+ *****************************************************************************/
+static inline void
+ut_atomic_TY_xchg_MS(void)
+{
+    AA obj = {MAP_INIT_TY};
+    TT val = _vatomic_read(&obj);
+    ASSERT(val == MAP_INIT_TY);
+    TT old = _vatomic_xchg_MS(&obj, MAP_MAX_TY);
+    ASSERT(old == MAP_INIT_TY);
+    val = _vatomic_read(&obj);
+    ASSERT(val == MAP_MAX_TY);
+    V_UNUSED(val, old);
+}
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // CMPXCHG
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz; ptr]], MO = [[seq; acq; rel; rlx]]);
+/*****************************************************************************
+ * UnitTest: _vatomic_cmpxchg_MS
+ *****************************************************************************/
+static inline void
+ut_atomic_TY_cmpxchg_MS(void)
+{
+    AA obj = {MAP_INIT_TY};
+    /* test failure */
+    TT old = _vatomic_cmpxchg_MS(&obj, MAP_MAX_TY, MAP_INIT_TY);
+    ASSERT(old == MAP_INIT_TY);
+    TT val = _vatomic_read(&obj);
+    ASSERT(val == old);
+    /* test success */
+    old = _vatomic_cmpxchg_MS(&obj, MAP_INIT_TY, MAP_MAX_TY);
+    ASSERT(old == MAP_INIT_TY);
+    val = _vatomic_read(&obj);
+    ASSERT(val == MAP_MAX_TY);
+    V_UNUSED(val, old);
+}
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // ADD
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]]);
+/* ****************************************************************************
+ * UnitTest: _vatomic_add_MS
+ * ****************************************************************************/
+static inline void
+ut_atomic_TY_add_MS(void)
+{
+    AA obj = {MAP_INIT_TY};
+    TT max = MAP_INIT_TY + (TT)10;
+    TT ref = MAP_INIT_TY;
+    TT val = 0;
+
+    for (TT v = MAP_INIT_TY; v <= max; v++) {
+        _vatomic_add_MS(&obj, v);
+        ref += v;
+        val = _vatomic_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val);
+}
+_tmpl_end;
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
+/*****************************************************************************
+ * UnitTest: _vatomic_get_add_MS
+ *****************************************************************************/
+static inline void
+ut_atomic_TY_get_add_MS(void)
+{
+    AA obj = {MAP_INIT_TY};
+    TT max = MAP_INIT_TY + (TT)10;
+    TT ref = MAP_INIT_TY;
+    TT val = 0;
+    TT old = 0;
+
+    for (TT v = MAP_INIT_TY; v <= max; v++) {
+        old = _vatomic_get_add_MS(&obj, v);
+        ASSERT(old == ref);
+        ref += v;
+        val = _vatomic_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, old);
+}
+/*****************************************************************************
+ * UnitTest: _vatomic_add_get_MS
+ *****************************************************************************/
+static inline void
+ut_atomic_TY_add_get_MS(void)
+{
+    AA obj = {MAP_INIT_TY};
+    TT max = MAP_INIT_TY + (TT)10;
+    TT ref = MAP_INIT_TY;
+    TT val = 0;
+    TT cur = 0;
+
+    for (TT v = MAP_INIT_TY; v <= max; v++) {
+        cur = _vatomic_add_get_MS(&obj, v);
+        ref += v;
+        ASSERT(cur == ref);
+        val = _vatomic_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, cur);
+}
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // INC
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]]);
+/* ****************************************************************************
+ * UnitTest: _vatomic_inc_MS
+ * ****************************************************************************/
+static inline void
+ut_atomic_TY_inc_MS(void)
+{
+    AA obj = {MAP_INIT_TY};
+    TT max = MAP_INIT_TY + (TT)10;
+    TT ref = MAP_INIT_TY;
+    TT val = 0;
+
+    for (TT v = MAP_INIT_TY; v <= max; v++) {
+        _vatomic_inc_MS(&obj);
+        ref++;
+        val = _vatomic_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val);
+}
+_tmpl_end;
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
+/*****************************************************************************
+ * UnitTest: _vatomic_get_inc_MS
+ *****************************************************************************/
+static inline void
+ut_atomic_TY_get_inc_MS(void)
+{
+    AA obj = {MAP_INIT_TY};
+    TT max = MAP_INIT_TY + (TT)10;
+    TT ref = MAP_INIT_TY;
+    TT val = 0;
+    TT old = 0;
+
+    for (TT v = MAP_INIT_TY; v <= max; v++) {
+        old = _vatomic_get_inc_MS(&obj);
+        ASSERT(old == ref);
+        ref++;
+        val = _vatomic_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, old);
+}
+/*****************************************************************************
+ * UnitTest: _vatomic_inc_get_MS
+ *****************************************************************************/
+static inline void
+ut_atomic_TY_inc_get_MS(void)
+{
+    AA obj = {MAP_INIT_TY};
+    TT max = MAP_INIT_TY + (TT)10;
+    TT ref = MAP_INIT_TY;
+    TT cur = 0;
+    TT val = 0;
+
+    for (TT v = MAP_INIT_TY; v <= max; v++) {
+        ref++;
+        cur = _vatomic_inc_get_MS(&obj);
+        ASSERT(cur == ref);
+        val = _vatomic_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(cur, val);
+}
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // SUB
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]]);
+/* ****************************************************************************
+ * UnitTest: _vatomic_sub_MS
+ * ****************************************************************************/
+static inline void
+ut_atomic_TY_sub_MS(void)
+{
+    AA obj = {MAP_MAX_TY};
+    TT max = MAP_INIT_TY + (TT)10;
+    TT ref = MAP_MAX_TY;
+    TT val = 0;
+
+    for (TT v = MAP_INIT_TY; v <= max; v++) {
+        _vatomic_sub_MS(&obj, v);
+        ref -= v;
+        val = _vatomic_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val);
+}
+_tmpl_end;
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
+/*****************************************************************************
+ * UnitTest: _vatomic_get_sub_MS
+ *****************************************************************************/
+static inline void
+ut_atomic_TY_get_sub_MS(void)
+{
+    AA obj = {MAP_MAX_TY};
+    TT max = MAP_INIT_TY + (TT)10;
+    TT ref = MAP_MAX_TY;
+    TT val = 0;
+    TT old = 0;
+
+    for (TT v = MAP_INIT_TY; v <= max; v++) {
+        old = _vatomic_get_sub_MS(&obj, v);
+        ASSERT(old == ref);
+        ref -= v;
+        val = _vatomic_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, old);
+}
+/*****************************************************************************
+ * UnitTest: _vatomic_sub_get_MS
+ *****************************************************************************/
+static inline void
+ut_atomic_TY_sub_get_MS(void)
+{
+    AA obj = {MAP_MAX_TY};
+    TT max = MAP_INIT_TY + (TT)10;
+    TT ref = MAP_MAX_TY;
+    TT val =  0;
+    TT cur = 0;
+
+    for (TT v = MAP_INIT_TY; v <= max; v++) {
+        cur = _vatomic_sub_get_MS(&obj, v);
+        ref -= v;
+        ASSERT(cur == ref);
+        val = _vatomic_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, cur);
+}
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // DEC
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]]);
+/* ****************************************************************************
+ * UnitTest: _vatomic_dec_MS
+ * ****************************************************************************/
+static inline void
+ut_atomic_TY_dec_MS(void)
+{
+    AA obj = {MAP_MAX_TY};
+    TT max = MAP_INIT_TY + (TT)10;
+    TT ref = MAP_MAX_TY;
+    TT val = 0;
+
+    for (TT v = MAP_INIT_TY; v <= max; v++) {
+        _vatomic_dec_MS(&obj);
+        ref--;
+        val = _vatomic_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val);
+}
+_tmpl_end;
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
+/*****************************************************************************
+ * UnitTest: _vatomic_get_dec_MS
+ *****************************************************************************/
+static inline void
+ut_atomic_TY_get_dec_MS(void)
+{
+    AA obj = {MAP_MAX_TY};
+    TT max = MAP_INIT_TY + (TT)10;
+    TT ref = MAP_MAX_TY;
+    TT old = 0;
+    TT val = 0;
+
+    for (TT v = MAP_INIT_TY; v <= max; v++) {
+        old = _vatomic_get_dec_MS(&obj);
+        ASSERT(old == ref);
+        ref--;
+        val = _vatomic_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(old, val);
+}
+/*****************************************************************************
+ * UnitTest: _vatomic_dec_get_MS
+ *****************************************************************************/
+static inline void
+ut_atomic_TY_dec_get_MS(void)
+{
+    AA obj = {MAP_MAX_TY};
+    TT max = MAP_INIT_TY + (TT)10;
+    TT ref = MAP_MAX_TY;
+    TT cur = 0;
+    TT val = 0;
+
+    for (TT v = MAP_INIT_TY; v <= max; v++) {
+        ref--;
+        cur = _vatomic_dec_get_MS(&obj);
+        ASSERT(cur == ref);
+        val = _vatomic_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(cur, val);
+}
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // MAX
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]]);
+/*****************************************************************************
+ * UnitTest: _vatomic_max_MS
+ *****************************************************************************/
+static inline void
+ut_atomic_TY_max_MS(void)
+{
+    AA obj = {MAP_INIT_TY};
+
+    /* test write */
+    _vatomic_max_MS(&obj, MAP_MAX_TY);
+    TT val = _vatomic_read(&obj);
+    ASSERT(val == MAP_MAX_TY);
+
+    /* test no write */
+    _vatomic_max_MS(&obj, MAP_INIT_TY);
+    val = _vatomic_read(&obj);
+    ASSERT(val == MAP_MAX_TY);
+    V_UNUSED(val);
+}
+_tmpl_end;
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
+/*****************************************************************************
+ * UnitTest: _vatomic_get_max_MS
+ *****************************************************************************/
+static inline void
+ut_atomic_TY_get_max_MS(void)
+{
+    AA obj = {MAP_INIT_TY};
+
+    /* test write */
+    TT old = _vatomic_get_max_MS(&obj, MAP_MAX_TY);
+    ASSERT(old == MAP_INIT_TY);
+    TT val = _vatomic_read(&obj);
+    ASSERT(val == MAP_MAX_TY);
+
+    /* test no write */
+    old = _vatomic_get_max_MS(&obj, MAP_INIT_TY);
+    ASSERT(old == MAP_MAX_TY);
+    val = _vatomic_read(&obj);
+    ASSERT(val == MAP_MAX_TY);
+
+    V_UNUSED(val, old);
+}
+/*****************************************************************************
+ * UnitTest: _vatomic_max_get_MS
+ *****************************************************************************/
+static inline void
+ut_atomic_TY_max_get_MS(void)
+{
+    AA obj = {MAP_INIT_TY};
+
+    /* test write */
+    TT cur = _vatomic_max_get_MS(&obj, MAP_MAX_TY);
+    ASSERT(cur == MAP_MAX_TY);
+    TT val = _vatomic_read(&obj);
+    ASSERT(val == MAP_MAX_TY);
+
+    /* test no write */
+    cur = _vatomic_max_get_MS(&obj, MAP_INIT_TY);
+    ASSERT(cur == MAP_MAX_TY);
+    val = _vatomic_read(&obj);
+    ASSERT(val == MAP_MAX_TY);
+
+    V_UNUSED(cur, val);
+}
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // AND
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]]);
+/*****************************************************************************
+ * UnitTest: _vatomic_and_MS
+ *****************************************************************************/
+static inline void
+ut_atomic_TY_and_MS(void)
+{
+    AA obj  = {MAP_MAX_TY};
+    TT mask = MAP_MAX_TY;
+    TT ref  = MAP_MAX_TY;
+    TT cur  = 0;
+
+    for (vsize_t i = 0; i < sizeof(TT); i++) {
+        mask = (TT)(mask >> (BYTE_WIDTH * i));
+        ref &= mask;
+        _vatomic_and_MS(&obj, mask);
+        cur = _vatomic_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
+}
+_tmpl_end;
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
+/*****************************************************************************
+ * UnitTest: _vatomic_get_and_MS
+ *****************************************************************************/
+static inline void
+ut_atomic_TY_get_and_MS(void)
+{
+    AA obj  = {MAP_MAX_TY};
+    TT mask = MAP_MAX_TY;
+    TT ref  = MAP_MAX_TY;
+    TT cur  = 0;
+    TT old  = 0;
+
+    for (vsize_t i = 0; i < sizeof(TT); i++) {
+        mask = (TT)(mask >> (BYTE_WIDTH * i));
+        old  = _vatomic_get_and_MS(&obj, mask);
+        ASSERT(old == ref);
+        ref &= mask;
+        cur = _vatomic_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur, old);
+}
+/*****************************************************************************
+ * UnitTest: _vatomic_and_get_MS
+ *****************************************************************************/
+static inline void
+ut_atomic_TY_and_get_MS(void)
+{
+    AA obj  = {MAP_MAX_TY};
+    TT mask = MAP_MAX_TY;
+    TT ref  = MAP_MAX_TY;
+    TT cur  = 0;
+
+    for (vsize_t i = 0; i < sizeof(TT); i++) {
+        mask = (TT)(mask >> (BYTE_WIDTH * i));
+        ref &= mask;
+        cur = _vatomic_and_get_MS(&obj, mask);
+        ASSERT(cur == ref);
+        cur = _vatomic_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
+}
+_tmpl_end;
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]]);
+/*****************************************************************************
+ * UnitTest: _vatomic_or_MS
+ *****************************************************************************/
+static inline void
+ut_atomic_TY_or_MS(void)
+{
+    AA obj  = {MAP_INIT_TY};
+    TT mask = 0xFF;
+    TT ref  = MAP_INIT_TY;
+    TT cur  = 0;
+
+    for (vsize_t i = 0; i < sizeof(TT); i++) {
+        mask = (TT)(mask << (BYTE_WIDTH * i));
+        ref |= mask;
+        _vatomic_or_MS(&obj, mask);
+        cur = _vatomic_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
+}
+_tmpl_end;
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
+/*****************************************************************************
+ * UnitTest: _vatomic_get_or_MS
+ *****************************************************************************/
+static inline void
+ut_atomic_TY_get_or_MS(void)
+{
+    AA obj  = {MAP_INIT_TY};
+    TT mask = 0xFF;
+    TT ref  = MAP_INIT_TY;
+    TT cur  = 0;
+    TT old  = 0;
+
+    for (vsize_t i = 0; i < sizeof(TT); i++) {
+        mask = (TT)(mask << (BYTE_WIDTH * i));
+        old  = _vatomic_get_or_MS(&obj, mask);
+        ASSERT(old == ref);
+        ref |= mask;
+        cur = _vatomic_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur, old);
+}
+/*****************************************************************************
+ * UnitTest: _vatomic_or_get_MS
+ *****************************************************************************/
+static inline void
+ut_atomic_TY_or_get_MS(void)
+{
+    AA obj  = {MAP_INIT_TY};
+    TT mask = 0xFF;
+    TT ref  = MAP_INIT_TY;
+    TT cur  = 0;
+
+    for (vsize_t i = 0; i < sizeof(TT); i++) {
+        mask = (TT)(mask << (BYTE_WIDTH * i));
+        ref |= mask;
+        cur = _vatomic_or_get_MS(&obj, mask);
+        ASSERT(cur == ref);
+        cur = _vatomic_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
+}
+_tmpl_end;
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]]);
+/*****************************************************************************
+ * UnitTest: _vatomic_xor_MS
+ *****************************************************************************/
+static inline void
+ut_atomic_TY_xor_MS(void)
+{
+    AA obj  = {MAP_INIT_TY};
+    TT mask = 0x33;
+    TT ref  = MAP_INIT_TY;
+    TT cur  = 0;
+
+    for (vsize_t i = 0; i < sizeof(TT); i++) {
+        mask = (TT)(mask << (BYTE_WIDTH * i)) | mask;
+        ref ^= mask;
+        _vatomic_xor_MS(&obj, mask);
+        cur = _vatomic_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
+}
+_tmpl_end;
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
+/*****************************************************************************
+ * UnitTest: _vatomic_get_xor_MS
+ *****************************************************************************/
+static inline void
+ut_atomic_TY_get_xor_MS(void)
+{
+    AA obj  = {MAP_INIT_TY};
+    TT mask = 0x33;
+    TT ref  = MAP_INIT_TY;
+    TT cur  = 0;
+    TT old  = 0;
+
+    for (vsize_t i = 0; i < sizeof(TT); i++) {
+        mask = (TT)(mask << (BYTE_WIDTH * i)) | mask;
+        old  = _vatomic_get_xor_MS(&obj, mask);
+        ASSERT(old == ref);
+        ref ^= mask;
+        cur = _vatomic_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(old, cur);
+}
+/*****************************************************************************
+ * UnitTest: _vatomic_or_get_MS
+ *****************************************************************************/
+static inline void
+ut_atomic_TY_xor_get_MS(void)
+{
+    AA obj  = {MAP_INIT_TY};
+    TT mask = 0xFF;
+    TT ref  = MAP_INIT_TY;
+    TT cur  = 0;
+
+    for (vsize_t i = 0; i < sizeof(TT); i++) {
+        mask = (TT)(mask << (BYTE_WIDTH * i)) | mask;
+        ref ^= mask;
+        cur = _vatomic_xor_get_MS(&obj, mask);
+        ASSERT(cur == ref);
+        cur = _vatomic_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
+}
+_tmpl_end;
+/*****************************************************************************
+ * Entry point
+ *****************************************************************************/
+int
+main(void)
+{
+    _tmpl_begin(TY = [[u8; u16; u32; u64; sz; ptr]], MO = [[seq; acq; rlx]]);
+    ut_atomic_TY_read_MS();
+    _tmpl_end;
+
+    _tmpl_begin(TY = [[u8; u16; u32; u64; sz; ptr]]);
+    ut_atomic_TY_init();
+    _tmpl_end;
+
+    _tmpl_begin(TY = [[u8; u16; u32; u64; sz; ptr]], MO = [[seq; rel; rlx]]);
+    ut_atomic_TY_write_MS();
+    _tmpl_end;
+
+    _tmpl_begin(TY = [[u8; u16; u32; u64; sz; ptr]], MO = [[seq; acq; rel; rlx]]);
+    ut_atomic_TY_xchg_MS();
+    _tmpl_end;
+
+    _tmpl_begin(TY = [[u8; u16; u32; u64; sz; ptr]], MO = [[seq; acq; rel; rlx]]);
+    ut_atomic_TY_cmpxchg_MS();
+    _tmpl_end;
+
+    _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]]);
+    ut_atomic_TY_add_MS();
+    _tmpl_end;
+    _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
+    ut_atomic_TY_get_add_MS();
+    ut_atomic_TY_add_get_MS();
+    _tmpl_end;
+
+    _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]]);
+    ut_atomic_TY_inc_MS();
+    _tmpl_end;
+    _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
+    ut_atomic_TY_get_inc_MS();
+    ut_atomic_TY_inc_get_MS();
+    _tmpl_end;
+
+    _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]]);
+    ut_atomic_TY_sub_MS();
+    _tmpl_end;
+    _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
+    ut_atomic_TY_get_sub_MS();
+    ut_atomic_TY_sub_get_MS();
+    _tmpl_end;
+
+    _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]]);
+    ut_atomic_TY_dec_MS();
+    _tmpl_end;
+    _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
+    ut_atomic_TY_get_dec_MS();
+    ut_atomic_TY_dec_get_MS();
+    _tmpl_end;
+
+    _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]]);
+    ut_atomic_TY_max_MS();
+    _tmpl_end;
+    _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
+    ut_atomic_TY_get_max_MS();
+    ut_atomic_TY_max_get_MS();
+    _tmpl_end;
+
+    _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]]);
+    ut_atomic_TY_and_MS();
+    _tmpl_end;
+    _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
+    ut_atomic_TY_get_and_MS();
+    ut_atomic_TY_and_get_MS();
+    _tmpl_end;
+
+    _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]]);
+    ut_atomic_TY_or_MS();
+    _tmpl_end;
+    _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
+    ut_atomic_TY_get_or_MS();
+    ut_atomic_TY_or_get_MS();
+    _tmpl_end;
+
+    _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]]);
+    ut_atomic_TY_xor_MS();
+    _tmpl_end;
+    _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
+    ut_atomic_TY_get_xor_MS();
+    ut_atomic_TY_xor_get_MS();
+    _tmpl_end;
+    return 0;
+}

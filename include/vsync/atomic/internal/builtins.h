@@ -19,7 +19,9 @@ static inline void
 vatomic_fence(void)
 {
 	V_COMPILER_BARRIER();
+	#if !defined(VSYNC_THREAD_SANITIZER)
 	__atomic_thread_fence(V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+	#endif
 	V_COMPILER_BARRIER();
 }
 
@@ -32,7 +34,9 @@ static inline void
 vatomic_fence_acq(void)
 {
 	V_COMPILER_BARRIER();
+	#if !defined(VSYNC_THREAD_SANITIZER)
 	__atomic_thread_fence(V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+	#endif
 	V_COMPILER_BARRIER();
 }
 
@@ -45,7 +49,9 @@ static inline void
 vatomic_fence_rel(void)
 {
 	V_COMPILER_BARRIER();
+	#if !defined(VSYNC_THREAD_SANITIZER)
 	__atomic_thread_fence(V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE));
+	#endif
 	V_COMPILER_BARRIER();
 }
 
@@ -57,7 +63,9 @@ vatomic_fence_rel(void)
 static inline void
 vatomic_fence_rlx(void)
 {
+	#if !defined(VSYNC_THREAD_SANITIZER)
 	__atomic_thread_fence(V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+	#endif
 }
 
 #endif /* VATOMIC_FENCE_RLX */

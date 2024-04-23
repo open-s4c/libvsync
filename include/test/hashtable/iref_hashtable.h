@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #ifndef IREF_HASHTABLE
 #define IREF_HASHTABLE
 
@@ -11,13 +12,13 @@
  * The implementation is used for performance comparison and does not aim to be
  * sound or complete. There is an intentional memory leak in there.
  *
- * Note that only on LIBVSYNC_ADDRESS_SANITIZER we try to workaround that, so we
+ * Note that only on VSYNC_ADDRESS_SANITIZER we try to workaround that, so we
  * pass the sanitize check. Since this is not aimed to be used outside the scope
  * of benchmarking it is ok to do so!
  *
  * We add ismr_none to handle the tracking of pointer and free them on
  * destruction, that introduces major performance overhead so it is only enabled
- * on LIBVSYNC_ADDRESS_SANITIZER
+ * on VSYNC_ADDRESS_SANITIZER
  *
  */
 
@@ -56,7 +57,7 @@ iisize(void)
 static inline void
 map_init(void)
 {
-#if defined(LIBVSYNC_ADDRESS_SANITIZER)
+#if defined(VSYNC_ADDRESS_SANITIZER)
 	ismr_init();
 #endif
 	vhashtable_init(&g_hashtable);
@@ -66,7 +67,7 @@ static inline void
 map_destroy(void)
 {
 	vhashtable_destroy(&g_hashtable);
-#if defined(LIBVSYNC_ADDRESS_SANITIZER)
+#if defined(VSYNC_ADDRESS_SANITIZER)
 	ismr_destroy();
 #endif
 }
@@ -92,7 +93,7 @@ map_insert_stamped(vsize_t tid, user_key_t key, vsize_t stamp)
 		vmem_free(entry);
 	}
 
-#if defined(LIBVSYNC_ADDRESS_SANITIZER)
+#if defined(VSYNC_ADDRESS_SANITIZER)
 	if (evicted) {
 		ismr_retire(tid, &((hash_entry_t *)evicted)->smr_node, free_cb, false);
 	}

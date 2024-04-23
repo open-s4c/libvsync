@@ -12,6 +12,7 @@
  */
 
 #if defined(VQUEUE_UB_LF)
+	#define VGDUMP_ENABLE_BUFF
 	#include <vsync/queue/unbounded_queue_lf.h>
 	#include <test/smr/ismr.h>
 	#include <test/smr/cleaner_thread.h>
