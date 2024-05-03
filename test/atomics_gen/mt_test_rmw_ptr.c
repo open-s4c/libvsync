@@ -18,29 +18,29 @@ void *g_ptrs[N];
 static inline void *
 mt_atomic_cmpxchg_run(void *args)
 {
-	vsize_t tid = (vsize_t)(vuintptr_t)args;
-	void *cur	= 0;
-	void *old	= 0;
-	for (vsize_t i = 0; i < IT; i++) {
-		do {
-			cur = vatomicptr_read(&g_shared);
-			old = vatomicptr_cmpxchg(&g_shared, cur, &g_ptrs[tid]);
-		} while (cur != old);
-	}
-	return NULL;
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    void *cur   = 0;
+    void *old   = 0;
+    for (vsize_t i = 0; i < IT; i++) {
+        do {
+            cur = vatomicptr_read(&g_shared);
+            old = vatomicptr_cmpxchg(&g_shared, cur, &g_ptrs[tid]);
+        } while (cur != old);
+    }
+    return NULL;
 }
 static inline void
 mt_atomic_cmpxchg(void)
 {
-	vatomicptr_init(&g_shared, NULL);
-	launch_threads(N, mt_atomic_cmpxchg_run);
-	void *val = vatomicptr_read(&g_shared);
-	for (vsize_t i = 0; i < N; i++) {
-		if (val == &g_ptrs[i]) {
-			return;
-		}
-	}
-	ASSERT(0 && "resulting value is not expected");
+    vatomicptr_init(&g_shared, NULL);
+    launch_threads(N, mt_atomic_cmpxchg_run);
+    void *val = vatomicptr_read(&g_shared);
+    for (vsize_t i = 0; i < N; i++) {
+        if (val == &g_ptrs[i]) {
+            return;
+        }
+    }
+    ASSERT(0 && "resulting value is not expected");
 }
 /*****************************************************************************
  * MultiThreadedTest: vatomicptr_xchg
@@ -48,24 +48,24 @@ mt_atomic_cmpxchg(void)
 static inline void *
 mt_atomic_xchg_run(void *args)
 {
-	vsize_t tid = (vsize_t)(vuintptr_t)args;
-	for (vsize_t i = 0; i < IT; i++) {
-		(void)vatomicptr_xchg(&g_shared, &g_ptrs[tid]);
-	}
-	return NULL;
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    for (vsize_t i = 0; i < IT; i++) {
+        (void)vatomicptr_xchg(&g_shared, &g_ptrs[tid]);
+    }
+    return NULL;
 }
 static inline void
 mt_atomic_xchg(void)
 {
-	vatomicptr_init(&g_shared, NULL);
-	launch_threads(N, mt_atomic_xchg_run);
-	void *val = vatomicptr_read(&g_shared);
-	for (vsize_t i = 0; i < N; i++) {
-		if (val == &g_ptrs[i]) {
-			return;
-		}
-	}
-	ASSERT(0 && "resulting value is not expected");
+    vatomicptr_init(&g_shared, NULL);
+    launch_threads(N, mt_atomic_xchg_run);
+    void *val = vatomicptr_read(&g_shared);
+    for (vsize_t i = 0; i < N; i++) {
+        if (val == &g_ptrs[i]) {
+            return;
+        }
+    }
+    ASSERT(0 && "resulting value is not expected");
 }
 /*****************************************************************************
  * MultiThreadedTest: vatomicptr_cmpxchg_acq
@@ -73,29 +73,29 @@ mt_atomic_xchg(void)
 static inline void *
 mt_atomic_cmpxchg_acq_run(void *args)
 {
-	vsize_t tid = (vsize_t)(vuintptr_t)args;
-	void *cur	= 0;
-	void *old	= 0;
-	for (vsize_t i = 0; i < IT; i++) {
-		do {
-			cur = vatomicptr_read(&g_shared);
-			old = vatomicptr_cmpxchg_acq(&g_shared, cur, &g_ptrs[tid]);
-		} while (cur != old);
-	}
-	return NULL;
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    void *cur   = 0;
+    void *old   = 0;
+    for (vsize_t i = 0; i < IT; i++) {
+        do {
+            cur = vatomicptr_read(&g_shared);
+            old = vatomicptr_cmpxchg_acq(&g_shared, cur, &g_ptrs[tid]);
+        } while (cur != old);
+    }
+    return NULL;
 }
 static inline void
 mt_atomic_cmpxchg_acq(void)
 {
-	vatomicptr_init(&g_shared, NULL);
-	launch_threads(N, mt_atomic_cmpxchg_acq_run);
-	void *val = vatomicptr_read(&g_shared);
-	for (vsize_t i = 0; i < N; i++) {
-		if (val == &g_ptrs[i]) {
-			return;
-		}
-	}
-	ASSERT(0 && "resulting value is not expected");
+    vatomicptr_init(&g_shared, NULL);
+    launch_threads(N, mt_atomic_cmpxchg_acq_run);
+    void *val = vatomicptr_read(&g_shared);
+    for (vsize_t i = 0; i < N; i++) {
+        if (val == &g_ptrs[i]) {
+            return;
+        }
+    }
+    ASSERT(0 && "resulting value is not expected");
 }
 /*****************************************************************************
  * MultiThreadedTest: vatomicptr_xchg_acq
@@ -103,24 +103,24 @@ mt_atomic_cmpxchg_acq(void)
 static inline void *
 mt_atomic_xchg_acq_run(void *args)
 {
-	vsize_t tid = (vsize_t)(vuintptr_t)args;
-	for (vsize_t i = 0; i < IT; i++) {
-		(void)vatomicptr_xchg_acq(&g_shared, &g_ptrs[tid]);
-	}
-	return NULL;
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    for (vsize_t i = 0; i < IT; i++) {
+        (void)vatomicptr_xchg_acq(&g_shared, &g_ptrs[tid]);
+    }
+    return NULL;
 }
 static inline void
 mt_atomic_xchg_acq(void)
 {
-	vatomicptr_init(&g_shared, NULL);
-	launch_threads(N, mt_atomic_xchg_acq_run);
-	void *val = vatomicptr_read(&g_shared);
-	for (vsize_t i = 0; i < N; i++) {
-		if (val == &g_ptrs[i]) {
-			return;
-		}
-	}
-	ASSERT(0 && "resulting value is not expected");
+    vatomicptr_init(&g_shared, NULL);
+    launch_threads(N, mt_atomic_xchg_acq_run);
+    void *val = vatomicptr_read(&g_shared);
+    for (vsize_t i = 0; i < N; i++) {
+        if (val == &g_ptrs[i]) {
+            return;
+        }
+    }
+    ASSERT(0 && "resulting value is not expected");
 }
 /*****************************************************************************
  * MultiThreadedTest: vatomicptr_cmpxchg_rel
@@ -128,29 +128,29 @@ mt_atomic_xchg_acq(void)
 static inline void *
 mt_atomic_cmpxchg_rel_run(void *args)
 {
-	vsize_t tid = (vsize_t)(vuintptr_t)args;
-	void *cur	= 0;
-	void *old	= 0;
-	for (vsize_t i = 0; i < IT; i++) {
-		do {
-			cur = vatomicptr_read(&g_shared);
-			old = vatomicptr_cmpxchg_rel(&g_shared, cur, &g_ptrs[tid]);
-		} while (cur != old);
-	}
-	return NULL;
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    void *cur   = 0;
+    void *old   = 0;
+    for (vsize_t i = 0; i < IT; i++) {
+        do {
+            cur = vatomicptr_read(&g_shared);
+            old = vatomicptr_cmpxchg_rel(&g_shared, cur, &g_ptrs[tid]);
+        } while (cur != old);
+    }
+    return NULL;
 }
 static inline void
 mt_atomic_cmpxchg_rel(void)
 {
-	vatomicptr_init(&g_shared, NULL);
-	launch_threads(N, mt_atomic_cmpxchg_rel_run);
-	void *val = vatomicptr_read(&g_shared);
-	for (vsize_t i = 0; i < N; i++) {
-		if (val == &g_ptrs[i]) {
-			return;
-		}
-	}
-	ASSERT(0 && "resulting value is not expected");
+    vatomicptr_init(&g_shared, NULL);
+    launch_threads(N, mt_atomic_cmpxchg_rel_run);
+    void *val = vatomicptr_read(&g_shared);
+    for (vsize_t i = 0; i < N; i++) {
+        if (val == &g_ptrs[i]) {
+            return;
+        }
+    }
+    ASSERT(0 && "resulting value is not expected");
 }
 /*****************************************************************************
  * MultiThreadedTest: vatomicptr_xchg_rel
@@ -158,24 +158,24 @@ mt_atomic_cmpxchg_rel(void)
 static inline void *
 mt_atomic_xchg_rel_run(void *args)
 {
-	vsize_t tid = (vsize_t)(vuintptr_t)args;
-	for (vsize_t i = 0; i < IT; i++) {
-		(void)vatomicptr_xchg_rel(&g_shared, &g_ptrs[tid]);
-	}
-	return NULL;
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    for (vsize_t i = 0; i < IT; i++) {
+        (void)vatomicptr_xchg_rel(&g_shared, &g_ptrs[tid]);
+    }
+    return NULL;
 }
 static inline void
 mt_atomic_xchg_rel(void)
 {
-	vatomicptr_init(&g_shared, NULL);
-	launch_threads(N, mt_atomic_xchg_rel_run);
-	void *val = vatomicptr_read(&g_shared);
-	for (vsize_t i = 0; i < N; i++) {
-		if (val == &g_ptrs[i]) {
-			return;
-		}
-	}
-	ASSERT(0 && "resulting value is not expected");
+    vatomicptr_init(&g_shared, NULL);
+    launch_threads(N, mt_atomic_xchg_rel_run);
+    void *val = vatomicptr_read(&g_shared);
+    for (vsize_t i = 0; i < N; i++) {
+        if (val == &g_ptrs[i]) {
+            return;
+        }
+    }
+    ASSERT(0 && "resulting value is not expected");
 }
 /*****************************************************************************
  * MultiThreadedTest: vatomicptr_cmpxchg_rlx
@@ -183,29 +183,29 @@ mt_atomic_xchg_rel(void)
 static inline void *
 mt_atomic_cmpxchg_rlx_run(void *args)
 {
-	vsize_t tid = (vsize_t)(vuintptr_t)args;
-	void *cur	= 0;
-	void *old	= 0;
-	for (vsize_t i = 0; i < IT; i++) {
-		do {
-			cur = vatomicptr_read(&g_shared);
-			old = vatomicptr_cmpxchg_rlx(&g_shared, cur, &g_ptrs[tid]);
-		} while (cur != old);
-	}
-	return NULL;
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    void *cur   = 0;
+    void *old   = 0;
+    for (vsize_t i = 0; i < IT; i++) {
+        do {
+            cur = vatomicptr_read(&g_shared);
+            old = vatomicptr_cmpxchg_rlx(&g_shared, cur, &g_ptrs[tid]);
+        } while (cur != old);
+    }
+    return NULL;
 }
 static inline void
 mt_atomic_cmpxchg_rlx(void)
 {
-	vatomicptr_init(&g_shared, NULL);
-	launch_threads(N, mt_atomic_cmpxchg_rlx_run);
-	void *val = vatomicptr_read(&g_shared);
-	for (vsize_t i = 0; i < N; i++) {
-		if (val == &g_ptrs[i]) {
-			return;
-		}
-	}
-	ASSERT(0 && "resulting value is not expected");
+    vatomicptr_init(&g_shared, NULL);
+    launch_threads(N, mt_atomic_cmpxchg_rlx_run);
+    void *val = vatomicptr_read(&g_shared);
+    for (vsize_t i = 0; i < N; i++) {
+        if (val == &g_ptrs[i]) {
+            return;
+        }
+    }
+    ASSERT(0 && "resulting value is not expected");
 }
 /*****************************************************************************
  * MultiThreadedTest: vatomicptr_xchg_rlx
@@ -213,24 +213,24 @@ mt_atomic_cmpxchg_rlx(void)
 static inline void *
 mt_atomic_xchg_rlx_run(void *args)
 {
-	vsize_t tid = (vsize_t)(vuintptr_t)args;
-	for (vsize_t i = 0; i < IT; i++) {
-		(void)vatomicptr_xchg_rlx(&g_shared, &g_ptrs[tid]);
-	}
-	return NULL;
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    for (vsize_t i = 0; i < IT; i++) {
+        (void)vatomicptr_xchg_rlx(&g_shared, &g_ptrs[tid]);
+    }
+    return NULL;
 }
 static inline void
 mt_atomic_xchg_rlx(void)
 {
-	vatomicptr_init(&g_shared, NULL);
-	launch_threads(N, mt_atomic_xchg_rlx_run);
-	void *val = vatomicptr_read(&g_shared);
-	for (vsize_t i = 0; i < N; i++) {
-		if (val == &g_ptrs[i]) {
-			return;
-		}
-	}
-	ASSERT(0 && "resulting value is not expected");
+    vatomicptr_init(&g_shared, NULL);
+    launch_threads(N, mt_atomic_xchg_rlx_run);
+    void *val = vatomicptr_read(&g_shared);
+    for (vsize_t i = 0; i < N; i++) {
+        if (val == &g_ptrs[i]) {
+            return;
+        }
+    }
+    ASSERT(0 && "resulting value is not expected");
 }
 /*****************************************************************************
  * Entry point
@@ -238,13 +238,13 @@ mt_atomic_xchg_rlx(void)
 int
 main(void)
 {
-	mt_atomic_cmpxchg();
-	mt_atomic_xchg();
-	mt_atomic_cmpxchg_rel();
-	mt_atomic_xchg_rel();
-	mt_atomic_cmpxchg_acq();
-	mt_atomic_xchg_acq();
-	mt_atomic_cmpxchg_rlx();
-	mt_atomic_xchg_rlx();
-	return 0;
+    mt_atomic_cmpxchg();
+    mt_atomic_xchg();
+    mt_atomic_cmpxchg_rel();
+    mt_atomic_xchg_rel();
+    mt_atomic_cmpxchg_acq();
+    mt_atomic_xchg_acq();
+    mt_atomic_cmpxchg_rlx();
+    mt_atomic_xchg_rlx();
+    return 0;
 }

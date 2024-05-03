@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #ifndef VSYNC_CAS_H
 #define VSYNC_CAS_H
 /*******************************************************************************
@@ -17,14 +18,14 @@
 #include <vsync/vtypes.h>
 
 typedef struct caslock_s {
-	vatomic32_t lock;
+    vatomic32_t lock;
 } caslock_t;
 
 /** Initializer of `caslock_t`. */
 #define CASLOCK_INIT()                                                         \
-	{                                                                          \
-		.lock = VATOMIC_INIT(0)                                                \
-	}
+    {                                                                          \
+        .lock = VATOMIC_INIT(0)                                                \
+    }
 /**
  * Initializes the CAS lock.
  *
@@ -35,7 +36,7 @@ typedef struct caslock_s {
 static inline void
 caslock_init(caslock_t *l)
 {
-	vatomic32_init(&l->lock, 0);
+    vatomic32_init(&l->lock, 0);
 }
 /**
  * Acquires the CAS lock.
@@ -45,7 +46,7 @@ caslock_init(caslock_t *l)
 static inline void
 caslock_acquire(caslock_t *l)
 {
-	vatomic32_await_eq_set_acq(&l->lock, 0, 1);
+    vatomic32_await_eq_set_acq(&l->lock, 0, 1);
 }
 /**
  * Tries to acquire the CAS lock.
@@ -57,7 +58,7 @@ caslock_acquire(caslock_t *l)
 static inline vbool_t
 caslock_tryacquire(caslock_t *l)
 {
-	return vatomic32_cmpxchg_acq(&l->lock, 0, 1) == 0;
+    return vatomic32_cmpxchg_acq(&l->lock, 0, 1) == 0;
 }
 /**
  * Releases the CAS lock.
@@ -67,6 +68,6 @@ caslock_tryacquire(caslock_t *l)
 static inline void
 caslock_release(caslock_t *l)
 {
-	vatomic32_write_rel(&l->lock, 0);
+    vatomic32_write_rel(&l->lock, 0);
 }
 #endif

@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #ifndef VSYNC_MCSLOCK_H
 #define VSYNC_MCSLOCK_H
 /*******************************************************************************
@@ -29,20 +30,20 @@
 
 /** Node of a thread/core in the MCS lock.  */
 typedef struct mcs_node_s {
-	vatomicptr(struct mcs_node_s *) next;
-	vatomic32_t locked;
+    vatomicptr(struct mcs_node_s *) next;
+    vatomic32_t locked;
 } VSYNC_CACHEALIGN mcs_node_t;
 
 /** MCS lock data structure. */
 typedef struct mcslock_s {
-	vatomicptr(mcs_node_t *) tail;
+    vatomicptr(mcs_node_t *) tail;
 } VSYNC_CACHEALIGN mcslock_t;
 
 /** Initializer of `mcslock_t`. */
 #define MCSLOCK_INIT()                                                         \
-	{                                                                          \
-		.tail = VATOMIC_INIT(0)                                                \
-	}
+    {                                                                          \
+        .tail = VATOMIC_INIT(0)                                                \
+    }
 
 /**
  * Initializes the MCS lock.
@@ -54,7 +55,7 @@ typedef struct mcslock_s {
 static inline void
 mcslock_init(mcslock_t *l)
 {
-	vatomicptr_write(&l->tail, NULL);
+    vatomicptr_write(&l->tail, NULL);
 }
 /**
  * Tries to acquire the MCS lock.
@@ -68,14 +69,14 @@ mcslock_init(mcslock_t *l)
 static inline vbool_t
 mcslock_tryacquire(mcslock_t *l, mcs_node_t *node)
 {
-	mcs_node_t *pred;
+    mcs_node_t *pred;
 
-	vatomicptr_write_rlx(&node->next, NULL);
-	vatomic32_write_rlx(&node->locked, 1);
+    vatomicptr_write_rlx(&node->next, NULL);
+    vatomic32_write_rlx(&node->locked, 1);
 
-	pred = (mcs_node_t *)vatomicptr_cmpxchg(&l->tail, NULL, node);
+    pred = (mcs_node_t *)vatomicptr_cmpxchg(&l->tail, NULL, node);
 
-	return pred == NULL;
+    return pred == NULL;
 }
 /**
  * Acquires the MCS lock.
@@ -87,16 +88,16 @@ mcslock_tryacquire(mcslock_t *l, mcs_node_t *node)
 static inline void
 mcslock_acquire(mcslock_t *l, mcs_node_t *node)
 {
-	mcs_node_t *pred;
+    mcs_node_t *pred;
 
-	vatomicptr_write_rlx(&node->next, NULL);
-	vatomic32_write_rlx(&node->locked, 1);
+    vatomicptr_write_rlx(&node->next, NULL);
+    vatomic32_write_rlx(&node->locked, 1);
 
-	pred = (mcs_node_t *)vatomicptr_xchg(&l->tail, node);
-	if (pred) {
-		vatomicptr_write_rel(&pred->next, node);
-		vatomic32_await_eq_acq(&node->locked, 0);
-	}
+    pred = (mcs_node_t *)vatomicptr_xchg(&l->tail, node);
+    if (pred) {
+        vatomicptr_write_rel(&pred->next, node);
+        vatomic32_await_eq_acq(&node->locked, 0);
+    }
 }
 /**
  * Releases the MCS lock.
@@ -108,17 +109,17 @@ mcslock_acquire(mcslock_t *l, mcs_node_t *node)
 static inline void
 mcslock_release(mcslock_t *l, mcs_node_t *node)
 {
-	mcs_node_t *next;
+    mcs_node_t *next;
 
-	if (vatomicptr_read_rlx(&node->next) == NULL) {
-		next = (mcs_node_t *)vatomicptr_cmpxchg_rel(&l->tail, node, NULL);
-		if (next == node) {
-			return;
-		}
-		vatomicptr_await_neq_rlx(&node->next, NULL);
-	}
-	next = (mcs_node_t *)vatomicptr_read_acq(&node->next);
-	vatomic32_write_rel(&next->locked, 0);
+    if (vatomicptr_read_rlx(&node->next) == NULL) {
+        next = (mcs_node_t *)vatomicptr_cmpxchg_rel(&l->tail, node, NULL);
+        if (next == node) {
+            return;
+        }
+        vatomicptr_await_neq_rlx(&node->next, NULL);
+    }
+    next = (mcs_node_t *)vatomicptr_read_acq(&node->next);
+    vatomic32_write_rel(&next->locked, 0);
 }
 /**
  * Returns whether there is a thread waiting to acquire the MCS lock.
@@ -134,7 +135,7 @@ mcslock_release(mcslock_t *l, mcs_node_t *node)
 static inline vbool_t
 mcslock_has_waiters(mcslock_t *l, mcs_node_t *node)
 {
-	V_UNUSED(l);
-	return (vatomicptr_read_rlx(&node->next) != NULL);
+    V_UNUSED(l);
+    return (vatomicptr_read_rlx(&node->next) != NULL);
 }
 #endif

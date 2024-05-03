@@ -13,16 +13,16 @@ caslock_t lock = CASLOCK_INIT();
 void
 acquire(vuint32_t tid)
 {
-	if (tid == NTHREADS - 1) {
-		await_while (!caslock_tryacquire(&lock)) {}
-	} else {
-		caslock_acquire(&lock);
-	}
+    if (tid == NTHREADS - 1) {
+        await_while (!caslock_tryacquire(&lock)) {}
+    } else {
+        caslock_acquire(&lock);
+    }
 }
 
 void
 release(vuint32_t tid)
 {
-	V_UNUSED(tid);
-	caslock_release(&lock);
+    V_UNUSED(tid);
+    caslock_release(&lock);
 }

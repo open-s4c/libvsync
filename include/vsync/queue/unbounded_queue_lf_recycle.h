@@ -57,14 +57,14 @@
 #define RECYCLE_QUEUE_NODE_ALIGNMENT V_ATOMICPTR_STAMPED_REQUIRED_ALIGNMENT
 
 typedef struct vqueue_ub_node_s {
-	void *data;
-	vatomicptr_stamped(struct vqueue_ub_node_s *) next;
+    void *data;
+    vatomicptr_stamped(struct vqueue_ub_node_s *) next;
 } __attribute__((aligned(RECYCLE_QUEUE_NODE_ALIGNMENT))) vqueue_ub_node_t;
 
 typedef struct vqueue_ub_s {
-	vatomicptr_stamped(vqueue_ub_node_t *) head;
-	vatomicptr_stamped(vqueue_ub_node_t *) tail;
-	vqueue_ub_node_t sentinel;
+    vatomicptr_stamped(vqueue_ub_node_t *) head;
+    vatomicptr_stamped(vqueue_ub_node_t *) tail;
+    vqueue_ub_node_t sentinel;
 } vqueue_ub_t;
 
 /**
@@ -77,10 +77,10 @@ typedef struct vqueue_ub_s {
 static inline void
 vqueue_ub_init(vqueue_ub_t *q)
 {
-	ASSERT(q);
-	vatomicptr_stamped_set_rlx(&q->sentinel.next, NULL, 0);
-	vatomicptr_stamped_set_rlx(&q->head, &q->sentinel, 0);
-	vatomicptr_stamped_set_rlx(&q->tail, &q->sentinel, 0);
+    ASSERT(q);
+    vatomicptr_stamped_set_rlx(&q->sentinel.next, NULL, 0);
+    vatomicptr_stamped_set_rlx(&q->head, &q->sentinel, 0);
+    vatomicptr_stamped_set_rlx(&q->tail, &q->sentinel, 0);
 }
 
 /**
@@ -97,18 +97,18 @@ vqueue_ub_init(vqueue_ub_t *q)
 static inline void
 vqueue_ub_destroy(vqueue_ub_t *q, vqueue_ub_node_handler_t retire, void *arg)
 {
-	vqueue_ub_node_t *next = NULL;
-	vqueue_ub_node_t *curr = NULL;
+    vqueue_ub_node_t *next = NULL;
+    vqueue_ub_node_t *curr = NULL;
 
-	curr = vatomicptr_stamped_get_pointer(&q->head);
+    curr = vatomicptr_stamped_get_pointer(&q->head);
 
-	while (curr) {
-		next = vatomicptr_stamped_get_pointer(&curr->next);
-		if (curr != &q->sentinel) {
-			retire(curr, arg);
-		}
-		curr = next;
-	}
+    while (curr) {
+        next = vatomicptr_stamped_get_pointer(&curr->next);
+        if (curr != &q->sentinel) {
+            retire(curr, arg);
+        }
+        curr = next;
+    }
 }
 /**
  * Enqueue the given node `qnode` in the given queue `q`.
@@ -120,69 +120,69 @@ vqueue_ub_destroy(vqueue_ub_t *q, vqueue_ub_node_handler_t retire, void *arg)
 static inline void
 vqueue_ub_enq(vqueue_ub_t *q, vqueue_ub_node_t *qnode, void *data)
 {
-	vqueue_ub_node_t *last = NULL;
-	vqueue_ub_node_t *next = NULL;
-	vuint8_t l_stamp	   = 0;
-	vuint8_t next_stamp	   = 0;
-	vuint8_t t_stamp	   = 0;
-	vuint8_t stamp		   = 0;
-	vbool_t cas_succeeded  = false;
+    vqueue_ub_node_t *last = NULL;
+    vqueue_ub_node_t *next = NULL;
+    vuint8_t l_stamp       = 0;
+    vuint8_t next_stamp    = 0;
+    vuint8_t t_stamp       = 0;
+    vuint8_t stamp         = 0;
+    vbool_t cas_succeeded  = false;
 
-	ASSERT(q);
-	ASSERT(qnode);
-	qnode->data = data;
+    ASSERT(q);
+    ASSERT(qnode);
+    qnode->data = data;
 
 #if !defined(VSYNC_VERIFICATION)
-	// We skip this read for verification, because it will fail on reading
-	// uninitialized memory. Which is true when qnode is freshly allocation and
-	// not recycled. Nevertheless, we know in reality the trashy stamp value
-	// will not be an issue.
-	vatomicptr_stamped_get(&qnode->next, &stamp);
+    // We skip this read for verification, because it will fail on reading
+    // uninitialized memory. Which is true when qnode is freshly allocation and
+    // not recycled. Nevertheless, we know in reality the trashy stamp value
+    // will not be an issue.
+    vatomicptr_stamped_get(&qnode->next, &stamp);
 #endif
-	// Because qnode might be recycled, we don't want to reset the stamp to
-	// not increase ABA chances. So we keep the stamp value as is.
-	// If it is used for the first time it will still be ok to have a trashy
-	// stamp, we can start the count from any place that is not zero.
-	vatomicptr_stamped_set(&qnode->next, NULL, stamp);
+    // Because qnode might be recycled, we don't want to reset the stamp to
+    // not increase ABA chances. So we keep the stamp value as is.
+    // If it is used for the first time it will still be ok to have a trashy
+    // stamp, we can start the count from any place that is not zero.
+    vatomicptr_stamped_set(&qnode->next, NULL, stamp);
 
-	while (true) {
-		last = vatomicptr_stamped_get(&q->tail, &l_stamp);
-		next = vatomicptr_stamped_get(&last->next, &next_stamp);
+    while (true) {
+        last = vatomicptr_stamped_get(&q->tail, &l_stamp);
+        next = vatomicptr_stamped_get(&last->next, &next_stamp);
 
-		if (last == vatomicptr_stamped_get(&q->tail, &t_stamp) &&
-			l_stamp == t_stamp) {
-			// check if the node has a successor
-			if (next == NULL) {
-				// append the new node
-				// tail->next = n
-				if (vatomicptr_stamped_cmpxchg(&last->next, next, next_stamp,
-											   qnode, (next_stamp + 1))) {
-					// advance the tail to the new node.
-					// tail = n
-					// if this cas succeeds it means
-					// we managed to advance the tail.
-					// if it fails, then someone else
-					// already helped advancing the tail
-					// either way it is a success.
-					/* LP */
-					cas_succeeded = vatomicptr_stamped_cmpxchg(
-						&q->tail, last, l_stamp, qnode, (l_stamp + 1));
-					(void)cas_succeeded;
-					verification_assume(cas_succeeded);
-					return;
-				}
-			} else {
-				// there is a successor
-				// we help advance the tail to the successor
-				// someone else is in the process of attaching
-				// its node.
-				/* LP for the thread that I am helping */
-				verification_ignore();
-				vatomicptr_stamped_cmpxchg(&q->tail, last, l_stamp, next,
-										   (l_stamp + 1));
-			}
-		}
-	}
+        if (last == vatomicptr_stamped_get(&q->tail, &t_stamp) &&
+            l_stamp == t_stamp) {
+            // check if the node has a successor
+            if (next == NULL) {
+                // append the new node
+                // tail->next = n
+                if (vatomicptr_stamped_cmpxchg(&last->next, next, next_stamp,
+                                               qnode, (next_stamp + 1))) {
+                    // advance the tail to the new node.
+                    // tail = n
+                    // if this cas succeeds it means
+                    // we managed to advance the tail.
+                    // if it fails, then someone else
+                    // already helped advancing the tail
+                    // either way it is a success.
+                    /* LP */
+                    cas_succeeded = vatomicptr_stamped_cmpxchg(
+                        &q->tail, last, l_stamp, qnode, (l_stamp + 1));
+                    (void)cas_succeeded;
+                    verification_assume(cas_succeeded);
+                    return;
+                }
+            } else {
+                // there is a successor
+                // we help advance the tail to the successor
+                // someone else is in the process of attaching
+                // its node.
+                /* LP for the thread that I am helping */
+                verification_ignore();
+                vatomicptr_stamped_cmpxchg(&q->tail, last, l_stamp, next,
+                                           (l_stamp + 1));
+            }
+        }
+    }
 }
 /**
  * Check if the queue is empty.
@@ -197,13 +197,13 @@ vqueue_ub_enq(vqueue_ub_t *q, vqueue_ub_node_t *qnode, void *data)
 static inline vbool_t
 vqueue_ub_empty(vqueue_ub_t *q)
 {
-	vqueue_ub_node_t *first = NULL;
-	vqueue_ub_node_t *last	= NULL;
-	ASSERT(q);
+    vqueue_ub_node_t *first = NULL;
+    vqueue_ub_node_t *last  = NULL;
+    ASSERT(q);
 
-	first = (vqueue_ub_node_t *)vatomicptr_stamped_get_pointer(&q->head);
-	last  = (vqueue_ub_node_t *)vatomicptr_stamped_get_pointer(&q->tail);
-	return (first == last);
+    first = (vqueue_ub_node_t *)vatomicptr_stamped_get_pointer(&q->head);
+    last  = (vqueue_ub_node_t *)vatomicptr_stamped_get_pointer(&q->tail);
+    return (first == last);
 }
 
 /**
@@ -219,50 +219,50 @@ vqueue_ub_empty(vqueue_ub_t *q)
 static inline void *
 vqueue_ub_deq(vqueue_ub_t *q, vqueue_ub_node_handler_t retire, void *arg)
 {
-	vqueue_ub_node_t *first = NULL;
-	vqueue_ub_node_t *last	= NULL;
-	vqueue_ub_node_t *next	= NULL;
-	vuint8_t f_stamp		= 0;
-	vuint8_t l_stamp		= 0;
-	vuint8_t n_stamp		= 0;
-	vuint8_t t_stamp		= 0;
-	void *data				= NULL;
+    vqueue_ub_node_t *first = NULL;
+    vqueue_ub_node_t *last  = NULL;
+    vqueue_ub_node_t *next  = NULL;
+    vuint8_t f_stamp        = 0;
+    vuint8_t l_stamp        = 0;
+    vuint8_t n_stamp        = 0;
+    vuint8_t t_stamp        = 0;
+    void *data              = NULL;
 
-	while (true) {
-		first = vatomicptr_stamped_get(&q->head, &f_stamp);
-		last  = vatomicptr_stamped_get(&q->tail, &l_stamp);
-		next  = vatomicptr_stamped_get(&first->next, &n_stamp);
+    while (true) {
+        first = vatomicptr_stamped_get(&q->head, &f_stamp);
+        last  = vatomicptr_stamped_get(&q->tail, &l_stamp);
+        next  = vatomicptr_stamped_get(&first->next, &n_stamp);
 
-		/* check things are still consistent with what we read above */
-		if (first == vatomicptr_stamped_get(&q->head, &t_stamp) &&
-			t_stamp == f_stamp) {
-			if (first == last) {
-				/* queue is empty */
-				if (next == NULL) {
-					/* LP */
-					return NULL;
-				}
-				verification_ignore();
-				/* Help current enqueuer by advancing tail, tail = tail->next */
-				vatomicptr_stamped_cmpxchg(&q->tail, last, l_stamp, next,
-										   (l_stamp + 1));
-			} else {
-				/* we extract data before dequeuing, because the node next is
-				 * going to be a sentinel and some other thread might
-				 * recycle/free before we read it, if we move this statement
-				 * after the cas */
-				data = next->data;
-				/* LP */
-				if (vatomicptr_stamped_cmpxchg(&q->head, first, f_stamp, next,
-											   (f_stamp + 1))) {
-					if (first != &q->sentinel) {
-						retire(first, arg);
-					}
-					return data;
-				}
-			}
-		} // if consistent values
-	}	  // while
+        /* check things are still consistent with what we read above */
+        if (first == vatomicptr_stamped_get(&q->head, &t_stamp) &&
+            t_stamp == f_stamp) {
+            if (first == last) {
+                /* queue is empty */
+                if (next == NULL) {
+                    /* LP */
+                    return NULL;
+                }
+                verification_ignore();
+                /* Help current enqueuer by advancing tail, tail = tail->next */
+                vatomicptr_stamped_cmpxchg(&q->tail, last, l_stamp, next,
+                                           (l_stamp + 1));
+            } else {
+                /* we extract data before dequeuing, because the node next is
+                 * going to be a sentinel and some other thread might
+                 * recycle/free before we read it, if we move this statement
+                 * after the cas */
+                data = next->data;
+                /* LP */
+                if (vatomicptr_stamped_cmpxchg(&q->head, first, f_stamp, next,
+                                               (f_stamp + 1))) {
+                    if (first != &q->sentinel) {
+                        retire(first, arg);
+                    }
+                    return data;
+                }
+            }
+        } // if consistent values
+    }     // while
 }
 /**
  * Iterate through the queue nodes and count them.
@@ -275,30 +275,30 @@ vqueue_ub_deq(vqueue_ub_t *q, vqueue_ub_node_handler_t retire, void *arg)
 static inline vsize_t
 vqueue_ub_get_length(vqueue_ub_t *q)
 {
-	vsize_t count			   = 0;
-	vqueue_ub_node_t *head	   = NULL;
-	vqueue_ub_node_t *tail	   = NULL;
-	vqueue_ub_node_t *curr	   = NULL;
-	vbool_t is_sentinel_behind = false;
+    vsize_t count              = 0;
+    vqueue_ub_node_t *head     = NULL;
+    vqueue_ub_node_t *tail     = NULL;
+    vqueue_ub_node_t *curr     = NULL;
+    vbool_t is_sentinel_behind = false;
 
-	ASSERT(q);
+    ASSERT(q);
 
-	head = vatomicptr_stamped_get_pointer(&q->head);
-	tail = vatomicptr_stamped_get_pointer(&q->tail);
+    head = vatomicptr_stamped_get_pointer(&q->head);
+    tail = vatomicptr_stamped_get_pointer(&q->tail);
 
-	ASSERT(head && "head should always point to a sentinel");
+    ASSERT(head && "head should always point to a sentinel");
 
-	curr = head;
+    curr = head;
 
-	while (curr != tail) {
-		count++;
-		ASSERT(!is_sentinel_behind || curr != &q->sentinel);
-		curr			   = vatomicptr_stamped_get_pointer(&curr->next);
-		is_sentinel_behind = true;
-	}
+    while (curr != tail) {
+        count++;
+        ASSERT(!is_sentinel_behind || curr != &q->sentinel);
+        curr               = vatomicptr_stamped_get_pointer(&curr->next);
+        is_sentinel_behind = true;
+    }
 
-	V_UNUSED(is_sentinel_behind);
-	return count;
+    V_UNUSED(is_sentinel_behind);
+    return count;
 }
 /**
  * Visit all available nodes in the queue.
@@ -310,23 +310,23 @@ vqueue_ub_get_length(vqueue_ub_t *q)
  */
 static inline void
 _vqueue_ub_visit_nodes(vqueue_ub_t *q, vqueue_ub_node_handler_t visitor,
-					   void *arg)
+                       void *arg)
 {
-	vqueue_ub_node_t *next = NULL;
-	vqueue_ub_node_t *curr = NULL;
+    vqueue_ub_node_t *next = NULL;
+    vqueue_ub_node_t *curr = NULL;
 
-	ASSERT(visitor);
+    ASSERT(visitor);
 
-	curr = vatomicptr_stamped_get_pointer(&q->head);
-	ASSERT(curr);
-	// skip the sentinel
-	curr = vatomicptr_stamped_get_pointer(&curr->next);
+    curr = vatomicptr_stamped_get_pointer(&q->head);
+    ASSERT(curr);
+    // skip the sentinel
+    curr = vatomicptr_stamped_get_pointer(&curr->next);
 
-	while (curr) {
-		next = vatomicptr_stamped_get_pointer(&curr->next);
-		visitor(curr, arg);
-		curr = next;
-	}
+    while (curr) {
+        next = vatomicptr_stamped_get_pointer(&curr->next);
+        visitor(curr, arg);
+        curr = next;
+    }
 }
 
 #endif

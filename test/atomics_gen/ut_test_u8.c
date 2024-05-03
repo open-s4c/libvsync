@@ -14,10 +14,10 @@
 static inline void
 ut_atomic_u8_read(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t val   = vatomic8_read(&obj);
-	ASSERT(val == (vuint8_t)1);
-	V_UNUSED(val);
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t val   = vatomic8_read(&obj);
+    ASSERT(val == (vuint8_t)1);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_read_acq
@@ -25,10 +25,10 @@ ut_atomic_u8_read(void)
 static inline void
 ut_atomic_u8_read_acq(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t val   = vatomic8_read_acq(&obj);
-	ASSERT(val == (vuint8_t)1);
-	V_UNUSED(val);
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t val   = vatomic8_read_acq(&obj);
+    ASSERT(val == (vuint8_t)1);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_read_rlx
@@ -36,10 +36,10 @@ ut_atomic_u8_read_acq(void)
 static inline void
 ut_atomic_u8_read_rlx(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t val   = vatomic8_read_rlx(&obj);
-	ASSERT(val == (vuint8_t)1);
-	V_UNUSED(val);
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t val   = vatomic8_read_rlx(&obj);
+    ASSERT(val == (vuint8_t)1);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_init
@@ -47,13 +47,13 @@ ut_atomic_u8_read_rlx(void)
 static inline void
 ut_atomic_u8_init(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t val   = vatomic8_read(&obj);
-	ASSERT(val == (vuint8_t)1);
-	vatomic8_init(&obj, VUINT8_MAX);
-	val = vatomic8_read(&obj);
-	ASSERT(val == VUINT8_MAX);
-	V_UNUSED(val);
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t val   = vatomic8_read(&obj);
+    ASSERT(val == (vuint8_t)1);
+    vatomic8_init(&obj, VUINT8_MAX);
+    val = vatomic8_read(&obj);
+    ASSERT(val == VUINT8_MAX);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_write
@@ -61,13 +61,13 @@ ut_atomic_u8_init(void)
 static inline void
 ut_atomic_u8_write(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t val   = vatomic8_read(&obj);
-	ASSERT(val == (vuint8_t)1);
-	vatomic8_write(&obj, VUINT8_MAX);
-	val = vatomic8_read(&obj);
-	ASSERT(val == VUINT8_MAX);
-	V_UNUSED(val);
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t val   = vatomic8_read(&obj);
+    ASSERT(val == (vuint8_t)1);
+    vatomic8_write(&obj, VUINT8_MAX);
+    val = vatomic8_read(&obj);
+    ASSERT(val == VUINT8_MAX);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_write_rel
@@ -75,13 +75,13 @@ ut_atomic_u8_write(void)
 static inline void
 ut_atomic_u8_write_rel(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t val   = vatomic8_read(&obj);
-	ASSERT(val == (vuint8_t)1);
-	vatomic8_write_rel(&obj, VUINT8_MAX);
-	val = vatomic8_read(&obj);
-	ASSERT(val == VUINT8_MAX);
-	V_UNUSED(val);
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t val   = vatomic8_read(&obj);
+    ASSERT(val == (vuint8_t)1);
+    vatomic8_write_rel(&obj, VUINT8_MAX);
+    val = vatomic8_read(&obj);
+    ASSERT(val == VUINT8_MAX);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_write_rlx
@@ -89,13 +89,13 @@ ut_atomic_u8_write_rel(void)
 static inline void
 ut_atomic_u8_write_rlx(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t val   = vatomic8_read(&obj);
-	ASSERT(val == (vuint8_t)1);
-	vatomic8_write_rlx(&obj, VUINT8_MAX);
-	val = vatomic8_read(&obj);
-	ASSERT(val == VUINT8_MAX);
-	V_UNUSED(val);
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t val   = vatomic8_read(&obj);
+    ASSERT(val == (vuint8_t)1);
+    vatomic8_write_rlx(&obj, VUINT8_MAX);
+    val = vatomic8_read(&obj);
+    ASSERT(val == VUINT8_MAX);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_xchg
@@ -103,14 +103,14 @@ ut_atomic_u8_write_rlx(void)
 static inline void
 ut_atomic_u8_xchg(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t val   = vatomic8_read(&obj);
-	ASSERT(val == (vuint8_t)1);
-	vuint8_t old = vatomic8_xchg(&obj, VUINT8_MAX);
-	ASSERT(old == (vuint8_t)1);
-	val = vatomic8_read(&obj);
-	ASSERT(val == VUINT8_MAX);
-	V_UNUSED(val, old);
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t val   = vatomic8_read(&obj);
+    ASSERT(val == (vuint8_t)1);
+    vuint8_t old = vatomic8_xchg(&obj, VUINT8_MAX);
+    ASSERT(old == (vuint8_t)1);
+    val = vatomic8_read(&obj);
+    ASSERT(val == VUINT8_MAX);
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_xchg_acq
@@ -118,14 +118,14 @@ ut_atomic_u8_xchg(void)
 static inline void
 ut_atomic_u8_xchg_acq(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t val   = vatomic8_read(&obj);
-	ASSERT(val == (vuint8_t)1);
-	vuint8_t old = vatomic8_xchg_acq(&obj, VUINT8_MAX);
-	ASSERT(old == (vuint8_t)1);
-	val = vatomic8_read(&obj);
-	ASSERT(val == VUINT8_MAX);
-	V_UNUSED(val, old);
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t val   = vatomic8_read(&obj);
+    ASSERT(val == (vuint8_t)1);
+    vuint8_t old = vatomic8_xchg_acq(&obj, VUINT8_MAX);
+    ASSERT(old == (vuint8_t)1);
+    val = vatomic8_read(&obj);
+    ASSERT(val == VUINT8_MAX);
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_xchg_rel
@@ -133,14 +133,14 @@ ut_atomic_u8_xchg_acq(void)
 static inline void
 ut_atomic_u8_xchg_rel(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t val   = vatomic8_read(&obj);
-	ASSERT(val == (vuint8_t)1);
-	vuint8_t old = vatomic8_xchg_rel(&obj, VUINT8_MAX);
-	ASSERT(old == (vuint8_t)1);
-	val = vatomic8_read(&obj);
-	ASSERT(val == VUINT8_MAX);
-	V_UNUSED(val, old);
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t val   = vatomic8_read(&obj);
+    ASSERT(val == (vuint8_t)1);
+    vuint8_t old = vatomic8_xchg_rel(&obj, VUINT8_MAX);
+    ASSERT(old == (vuint8_t)1);
+    val = vatomic8_read(&obj);
+    ASSERT(val == VUINT8_MAX);
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_xchg_rlx
@@ -148,14 +148,14 @@ ut_atomic_u8_xchg_rel(void)
 static inline void
 ut_atomic_u8_xchg_rlx(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t val   = vatomic8_read(&obj);
-	ASSERT(val == (vuint8_t)1);
-	vuint8_t old = vatomic8_xchg_rlx(&obj, VUINT8_MAX);
-	ASSERT(old == (vuint8_t)1);
-	val = vatomic8_read(&obj);
-	ASSERT(val == VUINT8_MAX);
-	V_UNUSED(val, old);
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t val   = vatomic8_read(&obj);
+    ASSERT(val == (vuint8_t)1);
+    vuint8_t old = vatomic8_xchg_rlx(&obj, VUINT8_MAX);
+    ASSERT(old == (vuint8_t)1);
+    val = vatomic8_read(&obj);
+    ASSERT(val == VUINT8_MAX);
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_cmpxchg
@@ -163,18 +163,18 @@ ut_atomic_u8_xchg_rlx(void)
 static inline void
 ut_atomic_u8_cmpxchg(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	/* test failure */
-	vuint8_t old = vatomic8_cmpxchg(&obj, VUINT8_MAX, (vuint8_t)1);
-	ASSERT(old == (vuint8_t)1);
-	vuint8_t val = vatomic8_read(&obj);
-	ASSERT(val == old);
-	/* test success */
-	old = vatomic8_cmpxchg(&obj, (vuint8_t)1, VUINT8_MAX);
-	ASSERT(old == (vuint8_t)1);
-	val = vatomic8_read(&obj);
-	ASSERT(val == VUINT8_MAX);
-	V_UNUSED(val, old);
+    vatomic8_t obj = {(vuint8_t)1};
+    /* test failure */
+    vuint8_t old = vatomic8_cmpxchg(&obj, VUINT8_MAX, (vuint8_t)1);
+    ASSERT(old == (vuint8_t)1);
+    vuint8_t val = vatomic8_read(&obj);
+    ASSERT(val == old);
+    /* test success */
+    old = vatomic8_cmpxchg(&obj, (vuint8_t)1, VUINT8_MAX);
+    ASSERT(old == (vuint8_t)1);
+    val = vatomic8_read(&obj);
+    ASSERT(val == VUINT8_MAX);
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_cmpxchg_acq
@@ -182,18 +182,18 @@ ut_atomic_u8_cmpxchg(void)
 static inline void
 ut_atomic_u8_cmpxchg_acq(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	/* test failure */
-	vuint8_t old = vatomic8_cmpxchg_acq(&obj, VUINT8_MAX, (vuint8_t)1);
-	ASSERT(old == (vuint8_t)1);
-	vuint8_t val = vatomic8_read(&obj);
-	ASSERT(val == old);
-	/* test success */
-	old = vatomic8_cmpxchg_acq(&obj, (vuint8_t)1, VUINT8_MAX);
-	ASSERT(old == (vuint8_t)1);
-	val = vatomic8_read(&obj);
-	ASSERT(val == VUINT8_MAX);
-	V_UNUSED(val, old);
+    vatomic8_t obj = {(vuint8_t)1};
+    /* test failure */
+    vuint8_t old = vatomic8_cmpxchg_acq(&obj, VUINT8_MAX, (vuint8_t)1);
+    ASSERT(old == (vuint8_t)1);
+    vuint8_t val = vatomic8_read(&obj);
+    ASSERT(val == old);
+    /* test success */
+    old = vatomic8_cmpxchg_acq(&obj, (vuint8_t)1, VUINT8_MAX);
+    ASSERT(old == (vuint8_t)1);
+    val = vatomic8_read(&obj);
+    ASSERT(val == VUINT8_MAX);
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_cmpxchg_rel
@@ -201,18 +201,18 @@ ut_atomic_u8_cmpxchg_acq(void)
 static inline void
 ut_atomic_u8_cmpxchg_rel(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	/* test failure */
-	vuint8_t old = vatomic8_cmpxchg_rel(&obj, VUINT8_MAX, (vuint8_t)1);
-	ASSERT(old == (vuint8_t)1);
-	vuint8_t val = vatomic8_read(&obj);
-	ASSERT(val == old);
-	/* test success */
-	old = vatomic8_cmpxchg_rel(&obj, (vuint8_t)1, VUINT8_MAX);
-	ASSERT(old == (vuint8_t)1);
-	val = vatomic8_read(&obj);
-	ASSERT(val == VUINT8_MAX);
-	V_UNUSED(val, old);
+    vatomic8_t obj = {(vuint8_t)1};
+    /* test failure */
+    vuint8_t old = vatomic8_cmpxchg_rel(&obj, VUINT8_MAX, (vuint8_t)1);
+    ASSERT(old == (vuint8_t)1);
+    vuint8_t val = vatomic8_read(&obj);
+    ASSERT(val == old);
+    /* test success */
+    old = vatomic8_cmpxchg_rel(&obj, (vuint8_t)1, VUINT8_MAX);
+    ASSERT(old == (vuint8_t)1);
+    val = vatomic8_read(&obj);
+    ASSERT(val == VUINT8_MAX);
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_cmpxchg_rlx
@@ -220,18 +220,18 @@ ut_atomic_u8_cmpxchg_rel(void)
 static inline void
 ut_atomic_u8_cmpxchg_rlx(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	/* test failure */
-	vuint8_t old = vatomic8_cmpxchg_rlx(&obj, VUINT8_MAX, (vuint8_t)1);
-	ASSERT(old == (vuint8_t)1);
-	vuint8_t val = vatomic8_read(&obj);
-	ASSERT(val == old);
-	/* test success */
-	old = vatomic8_cmpxchg_rlx(&obj, (vuint8_t)1, VUINT8_MAX);
-	ASSERT(old == (vuint8_t)1);
-	val = vatomic8_read(&obj);
-	ASSERT(val == VUINT8_MAX);
-	V_UNUSED(val, old);
+    vatomic8_t obj = {(vuint8_t)1};
+    /* test failure */
+    vuint8_t old = vatomic8_cmpxchg_rlx(&obj, VUINT8_MAX, (vuint8_t)1);
+    ASSERT(old == (vuint8_t)1);
+    vuint8_t val = vatomic8_read(&obj);
+    ASSERT(val == old);
+    /* test success */
+    old = vatomic8_cmpxchg_rlx(&obj, (vuint8_t)1, VUINT8_MAX);
+    ASSERT(old == (vuint8_t)1);
+    val = vatomic8_read(&obj);
+    ASSERT(val == VUINT8_MAX);
+    V_UNUSED(val, old);
 }
 /* ****************************************************************************
  * UnitTest: vatomic8_add
@@ -239,18 +239,18 @@ ut_atomic_u8_cmpxchg_rlx(void)
 static inline void
 ut_atomic_u8_add(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t val   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t val   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		vatomic8_add(&obj, v);
-		ref += v;
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        vatomic8_add(&obj, v);
+        ref += v;
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val);
 }
 /* ****************************************************************************
  * UnitTest: vatomic8_add_rel
@@ -258,18 +258,18 @@ ut_atomic_u8_add(void)
 static inline void
 ut_atomic_u8_add_rel(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t val   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t val   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		vatomic8_add_rel(&obj, v);
-		ref += v;
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        vatomic8_add_rel(&obj, v);
+        ref += v;
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val);
 }
 /* ****************************************************************************
  * UnitTest: vatomic8_add_rlx
@@ -277,18 +277,18 @@ ut_atomic_u8_add_rel(void)
 static inline void
 ut_atomic_u8_add_rlx(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t val   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t val   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		vatomic8_add_rlx(&obj, v);
-		ref += v;
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        vatomic8_add_rlx(&obj, v);
+        ref += v;
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_get_add
@@ -296,20 +296,20 @@ ut_atomic_u8_add_rlx(void)
 static inline void
 ut_atomic_u8_get_add(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t val   = 0;
-	vuint8_t old   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t val   = 0;
+    vuint8_t old   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		old = vatomic8_get_add(&obj, v);
-		ASSERT(old == ref);
-		ref += v;
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, old);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        old = vatomic8_get_add(&obj, v);
+        ASSERT(old == ref);
+        ref += v;
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_add_get
@@ -317,20 +317,20 @@ ut_atomic_u8_get_add(void)
 static inline void
 ut_atomic_u8_add_get(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t val   = 0;
-	vuint8_t cur   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t val   = 0;
+    vuint8_t cur   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		cur = vatomic8_add_get(&obj, v);
-		ref += v;
-		ASSERT(cur == ref);
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, cur);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        cur = vatomic8_add_get(&obj, v);
+        ref += v;
+        ASSERT(cur == ref);
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_get_add_acq
@@ -338,20 +338,20 @@ ut_atomic_u8_add_get(void)
 static inline void
 ut_atomic_u8_get_add_acq(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t val   = 0;
-	vuint8_t old   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t val   = 0;
+    vuint8_t old   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		old = vatomic8_get_add_acq(&obj, v);
-		ASSERT(old == ref);
-		ref += v;
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, old);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        old = vatomic8_get_add_acq(&obj, v);
+        ASSERT(old == ref);
+        ref += v;
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_add_get_acq
@@ -359,20 +359,20 @@ ut_atomic_u8_get_add_acq(void)
 static inline void
 ut_atomic_u8_add_get_acq(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t val   = 0;
-	vuint8_t cur   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t val   = 0;
+    vuint8_t cur   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		cur = vatomic8_add_get_acq(&obj, v);
-		ref += v;
-		ASSERT(cur == ref);
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, cur);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        cur = vatomic8_add_get_acq(&obj, v);
+        ref += v;
+        ASSERT(cur == ref);
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_get_add_rel
@@ -380,20 +380,20 @@ ut_atomic_u8_add_get_acq(void)
 static inline void
 ut_atomic_u8_get_add_rel(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t val   = 0;
-	vuint8_t old   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t val   = 0;
+    vuint8_t old   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		old = vatomic8_get_add_rel(&obj, v);
-		ASSERT(old == ref);
-		ref += v;
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, old);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        old = vatomic8_get_add_rel(&obj, v);
+        ASSERT(old == ref);
+        ref += v;
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_add_get_rel
@@ -401,20 +401,20 @@ ut_atomic_u8_get_add_rel(void)
 static inline void
 ut_atomic_u8_add_get_rel(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t val   = 0;
-	vuint8_t cur   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t val   = 0;
+    vuint8_t cur   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		cur = vatomic8_add_get_rel(&obj, v);
-		ref += v;
-		ASSERT(cur == ref);
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, cur);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        cur = vatomic8_add_get_rel(&obj, v);
+        ref += v;
+        ASSERT(cur == ref);
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_get_add_rlx
@@ -422,20 +422,20 @@ ut_atomic_u8_add_get_rel(void)
 static inline void
 ut_atomic_u8_get_add_rlx(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t val   = 0;
-	vuint8_t old   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t val   = 0;
+    vuint8_t old   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		old = vatomic8_get_add_rlx(&obj, v);
-		ASSERT(old == ref);
-		ref += v;
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, old);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        old = vatomic8_get_add_rlx(&obj, v);
+        ASSERT(old == ref);
+        ref += v;
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_add_get_rlx
@@ -443,20 +443,20 @@ ut_atomic_u8_get_add_rlx(void)
 static inline void
 ut_atomic_u8_add_get_rlx(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t val   = 0;
-	vuint8_t cur   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t val   = 0;
+    vuint8_t cur   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		cur = vatomic8_add_get_rlx(&obj, v);
-		ref += v;
-		ASSERT(cur == ref);
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, cur);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        cur = vatomic8_add_get_rlx(&obj, v);
+        ref += v;
+        ASSERT(cur == ref);
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, cur);
 }
 /* ****************************************************************************
  * UnitTest: vatomic8_inc
@@ -464,18 +464,18 @@ ut_atomic_u8_add_get_rlx(void)
 static inline void
 ut_atomic_u8_inc(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t val   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t val   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		vatomic8_inc(&obj);
-		ref++;
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        vatomic8_inc(&obj);
+        ref++;
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val);
 }
 /* ****************************************************************************
  * UnitTest: vatomic8_inc_rel
@@ -483,18 +483,18 @@ ut_atomic_u8_inc(void)
 static inline void
 ut_atomic_u8_inc_rel(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t val   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t val   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		vatomic8_inc_rel(&obj);
-		ref++;
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        vatomic8_inc_rel(&obj);
+        ref++;
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val);
 }
 /* ****************************************************************************
  * UnitTest: vatomic8_inc_rlx
@@ -502,18 +502,18 @@ ut_atomic_u8_inc_rel(void)
 static inline void
 ut_atomic_u8_inc_rlx(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t val   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t val   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		vatomic8_inc_rlx(&obj);
-		ref++;
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        vatomic8_inc_rlx(&obj);
+        ref++;
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_get_inc
@@ -521,20 +521,20 @@ ut_atomic_u8_inc_rlx(void)
 static inline void
 ut_atomic_u8_get_inc(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t val   = 0;
-	vuint8_t old   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t val   = 0;
+    vuint8_t old   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		old = vatomic8_get_inc(&obj);
-		ASSERT(old == ref);
-		ref++;
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, old);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        old = vatomic8_get_inc(&obj);
+        ASSERT(old == ref);
+        ref++;
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_inc_get
@@ -542,20 +542,20 @@ ut_atomic_u8_get_inc(void)
 static inline void
 ut_atomic_u8_inc_get(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t cur   = 0;
-	vuint8_t val   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t cur   = 0;
+    vuint8_t val   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		ref++;
-		cur = vatomic8_inc_get(&obj);
-		ASSERT(cur == ref);
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(cur, val);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        ref++;
+        cur = vatomic8_inc_get(&obj);
+        ASSERT(cur == ref);
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(cur, val);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_get_inc_acq
@@ -563,20 +563,20 @@ ut_atomic_u8_inc_get(void)
 static inline void
 ut_atomic_u8_get_inc_acq(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t val   = 0;
-	vuint8_t old   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t val   = 0;
+    vuint8_t old   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		old = vatomic8_get_inc_acq(&obj);
-		ASSERT(old == ref);
-		ref++;
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, old);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        old = vatomic8_get_inc_acq(&obj);
+        ASSERT(old == ref);
+        ref++;
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_inc_get_acq
@@ -584,20 +584,20 @@ ut_atomic_u8_get_inc_acq(void)
 static inline void
 ut_atomic_u8_inc_get_acq(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t cur   = 0;
-	vuint8_t val   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t cur   = 0;
+    vuint8_t val   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		ref++;
-		cur = vatomic8_inc_get_acq(&obj);
-		ASSERT(cur == ref);
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(cur, val);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        ref++;
+        cur = vatomic8_inc_get_acq(&obj);
+        ASSERT(cur == ref);
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(cur, val);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_get_inc_rel
@@ -605,20 +605,20 @@ ut_atomic_u8_inc_get_acq(void)
 static inline void
 ut_atomic_u8_get_inc_rel(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t val   = 0;
-	vuint8_t old   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t val   = 0;
+    vuint8_t old   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		old = vatomic8_get_inc_rel(&obj);
-		ASSERT(old == ref);
-		ref++;
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, old);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        old = vatomic8_get_inc_rel(&obj);
+        ASSERT(old == ref);
+        ref++;
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_inc_get_rel
@@ -626,20 +626,20 @@ ut_atomic_u8_get_inc_rel(void)
 static inline void
 ut_atomic_u8_inc_get_rel(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t cur   = 0;
-	vuint8_t val   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t cur   = 0;
+    vuint8_t val   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		ref++;
-		cur = vatomic8_inc_get_rel(&obj);
-		ASSERT(cur == ref);
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(cur, val);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        ref++;
+        cur = vatomic8_inc_get_rel(&obj);
+        ASSERT(cur == ref);
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(cur, val);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_get_inc_rlx
@@ -647,20 +647,20 @@ ut_atomic_u8_inc_get_rel(void)
 static inline void
 ut_atomic_u8_get_inc_rlx(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t val   = 0;
-	vuint8_t old   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t val   = 0;
+    vuint8_t old   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		old = vatomic8_get_inc_rlx(&obj);
-		ASSERT(old == ref);
-		ref++;
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, old);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        old = vatomic8_get_inc_rlx(&obj);
+        ASSERT(old == ref);
+        ref++;
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_inc_get_rlx
@@ -668,20 +668,20 @@ ut_atomic_u8_get_inc_rlx(void)
 static inline void
 ut_atomic_u8_inc_get_rlx(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t cur   = 0;
-	vuint8_t val   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t cur   = 0;
+    vuint8_t val   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		ref++;
-		cur = vatomic8_inc_get_rlx(&obj);
-		ASSERT(cur == ref);
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(cur, val);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        ref++;
+        cur = vatomic8_inc_get_rlx(&obj);
+        ASSERT(cur == ref);
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(cur, val);
 }
 /* ****************************************************************************
  * UnitTest: vatomic8_sub
@@ -689,18 +689,18 @@ ut_atomic_u8_inc_get_rlx(void)
 static inline void
 ut_atomic_u8_sub(void)
 {
-	vatomic8_t obj = {VUINT8_MAX};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = VUINT8_MAX;
-	vuint8_t val   = 0;
+    vatomic8_t obj = {VUINT8_MAX};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = VUINT8_MAX;
+    vuint8_t val   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		vatomic8_sub(&obj, v);
-		ref -= v;
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        vatomic8_sub(&obj, v);
+        ref -= v;
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val);
 }
 /* ****************************************************************************
  * UnitTest: vatomic8_sub_rel
@@ -708,18 +708,18 @@ ut_atomic_u8_sub(void)
 static inline void
 ut_atomic_u8_sub_rel(void)
 {
-	vatomic8_t obj = {VUINT8_MAX};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = VUINT8_MAX;
-	vuint8_t val   = 0;
+    vatomic8_t obj = {VUINT8_MAX};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = VUINT8_MAX;
+    vuint8_t val   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		vatomic8_sub_rel(&obj, v);
-		ref -= v;
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        vatomic8_sub_rel(&obj, v);
+        ref -= v;
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val);
 }
 /* ****************************************************************************
  * UnitTest: vatomic8_sub_rlx
@@ -727,18 +727,18 @@ ut_atomic_u8_sub_rel(void)
 static inline void
 ut_atomic_u8_sub_rlx(void)
 {
-	vatomic8_t obj = {VUINT8_MAX};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = VUINT8_MAX;
-	vuint8_t val   = 0;
+    vatomic8_t obj = {VUINT8_MAX};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = VUINT8_MAX;
+    vuint8_t val   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		vatomic8_sub_rlx(&obj, v);
-		ref -= v;
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        vatomic8_sub_rlx(&obj, v);
+        ref -= v;
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_get_sub
@@ -746,20 +746,20 @@ ut_atomic_u8_sub_rlx(void)
 static inline void
 ut_atomic_u8_get_sub(void)
 {
-	vatomic8_t obj = {VUINT8_MAX};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = VUINT8_MAX;
-	vuint8_t val   = 0;
-	vuint8_t old   = 0;
+    vatomic8_t obj = {VUINT8_MAX};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = VUINT8_MAX;
+    vuint8_t val   = 0;
+    vuint8_t old   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		old = vatomic8_get_sub(&obj, v);
-		ASSERT(old == ref);
-		ref -= v;
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, old);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        old = vatomic8_get_sub(&obj, v);
+        ASSERT(old == ref);
+        ref -= v;
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_sub_get
@@ -767,20 +767,20 @@ ut_atomic_u8_get_sub(void)
 static inline void
 ut_atomic_u8_sub_get(void)
 {
-	vatomic8_t obj = {VUINT8_MAX};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = VUINT8_MAX;
-	vuint8_t val   = 0;
-	vuint8_t cur   = 0;
+    vatomic8_t obj = {VUINT8_MAX};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = VUINT8_MAX;
+    vuint8_t val   = 0;
+    vuint8_t cur   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		cur = vatomic8_sub_get(&obj, v);
-		ref -= v;
-		ASSERT(cur == ref);
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, cur);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        cur = vatomic8_sub_get(&obj, v);
+        ref -= v;
+        ASSERT(cur == ref);
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_get_sub_acq
@@ -788,20 +788,20 @@ ut_atomic_u8_sub_get(void)
 static inline void
 ut_atomic_u8_get_sub_acq(void)
 {
-	vatomic8_t obj = {VUINT8_MAX};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = VUINT8_MAX;
-	vuint8_t val   = 0;
-	vuint8_t old   = 0;
+    vatomic8_t obj = {VUINT8_MAX};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = VUINT8_MAX;
+    vuint8_t val   = 0;
+    vuint8_t old   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		old = vatomic8_get_sub_acq(&obj, v);
-		ASSERT(old == ref);
-		ref -= v;
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, old);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        old = vatomic8_get_sub_acq(&obj, v);
+        ASSERT(old == ref);
+        ref -= v;
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_sub_get_acq
@@ -809,20 +809,20 @@ ut_atomic_u8_get_sub_acq(void)
 static inline void
 ut_atomic_u8_sub_get_acq(void)
 {
-	vatomic8_t obj = {VUINT8_MAX};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = VUINT8_MAX;
-	vuint8_t val   = 0;
-	vuint8_t cur   = 0;
+    vatomic8_t obj = {VUINT8_MAX};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = VUINT8_MAX;
+    vuint8_t val   = 0;
+    vuint8_t cur   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		cur = vatomic8_sub_get_acq(&obj, v);
-		ref -= v;
-		ASSERT(cur == ref);
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, cur);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        cur = vatomic8_sub_get_acq(&obj, v);
+        ref -= v;
+        ASSERT(cur == ref);
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_get_sub_rel
@@ -830,20 +830,20 @@ ut_atomic_u8_sub_get_acq(void)
 static inline void
 ut_atomic_u8_get_sub_rel(void)
 {
-	vatomic8_t obj = {VUINT8_MAX};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = VUINT8_MAX;
-	vuint8_t val   = 0;
-	vuint8_t old   = 0;
+    vatomic8_t obj = {VUINT8_MAX};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = VUINT8_MAX;
+    vuint8_t val   = 0;
+    vuint8_t old   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		old = vatomic8_get_sub_rel(&obj, v);
-		ASSERT(old == ref);
-		ref -= v;
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, old);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        old = vatomic8_get_sub_rel(&obj, v);
+        ASSERT(old == ref);
+        ref -= v;
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_sub_get_rel
@@ -851,20 +851,20 @@ ut_atomic_u8_get_sub_rel(void)
 static inline void
 ut_atomic_u8_sub_get_rel(void)
 {
-	vatomic8_t obj = {VUINT8_MAX};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = VUINT8_MAX;
-	vuint8_t val   = 0;
-	vuint8_t cur   = 0;
+    vatomic8_t obj = {VUINT8_MAX};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = VUINT8_MAX;
+    vuint8_t val   = 0;
+    vuint8_t cur   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		cur = vatomic8_sub_get_rel(&obj, v);
-		ref -= v;
-		ASSERT(cur == ref);
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, cur);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        cur = vatomic8_sub_get_rel(&obj, v);
+        ref -= v;
+        ASSERT(cur == ref);
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_get_sub_rlx
@@ -872,20 +872,20 @@ ut_atomic_u8_sub_get_rel(void)
 static inline void
 ut_atomic_u8_get_sub_rlx(void)
 {
-	vatomic8_t obj = {VUINT8_MAX};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = VUINT8_MAX;
-	vuint8_t val   = 0;
-	vuint8_t old   = 0;
+    vatomic8_t obj = {VUINT8_MAX};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = VUINT8_MAX;
+    vuint8_t val   = 0;
+    vuint8_t old   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		old = vatomic8_get_sub_rlx(&obj, v);
-		ASSERT(old == ref);
-		ref -= v;
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, old);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        old = vatomic8_get_sub_rlx(&obj, v);
+        ASSERT(old == ref);
+        ref -= v;
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_sub_get_rlx
@@ -893,20 +893,20 @@ ut_atomic_u8_get_sub_rlx(void)
 static inline void
 ut_atomic_u8_sub_get_rlx(void)
 {
-	vatomic8_t obj = {VUINT8_MAX};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = VUINT8_MAX;
-	vuint8_t val   = 0;
-	vuint8_t cur   = 0;
+    vatomic8_t obj = {VUINT8_MAX};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = VUINT8_MAX;
+    vuint8_t val   = 0;
+    vuint8_t cur   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		cur = vatomic8_sub_get_rlx(&obj, v);
-		ref -= v;
-		ASSERT(cur == ref);
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, cur);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        cur = vatomic8_sub_get_rlx(&obj, v);
+        ref -= v;
+        ASSERT(cur == ref);
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, cur);
 }
 /* ****************************************************************************
  * UnitTest: vatomic8_dec
@@ -914,18 +914,18 @@ ut_atomic_u8_sub_get_rlx(void)
 static inline void
 ut_atomic_u8_dec(void)
 {
-	vatomic8_t obj = {VUINT8_MAX};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = VUINT8_MAX;
-	vuint8_t val   = 0;
+    vatomic8_t obj = {VUINT8_MAX};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = VUINT8_MAX;
+    vuint8_t val   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		vatomic8_dec(&obj);
-		ref--;
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        vatomic8_dec(&obj);
+        ref--;
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val);
 }
 /* ****************************************************************************
  * UnitTest: vatomic8_dec_rel
@@ -933,18 +933,18 @@ ut_atomic_u8_dec(void)
 static inline void
 ut_atomic_u8_dec_rel(void)
 {
-	vatomic8_t obj = {VUINT8_MAX};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = VUINT8_MAX;
-	vuint8_t val   = 0;
+    vatomic8_t obj = {VUINT8_MAX};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = VUINT8_MAX;
+    vuint8_t val   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		vatomic8_dec_rel(&obj);
-		ref--;
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        vatomic8_dec_rel(&obj);
+        ref--;
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val);
 }
 /* ****************************************************************************
  * UnitTest: vatomic8_dec_rlx
@@ -952,18 +952,18 @@ ut_atomic_u8_dec_rel(void)
 static inline void
 ut_atomic_u8_dec_rlx(void)
 {
-	vatomic8_t obj = {VUINT8_MAX};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = VUINT8_MAX;
-	vuint8_t val   = 0;
+    vatomic8_t obj = {VUINT8_MAX};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = VUINT8_MAX;
+    vuint8_t val   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		vatomic8_dec_rlx(&obj);
-		ref--;
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        vatomic8_dec_rlx(&obj);
+        ref--;
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_get_dec
@@ -971,20 +971,20 @@ ut_atomic_u8_dec_rlx(void)
 static inline void
 ut_atomic_u8_get_dec(void)
 {
-	vatomic8_t obj = {VUINT8_MAX};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = VUINT8_MAX;
-	vuint8_t old   = 0;
-	vuint8_t val   = 0;
+    vatomic8_t obj = {VUINT8_MAX};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = VUINT8_MAX;
+    vuint8_t old   = 0;
+    vuint8_t val   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		old = vatomic8_get_dec(&obj);
-		ASSERT(old == ref);
-		ref--;
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(old, val);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        old = vatomic8_get_dec(&obj);
+        ASSERT(old == ref);
+        ref--;
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(old, val);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_dec_get
@@ -992,20 +992,20 @@ ut_atomic_u8_get_dec(void)
 static inline void
 ut_atomic_u8_dec_get(void)
 {
-	vatomic8_t obj = {VUINT8_MAX};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = VUINT8_MAX;
-	vuint8_t cur   = 0;
-	vuint8_t val   = 0;
+    vatomic8_t obj = {VUINT8_MAX};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = VUINT8_MAX;
+    vuint8_t cur   = 0;
+    vuint8_t val   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		ref--;
-		cur = vatomic8_dec_get(&obj);
-		ASSERT(cur == ref);
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(cur, val);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        ref--;
+        cur = vatomic8_dec_get(&obj);
+        ASSERT(cur == ref);
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(cur, val);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_get_dec_acq
@@ -1013,20 +1013,20 @@ ut_atomic_u8_dec_get(void)
 static inline void
 ut_atomic_u8_get_dec_acq(void)
 {
-	vatomic8_t obj = {VUINT8_MAX};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = VUINT8_MAX;
-	vuint8_t old   = 0;
-	vuint8_t val   = 0;
+    vatomic8_t obj = {VUINT8_MAX};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = VUINT8_MAX;
+    vuint8_t old   = 0;
+    vuint8_t val   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		old = vatomic8_get_dec_acq(&obj);
-		ASSERT(old == ref);
-		ref--;
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(old, val);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        old = vatomic8_get_dec_acq(&obj);
+        ASSERT(old == ref);
+        ref--;
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(old, val);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_dec_get_acq
@@ -1034,20 +1034,20 @@ ut_atomic_u8_get_dec_acq(void)
 static inline void
 ut_atomic_u8_dec_get_acq(void)
 {
-	vatomic8_t obj = {VUINT8_MAX};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = VUINT8_MAX;
-	vuint8_t cur   = 0;
-	vuint8_t val   = 0;
+    vatomic8_t obj = {VUINT8_MAX};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = VUINT8_MAX;
+    vuint8_t cur   = 0;
+    vuint8_t val   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		ref--;
-		cur = vatomic8_dec_get_acq(&obj);
-		ASSERT(cur == ref);
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(cur, val);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        ref--;
+        cur = vatomic8_dec_get_acq(&obj);
+        ASSERT(cur == ref);
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(cur, val);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_get_dec_rel
@@ -1055,20 +1055,20 @@ ut_atomic_u8_dec_get_acq(void)
 static inline void
 ut_atomic_u8_get_dec_rel(void)
 {
-	vatomic8_t obj = {VUINT8_MAX};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = VUINT8_MAX;
-	vuint8_t old   = 0;
-	vuint8_t val   = 0;
+    vatomic8_t obj = {VUINT8_MAX};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = VUINT8_MAX;
+    vuint8_t old   = 0;
+    vuint8_t val   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		old = vatomic8_get_dec_rel(&obj);
-		ASSERT(old == ref);
-		ref--;
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(old, val);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        old = vatomic8_get_dec_rel(&obj);
+        ASSERT(old == ref);
+        ref--;
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(old, val);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_dec_get_rel
@@ -1076,20 +1076,20 @@ ut_atomic_u8_get_dec_rel(void)
 static inline void
 ut_atomic_u8_dec_get_rel(void)
 {
-	vatomic8_t obj = {VUINT8_MAX};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = VUINT8_MAX;
-	vuint8_t cur   = 0;
-	vuint8_t val   = 0;
+    vatomic8_t obj = {VUINT8_MAX};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = VUINT8_MAX;
+    vuint8_t cur   = 0;
+    vuint8_t val   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		ref--;
-		cur = vatomic8_dec_get_rel(&obj);
-		ASSERT(cur == ref);
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(cur, val);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        ref--;
+        cur = vatomic8_dec_get_rel(&obj);
+        ASSERT(cur == ref);
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(cur, val);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_get_dec_rlx
@@ -1097,20 +1097,20 @@ ut_atomic_u8_dec_get_rel(void)
 static inline void
 ut_atomic_u8_get_dec_rlx(void)
 {
-	vatomic8_t obj = {VUINT8_MAX};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = VUINT8_MAX;
-	vuint8_t old   = 0;
-	vuint8_t val   = 0;
+    vatomic8_t obj = {VUINT8_MAX};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = VUINT8_MAX;
+    vuint8_t old   = 0;
+    vuint8_t val   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		old = vatomic8_get_dec_rlx(&obj);
-		ASSERT(old == ref);
-		ref--;
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(old, val);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        old = vatomic8_get_dec_rlx(&obj);
+        ASSERT(old == ref);
+        ref--;
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(old, val);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_dec_get_rlx
@@ -1118,20 +1118,20 @@ ut_atomic_u8_get_dec_rlx(void)
 static inline void
 ut_atomic_u8_dec_get_rlx(void)
 {
-	vatomic8_t obj = {VUINT8_MAX};
-	vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
-	vuint8_t ref   = VUINT8_MAX;
-	vuint8_t cur   = 0;
-	vuint8_t val   = 0;
+    vatomic8_t obj = {VUINT8_MAX};
+    vuint8_t max   = (vuint8_t)1 + (vuint8_t)10;
+    vuint8_t ref   = VUINT8_MAX;
+    vuint8_t cur   = 0;
+    vuint8_t val   = 0;
 
-	for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
-		ref--;
-		cur = vatomic8_dec_get_rlx(&obj);
-		ASSERT(cur == ref);
-		val = vatomic8_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(cur, val);
+    for (vuint8_t v = (vuint8_t)1; v <= max; v++) {
+        ref--;
+        cur = vatomic8_dec_get_rlx(&obj);
+        ASSERT(cur == ref);
+        val = vatomic8_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(cur, val);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_max
@@ -1139,18 +1139,18 @@ ut_atomic_u8_dec_get_rlx(void)
 static inline void
 ut_atomic_u8_max(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
+    vatomic8_t obj = {(vuint8_t)1};
 
-	/* test write */
-	vatomic8_max(&obj, VUINT8_MAX);
-	vuint8_t val = vatomic8_read(&obj);
-	ASSERT(val == VUINT8_MAX);
+    /* test write */
+    vatomic8_max(&obj, VUINT8_MAX);
+    vuint8_t val = vatomic8_read(&obj);
+    ASSERT(val == VUINT8_MAX);
 
-	/* test no write */
-	vatomic8_max(&obj, (vuint8_t)1);
-	val = vatomic8_read(&obj);
-	ASSERT(val == VUINT8_MAX);
-	V_UNUSED(val);
+    /* test no write */
+    vatomic8_max(&obj, (vuint8_t)1);
+    val = vatomic8_read(&obj);
+    ASSERT(val == VUINT8_MAX);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_max_rel
@@ -1158,18 +1158,18 @@ ut_atomic_u8_max(void)
 static inline void
 ut_atomic_u8_max_rel(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
+    vatomic8_t obj = {(vuint8_t)1};
 
-	/* test write */
-	vatomic8_max_rel(&obj, VUINT8_MAX);
-	vuint8_t val = vatomic8_read(&obj);
-	ASSERT(val == VUINT8_MAX);
+    /* test write */
+    vatomic8_max_rel(&obj, VUINT8_MAX);
+    vuint8_t val = vatomic8_read(&obj);
+    ASSERT(val == VUINT8_MAX);
 
-	/* test no write */
-	vatomic8_max_rel(&obj, (vuint8_t)1);
-	val = vatomic8_read(&obj);
-	ASSERT(val == VUINT8_MAX);
-	V_UNUSED(val);
+    /* test no write */
+    vatomic8_max_rel(&obj, (vuint8_t)1);
+    val = vatomic8_read(&obj);
+    ASSERT(val == VUINT8_MAX);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_max_rlx
@@ -1177,18 +1177,18 @@ ut_atomic_u8_max_rel(void)
 static inline void
 ut_atomic_u8_max_rlx(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
+    vatomic8_t obj = {(vuint8_t)1};
 
-	/* test write */
-	vatomic8_max_rlx(&obj, VUINT8_MAX);
-	vuint8_t val = vatomic8_read(&obj);
-	ASSERT(val == VUINT8_MAX);
+    /* test write */
+    vatomic8_max_rlx(&obj, VUINT8_MAX);
+    vuint8_t val = vatomic8_read(&obj);
+    ASSERT(val == VUINT8_MAX);
 
-	/* test no write */
-	vatomic8_max_rlx(&obj, (vuint8_t)1);
-	val = vatomic8_read(&obj);
-	ASSERT(val == VUINT8_MAX);
-	V_UNUSED(val);
+    /* test no write */
+    vatomic8_max_rlx(&obj, (vuint8_t)1);
+    val = vatomic8_read(&obj);
+    ASSERT(val == VUINT8_MAX);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_get_max
@@ -1196,21 +1196,21 @@ ut_atomic_u8_max_rlx(void)
 static inline void
 ut_atomic_u8_get_max(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
+    vatomic8_t obj = {(vuint8_t)1};
 
-	/* test write */
-	vuint8_t old = vatomic8_get_max(&obj, VUINT8_MAX);
-	ASSERT(old == (vuint8_t)1);
-	vuint8_t val = vatomic8_read(&obj);
-	ASSERT(val == VUINT8_MAX);
+    /* test write */
+    vuint8_t old = vatomic8_get_max(&obj, VUINT8_MAX);
+    ASSERT(old == (vuint8_t)1);
+    vuint8_t val = vatomic8_read(&obj);
+    ASSERT(val == VUINT8_MAX);
 
-	/* test no write */
-	old = vatomic8_get_max(&obj, (vuint8_t)1);
-	ASSERT(old == VUINT8_MAX);
-	val = vatomic8_read(&obj);
-	ASSERT(val == VUINT8_MAX);
+    /* test no write */
+    old = vatomic8_get_max(&obj, (vuint8_t)1);
+    ASSERT(old == VUINT8_MAX);
+    val = vatomic8_read(&obj);
+    ASSERT(val == VUINT8_MAX);
 
-	V_UNUSED(val, old);
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_max_get
@@ -1218,21 +1218,21 @@ ut_atomic_u8_get_max(void)
 static inline void
 ut_atomic_u8_max_get(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
+    vatomic8_t obj = {(vuint8_t)1};
 
-	/* test write */
-	vuint8_t cur = vatomic8_max_get(&obj, VUINT8_MAX);
-	ASSERT(cur == VUINT8_MAX);
-	vuint8_t val = vatomic8_read(&obj);
-	ASSERT(val == VUINT8_MAX);
+    /* test write */
+    vuint8_t cur = vatomic8_max_get(&obj, VUINT8_MAX);
+    ASSERT(cur == VUINT8_MAX);
+    vuint8_t val = vatomic8_read(&obj);
+    ASSERT(val == VUINT8_MAX);
 
-	/* test no write */
-	cur = vatomic8_max_get(&obj, (vuint8_t)1);
-	ASSERT(cur == VUINT8_MAX);
-	val = vatomic8_read(&obj);
-	ASSERT(val == VUINT8_MAX);
+    /* test no write */
+    cur = vatomic8_max_get(&obj, (vuint8_t)1);
+    ASSERT(cur == VUINT8_MAX);
+    val = vatomic8_read(&obj);
+    ASSERT(val == VUINT8_MAX);
 
-	V_UNUSED(cur, val);
+    V_UNUSED(cur, val);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_get_max_acq
@@ -1240,21 +1240,21 @@ ut_atomic_u8_max_get(void)
 static inline void
 ut_atomic_u8_get_max_acq(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
+    vatomic8_t obj = {(vuint8_t)1};
 
-	/* test write */
-	vuint8_t old = vatomic8_get_max_acq(&obj, VUINT8_MAX);
-	ASSERT(old == (vuint8_t)1);
-	vuint8_t val = vatomic8_read(&obj);
-	ASSERT(val == VUINT8_MAX);
+    /* test write */
+    vuint8_t old = vatomic8_get_max_acq(&obj, VUINT8_MAX);
+    ASSERT(old == (vuint8_t)1);
+    vuint8_t val = vatomic8_read(&obj);
+    ASSERT(val == VUINT8_MAX);
 
-	/* test no write */
-	old = vatomic8_get_max_acq(&obj, (vuint8_t)1);
-	ASSERT(old == VUINT8_MAX);
-	val = vatomic8_read(&obj);
-	ASSERT(val == VUINT8_MAX);
+    /* test no write */
+    old = vatomic8_get_max_acq(&obj, (vuint8_t)1);
+    ASSERT(old == VUINT8_MAX);
+    val = vatomic8_read(&obj);
+    ASSERT(val == VUINT8_MAX);
 
-	V_UNUSED(val, old);
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_max_get_acq
@@ -1262,21 +1262,21 @@ ut_atomic_u8_get_max_acq(void)
 static inline void
 ut_atomic_u8_max_get_acq(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
+    vatomic8_t obj = {(vuint8_t)1};
 
-	/* test write */
-	vuint8_t cur = vatomic8_max_get_acq(&obj, VUINT8_MAX);
-	ASSERT(cur == VUINT8_MAX);
-	vuint8_t val = vatomic8_read(&obj);
-	ASSERT(val == VUINT8_MAX);
+    /* test write */
+    vuint8_t cur = vatomic8_max_get_acq(&obj, VUINT8_MAX);
+    ASSERT(cur == VUINT8_MAX);
+    vuint8_t val = vatomic8_read(&obj);
+    ASSERT(val == VUINT8_MAX);
 
-	/* test no write */
-	cur = vatomic8_max_get_acq(&obj, (vuint8_t)1);
-	ASSERT(cur == VUINT8_MAX);
-	val = vatomic8_read(&obj);
-	ASSERT(val == VUINT8_MAX);
+    /* test no write */
+    cur = vatomic8_max_get_acq(&obj, (vuint8_t)1);
+    ASSERT(cur == VUINT8_MAX);
+    val = vatomic8_read(&obj);
+    ASSERT(val == VUINT8_MAX);
 
-	V_UNUSED(cur, val);
+    V_UNUSED(cur, val);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_get_max_rel
@@ -1284,21 +1284,21 @@ ut_atomic_u8_max_get_acq(void)
 static inline void
 ut_atomic_u8_get_max_rel(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
+    vatomic8_t obj = {(vuint8_t)1};
 
-	/* test write */
-	vuint8_t old = vatomic8_get_max_rel(&obj, VUINT8_MAX);
-	ASSERT(old == (vuint8_t)1);
-	vuint8_t val = vatomic8_read(&obj);
-	ASSERT(val == VUINT8_MAX);
+    /* test write */
+    vuint8_t old = vatomic8_get_max_rel(&obj, VUINT8_MAX);
+    ASSERT(old == (vuint8_t)1);
+    vuint8_t val = vatomic8_read(&obj);
+    ASSERT(val == VUINT8_MAX);
 
-	/* test no write */
-	old = vatomic8_get_max_rel(&obj, (vuint8_t)1);
-	ASSERT(old == VUINT8_MAX);
-	val = vatomic8_read(&obj);
-	ASSERT(val == VUINT8_MAX);
+    /* test no write */
+    old = vatomic8_get_max_rel(&obj, (vuint8_t)1);
+    ASSERT(old == VUINT8_MAX);
+    val = vatomic8_read(&obj);
+    ASSERT(val == VUINT8_MAX);
 
-	V_UNUSED(val, old);
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_max_get_rel
@@ -1306,21 +1306,21 @@ ut_atomic_u8_get_max_rel(void)
 static inline void
 ut_atomic_u8_max_get_rel(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
+    vatomic8_t obj = {(vuint8_t)1};
 
-	/* test write */
-	vuint8_t cur = vatomic8_max_get_rel(&obj, VUINT8_MAX);
-	ASSERT(cur == VUINT8_MAX);
-	vuint8_t val = vatomic8_read(&obj);
-	ASSERT(val == VUINT8_MAX);
+    /* test write */
+    vuint8_t cur = vatomic8_max_get_rel(&obj, VUINT8_MAX);
+    ASSERT(cur == VUINT8_MAX);
+    vuint8_t val = vatomic8_read(&obj);
+    ASSERT(val == VUINT8_MAX);
 
-	/* test no write */
-	cur = vatomic8_max_get_rel(&obj, (vuint8_t)1);
-	ASSERT(cur == VUINT8_MAX);
-	val = vatomic8_read(&obj);
-	ASSERT(val == VUINT8_MAX);
+    /* test no write */
+    cur = vatomic8_max_get_rel(&obj, (vuint8_t)1);
+    ASSERT(cur == VUINT8_MAX);
+    val = vatomic8_read(&obj);
+    ASSERT(val == VUINT8_MAX);
 
-	V_UNUSED(cur, val);
+    V_UNUSED(cur, val);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_get_max_rlx
@@ -1328,21 +1328,21 @@ ut_atomic_u8_max_get_rel(void)
 static inline void
 ut_atomic_u8_get_max_rlx(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
+    vatomic8_t obj = {(vuint8_t)1};
 
-	/* test write */
-	vuint8_t old = vatomic8_get_max_rlx(&obj, VUINT8_MAX);
-	ASSERT(old == (vuint8_t)1);
-	vuint8_t val = vatomic8_read(&obj);
-	ASSERT(val == VUINT8_MAX);
+    /* test write */
+    vuint8_t old = vatomic8_get_max_rlx(&obj, VUINT8_MAX);
+    ASSERT(old == (vuint8_t)1);
+    vuint8_t val = vatomic8_read(&obj);
+    ASSERT(val == VUINT8_MAX);
 
-	/* test no write */
-	old = vatomic8_get_max_rlx(&obj, (vuint8_t)1);
-	ASSERT(old == VUINT8_MAX);
-	val = vatomic8_read(&obj);
-	ASSERT(val == VUINT8_MAX);
+    /* test no write */
+    old = vatomic8_get_max_rlx(&obj, (vuint8_t)1);
+    ASSERT(old == VUINT8_MAX);
+    val = vatomic8_read(&obj);
+    ASSERT(val == VUINT8_MAX);
 
-	V_UNUSED(val, old);
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_max_get_rlx
@@ -1350,21 +1350,21 @@ ut_atomic_u8_get_max_rlx(void)
 static inline void
 ut_atomic_u8_max_get_rlx(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
+    vatomic8_t obj = {(vuint8_t)1};
 
-	/* test write */
-	vuint8_t cur = vatomic8_max_get_rlx(&obj, VUINT8_MAX);
-	ASSERT(cur == VUINT8_MAX);
-	vuint8_t val = vatomic8_read(&obj);
-	ASSERT(val == VUINT8_MAX);
+    /* test write */
+    vuint8_t cur = vatomic8_max_get_rlx(&obj, VUINT8_MAX);
+    ASSERT(cur == VUINT8_MAX);
+    vuint8_t val = vatomic8_read(&obj);
+    ASSERT(val == VUINT8_MAX);
 
-	/* test no write */
-	cur = vatomic8_max_get_rlx(&obj, (vuint8_t)1);
-	ASSERT(cur == VUINT8_MAX);
-	val = vatomic8_read(&obj);
-	ASSERT(val == VUINT8_MAX);
+    /* test no write */
+    cur = vatomic8_max_get_rlx(&obj, (vuint8_t)1);
+    ASSERT(cur == VUINT8_MAX);
+    val = vatomic8_read(&obj);
+    ASSERT(val == VUINT8_MAX);
 
-	V_UNUSED(cur, val);
+    V_UNUSED(cur, val);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_and
@@ -1372,19 +1372,19 @@ ut_atomic_u8_max_get_rlx(void)
 static inline void
 ut_atomic_u8_and(void)
 {
-	vatomic8_t obj = {VUINT8_MAX};
-	vuint8_t mask  = VUINT8_MAX;
-	vuint8_t ref   = VUINT8_MAX;
-	vuint8_t cur   = 0;
+    vatomic8_t obj = {VUINT8_MAX};
+    vuint8_t mask  = VUINT8_MAX;
+    vuint8_t ref   = VUINT8_MAX;
+    vuint8_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
-		mask = (vuint8_t)(mask >> (BYTE_WIDTH * i));
-		ref &= mask;
-		vatomic8_and(&obj, mask);
-		cur = vatomic8_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
+        mask = (vuint8_t)(mask >> (BYTE_WIDTH * i));
+        ref &= mask;
+        vatomic8_and(&obj, mask);
+        cur = vatomic8_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_and_rel
@@ -1392,19 +1392,19 @@ ut_atomic_u8_and(void)
 static inline void
 ut_atomic_u8_and_rel(void)
 {
-	vatomic8_t obj = {VUINT8_MAX};
-	vuint8_t mask  = VUINT8_MAX;
-	vuint8_t ref   = VUINT8_MAX;
-	vuint8_t cur   = 0;
+    vatomic8_t obj = {VUINT8_MAX};
+    vuint8_t mask  = VUINT8_MAX;
+    vuint8_t ref   = VUINT8_MAX;
+    vuint8_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
-		mask = (vuint8_t)(mask >> (BYTE_WIDTH * i));
-		ref &= mask;
-		vatomic8_and_rel(&obj, mask);
-		cur = vatomic8_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
+        mask = (vuint8_t)(mask >> (BYTE_WIDTH * i));
+        ref &= mask;
+        vatomic8_and_rel(&obj, mask);
+        cur = vatomic8_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_and_rlx
@@ -1412,19 +1412,19 @@ ut_atomic_u8_and_rel(void)
 static inline void
 ut_atomic_u8_and_rlx(void)
 {
-	vatomic8_t obj = {VUINT8_MAX};
-	vuint8_t mask  = VUINT8_MAX;
-	vuint8_t ref   = VUINT8_MAX;
-	vuint8_t cur   = 0;
+    vatomic8_t obj = {VUINT8_MAX};
+    vuint8_t mask  = VUINT8_MAX;
+    vuint8_t ref   = VUINT8_MAX;
+    vuint8_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
-		mask = (vuint8_t)(mask >> (BYTE_WIDTH * i));
-		ref &= mask;
-		vatomic8_and_rlx(&obj, mask);
-		cur = vatomic8_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
+        mask = (vuint8_t)(mask >> (BYTE_WIDTH * i));
+        ref &= mask;
+        vatomic8_and_rlx(&obj, mask);
+        cur = vatomic8_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_get_and
@@ -1432,21 +1432,21 @@ ut_atomic_u8_and_rlx(void)
 static inline void
 ut_atomic_u8_get_and(void)
 {
-	vatomic8_t obj = {VUINT8_MAX};
-	vuint8_t mask  = VUINT8_MAX;
-	vuint8_t ref   = VUINT8_MAX;
-	vuint8_t cur   = 0;
-	vuint8_t old   = 0;
+    vatomic8_t obj = {VUINT8_MAX};
+    vuint8_t mask  = VUINT8_MAX;
+    vuint8_t ref   = VUINT8_MAX;
+    vuint8_t cur   = 0;
+    vuint8_t old   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
-		mask = (vuint8_t)(mask >> (BYTE_WIDTH * i));
-		old	 = vatomic8_get_and(&obj, mask);
-		ASSERT(old == ref);
-		ref &= mask;
-		cur = vatomic8_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur, old);
+    for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
+        mask = (vuint8_t)(mask >> (BYTE_WIDTH * i));
+        old  = vatomic8_get_and(&obj, mask);
+        ASSERT(old == ref);
+        ref &= mask;
+        cur = vatomic8_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_and_get
@@ -1454,20 +1454,20 @@ ut_atomic_u8_get_and(void)
 static inline void
 ut_atomic_u8_and_get(void)
 {
-	vatomic8_t obj = {VUINT8_MAX};
-	vuint8_t mask  = VUINT8_MAX;
-	vuint8_t ref   = VUINT8_MAX;
-	vuint8_t cur   = 0;
+    vatomic8_t obj = {VUINT8_MAX};
+    vuint8_t mask  = VUINT8_MAX;
+    vuint8_t ref   = VUINT8_MAX;
+    vuint8_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
-		mask = (vuint8_t)(mask >> (BYTE_WIDTH * i));
-		ref &= mask;
-		cur = vatomic8_and_get(&obj, mask);
-		ASSERT(cur == ref);
-		cur = vatomic8_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
+        mask = (vuint8_t)(mask >> (BYTE_WIDTH * i));
+        ref &= mask;
+        cur = vatomic8_and_get(&obj, mask);
+        ASSERT(cur == ref);
+        cur = vatomic8_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_get_and_acq
@@ -1475,21 +1475,21 @@ ut_atomic_u8_and_get(void)
 static inline void
 ut_atomic_u8_get_and_acq(void)
 {
-	vatomic8_t obj = {VUINT8_MAX};
-	vuint8_t mask  = VUINT8_MAX;
-	vuint8_t ref   = VUINT8_MAX;
-	vuint8_t cur   = 0;
-	vuint8_t old   = 0;
+    vatomic8_t obj = {VUINT8_MAX};
+    vuint8_t mask  = VUINT8_MAX;
+    vuint8_t ref   = VUINT8_MAX;
+    vuint8_t cur   = 0;
+    vuint8_t old   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
-		mask = (vuint8_t)(mask >> (BYTE_WIDTH * i));
-		old	 = vatomic8_get_and_acq(&obj, mask);
-		ASSERT(old == ref);
-		ref &= mask;
-		cur = vatomic8_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur, old);
+    for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
+        mask = (vuint8_t)(mask >> (BYTE_WIDTH * i));
+        old  = vatomic8_get_and_acq(&obj, mask);
+        ASSERT(old == ref);
+        ref &= mask;
+        cur = vatomic8_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_and_get_acq
@@ -1497,20 +1497,20 @@ ut_atomic_u8_get_and_acq(void)
 static inline void
 ut_atomic_u8_and_get_acq(void)
 {
-	vatomic8_t obj = {VUINT8_MAX};
-	vuint8_t mask  = VUINT8_MAX;
-	vuint8_t ref   = VUINT8_MAX;
-	vuint8_t cur   = 0;
+    vatomic8_t obj = {VUINT8_MAX};
+    vuint8_t mask  = VUINT8_MAX;
+    vuint8_t ref   = VUINT8_MAX;
+    vuint8_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
-		mask = (vuint8_t)(mask >> (BYTE_WIDTH * i));
-		ref &= mask;
-		cur = vatomic8_and_get_acq(&obj, mask);
-		ASSERT(cur == ref);
-		cur = vatomic8_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
+        mask = (vuint8_t)(mask >> (BYTE_WIDTH * i));
+        ref &= mask;
+        cur = vatomic8_and_get_acq(&obj, mask);
+        ASSERT(cur == ref);
+        cur = vatomic8_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_get_and_rel
@@ -1518,21 +1518,21 @@ ut_atomic_u8_and_get_acq(void)
 static inline void
 ut_atomic_u8_get_and_rel(void)
 {
-	vatomic8_t obj = {VUINT8_MAX};
-	vuint8_t mask  = VUINT8_MAX;
-	vuint8_t ref   = VUINT8_MAX;
-	vuint8_t cur   = 0;
-	vuint8_t old   = 0;
+    vatomic8_t obj = {VUINT8_MAX};
+    vuint8_t mask  = VUINT8_MAX;
+    vuint8_t ref   = VUINT8_MAX;
+    vuint8_t cur   = 0;
+    vuint8_t old   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
-		mask = (vuint8_t)(mask >> (BYTE_WIDTH * i));
-		old	 = vatomic8_get_and_rel(&obj, mask);
-		ASSERT(old == ref);
-		ref &= mask;
-		cur = vatomic8_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur, old);
+    for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
+        mask = (vuint8_t)(mask >> (BYTE_WIDTH * i));
+        old  = vatomic8_get_and_rel(&obj, mask);
+        ASSERT(old == ref);
+        ref &= mask;
+        cur = vatomic8_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_and_get_rel
@@ -1540,20 +1540,20 @@ ut_atomic_u8_get_and_rel(void)
 static inline void
 ut_atomic_u8_and_get_rel(void)
 {
-	vatomic8_t obj = {VUINT8_MAX};
-	vuint8_t mask  = VUINT8_MAX;
-	vuint8_t ref   = VUINT8_MAX;
-	vuint8_t cur   = 0;
+    vatomic8_t obj = {VUINT8_MAX};
+    vuint8_t mask  = VUINT8_MAX;
+    vuint8_t ref   = VUINT8_MAX;
+    vuint8_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
-		mask = (vuint8_t)(mask >> (BYTE_WIDTH * i));
-		ref &= mask;
-		cur = vatomic8_and_get_rel(&obj, mask);
-		ASSERT(cur == ref);
-		cur = vatomic8_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
+        mask = (vuint8_t)(mask >> (BYTE_WIDTH * i));
+        ref &= mask;
+        cur = vatomic8_and_get_rel(&obj, mask);
+        ASSERT(cur == ref);
+        cur = vatomic8_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_get_and_rlx
@@ -1561,21 +1561,21 @@ ut_atomic_u8_and_get_rel(void)
 static inline void
 ut_atomic_u8_get_and_rlx(void)
 {
-	vatomic8_t obj = {VUINT8_MAX};
-	vuint8_t mask  = VUINT8_MAX;
-	vuint8_t ref   = VUINT8_MAX;
-	vuint8_t cur   = 0;
-	vuint8_t old   = 0;
+    vatomic8_t obj = {VUINT8_MAX};
+    vuint8_t mask  = VUINT8_MAX;
+    vuint8_t ref   = VUINT8_MAX;
+    vuint8_t cur   = 0;
+    vuint8_t old   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
-		mask = (vuint8_t)(mask >> (BYTE_WIDTH * i));
-		old	 = vatomic8_get_and_rlx(&obj, mask);
-		ASSERT(old == ref);
-		ref &= mask;
-		cur = vatomic8_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur, old);
+    for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
+        mask = (vuint8_t)(mask >> (BYTE_WIDTH * i));
+        old  = vatomic8_get_and_rlx(&obj, mask);
+        ASSERT(old == ref);
+        ref &= mask;
+        cur = vatomic8_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_and_get_rlx
@@ -1583,20 +1583,20 @@ ut_atomic_u8_get_and_rlx(void)
 static inline void
 ut_atomic_u8_and_get_rlx(void)
 {
-	vatomic8_t obj = {VUINT8_MAX};
-	vuint8_t mask  = VUINT8_MAX;
-	vuint8_t ref   = VUINT8_MAX;
-	vuint8_t cur   = 0;
+    vatomic8_t obj = {VUINT8_MAX};
+    vuint8_t mask  = VUINT8_MAX;
+    vuint8_t ref   = VUINT8_MAX;
+    vuint8_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
-		mask = (vuint8_t)(mask >> (BYTE_WIDTH * i));
-		ref &= mask;
-		cur = vatomic8_and_get_rlx(&obj, mask);
-		ASSERT(cur == ref);
-		cur = vatomic8_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
+        mask = (vuint8_t)(mask >> (BYTE_WIDTH * i));
+        ref &= mask;
+        cur = vatomic8_and_get_rlx(&obj, mask);
+        ASSERT(cur == ref);
+        cur = vatomic8_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_or
@@ -1604,19 +1604,19 @@ ut_atomic_u8_and_get_rlx(void)
 static inline void
 ut_atomic_u8_or(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t mask  = 0xFF;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t cur   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t mask  = 0xFF;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
-		mask = (vuint8_t)(mask << (BYTE_WIDTH * i));
-		ref |= mask;
-		vatomic8_or(&obj, mask);
-		cur = vatomic8_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
+        mask = (vuint8_t)(mask << (BYTE_WIDTH * i));
+        ref |= mask;
+        vatomic8_or(&obj, mask);
+        cur = vatomic8_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_or_rel
@@ -1624,19 +1624,19 @@ ut_atomic_u8_or(void)
 static inline void
 ut_atomic_u8_or_rel(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t mask  = 0xFF;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t cur   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t mask  = 0xFF;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
-		mask = (vuint8_t)(mask << (BYTE_WIDTH * i));
-		ref |= mask;
-		vatomic8_or_rel(&obj, mask);
-		cur = vatomic8_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
+        mask = (vuint8_t)(mask << (BYTE_WIDTH * i));
+        ref |= mask;
+        vatomic8_or_rel(&obj, mask);
+        cur = vatomic8_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_or_rlx
@@ -1644,19 +1644,19 @@ ut_atomic_u8_or_rel(void)
 static inline void
 ut_atomic_u8_or_rlx(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t mask  = 0xFF;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t cur   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t mask  = 0xFF;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
-		mask = (vuint8_t)(mask << (BYTE_WIDTH * i));
-		ref |= mask;
-		vatomic8_or_rlx(&obj, mask);
-		cur = vatomic8_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
+        mask = (vuint8_t)(mask << (BYTE_WIDTH * i));
+        ref |= mask;
+        vatomic8_or_rlx(&obj, mask);
+        cur = vatomic8_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_get_or
@@ -1664,21 +1664,21 @@ ut_atomic_u8_or_rlx(void)
 static inline void
 ut_atomic_u8_get_or(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t mask  = 0xFF;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t cur   = 0;
-	vuint8_t old   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t mask  = 0xFF;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t cur   = 0;
+    vuint8_t old   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
-		mask = (vuint8_t)(mask << (BYTE_WIDTH * i));
-		old	 = vatomic8_get_or(&obj, mask);
-		ASSERT(old == ref);
-		ref |= mask;
-		cur = vatomic8_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur, old);
+    for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
+        mask = (vuint8_t)(mask << (BYTE_WIDTH * i));
+        old  = vatomic8_get_or(&obj, mask);
+        ASSERT(old == ref);
+        ref |= mask;
+        cur = vatomic8_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_or_get
@@ -1686,20 +1686,20 @@ ut_atomic_u8_get_or(void)
 static inline void
 ut_atomic_u8_or_get(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t mask  = 0xFF;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t cur   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t mask  = 0xFF;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
-		mask = (vuint8_t)(mask << (BYTE_WIDTH * i));
-		ref |= mask;
-		cur = vatomic8_or_get(&obj, mask);
-		ASSERT(cur == ref);
-		cur = vatomic8_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
+        mask = (vuint8_t)(mask << (BYTE_WIDTH * i));
+        ref |= mask;
+        cur = vatomic8_or_get(&obj, mask);
+        ASSERT(cur == ref);
+        cur = vatomic8_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_get_or_acq
@@ -1707,21 +1707,21 @@ ut_atomic_u8_or_get(void)
 static inline void
 ut_atomic_u8_get_or_acq(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t mask  = 0xFF;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t cur   = 0;
-	vuint8_t old   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t mask  = 0xFF;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t cur   = 0;
+    vuint8_t old   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
-		mask = (vuint8_t)(mask << (BYTE_WIDTH * i));
-		old	 = vatomic8_get_or_acq(&obj, mask);
-		ASSERT(old == ref);
-		ref |= mask;
-		cur = vatomic8_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur, old);
+    for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
+        mask = (vuint8_t)(mask << (BYTE_WIDTH * i));
+        old  = vatomic8_get_or_acq(&obj, mask);
+        ASSERT(old == ref);
+        ref |= mask;
+        cur = vatomic8_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_or_get_acq
@@ -1729,20 +1729,20 @@ ut_atomic_u8_get_or_acq(void)
 static inline void
 ut_atomic_u8_or_get_acq(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t mask  = 0xFF;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t cur   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t mask  = 0xFF;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
-		mask = (vuint8_t)(mask << (BYTE_WIDTH * i));
-		ref |= mask;
-		cur = vatomic8_or_get_acq(&obj, mask);
-		ASSERT(cur == ref);
-		cur = vatomic8_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
+        mask = (vuint8_t)(mask << (BYTE_WIDTH * i));
+        ref |= mask;
+        cur = vatomic8_or_get_acq(&obj, mask);
+        ASSERT(cur == ref);
+        cur = vatomic8_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_get_or_rel
@@ -1750,21 +1750,21 @@ ut_atomic_u8_or_get_acq(void)
 static inline void
 ut_atomic_u8_get_or_rel(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t mask  = 0xFF;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t cur   = 0;
-	vuint8_t old   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t mask  = 0xFF;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t cur   = 0;
+    vuint8_t old   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
-		mask = (vuint8_t)(mask << (BYTE_WIDTH * i));
-		old	 = vatomic8_get_or_rel(&obj, mask);
-		ASSERT(old == ref);
-		ref |= mask;
-		cur = vatomic8_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur, old);
+    for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
+        mask = (vuint8_t)(mask << (BYTE_WIDTH * i));
+        old  = vatomic8_get_or_rel(&obj, mask);
+        ASSERT(old == ref);
+        ref |= mask;
+        cur = vatomic8_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_or_get_rel
@@ -1772,20 +1772,20 @@ ut_atomic_u8_get_or_rel(void)
 static inline void
 ut_atomic_u8_or_get_rel(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t mask  = 0xFF;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t cur   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t mask  = 0xFF;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
-		mask = (vuint8_t)(mask << (BYTE_WIDTH * i));
-		ref |= mask;
-		cur = vatomic8_or_get_rel(&obj, mask);
-		ASSERT(cur == ref);
-		cur = vatomic8_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
+        mask = (vuint8_t)(mask << (BYTE_WIDTH * i));
+        ref |= mask;
+        cur = vatomic8_or_get_rel(&obj, mask);
+        ASSERT(cur == ref);
+        cur = vatomic8_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_get_or_rlx
@@ -1793,21 +1793,21 @@ ut_atomic_u8_or_get_rel(void)
 static inline void
 ut_atomic_u8_get_or_rlx(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t mask  = 0xFF;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t cur   = 0;
-	vuint8_t old   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t mask  = 0xFF;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t cur   = 0;
+    vuint8_t old   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
-		mask = (vuint8_t)(mask << (BYTE_WIDTH * i));
-		old	 = vatomic8_get_or_rlx(&obj, mask);
-		ASSERT(old == ref);
-		ref |= mask;
-		cur = vatomic8_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur, old);
+    for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
+        mask = (vuint8_t)(mask << (BYTE_WIDTH * i));
+        old  = vatomic8_get_or_rlx(&obj, mask);
+        ASSERT(old == ref);
+        ref |= mask;
+        cur = vatomic8_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_or_get_rlx
@@ -1815,20 +1815,20 @@ ut_atomic_u8_get_or_rlx(void)
 static inline void
 ut_atomic_u8_or_get_rlx(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t mask  = 0xFF;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t cur   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t mask  = 0xFF;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
-		mask = (vuint8_t)(mask << (BYTE_WIDTH * i));
-		ref |= mask;
-		cur = vatomic8_or_get_rlx(&obj, mask);
-		ASSERT(cur == ref);
-		cur = vatomic8_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
+        mask = (vuint8_t)(mask << (BYTE_WIDTH * i));
+        ref |= mask;
+        cur = vatomic8_or_get_rlx(&obj, mask);
+        ASSERT(cur == ref);
+        cur = vatomic8_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_xor
@@ -1836,19 +1836,19 @@ ut_atomic_u8_or_get_rlx(void)
 static inline void
 ut_atomic_u8_xor(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t mask  = 0x33;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t cur   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t mask  = 0x33;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
-		mask = (vuint8_t)(mask << (BYTE_WIDTH * i)) | mask;
-		ref ^= mask;
-		vatomic8_xor(&obj, mask);
-		cur = vatomic8_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
+        mask = (vuint8_t)(mask << (BYTE_WIDTH * i)) | mask;
+        ref ^= mask;
+        vatomic8_xor(&obj, mask);
+        cur = vatomic8_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_xor_rel
@@ -1856,19 +1856,19 @@ ut_atomic_u8_xor(void)
 static inline void
 ut_atomic_u8_xor_rel(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t mask  = 0x33;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t cur   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t mask  = 0x33;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
-		mask = (vuint8_t)(mask << (BYTE_WIDTH * i)) | mask;
-		ref ^= mask;
-		vatomic8_xor_rel(&obj, mask);
-		cur = vatomic8_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
+        mask = (vuint8_t)(mask << (BYTE_WIDTH * i)) | mask;
+        ref ^= mask;
+        vatomic8_xor_rel(&obj, mask);
+        cur = vatomic8_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_xor_rlx
@@ -1876,19 +1876,19 @@ ut_atomic_u8_xor_rel(void)
 static inline void
 ut_atomic_u8_xor_rlx(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t mask  = 0x33;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t cur   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t mask  = 0x33;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
-		mask = (vuint8_t)(mask << (BYTE_WIDTH * i)) | mask;
-		ref ^= mask;
-		vatomic8_xor_rlx(&obj, mask);
-		cur = vatomic8_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
+        mask = (vuint8_t)(mask << (BYTE_WIDTH * i)) | mask;
+        ref ^= mask;
+        vatomic8_xor_rlx(&obj, mask);
+        cur = vatomic8_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_get_xor
@@ -1896,21 +1896,21 @@ ut_atomic_u8_xor_rlx(void)
 static inline void
 ut_atomic_u8_get_xor(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t mask  = 0x33;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t cur   = 0;
-	vuint8_t old   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t mask  = 0x33;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t cur   = 0;
+    vuint8_t old   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
-		mask = (vuint8_t)(mask << (BYTE_WIDTH * i)) | mask;
-		old	 = vatomic8_get_xor(&obj, mask);
-		ASSERT(old == ref);
-		ref ^= mask;
-		cur = vatomic8_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(old, cur);
+    for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
+        mask = (vuint8_t)(mask << (BYTE_WIDTH * i)) | mask;
+        old  = vatomic8_get_xor(&obj, mask);
+        ASSERT(old == ref);
+        ref ^= mask;
+        cur = vatomic8_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(old, cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_or_get
@@ -1918,20 +1918,20 @@ ut_atomic_u8_get_xor(void)
 static inline void
 ut_atomic_u8_xor_get(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t mask  = 0xFF;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t cur   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t mask  = 0xFF;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
-		mask = (vuint8_t)(mask << (BYTE_WIDTH * i)) | mask;
-		ref ^= mask;
-		cur = vatomic8_xor_get(&obj, mask);
-		ASSERT(cur == ref);
-		cur = vatomic8_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
+        mask = (vuint8_t)(mask << (BYTE_WIDTH * i)) | mask;
+        ref ^= mask;
+        cur = vatomic8_xor_get(&obj, mask);
+        ASSERT(cur == ref);
+        cur = vatomic8_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_get_xor_acq
@@ -1939,21 +1939,21 @@ ut_atomic_u8_xor_get(void)
 static inline void
 ut_atomic_u8_get_xor_acq(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t mask  = 0x33;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t cur   = 0;
-	vuint8_t old   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t mask  = 0x33;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t cur   = 0;
+    vuint8_t old   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
-		mask = (vuint8_t)(mask << (BYTE_WIDTH * i)) | mask;
-		old	 = vatomic8_get_xor_acq(&obj, mask);
-		ASSERT(old == ref);
-		ref ^= mask;
-		cur = vatomic8_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(old, cur);
+    for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
+        mask = (vuint8_t)(mask << (BYTE_WIDTH * i)) | mask;
+        old  = vatomic8_get_xor_acq(&obj, mask);
+        ASSERT(old == ref);
+        ref ^= mask;
+        cur = vatomic8_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(old, cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_or_get_acq
@@ -1961,20 +1961,20 @@ ut_atomic_u8_get_xor_acq(void)
 static inline void
 ut_atomic_u8_xor_get_acq(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t mask  = 0xFF;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t cur   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t mask  = 0xFF;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
-		mask = (vuint8_t)(mask << (BYTE_WIDTH * i)) | mask;
-		ref ^= mask;
-		cur = vatomic8_xor_get_acq(&obj, mask);
-		ASSERT(cur == ref);
-		cur = vatomic8_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
+        mask = (vuint8_t)(mask << (BYTE_WIDTH * i)) | mask;
+        ref ^= mask;
+        cur = vatomic8_xor_get_acq(&obj, mask);
+        ASSERT(cur == ref);
+        cur = vatomic8_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_get_xor_rel
@@ -1982,21 +1982,21 @@ ut_atomic_u8_xor_get_acq(void)
 static inline void
 ut_atomic_u8_get_xor_rel(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t mask  = 0x33;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t cur   = 0;
-	vuint8_t old   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t mask  = 0x33;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t cur   = 0;
+    vuint8_t old   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
-		mask = (vuint8_t)(mask << (BYTE_WIDTH * i)) | mask;
-		old	 = vatomic8_get_xor_rel(&obj, mask);
-		ASSERT(old == ref);
-		ref ^= mask;
-		cur = vatomic8_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(old, cur);
+    for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
+        mask = (vuint8_t)(mask << (BYTE_WIDTH * i)) | mask;
+        old  = vatomic8_get_xor_rel(&obj, mask);
+        ASSERT(old == ref);
+        ref ^= mask;
+        cur = vatomic8_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(old, cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_or_get_rel
@@ -2004,20 +2004,20 @@ ut_atomic_u8_get_xor_rel(void)
 static inline void
 ut_atomic_u8_xor_get_rel(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t mask  = 0xFF;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t cur   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t mask  = 0xFF;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
-		mask = (vuint8_t)(mask << (BYTE_WIDTH * i)) | mask;
-		ref ^= mask;
-		cur = vatomic8_xor_get_rel(&obj, mask);
-		ASSERT(cur == ref);
-		cur = vatomic8_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
+        mask = (vuint8_t)(mask << (BYTE_WIDTH * i)) | mask;
+        ref ^= mask;
+        cur = vatomic8_xor_get_rel(&obj, mask);
+        ASSERT(cur == ref);
+        cur = vatomic8_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_get_xor_rlx
@@ -2025,21 +2025,21 @@ ut_atomic_u8_xor_get_rel(void)
 static inline void
 ut_atomic_u8_get_xor_rlx(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t mask  = 0x33;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t cur   = 0;
-	vuint8_t old   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t mask  = 0x33;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t cur   = 0;
+    vuint8_t old   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
-		mask = (vuint8_t)(mask << (BYTE_WIDTH * i)) | mask;
-		old	 = vatomic8_get_xor_rlx(&obj, mask);
-		ASSERT(old == ref);
-		ref ^= mask;
-		cur = vatomic8_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(old, cur);
+    for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
+        mask = (vuint8_t)(mask << (BYTE_WIDTH * i)) | mask;
+        old  = vatomic8_get_xor_rlx(&obj, mask);
+        ASSERT(old == ref);
+        ref ^= mask;
+        cur = vatomic8_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(old, cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic8_or_get_rlx
@@ -2047,20 +2047,20 @@ ut_atomic_u8_get_xor_rlx(void)
 static inline void
 ut_atomic_u8_xor_get_rlx(void)
 {
-	vatomic8_t obj = {(vuint8_t)1};
-	vuint8_t mask  = 0xFF;
-	vuint8_t ref   = (vuint8_t)1;
-	vuint8_t cur   = 0;
+    vatomic8_t obj = {(vuint8_t)1};
+    vuint8_t mask  = 0xFF;
+    vuint8_t ref   = (vuint8_t)1;
+    vuint8_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
-		mask = (vuint8_t)(mask << (BYTE_WIDTH * i)) | mask;
-		ref ^= mask;
-		cur = vatomic8_xor_get_rlx(&obj, mask);
-		ASSERT(cur == ref);
-		cur = vatomic8_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint8_t); i++) {
+        mask = (vuint8_t)(mask << (BYTE_WIDTH * i)) | mask;
+        ref ^= mask;
+        cur = vatomic8_xor_get_rlx(&obj, mask);
+        ASSERT(cur == ref);
+        cur = vatomic8_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * Entry point
@@ -2068,120 +2068,120 @@ ut_atomic_u8_xor_get_rlx(void)
 int
 main(void)
 {
-	ut_atomic_u8_read();
-	ut_atomic_u8_read_acq();
-	ut_atomic_u8_read_rlx();
+    ut_atomic_u8_read();
+    ut_atomic_u8_read_acq();
+    ut_atomic_u8_read_rlx();
 
-	ut_atomic_u8_init();
+    ut_atomic_u8_init();
 
-	ut_atomic_u8_write();
-	ut_atomic_u8_write_rel();
-	ut_atomic_u8_write_rlx();
+    ut_atomic_u8_write();
+    ut_atomic_u8_write_rel();
+    ut_atomic_u8_write_rlx();
 
-	ut_atomic_u8_xchg();
-	ut_atomic_u8_xchg_acq();
-	ut_atomic_u8_xchg_rel();
-	ut_atomic_u8_xchg_rlx();
+    ut_atomic_u8_xchg();
+    ut_atomic_u8_xchg_acq();
+    ut_atomic_u8_xchg_rel();
+    ut_atomic_u8_xchg_rlx();
 
-	ut_atomic_u8_cmpxchg();
-	ut_atomic_u8_cmpxchg_acq();
-	ut_atomic_u8_cmpxchg_rel();
-	ut_atomic_u8_cmpxchg_rlx();
+    ut_atomic_u8_cmpxchg();
+    ut_atomic_u8_cmpxchg_acq();
+    ut_atomic_u8_cmpxchg_rel();
+    ut_atomic_u8_cmpxchg_rlx();
 
-	ut_atomic_u8_add();
-	ut_atomic_u8_add_rel();
-	ut_atomic_u8_add_rlx();
-	ut_atomic_u8_get_add();
-	ut_atomic_u8_add_get();
-	ut_atomic_u8_get_add_acq();
-	ut_atomic_u8_add_get_acq();
-	ut_atomic_u8_get_add_rel();
-	ut_atomic_u8_add_get_rel();
-	ut_atomic_u8_get_add_rlx();
-	ut_atomic_u8_add_get_rlx();
+    ut_atomic_u8_add();
+    ut_atomic_u8_add_rel();
+    ut_atomic_u8_add_rlx();
+    ut_atomic_u8_get_add();
+    ut_atomic_u8_add_get();
+    ut_atomic_u8_get_add_acq();
+    ut_atomic_u8_add_get_acq();
+    ut_atomic_u8_get_add_rel();
+    ut_atomic_u8_add_get_rel();
+    ut_atomic_u8_get_add_rlx();
+    ut_atomic_u8_add_get_rlx();
 
-	ut_atomic_u8_inc();
-	ut_atomic_u8_inc_rel();
-	ut_atomic_u8_inc_rlx();
-	ut_atomic_u8_get_inc();
-	ut_atomic_u8_inc_get();
-	ut_atomic_u8_get_inc_acq();
-	ut_atomic_u8_inc_get_acq();
-	ut_atomic_u8_get_inc_rel();
-	ut_atomic_u8_inc_get_rel();
-	ut_atomic_u8_get_inc_rlx();
-	ut_atomic_u8_inc_get_rlx();
+    ut_atomic_u8_inc();
+    ut_atomic_u8_inc_rel();
+    ut_atomic_u8_inc_rlx();
+    ut_atomic_u8_get_inc();
+    ut_atomic_u8_inc_get();
+    ut_atomic_u8_get_inc_acq();
+    ut_atomic_u8_inc_get_acq();
+    ut_atomic_u8_get_inc_rel();
+    ut_atomic_u8_inc_get_rel();
+    ut_atomic_u8_get_inc_rlx();
+    ut_atomic_u8_inc_get_rlx();
 
-	ut_atomic_u8_sub();
-	ut_atomic_u8_sub_rel();
-	ut_atomic_u8_sub_rlx();
-	ut_atomic_u8_get_sub();
-	ut_atomic_u8_sub_get();
-	ut_atomic_u8_get_sub_acq();
-	ut_atomic_u8_sub_get_acq();
-	ut_atomic_u8_get_sub_rel();
-	ut_atomic_u8_sub_get_rel();
-	ut_atomic_u8_get_sub_rlx();
-	ut_atomic_u8_sub_get_rlx();
+    ut_atomic_u8_sub();
+    ut_atomic_u8_sub_rel();
+    ut_atomic_u8_sub_rlx();
+    ut_atomic_u8_get_sub();
+    ut_atomic_u8_sub_get();
+    ut_atomic_u8_get_sub_acq();
+    ut_atomic_u8_sub_get_acq();
+    ut_atomic_u8_get_sub_rel();
+    ut_atomic_u8_sub_get_rel();
+    ut_atomic_u8_get_sub_rlx();
+    ut_atomic_u8_sub_get_rlx();
 
-	ut_atomic_u8_dec();
-	ut_atomic_u8_dec_rel();
-	ut_atomic_u8_dec_rlx();
-	ut_atomic_u8_get_dec();
-	ut_atomic_u8_dec_get();
-	ut_atomic_u8_get_dec_acq();
-	ut_atomic_u8_dec_get_acq();
-	ut_atomic_u8_get_dec_rel();
-	ut_atomic_u8_dec_get_rel();
-	ut_atomic_u8_get_dec_rlx();
-	ut_atomic_u8_dec_get_rlx();
+    ut_atomic_u8_dec();
+    ut_atomic_u8_dec_rel();
+    ut_atomic_u8_dec_rlx();
+    ut_atomic_u8_get_dec();
+    ut_atomic_u8_dec_get();
+    ut_atomic_u8_get_dec_acq();
+    ut_atomic_u8_dec_get_acq();
+    ut_atomic_u8_get_dec_rel();
+    ut_atomic_u8_dec_get_rel();
+    ut_atomic_u8_get_dec_rlx();
+    ut_atomic_u8_dec_get_rlx();
 
-	ut_atomic_u8_max();
-	ut_atomic_u8_max_rel();
-	ut_atomic_u8_max_rlx();
-	ut_atomic_u8_get_max();
-	ut_atomic_u8_max_get();
-	ut_atomic_u8_get_max_acq();
-	ut_atomic_u8_max_get_acq();
-	ut_atomic_u8_get_max_rel();
-	ut_atomic_u8_max_get_rel();
-	ut_atomic_u8_get_max_rlx();
-	ut_atomic_u8_max_get_rlx();
+    ut_atomic_u8_max();
+    ut_atomic_u8_max_rel();
+    ut_atomic_u8_max_rlx();
+    ut_atomic_u8_get_max();
+    ut_atomic_u8_max_get();
+    ut_atomic_u8_get_max_acq();
+    ut_atomic_u8_max_get_acq();
+    ut_atomic_u8_get_max_rel();
+    ut_atomic_u8_max_get_rel();
+    ut_atomic_u8_get_max_rlx();
+    ut_atomic_u8_max_get_rlx();
 
-	ut_atomic_u8_and();
-	ut_atomic_u8_and_rel();
-	ut_atomic_u8_and_rlx();
-	ut_atomic_u8_get_and();
-	ut_atomic_u8_and_get();
-	ut_atomic_u8_get_and_acq();
-	ut_atomic_u8_and_get_acq();
-	ut_atomic_u8_get_and_rel();
-	ut_atomic_u8_and_get_rel();
-	ut_atomic_u8_get_and_rlx();
-	ut_atomic_u8_and_get_rlx();
+    ut_atomic_u8_and();
+    ut_atomic_u8_and_rel();
+    ut_atomic_u8_and_rlx();
+    ut_atomic_u8_get_and();
+    ut_atomic_u8_and_get();
+    ut_atomic_u8_get_and_acq();
+    ut_atomic_u8_and_get_acq();
+    ut_atomic_u8_get_and_rel();
+    ut_atomic_u8_and_get_rel();
+    ut_atomic_u8_get_and_rlx();
+    ut_atomic_u8_and_get_rlx();
 
-	ut_atomic_u8_or();
-	ut_atomic_u8_or_rel();
-	ut_atomic_u8_or_rlx();
-	ut_atomic_u8_get_or();
-	ut_atomic_u8_or_get();
-	ut_atomic_u8_get_or_acq();
-	ut_atomic_u8_or_get_acq();
-	ut_atomic_u8_get_or_rel();
-	ut_atomic_u8_or_get_rel();
-	ut_atomic_u8_get_or_rlx();
-	ut_atomic_u8_or_get_rlx();
+    ut_atomic_u8_or();
+    ut_atomic_u8_or_rel();
+    ut_atomic_u8_or_rlx();
+    ut_atomic_u8_get_or();
+    ut_atomic_u8_or_get();
+    ut_atomic_u8_get_or_acq();
+    ut_atomic_u8_or_get_acq();
+    ut_atomic_u8_get_or_rel();
+    ut_atomic_u8_or_get_rel();
+    ut_atomic_u8_get_or_rlx();
+    ut_atomic_u8_or_get_rlx();
 
-	ut_atomic_u8_xor();
-	ut_atomic_u8_xor_rel();
-	ut_atomic_u8_xor_rlx();
-	ut_atomic_u8_get_xor();
-	ut_atomic_u8_xor_get();
-	ut_atomic_u8_get_xor_acq();
-	ut_atomic_u8_xor_get_acq();
-	ut_atomic_u8_get_xor_rel();
-	ut_atomic_u8_xor_get_rel();
-	ut_atomic_u8_get_xor_rlx();
-	ut_atomic_u8_xor_get_rlx();
-	return 0;
+    ut_atomic_u8_xor();
+    ut_atomic_u8_xor_rel();
+    ut_atomic_u8_xor_rlx();
+    ut_atomic_u8_get_xor();
+    ut_atomic_u8_xor_get();
+    ut_atomic_u8_get_xor_acq();
+    ut_atomic_u8_xor_get_acq();
+    ut_atomic_u8_get_xor_rel();
+    ut_atomic_u8_xor_get_rel();
+    ut_atomic_u8_get_xor_rlx();
+    ut_atomic_u8_xor_get_rlx();
+    return 0;
 }

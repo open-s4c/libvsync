@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #ifndef VSYNC_VITID
 #define VSYNC_VITID
 
@@ -19,11 +20,11 @@ __thread vuint32_t pqueue_tid = VTID_NOT_ASSIGNED;
 static inline vuint32_t
 vtid_get_thread_id(void)
 {
-	if (pqueue_tid == VTID_NOT_ASSIGNED) {
-		pqueue_tid = vatomic32_get_inc_rlx(&g_pqueue_tid_generator);
-		ASSERT(pqueue_tid != VTID_NOT_ASSIGNED);
-	}
-	return pqueue_tid;
+    if (pqueue_tid == VTID_NOT_ASSIGNED) {
+        pqueue_tid = vatomic32_get_inc_rlx(&g_pqueue_tid_generator);
+        ASSERT(pqueue_tid != VTID_NOT_ASSIGNED);
+    }
+    return pqueue_tid;
 }
 
 

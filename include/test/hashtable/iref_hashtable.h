@@ -32,9 +32,9 @@
 vuint64_t g_sanity_evict_count = 0;
 
 typedef struct hash_entry_s {
-	smr_node_t smr_node;
-	user_key_t key;
-	user_data_t data;
+    smr_node_t smr_node;
+    user_key_t key;
+    user_data_t data;
 } hash_entry_t;
 
 
@@ -44,103 +44,103 @@ vatomic64_t g_failed_insert_count;
 static inline void
 free_cb(smr_node_t *smr_node, void *args)
 {
-	free(smr_node);
-	V_UNUSED(args);
+    free(smr_node);
+    V_UNUSED(args);
 }
 
 static inline vuint64_t
 iisize(void)
 {
-	return 0;
+    return 0;
 }
 
 static inline void
 map_init(void)
 {
 #if defined(VSYNC_ADDRESS_SANITIZER)
-	ismr_init();
+    ismr_init();
 #endif
-	vhashtable_init(&g_hashtable);
+    vhashtable_init(&g_hashtable);
 }
 
 static inline void
 map_destroy(void)
 {
-	vhashtable_destroy(&g_hashtable);
+    vhashtable_destroy(&g_hashtable);
 #if defined(VSYNC_ADDRESS_SANITIZER)
-	ismr_destroy();
+    ismr_destroy();
 #endif
 }
 
 static inline vuint64_t
 map_evict(vsize_t tid, vuint64_t count)
 {
-	V_UNUSED(tid, count);
-	return 0;
+    V_UNUSED(tid, count);
+    return 0;
 }
 
 static inline vbool_t
 map_insert_stamped(vsize_t tid, user_key_t key, vsize_t stamp)
 {
-	hash_entry_t *entry = vmem_malloc(sizeof(hash_entry_t));
-	entry->key			= key;
-	entry->data.stamp	= stamp;
+    hash_entry_t *entry = vmem_malloc(sizeof(hash_entry_t));
+    entry->key          = key;
+    entry->data.stamp   = stamp;
 
-	void *evicted	= NULL;
-	vbool_t success = vhashtable_insert(&g_hashtable, key, entry, &evicted);
-	if (!success) {
-		vatomic64_inc_rlx(&g_failed_insert_count);
-		vmem_free(entry);
-	}
+    void *evicted   = NULL;
+    vbool_t success = vhashtable_insert(&g_hashtable, key, entry, &evicted);
+    if (!success) {
+        vatomic64_inc_rlx(&g_failed_insert_count);
+        vmem_free(entry);
+    }
 
 #if defined(VSYNC_ADDRESS_SANITIZER)
-	if (evicted) {
-		ismr_retire(tid, &((hash_entry_t *)evicted)->smr_node, free_cb, false);
-	}
+    if (evicted) {
+        ismr_retire(tid, &((hash_entry_t *)evicted)->smr_node, free_cb, false);
+    }
 #endif
 
-	V_UNUSED(tid);
-	return success;
+    V_UNUSED(tid);
+    return success;
 }
 static inline vbool_t
 map_insert(vsize_t tid, user_key_t key)
 {
-	return map_insert_stamped(tid, key, 0);
+    return map_insert_stamped(tid, key, 0);
 }
 
 static inline hash_entry_t *
 map_get(vsize_t tid, user_key_t key)
 {
-	hash_entry_t *entry = vhashtable_get(&g_hashtable, key);
+    hash_entry_t *entry = vhashtable_get(&g_hashtable, key);
 
-	if (entry) {
-		ASSERT(user_key_eq(entry->key, key));
-	}
-	V_UNUSED(tid);
-	return entry;
+    if (entry) {
+        ASSERT(user_key_eq(entry->key, key));
+    }
+    V_UNUSED(tid);
+    return entry;
 }
 
 static inline void
 map_enter(vsize_t tid)
 {
-	V_UNUSED(tid);
+    V_UNUSED(tid);
 }
 
 static inline void
 map_exit(vsize_t tid)
 {
-	V_UNUSED(tid);
+    V_UNUSED(tid);
 }
 
 static inline void
 map_reg(vsize_t tid)
 {
-	V_UNUSED(tid);
+    V_UNUSED(tid);
 }
 
 static inline void
 map_dereg(vsize_t tid)
 {
-	V_UNUSED(tid);
+    V_UNUSED(tid);
 }
 #endif

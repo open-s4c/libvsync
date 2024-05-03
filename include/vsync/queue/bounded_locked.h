@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #ifndef VQUEUE_BOUNDED_LOCKED_H
 #define VQUEUE_BOUNDED_LOCKED_H
 /*******************************************************************************
@@ -27,11 +28,11 @@
 #include <vsync/queue/internal/bounded_ret.h>
 
 typedef struct bounded_locked_s {
-	void **buf;
-	vuint32_t head;
-	vuint32_t tail;
-	vuint32_t size;
-	caslock_t lock;
+    void **buf;
+    vuint32_t head;
+    vuint32_t tail;
+    vuint32_t size;
+    caslock_t lock;
 } bounded_locked_t;
 
 /**
@@ -44,14 +45,14 @@ typedef struct bounded_locked_s {
 static inline void
 bounded_locked_init(bounded_locked_t *q, void **b, vuint32_t s)
 {
-	ASSERT(b && "buffer is NULL");
-	ASSERT(s != 0 && "buffer with 0 size");
+    ASSERT(b && "buffer is NULL");
+    ASSERT(s != 0 && "buffer with 0 size");
 
-	q->buf	= b;
-	q->size = s;
-	q->head = 0;
-	q->tail = 0;
-	caslock_init(&q->lock);
+    q->buf  = b;
+    q->size = s;
+    q->head = 0;
+    q->tail = 0;
+    caslock_init(&q->lock);
 }
 /**
  * Tries to enqueue a value.
@@ -67,25 +68,25 @@ bounded_locked_init(bounded_locked_t *q, void **b, vuint32_t s)
 static inline bounded_ret_t
 bounded_locked_enq(bounded_locked_t *q, void *v)
 {
-	ASSERT(q && "q == NULL");
-	ASSERT(v && "v == NULL");
+    ASSERT(q && "q == NULL");
+    ASSERT(v && "v == NULL");
 
-	if (!caslock_tryacquire(&q->lock)) {
-		return QUEUE_BOUNDED_AGAIN;
-	}
+    if (!caslock_tryacquire(&q->lock)) {
+        return QUEUE_BOUNDED_AGAIN;
+    }
 
-	ASSERT(q->tail - q->head <= q->size && "inconsistent state");
+    ASSERT(q->tail - q->head <= q->size && "inconsistent state");
 
-	vuint32_t head = q->head;
-	if (q->tail - head == q->size) {
-		caslock_release(&q->lock);
-		return QUEUE_BOUNDED_FULL;
-	}
+    vuint32_t head = q->head;
+    if (q->tail - head == q->size) {
+        caslock_release(&q->lock);
+        return QUEUE_BOUNDED_FULL;
+    }
 
-	q->buf[q->tail++ % q->size] = v;
+    q->buf[q->tail++ % q->size] = v;
 
-	caslock_release(&q->lock);
-	return QUEUE_BOUNDED_OK;
+    caslock_release(&q->lock);
+    return QUEUE_BOUNDED_OK;
 }
 /**
  * Tries to dequeue a value.
@@ -104,25 +105,25 @@ bounded_locked_enq(bounded_locked_t *q, void *v)
 static inline bounded_ret_t
 bounded_locked_deq(bounded_locked_t *q, void **v)
 {
-	ASSERT(q && "q == NULL");
-	ASSERT(v && "v == NULL");
+    ASSERT(q && "q == NULL");
+    ASSERT(v && "v == NULL");
 
-	if (!caslock_tryacquire(&q->lock)) {
-		return QUEUE_BOUNDED_AGAIN;
-	}
+    if (!caslock_tryacquire(&q->lock)) {
+        return QUEUE_BOUNDED_AGAIN;
+    }
 
-	ASSERT(q->head <= q->tail && "head > tail");
+    ASSERT(q->head <= q->tail && "head > tail");
 
-	vuint32_t tail = q->tail;
-	if (tail - q->head == 0) {
-		caslock_release(&q->lock);
-		return QUEUE_BOUNDED_EMPTY;
-	}
+    vuint32_t tail = q->tail;
+    if (tail - q->head == 0) {
+        caslock_release(&q->lock);
+        return QUEUE_BOUNDED_EMPTY;
+    }
 
-	*v = q->buf[q->head++ % q->size];
+    *v = q->buf[q->head++ % q->size];
 
-	caslock_release(&q->lock);
-	return QUEUE_BOUNDED_OK;
+    caslock_release(&q->lock);
+    return QUEUE_BOUNDED_OK;
 }
 /**
  * Tests whether queue is empty without performing an action.
@@ -137,13 +138,13 @@ bounded_locked_deq(bounded_locked_t *q, void **v)
 static inline vbool_t
 bounded_locked_empty(bounded_locked_t *q)
 {
-	ASSERT(q && "q == NULL");
+    ASSERT(q && "q == NULL");
 
-	caslock_acquire(&q->lock);
-	ASSERT(q->head <= q->tail && "head > tail");
-	vbool_t is_empty = q->tail == q->head;
-	caslock_release(&q->lock);
+    caslock_acquire(&q->lock);
+    ASSERT(q->head <= q->tail && "head > tail");
+    vbool_t is_empty = q->tail == q->head;
+    caslock_release(&q->lock);
 
-	return is_empty;
+    return is_empty;
 }
 #endif

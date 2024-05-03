@@ -13,32 +13,32 @@ typedef void (*vmem_free_fun_t)(void *ptr, void *arg);
 typedef void *(*vmem_malloc_fun_t)(vsize_t sz, void *arg);
 
 typedef struct vmem_lib_s {
-	vmem_free_fun_t free_fun;
-	vmem_malloc_fun_t malloc_fun;
-	void *arg;
+    vmem_free_fun_t free_fun;
+    vmem_malloc_fun_t malloc_fun;
+    void *arg;
 } vmem_lib_t;
 
 static inline vbool_t
 vmem_lib_not_null(vmem_lib_t *vmem)
 {
-	if (!vmem->free_fun) {
-		return false;
-	}
-	if (!vmem->malloc_fun) {
-		return false;
-	}
-	return true;
+    if (!vmem->free_fun) {
+        return false;
+    }
+    if (!vmem->malloc_fun) {
+        return false;
+    }
+    return true;
 }
 
 static inline void
 vmem_lib_copy(vmem_lib_t *des, vmem_lib_t *src)
 {
 #if defined(VSYNC_VERIFICATION)
-	des->free_fun	= src->free_fun;
-	des->malloc_fun = src->malloc_fun;
-	des->arg		= src->arg;
+    des->free_fun   = src->free_fun;
+    des->malloc_fun = src->malloc_fun;
+    des->arg        = src->arg;
 #else
-	*des = *src;
+    *des = *src;
 #endif
 }
 /**
@@ -51,14 +51,14 @@ vmem_lib_copy(vmem_lib_t *des, vmem_lib_t *src)
 static inline void *
 vmem_align_addr(void *a, vsize_t alignment)
 {
-	vuintptr_t addr = (vuintptr_t)a;
-	if (addr == 0) {
-		return NULL;
-	}
-	ASSERT(V_IS_POWER_OF_TWO(alignment));
-	addr = (addr - 1) & ~((vuintptr_t)alignment - 1);
-	addr = addr + alignment;
-	return (void *)addr;
+    vuintptr_t addr = (vuintptr_t)a;
+    if (addr == 0) {
+        return NULL;
+    }
+    ASSERT(V_IS_POWER_OF_TWO(alignment));
+    addr = (addr - 1) & ~((vuintptr_t)alignment - 1);
+    addr = addr + alignment;
+    return (void *)addr;
 }
 /**
  * Checks if the given address is in [start, end].
@@ -72,9 +72,9 @@ vmem_align_addr(void *a, vsize_t alignment)
 static inline vbool_t
 vmem_addr_within_range(void *addr, void *start, void *end)
 {
-	vbool_t in_range = ((vuintptr_t)addr >= (vuintptr_t)start) &&
-					   ((vuintptr_t)addr <= (vuintptr_t)end);
-	return in_range;
+    vbool_t in_range = ((vuintptr_t)addr >= (vuintptr_t)start) &&
+                       ((vuintptr_t)addr <= (vuintptr_t)end);
+    return in_range;
 }
 /**
  * Checks if the given address is `alignment` number of bytes aligned.
@@ -89,9 +89,9 @@ vmem_addr_within_range(void *addr, void *start, void *end)
 static inline vbool_t
 vmem_is_addr_aligned(void *a, vsize_t alignment)
 {
-	vuintptr_t addr = (vuintptr_t)a;
-	ASSERT(V_IS_POWER_OF_TWO(alignment));
-	vbool_t aligned = (addr & (vuintptr_t)(alignment - 1U)) == 0U;
-	return aligned;
+    vuintptr_t addr = (vuintptr_t)a;
+    ASSERT(V_IS_POWER_OF_TWO(alignment));
+    vbool_t aligned = (addr & (vuintptr_t)(alignment - 1U)) == 0U;
+    return aligned;
 }
 #endif

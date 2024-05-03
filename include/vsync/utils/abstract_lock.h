@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #ifndef VSYNC_ABSTRACT_LOCK
 #define VSYNC_ABSTRACT_LOCK
 
@@ -56,69 +57,69 @@
  * @param lock_tryacquire concrete-lock tryacquire function
  */
 #define DEF_ABSTRACT_LOCK(name, lock_type, lock_init, lock_acquire,            \
-						  lock_release, lock_tryacquire)                       \
-	DEF_ABSTRACT_LOCK_TYPE(name, lock_type);                                   \
-	DEF_ABSTRACT_LOCK_INIT(name, lock_init)                                    \
-	DEF_ABSTRACT_LOCK_ACQUIRE(name, lock_acquire)                              \
-	DEF_ABSTRACT_LOCK_RELEASE(name, lock_release)                              \
-	DEF_ABSTRACT_LOCK_TRYACQUIRE(name, lock_tryacquire)
+                          lock_release, lock_tryacquire)                       \
+    DEF_ABSTRACT_LOCK_TYPE(name, lock_type);                                   \
+    DEF_ABSTRACT_LOCK_INIT(name, lock_init)                                    \
+    DEF_ABSTRACT_LOCK_ACQUIRE(name, lock_acquire)                              \
+    DEF_ABSTRACT_LOCK_RELEASE(name, lock_release)                              \
+    DEF_ABSTRACT_LOCK_TRYACQUIRE(name, lock_tryacquire)
 
 /** @cond */
 #ifdef VSYNC_VERIFICATION
-	#define DEF_ABSTRACT_LOCK_TYPE(name, lock_type)                            \
-		typedef pthread_mutex_t name##_t
+    #define DEF_ABSTRACT_LOCK_TYPE(name, lock_type)                            \
+        typedef pthread_mutex_t name##_t
 
-	#define DEF_ABSTRACT_LOCK_INIT(name, lock_init)                            \
-		static inline void name##_init(name##_t *l)                            \
-		{                                                                      \
-			pthread_mutex_init(l, 0);                                          \
-		}
+    #define DEF_ABSTRACT_LOCK_INIT(name, lock_init)                            \
+        static inline void name##_init(name##_t *l)                            \
+        {                                                                      \
+            pthread_mutex_init(l, 0);                                          \
+        }
 
-	#define DEF_ABSTRACT_LOCK_ACQUIRE(name, lock_acquire)                      \
-		static inline void name##_acquire(name##_t *l)                         \
-		{                                                                      \
-			int val = pthread_mutex_lock(l);                                   \
-			ASSERT(val == 0);                                                  \
-		}
+    #define DEF_ABSTRACT_LOCK_ACQUIRE(name, lock_acquire)                      \
+        static inline void name##_acquire(name##_t *l)                         \
+        {                                                                      \
+            int val = pthread_mutex_lock(l);                                   \
+            ASSERT(val == 0);                                                  \
+        }
 
-	#define DEF_ABSTRACT_LOCK_RELEASE(name, lock_release)                      \
-		static inline void name##_release(name##_t *l)                         \
-		{                                                                      \
-			int val = pthread_mutex_unlock(l);                                 \
-			ASSERT(val == 0);                                                  \
-		}
+    #define DEF_ABSTRACT_LOCK_RELEASE(name, lock_release)                      \
+        static inline void name##_release(name##_t *l)                         \
+        {                                                                      \
+            int val = pthread_mutex_unlock(l);                                 \
+            ASSERT(val == 0);                                                  \
+        }
 
-	#define DEF_ABSTRACT_LOCK_TRYACQUIRE(name, lock_tryacquire)                \
-		static inline int name##_tryacquire(name##_t *l)                       \
-		{                                                                      \
-			return pthread_mutex_trylock(l) == 0;                              \
-		}
+    #define DEF_ABSTRACT_LOCK_TRYACQUIRE(name, lock_tryacquire)                \
+        static inline int name##_tryacquire(name##_t *l)                       \
+        {                                                                      \
+            return pthread_mutex_trylock(l) == 0;                              \
+        }
 #else
-	#define DEF_ABSTRACT_LOCK_TYPE(name, lock_type) typedef lock_type name##_t
+    #define DEF_ABSTRACT_LOCK_TYPE(name, lock_type) typedef lock_type name##_t
 
-	#define DEF_ABSTRACT_LOCK_INIT(name, lock_init)                            \
-		static inline void name##_init(name##_t *l)                            \
-		{                                                                      \
-			lock_init(l);                                                      \
-		}
+    #define DEF_ABSTRACT_LOCK_INIT(name, lock_init)                            \
+        static inline void name##_init(name##_t *l)                            \
+        {                                                                      \
+            lock_init(l);                                                      \
+        }
 
-	#define DEF_ABSTRACT_LOCK_ACQUIRE(name, lock_acquire)                      \
-		static inline void name##_acquire(name##_t *l)                         \
-		{                                                                      \
-			lock_acquire(l);                                                   \
-		}
+    #define DEF_ABSTRACT_LOCK_ACQUIRE(name, lock_acquire)                      \
+        static inline void name##_acquire(name##_t *l)                         \
+        {                                                                      \
+            lock_acquire(l);                                                   \
+        }
 
-	#define DEF_ABSTRACT_LOCK_RELEASE(name, lock_release)                      \
-		static inline void name##_release(name##_t *l)                         \
-		{                                                                      \
-			lock_release(l);                                                   \
-		}
+    #define DEF_ABSTRACT_LOCK_RELEASE(name, lock_release)                      \
+        static inline void name##_release(name##_t *l)                         \
+        {                                                                      \
+            lock_release(l);                                                   \
+        }
 
-	#define DEF_ABSTRACT_LOCK_TRYACQUIRE(name, lock_tryacquire)                \
-		static inline int name##_tryacquire(name##_t *l)                       \
-		{                                                                      \
-			return lock_tryacquire(l);                                         \
-		}
+    #define DEF_ABSTRACT_LOCK_TRYACQUIRE(name, lock_tryacquire)                \
+        static inline int name##_tryacquire(name##_t *l)                       \
+        {                                                                      \
+            return lock_tryacquire(l);                                         \
+        }
 #endif
 
 /** @endcond */

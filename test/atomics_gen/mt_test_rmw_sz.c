@@ -17,24 +17,24 @@ vatomicsz_t g_shared;
 static inline void *
 mt_atomic_inc_run(void *args)
 {
-	vsize_t tid = (vsize_t)(vuintptr_t)args;
-	for (vsize_t i = 0; i < IT; i++) {
-		vatomicsz_inc(&g_shared);
-	}
-	V_UNUSED(tid);
-	return NULL;
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    for (vsize_t i = 0; i < IT; i++) {
+        vatomicsz_inc(&g_shared);
+    }
+    V_UNUSED(tid);
+    return NULL;
 }
 static inline void
 mt_atomic_inc(void)
 {
-	vsize_t init = SIZE_MAX;
-	vatomicsz_init(&g_shared, init);
-	launch_threads(N, mt_atomic_inc_run);
-	/* calculate the expected value */
-	vsize_t expected = init + (N * IT);
-	vsize_t val		 = vatomicsz_read(&g_shared);
-	ASSERT(expected == val);
-	V_UNUSED(expected, val);
+    vsize_t init = SIZE_MAX;
+    vatomicsz_init(&g_shared, init);
+    launch_threads(N, mt_atomic_inc_run);
+    /* calculate the expected value */
+    vsize_t expected = init + (N * IT);
+    vsize_t val      = vatomicsz_read(&g_shared);
+    ASSERT(expected == val);
+    V_UNUSED(expected, val);
 }
 /*****************************************************************************
  * MultiThreadedTest: vatomicsz_dec
@@ -42,24 +42,24 @@ mt_atomic_inc(void)
 static inline void *
 mt_atomic_dec_run(void *args)
 {
-	vsize_t tid = (vsize_t)(vuintptr_t)args;
-	for (vsize_t i = 0; i < IT; i++) {
-		vatomicsz_dec(&g_shared);
-	}
-	V_UNUSED(tid);
-	return NULL;
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    for (vsize_t i = 0; i < IT; i++) {
+        vatomicsz_dec(&g_shared);
+    }
+    V_UNUSED(tid);
+    return NULL;
 }
 static inline void
 mt_atomic_dec(void)
 {
-	vsize_t init = SIZE_MAX;
-	vatomicsz_init(&g_shared, init);
-	launch_threads(N, mt_atomic_dec_run);
-	/* calculate the expected value */
-	vsize_t expected = init - (N * IT);
-	vsize_t val		 = vatomicsz_read(&g_shared);
-	ASSERT(expected == val);
-	V_UNUSED(expected, val);
+    vsize_t init = SIZE_MAX;
+    vatomicsz_init(&g_shared, init);
+    launch_threads(N, mt_atomic_dec_run);
+    /* calculate the expected value */
+    vsize_t expected = init - (N * IT);
+    vsize_t val      = vatomicsz_read(&g_shared);
+    ASSERT(expected == val);
+    V_UNUSED(expected, val);
 }
 /*****************************************************************************
  * MultiThreadedTest: vatomicsz_inc_rel
@@ -67,24 +67,24 @@ mt_atomic_dec(void)
 static inline void *
 mt_atomic_inc_rel_run(void *args)
 {
-	vsize_t tid = (vsize_t)(vuintptr_t)args;
-	for (vsize_t i = 0; i < IT; i++) {
-		vatomicsz_inc_rel(&g_shared);
-	}
-	V_UNUSED(tid);
-	return NULL;
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    for (vsize_t i = 0; i < IT; i++) {
+        vatomicsz_inc_rel(&g_shared);
+    }
+    V_UNUSED(tid);
+    return NULL;
 }
 static inline void
 mt_atomic_inc_rel(void)
 {
-	vsize_t init = SIZE_MAX;
-	vatomicsz_init(&g_shared, init);
-	launch_threads(N, mt_atomic_inc_rel_run);
-	/* calculate the expected value */
-	vsize_t expected = init + (N * IT);
-	vsize_t val		 = vatomicsz_read(&g_shared);
-	ASSERT(expected == val);
-	V_UNUSED(expected, val);
+    vsize_t init = SIZE_MAX;
+    vatomicsz_init(&g_shared, init);
+    launch_threads(N, mt_atomic_inc_rel_run);
+    /* calculate the expected value */
+    vsize_t expected = init + (N * IT);
+    vsize_t val      = vatomicsz_read(&g_shared);
+    ASSERT(expected == val);
+    V_UNUSED(expected, val);
 }
 /*****************************************************************************
  * MultiThreadedTest: vatomicsz_dec_rel
@@ -92,24 +92,24 @@ mt_atomic_inc_rel(void)
 static inline void *
 mt_atomic_dec_rel_run(void *args)
 {
-	vsize_t tid = (vsize_t)(vuintptr_t)args;
-	for (vsize_t i = 0; i < IT; i++) {
-		vatomicsz_dec_rel(&g_shared);
-	}
-	V_UNUSED(tid);
-	return NULL;
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    for (vsize_t i = 0; i < IT; i++) {
+        vatomicsz_dec_rel(&g_shared);
+    }
+    V_UNUSED(tid);
+    return NULL;
 }
 static inline void
 mt_atomic_dec_rel(void)
 {
-	vsize_t init = SIZE_MAX;
-	vatomicsz_init(&g_shared, init);
-	launch_threads(N, mt_atomic_dec_rel_run);
-	/* calculate the expected value */
-	vsize_t expected = init - (N * IT);
-	vsize_t val		 = vatomicsz_read(&g_shared);
-	ASSERT(expected == val);
-	V_UNUSED(expected, val);
+    vsize_t init = SIZE_MAX;
+    vatomicsz_init(&g_shared, init);
+    launch_threads(N, mt_atomic_dec_rel_run);
+    /* calculate the expected value */
+    vsize_t expected = init - (N * IT);
+    vsize_t val      = vatomicsz_read(&g_shared);
+    ASSERT(expected == val);
+    V_UNUSED(expected, val);
 }
 /*****************************************************************************
  * MultiThreadedTest: vatomicsz_inc_rlx
@@ -117,24 +117,24 @@ mt_atomic_dec_rel(void)
 static inline void *
 mt_atomic_inc_rlx_run(void *args)
 {
-	vsize_t tid = (vsize_t)(vuintptr_t)args;
-	for (vsize_t i = 0; i < IT; i++) {
-		vatomicsz_inc_rlx(&g_shared);
-	}
-	V_UNUSED(tid);
-	return NULL;
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    for (vsize_t i = 0; i < IT; i++) {
+        vatomicsz_inc_rlx(&g_shared);
+    }
+    V_UNUSED(tid);
+    return NULL;
 }
 static inline void
 mt_atomic_inc_rlx(void)
 {
-	vsize_t init = SIZE_MAX;
-	vatomicsz_init(&g_shared, init);
-	launch_threads(N, mt_atomic_inc_rlx_run);
-	/* calculate the expected value */
-	vsize_t expected = init + (N * IT);
-	vsize_t val		 = vatomicsz_read(&g_shared);
-	ASSERT(expected == val);
-	V_UNUSED(expected, val);
+    vsize_t init = SIZE_MAX;
+    vatomicsz_init(&g_shared, init);
+    launch_threads(N, mt_atomic_inc_rlx_run);
+    /* calculate the expected value */
+    vsize_t expected = init + (N * IT);
+    vsize_t val      = vatomicsz_read(&g_shared);
+    ASSERT(expected == val);
+    V_UNUSED(expected, val);
 }
 /*****************************************************************************
  * MultiThreadedTest: vatomicsz_dec_rlx
@@ -142,24 +142,24 @@ mt_atomic_inc_rlx(void)
 static inline void *
 mt_atomic_dec_rlx_run(void *args)
 {
-	vsize_t tid = (vsize_t)(vuintptr_t)args;
-	for (vsize_t i = 0; i < IT; i++) {
-		vatomicsz_dec_rlx(&g_shared);
-	}
-	V_UNUSED(tid);
-	return NULL;
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    for (vsize_t i = 0; i < IT; i++) {
+        vatomicsz_dec_rlx(&g_shared);
+    }
+    V_UNUSED(tid);
+    return NULL;
 }
 static inline void
 mt_atomic_dec_rlx(void)
 {
-	vsize_t init = SIZE_MAX;
-	vatomicsz_init(&g_shared, init);
-	launch_threads(N, mt_atomic_dec_rlx_run);
-	/* calculate the expected value */
-	vsize_t expected = init - (N * IT);
-	vsize_t val		 = vatomicsz_read(&g_shared);
-	ASSERT(expected == val);
-	V_UNUSED(expected, val);
+    vsize_t init = SIZE_MAX;
+    vatomicsz_init(&g_shared, init);
+    launch_threads(N, mt_atomic_dec_rlx_run);
+    /* calculate the expected value */
+    vsize_t expected = init - (N * IT);
+    vsize_t val      = vatomicsz_read(&g_shared);
+    ASSERT(expected == val);
+    V_UNUSED(expected, val);
 }
 /*****************************************************************************
  * MultiThreadedTest: vatomicsz_sub
@@ -167,24 +167,24 @@ mt_atomic_dec_rlx(void)
 static inline void *
 mt_atomic_sub_run(void *args)
 {
-	vsize_t tid = (vsize_t)(vuintptr_t)args;
-	for (vsize_t i = 0; i < IT; i++) {
-		vatomicsz_sub(&g_shared, 0xFFU);
-	}
-	V_UNUSED(tid);
-	return NULL;
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    for (vsize_t i = 0; i < IT; i++) {
+        vatomicsz_sub(&g_shared, 0xFFU);
+    }
+    V_UNUSED(tid);
+    return NULL;
 }
 static inline void
 mt_atomic_sub(void)
 {
-	vsize_t init = SIZE_MAX;
-	vatomicsz_init(&g_shared, init);
-	launch_threads(N, mt_atomic_sub_run);
-	/* calculate the expected value */
-	vsize_t expected = init - (N * IT * 0xFFU);
-	vsize_t val		 = vatomicsz_read(&g_shared);
-	ASSERT(expected == val);
-	V_UNUSED(expected, val);
+    vsize_t init = SIZE_MAX;
+    vatomicsz_init(&g_shared, init);
+    launch_threads(N, mt_atomic_sub_run);
+    /* calculate the expected value */
+    vsize_t expected = init - (N * IT * 0xFFU);
+    vsize_t val      = vatomicsz_read(&g_shared);
+    ASSERT(expected == val);
+    V_UNUSED(expected, val);
 }
 /*****************************************************************************
  * MultiThreadedTest: vatomicsz_add
@@ -192,24 +192,24 @@ mt_atomic_sub(void)
 static inline void *
 mt_atomic_add_run(void *args)
 {
-	vsize_t tid = (vsize_t)(vuintptr_t)args;
-	for (vsize_t i = 0; i < IT; i++) {
-		vatomicsz_add(&g_shared, 0xFFU);
-	}
-	V_UNUSED(tid);
-	return NULL;
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    for (vsize_t i = 0; i < IT; i++) {
+        vatomicsz_add(&g_shared, 0xFFU);
+    }
+    V_UNUSED(tid);
+    return NULL;
 }
 static inline void
 mt_atomic_add(void)
 {
-	vsize_t init = SIZE_MAX;
-	vatomicsz_init(&g_shared, init);
-	launch_threads(N, mt_atomic_add_run);
-	/* calculate the expected value */
-	vsize_t expected = init + (N * IT * 0xFFU);
-	vsize_t val		 = vatomicsz_read(&g_shared);
-	ASSERT(expected == val);
-	V_UNUSED(expected, val);
+    vsize_t init = SIZE_MAX;
+    vatomicsz_init(&g_shared, init);
+    launch_threads(N, mt_atomic_add_run);
+    /* calculate the expected value */
+    vsize_t expected = init + (N * IT * 0xFFU);
+    vsize_t val      = vatomicsz_read(&g_shared);
+    ASSERT(expected == val);
+    V_UNUSED(expected, val);
 }
 /*****************************************************************************
  * MultiThreadedTest: vatomicsz_sub_rel
@@ -217,24 +217,24 @@ mt_atomic_add(void)
 static inline void *
 mt_atomic_sub_rel_run(void *args)
 {
-	vsize_t tid = (vsize_t)(vuintptr_t)args;
-	for (vsize_t i = 0; i < IT; i++) {
-		vatomicsz_sub_rel(&g_shared, 0xFFU);
-	}
-	V_UNUSED(tid);
-	return NULL;
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    for (vsize_t i = 0; i < IT; i++) {
+        vatomicsz_sub_rel(&g_shared, 0xFFU);
+    }
+    V_UNUSED(tid);
+    return NULL;
 }
 static inline void
 mt_atomic_sub_rel(void)
 {
-	vsize_t init = SIZE_MAX;
-	vatomicsz_init(&g_shared, init);
-	launch_threads(N, mt_atomic_sub_rel_run);
-	/* calculate the expected value */
-	vsize_t expected = init - (N * IT * 0xFFU);
-	vsize_t val		 = vatomicsz_read(&g_shared);
-	ASSERT(expected == val);
-	V_UNUSED(expected, val);
+    vsize_t init = SIZE_MAX;
+    vatomicsz_init(&g_shared, init);
+    launch_threads(N, mt_atomic_sub_rel_run);
+    /* calculate the expected value */
+    vsize_t expected = init - (N * IT * 0xFFU);
+    vsize_t val      = vatomicsz_read(&g_shared);
+    ASSERT(expected == val);
+    V_UNUSED(expected, val);
 }
 /*****************************************************************************
  * MultiThreadedTest: vatomicsz_add_rel
@@ -242,24 +242,24 @@ mt_atomic_sub_rel(void)
 static inline void *
 mt_atomic_add_rel_run(void *args)
 {
-	vsize_t tid = (vsize_t)(vuintptr_t)args;
-	for (vsize_t i = 0; i < IT; i++) {
-		vatomicsz_add_rel(&g_shared, 0xFFU);
-	}
-	V_UNUSED(tid);
-	return NULL;
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    for (vsize_t i = 0; i < IT; i++) {
+        vatomicsz_add_rel(&g_shared, 0xFFU);
+    }
+    V_UNUSED(tid);
+    return NULL;
 }
 static inline void
 mt_atomic_add_rel(void)
 {
-	vsize_t init = SIZE_MAX;
-	vatomicsz_init(&g_shared, init);
-	launch_threads(N, mt_atomic_add_rel_run);
-	/* calculate the expected value */
-	vsize_t expected = init + (N * IT * 0xFFU);
-	vsize_t val		 = vatomicsz_read(&g_shared);
-	ASSERT(expected == val);
-	V_UNUSED(expected, val);
+    vsize_t init = SIZE_MAX;
+    vatomicsz_init(&g_shared, init);
+    launch_threads(N, mt_atomic_add_rel_run);
+    /* calculate the expected value */
+    vsize_t expected = init + (N * IT * 0xFFU);
+    vsize_t val      = vatomicsz_read(&g_shared);
+    ASSERT(expected == val);
+    V_UNUSED(expected, val);
 }
 /*****************************************************************************
  * MultiThreadedTest: vatomicsz_sub_rlx
@@ -267,24 +267,24 @@ mt_atomic_add_rel(void)
 static inline void *
 mt_atomic_sub_rlx_run(void *args)
 {
-	vsize_t tid = (vsize_t)(vuintptr_t)args;
-	for (vsize_t i = 0; i < IT; i++) {
-		vatomicsz_sub_rlx(&g_shared, 0xFFU);
-	}
-	V_UNUSED(tid);
-	return NULL;
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    for (vsize_t i = 0; i < IT; i++) {
+        vatomicsz_sub_rlx(&g_shared, 0xFFU);
+    }
+    V_UNUSED(tid);
+    return NULL;
 }
 static inline void
 mt_atomic_sub_rlx(void)
 {
-	vsize_t init = SIZE_MAX;
-	vatomicsz_init(&g_shared, init);
-	launch_threads(N, mt_atomic_sub_rlx_run);
-	/* calculate the expected value */
-	vsize_t expected = init - (N * IT * 0xFFU);
-	vsize_t val		 = vatomicsz_read(&g_shared);
-	ASSERT(expected == val);
-	V_UNUSED(expected, val);
+    vsize_t init = SIZE_MAX;
+    vatomicsz_init(&g_shared, init);
+    launch_threads(N, mt_atomic_sub_rlx_run);
+    /* calculate the expected value */
+    vsize_t expected = init - (N * IT * 0xFFU);
+    vsize_t val      = vatomicsz_read(&g_shared);
+    ASSERT(expected == val);
+    V_UNUSED(expected, val);
 }
 /*****************************************************************************
  * MultiThreadedTest: vatomicsz_add_rlx
@@ -292,24 +292,24 @@ mt_atomic_sub_rlx(void)
 static inline void *
 mt_atomic_add_rlx_run(void *args)
 {
-	vsize_t tid = (vsize_t)(vuintptr_t)args;
-	for (vsize_t i = 0; i < IT; i++) {
-		vatomicsz_add_rlx(&g_shared, 0xFFU);
-	}
-	V_UNUSED(tid);
-	return NULL;
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    for (vsize_t i = 0; i < IT; i++) {
+        vatomicsz_add_rlx(&g_shared, 0xFFU);
+    }
+    V_UNUSED(tid);
+    return NULL;
 }
 static inline void
 mt_atomic_add_rlx(void)
 {
-	vsize_t init = SIZE_MAX;
-	vatomicsz_init(&g_shared, init);
-	launch_threads(N, mt_atomic_add_rlx_run);
-	/* calculate the expected value */
-	vsize_t expected = init + (N * IT * 0xFFU);
-	vsize_t val		 = vatomicsz_read(&g_shared);
-	ASSERT(expected == val);
-	V_UNUSED(expected, val);
+    vsize_t init = SIZE_MAX;
+    vatomicsz_init(&g_shared, init);
+    launch_threads(N, mt_atomic_add_rlx_run);
+    /* calculate the expected value */
+    vsize_t expected = init + (N * IT * 0xFFU);
+    vsize_t val      = vatomicsz_read(&g_shared);
+    ASSERT(expected == val);
+    V_UNUSED(expected, val);
 }
 /*****************************************************************************
  * MultiThreadedTest: vatomicsz_cmpxchg
@@ -317,29 +317,29 @@ mt_atomic_add_rlx(void)
 static inline void *
 mt_atomic_cmpxchg_run(void *args)
 {
-	vsize_t tid = (vsize_t)(vuintptr_t)args;
-	vsize_t cur = 0;
-	vsize_t old = 0;
-	for (vsize_t i = 0; i < IT; i++) {
-		do {
-			cur = vatomicsz_read(&g_shared);
-			old = vatomicsz_cmpxchg(&g_shared, cur, cur + 1);
-		} while (cur != old);
-	}
-	V_UNUSED(tid);
-	return NULL;
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    vsize_t cur = 0;
+    vsize_t old = 0;
+    for (vsize_t i = 0; i < IT; i++) {
+        do {
+            cur = vatomicsz_read(&g_shared);
+            old = vatomicsz_cmpxchg(&g_shared, cur, cur + 1);
+        } while (cur != old);
+    }
+    V_UNUSED(tid);
+    return NULL;
 }
 static inline void
 mt_atomic_cmpxchg(void)
 {
-	vsize_t init = SIZE_MAX;
-	vatomicsz_init(&g_shared, init);
-	launch_threads(N, mt_atomic_cmpxchg_run);
-	/* calculate the expected value */
-	vsize_t expected = init + (N * IT);
-	vsize_t val		 = vatomicsz_read(&g_shared);
-	ASSERT(expected == val);
-	V_UNUSED(expected, val);
+    vsize_t init = SIZE_MAX;
+    vatomicsz_init(&g_shared, init);
+    launch_threads(N, mt_atomic_cmpxchg_run);
+    /* calculate the expected value */
+    vsize_t expected = init + (N * IT);
+    vsize_t val      = vatomicsz_read(&g_shared);
+    ASSERT(expected == val);
+    V_UNUSED(expected, val);
 }
 /*****************************************************************************
  * MultiThreadedTest: vatomicsz_cmpxchg_rel
@@ -347,29 +347,29 @@ mt_atomic_cmpxchg(void)
 static inline void *
 mt_atomic_cmpxchg_rel_run(void *args)
 {
-	vsize_t tid = (vsize_t)(vuintptr_t)args;
-	vsize_t cur = 0;
-	vsize_t old = 0;
-	for (vsize_t i = 0; i < IT; i++) {
-		do {
-			cur = vatomicsz_read(&g_shared);
-			old = vatomicsz_cmpxchg_rel(&g_shared, cur, cur + 1);
-		} while (cur != old);
-	}
-	V_UNUSED(tid);
-	return NULL;
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    vsize_t cur = 0;
+    vsize_t old = 0;
+    for (vsize_t i = 0; i < IT; i++) {
+        do {
+            cur = vatomicsz_read(&g_shared);
+            old = vatomicsz_cmpxchg_rel(&g_shared, cur, cur + 1);
+        } while (cur != old);
+    }
+    V_UNUSED(tid);
+    return NULL;
 }
 static inline void
 mt_atomic_cmpxchg_rel(void)
 {
-	vsize_t init = SIZE_MAX;
-	vatomicsz_init(&g_shared, init);
-	launch_threads(N, mt_atomic_cmpxchg_rel_run);
-	/* calculate the expected value */
-	vsize_t expected = init + (N * IT);
-	vsize_t val		 = vatomicsz_read(&g_shared);
-	ASSERT(expected == val);
-	V_UNUSED(expected, val);
+    vsize_t init = SIZE_MAX;
+    vatomicsz_init(&g_shared, init);
+    launch_threads(N, mt_atomic_cmpxchg_rel_run);
+    /* calculate the expected value */
+    vsize_t expected = init + (N * IT);
+    vsize_t val      = vatomicsz_read(&g_shared);
+    ASSERT(expected == val);
+    V_UNUSED(expected, val);
 }
 /*****************************************************************************
  * MultiThreadedTest: vatomicsz_cmpxchg_acq
@@ -377,29 +377,29 @@ mt_atomic_cmpxchg_rel(void)
 static inline void *
 mt_atomic_cmpxchg_acq_run(void *args)
 {
-	vsize_t tid = (vsize_t)(vuintptr_t)args;
-	vsize_t cur = 0;
-	vsize_t old = 0;
-	for (vsize_t i = 0; i < IT; i++) {
-		do {
-			cur = vatomicsz_read(&g_shared);
-			old = vatomicsz_cmpxchg_acq(&g_shared, cur, cur + 1);
-		} while (cur != old);
-	}
-	V_UNUSED(tid);
-	return NULL;
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    vsize_t cur = 0;
+    vsize_t old = 0;
+    for (vsize_t i = 0; i < IT; i++) {
+        do {
+            cur = vatomicsz_read(&g_shared);
+            old = vatomicsz_cmpxchg_acq(&g_shared, cur, cur + 1);
+        } while (cur != old);
+    }
+    V_UNUSED(tid);
+    return NULL;
 }
 static inline void
 mt_atomic_cmpxchg_acq(void)
 {
-	vsize_t init = SIZE_MAX;
-	vatomicsz_init(&g_shared, init);
-	launch_threads(N, mt_atomic_cmpxchg_acq_run);
-	/* calculate the expected value */
-	vsize_t expected = init + (N * IT);
-	vsize_t val		 = vatomicsz_read(&g_shared);
-	ASSERT(expected == val);
-	V_UNUSED(expected, val);
+    vsize_t init = SIZE_MAX;
+    vatomicsz_init(&g_shared, init);
+    launch_threads(N, mt_atomic_cmpxchg_acq_run);
+    /* calculate the expected value */
+    vsize_t expected = init + (N * IT);
+    vsize_t val      = vatomicsz_read(&g_shared);
+    ASSERT(expected == val);
+    V_UNUSED(expected, val);
 }
 /*****************************************************************************
  * MultiThreadedTest: vatomicsz_cmpxchg_rlx
@@ -407,29 +407,29 @@ mt_atomic_cmpxchg_acq(void)
 static inline void *
 mt_atomic_cmpxchg_rlx_run(void *args)
 {
-	vsize_t tid = (vsize_t)(vuintptr_t)args;
-	vsize_t cur = 0;
-	vsize_t old = 0;
-	for (vsize_t i = 0; i < IT; i++) {
-		do {
-			cur = vatomicsz_read(&g_shared);
-			old = vatomicsz_cmpxchg_rlx(&g_shared, cur, cur + 1);
-		} while (cur != old);
-	}
-	V_UNUSED(tid);
-	return NULL;
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    vsize_t cur = 0;
+    vsize_t old = 0;
+    for (vsize_t i = 0; i < IT; i++) {
+        do {
+            cur = vatomicsz_read(&g_shared);
+            old = vatomicsz_cmpxchg_rlx(&g_shared, cur, cur + 1);
+        } while (cur != old);
+    }
+    V_UNUSED(tid);
+    return NULL;
 }
 static inline void
 mt_atomic_cmpxchg_rlx(void)
 {
-	vsize_t init = SIZE_MAX;
-	vatomicsz_init(&g_shared, init);
-	launch_threads(N, mt_atomic_cmpxchg_rlx_run);
-	/* calculate the expected value */
-	vsize_t expected = init + (N * IT);
-	vsize_t val		 = vatomicsz_read(&g_shared);
-	ASSERT(expected == val);
-	V_UNUSED(expected, val);
+    vsize_t init = SIZE_MAX;
+    vatomicsz_init(&g_shared, init);
+    launch_threads(N, mt_atomic_cmpxchg_rlx_run);
+    /* calculate the expected value */
+    vsize_t expected = init + (N * IT);
+    vsize_t val      = vatomicsz_read(&g_shared);
+    ASSERT(expected == val);
+    V_UNUSED(expected, val);
 }
 /*****************************************************************************
  * MultiThreadedTest: vatomicsz_xchg
@@ -437,26 +437,26 @@ mt_atomic_cmpxchg_rlx(void)
 static inline void *
 mt_atomic_xchg_run(void *args)
 {
-	vsize_t tid = (vsize_t)(vuintptr_t)args;
-	for (vsize_t i = 0; i < IT; i++) {
-		(void)vatomicsz_xchg(&g_shared, (vsize_t)tid);
-	}
-	V_UNUSED(tid);
-	return NULL;
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    for (vsize_t i = 0; i < IT; i++) {
+        (void)vatomicsz_xchg(&g_shared, (vsize_t)tid);
+    }
+    V_UNUSED(tid);
+    return NULL;
 }
 static inline void
 mt_atomic_xchg(void)
 {
-	vsize_t init = SIZE_MAX;
-	vatomicsz_init(&g_shared, init);
-	launch_threads(N, mt_atomic_xchg_run);
-	vsize_t val = vatomicsz_read(&g_shared);
-	for (vsize_t i = 0; i < N; i++) {
-		if (val == (vsize_t)i) {
-			return;
-		}
-	}
-	ASSERT(0 && "value is none of the expected");
+    vsize_t init = SIZE_MAX;
+    vatomicsz_init(&g_shared, init);
+    launch_threads(N, mt_atomic_xchg_run);
+    vsize_t val = vatomicsz_read(&g_shared);
+    for (vsize_t i = 0; i < N; i++) {
+        if (val == (vsize_t)i) {
+            return;
+        }
+    }
+    ASSERT(0 && "value is none of the expected");
 }
 /*****************************************************************************
  * MultiThreadedTest: vatomicsz_xchg_acq
@@ -464,26 +464,26 @@ mt_atomic_xchg(void)
 static inline void *
 mt_atomic_xchg_acq_run(void *args)
 {
-	vsize_t tid = (vsize_t)(vuintptr_t)args;
-	for (vsize_t i = 0; i < IT; i++) {
-		(void)vatomicsz_xchg_acq(&g_shared, (vsize_t)tid);
-	}
-	V_UNUSED(tid);
-	return NULL;
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    for (vsize_t i = 0; i < IT; i++) {
+        (void)vatomicsz_xchg_acq(&g_shared, (vsize_t)tid);
+    }
+    V_UNUSED(tid);
+    return NULL;
 }
 static inline void
 mt_atomic_xchg_acq(void)
 {
-	vsize_t init = SIZE_MAX;
-	vatomicsz_init(&g_shared, init);
-	launch_threads(N, mt_atomic_xchg_acq_run);
-	vsize_t val = vatomicsz_read(&g_shared);
-	for (vsize_t i = 0; i < N; i++) {
-		if (val == (vsize_t)i) {
-			return;
-		}
-	}
-	ASSERT(0 && "value is none of the expected");
+    vsize_t init = SIZE_MAX;
+    vatomicsz_init(&g_shared, init);
+    launch_threads(N, mt_atomic_xchg_acq_run);
+    vsize_t val = vatomicsz_read(&g_shared);
+    for (vsize_t i = 0; i < N; i++) {
+        if (val == (vsize_t)i) {
+            return;
+        }
+    }
+    ASSERT(0 && "value is none of the expected");
 }
 /*****************************************************************************
  * MultiThreadedTest: vatomicsz_xchg_rel
@@ -491,26 +491,26 @@ mt_atomic_xchg_acq(void)
 static inline void *
 mt_atomic_xchg_rel_run(void *args)
 {
-	vsize_t tid = (vsize_t)(vuintptr_t)args;
-	for (vsize_t i = 0; i < IT; i++) {
-		(void)vatomicsz_xchg_rel(&g_shared, (vsize_t)tid);
-	}
-	V_UNUSED(tid);
-	return NULL;
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    for (vsize_t i = 0; i < IT; i++) {
+        (void)vatomicsz_xchg_rel(&g_shared, (vsize_t)tid);
+    }
+    V_UNUSED(tid);
+    return NULL;
 }
 static inline void
 mt_atomic_xchg_rel(void)
 {
-	vsize_t init = SIZE_MAX;
-	vatomicsz_init(&g_shared, init);
-	launch_threads(N, mt_atomic_xchg_rel_run);
-	vsize_t val = vatomicsz_read(&g_shared);
-	for (vsize_t i = 0; i < N; i++) {
-		if (val == (vsize_t)i) {
-			return;
-		}
-	}
-	ASSERT(0 && "value is none of the expected");
+    vsize_t init = SIZE_MAX;
+    vatomicsz_init(&g_shared, init);
+    launch_threads(N, mt_atomic_xchg_rel_run);
+    vsize_t val = vatomicsz_read(&g_shared);
+    for (vsize_t i = 0; i < N; i++) {
+        if (val == (vsize_t)i) {
+            return;
+        }
+    }
+    ASSERT(0 && "value is none of the expected");
 }
 /*****************************************************************************
  * MultiThreadedTest: vatomicsz_xchg_rlx
@@ -518,26 +518,26 @@ mt_atomic_xchg_rel(void)
 static inline void *
 mt_atomic_xchg_rlx_run(void *args)
 {
-	vsize_t tid = (vsize_t)(vuintptr_t)args;
-	for (vsize_t i = 0; i < IT; i++) {
-		(void)vatomicsz_xchg_rlx(&g_shared, (vsize_t)tid);
-	}
-	V_UNUSED(tid);
-	return NULL;
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    for (vsize_t i = 0; i < IT; i++) {
+        (void)vatomicsz_xchg_rlx(&g_shared, (vsize_t)tid);
+    }
+    V_UNUSED(tid);
+    return NULL;
 }
 static inline void
 mt_atomic_xchg_rlx(void)
 {
-	vsize_t init = SIZE_MAX;
-	vatomicsz_init(&g_shared, init);
-	launch_threads(N, mt_atomic_xchg_rlx_run);
-	vsize_t val = vatomicsz_read(&g_shared);
-	for (vsize_t i = 0; i < N; i++) {
-		if (val == (vsize_t)i) {
-			return;
-		}
-	}
-	ASSERT(0 && "value is none of the expected");
+    vsize_t init = SIZE_MAX;
+    vatomicsz_init(&g_shared, init);
+    launch_threads(N, mt_atomic_xchg_rlx_run);
+    vsize_t val = vatomicsz_read(&g_shared);
+    for (vsize_t i = 0; i < N; i++) {
+        if (val == (vsize_t)i) {
+            return;
+        }
+    }
+    ASSERT(0 && "value is none of the expected");
 }
 /*****************************************************************************
  * MultiThreadedTest: vatomicsz_max
@@ -545,22 +545,22 @@ mt_atomic_xchg_rlx(void)
 static inline void *
 mt_atomic_max_run(void *args)
 {
-	vsize_t tid = (vsize_t)(vuintptr_t)args;
-	for (vsize_t i = 0; i < IT; i++) {
-		vatomicsz_max(&g_shared, (vsize_t)tid);
-	}
-	V_UNUSED(tid);
-	return NULL;
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    for (vsize_t i = 0; i < IT; i++) {
+        vatomicsz_max(&g_shared, (vsize_t)tid);
+    }
+    V_UNUSED(tid);
+    return NULL;
 }
 static inline void
 mt_atomic_max(void)
 {
-	vsize_t init = 0;
-	vatomicsz_init(&g_shared, init);
-	launch_threads(N, mt_atomic_max_run);
-	vsize_t val = vatomicsz_read(&g_shared);
-	ASSERT(val == (N - 1));
-	V_UNUSED(val);
+    vsize_t init = 0;
+    vatomicsz_init(&g_shared, init);
+    launch_threads(N, mt_atomic_max_run);
+    vsize_t val = vatomicsz_read(&g_shared);
+    ASSERT(val == (N - 1));
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * MultiThreadedTest: vatomicsz_max_rel
@@ -568,22 +568,22 @@ mt_atomic_max(void)
 static inline void *
 mt_atomic_max_rel_run(void *args)
 {
-	vsize_t tid = (vsize_t)(vuintptr_t)args;
-	for (vsize_t i = 0; i < IT; i++) {
-		vatomicsz_max_rel(&g_shared, (vsize_t)tid);
-	}
-	V_UNUSED(tid);
-	return NULL;
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    for (vsize_t i = 0; i < IT; i++) {
+        vatomicsz_max_rel(&g_shared, (vsize_t)tid);
+    }
+    V_UNUSED(tid);
+    return NULL;
 }
 static inline void
 mt_atomic_max_rel(void)
 {
-	vsize_t init = 0;
-	vatomicsz_init(&g_shared, init);
-	launch_threads(N, mt_atomic_max_rel_run);
-	vsize_t val = vatomicsz_read(&g_shared);
-	ASSERT(val == (N - 1));
-	V_UNUSED(val);
+    vsize_t init = 0;
+    vatomicsz_init(&g_shared, init);
+    launch_threads(N, mt_atomic_max_rel_run);
+    vsize_t val = vatomicsz_read(&g_shared);
+    ASSERT(val == (N - 1));
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * MultiThreadedTest: vatomicsz_max_rlx
@@ -591,22 +591,22 @@ mt_atomic_max_rel(void)
 static inline void *
 mt_atomic_max_rlx_run(void *args)
 {
-	vsize_t tid = (vsize_t)(vuintptr_t)args;
-	for (vsize_t i = 0; i < IT; i++) {
-		vatomicsz_max_rlx(&g_shared, (vsize_t)tid);
-	}
-	V_UNUSED(tid);
-	return NULL;
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    for (vsize_t i = 0; i < IT; i++) {
+        vatomicsz_max_rlx(&g_shared, (vsize_t)tid);
+    }
+    V_UNUSED(tid);
+    return NULL;
 }
 static inline void
 mt_atomic_max_rlx(void)
 {
-	vsize_t init = 0;
-	vatomicsz_init(&g_shared, init);
-	launch_threads(N, mt_atomic_max_rlx_run);
-	vsize_t val = vatomicsz_read(&g_shared);
-	ASSERT(val == (N - 1));
-	V_UNUSED(val);
+    vsize_t init = 0;
+    vatomicsz_init(&g_shared, init);
+    launch_threads(N, mt_atomic_max_rlx_run);
+    vsize_t val = vatomicsz_read(&g_shared);
+    ASSERT(val == (N - 1));
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * MultiThreadedTest: vatomicsz_and
@@ -614,34 +614,34 @@ mt_atomic_max_rlx(void)
 static inline void *
 mt_atomic_and_run(void *args)
 {
-	vsize_t tid	 = (vsize_t)(vuintptr_t)args;
-	vsize_t mask = 0xF0F0F0F0U;
+    vsize_t tid  = (vsize_t)(vuintptr_t)args;
+    vsize_t mask = 0xF0F0F0F0U;
 
-	for (vsize_t i = 0; i < IT; i++) {
-		mask = mask << (i * tid);
-		vatomicsz_and(&g_shared, mask);
-	}
-	V_UNUSED(tid);
-	return NULL;
+    for (vsize_t i = 0; i < IT; i++) {
+        mask = mask << (i * tid);
+        vatomicsz_and(&g_shared, mask);
+    }
+    V_UNUSED(tid);
+    return NULL;
 }
 static inline void
 mt_atomic_and(void)
 {
-	vsize_t init	 = SIZE_MAX;
-	vsize_t mask	 = 0xF0F0F0F0U;
-	vsize_t expected = SIZE_MAX;
-	vatomicsz_init(&g_shared, init);
-	launch_threads(N, mt_atomic_and_run);
-	for (vsize_t t = 0; t < N; t++) {
-		mask = 0xF0F0F0F0U;
-		for (vsize_t i = 0; i < IT; i++) {
-			mask	 = mask << (i * t);
-			expected = expected & mask;
-		}
-	}
-	vsize_t val = vatomicsz_read(&g_shared);
-	ASSERT(val == expected);
-	V_UNUSED(expected, val);
+    vsize_t init     = SIZE_MAX;
+    vsize_t mask     = 0xF0F0F0F0U;
+    vsize_t expected = SIZE_MAX;
+    vatomicsz_init(&g_shared, init);
+    launch_threads(N, mt_atomic_and_run);
+    for (vsize_t t = 0; t < N; t++) {
+        mask = 0xF0F0F0F0U;
+        for (vsize_t i = 0; i < IT; i++) {
+            mask     = mask << (i * t);
+            expected = expected & mask;
+        }
+    }
+    vsize_t val = vatomicsz_read(&g_shared);
+    ASSERT(val == expected);
+    V_UNUSED(expected, val);
 }
 /*****************************************************************************
  * MultiThreadedTest: vatomicsz_or
@@ -649,34 +649,34 @@ mt_atomic_and(void)
 static inline void *
 mt_atomic_or_run(void *args)
 {
-	vsize_t tid	 = (vsize_t)(vuintptr_t)args;
-	vsize_t mask = 0xF0F0F0F0U;
+    vsize_t tid  = (vsize_t)(vuintptr_t)args;
+    vsize_t mask = 0xF0F0F0F0U;
 
-	for (vsize_t i = 0; i < IT; i++) {
-		mask = mask << (i * tid);
-		vatomicsz_or(&g_shared, mask);
-	}
-	V_UNUSED(tid);
-	return NULL;
+    for (vsize_t i = 0; i < IT; i++) {
+        mask = mask << (i * tid);
+        vatomicsz_or(&g_shared, mask);
+    }
+    V_UNUSED(tid);
+    return NULL;
 }
 static inline void
 mt_atomic_or(void)
 {
-	vsize_t init	 = SIZE_MAX;
-	vsize_t mask	 = 0xF0F0F0F0U;
-	vsize_t expected = SIZE_MAX;
-	vatomicsz_init(&g_shared, init);
-	launch_threads(N, mt_atomic_or_run);
-	for (vsize_t t = 0; t < N; t++) {
-		mask = 0xF0F0F0F0U;
-		for (vsize_t i = 0; i < IT; i++) {
-			mask	 = mask << (i * t);
-			expected = expected | mask;
-		}
-	}
-	vsize_t val = vatomicsz_read(&g_shared);
-	ASSERT(val == expected);
-	V_UNUSED(expected, val);
+    vsize_t init     = SIZE_MAX;
+    vsize_t mask     = 0xF0F0F0F0U;
+    vsize_t expected = SIZE_MAX;
+    vatomicsz_init(&g_shared, init);
+    launch_threads(N, mt_atomic_or_run);
+    for (vsize_t t = 0; t < N; t++) {
+        mask = 0xF0F0F0F0U;
+        for (vsize_t i = 0; i < IT; i++) {
+            mask     = mask << (i * t);
+            expected = expected | mask;
+        }
+    }
+    vsize_t val = vatomicsz_read(&g_shared);
+    ASSERT(val == expected);
+    V_UNUSED(expected, val);
 }
 /*****************************************************************************
  * MultiThreadedTest: vatomicsz_xor
@@ -684,34 +684,34 @@ mt_atomic_or(void)
 static inline void *
 mt_atomic_xor_run(void *args)
 {
-	vsize_t tid	 = (vsize_t)(vuintptr_t)args;
-	vsize_t mask = 0xF0F0F0F0U;
+    vsize_t tid  = (vsize_t)(vuintptr_t)args;
+    vsize_t mask = 0xF0F0F0F0U;
 
-	for (vsize_t i = 0; i < IT; i++) {
-		mask = mask << (i * tid);
-		vatomicsz_xor(&g_shared, mask);
-	}
-	V_UNUSED(tid);
-	return NULL;
+    for (vsize_t i = 0; i < IT; i++) {
+        mask = mask << (i * tid);
+        vatomicsz_xor(&g_shared, mask);
+    }
+    V_UNUSED(tid);
+    return NULL;
 }
 static inline void
 mt_atomic_xor(void)
 {
-	vsize_t init	 = SIZE_MAX;
-	vsize_t mask	 = 0xF0F0F0F0U;
-	vsize_t expected = SIZE_MAX;
-	vatomicsz_init(&g_shared, init);
-	launch_threads(N, mt_atomic_xor_run);
-	for (vsize_t t = 0; t < N; t++) {
-		mask = 0xF0F0F0F0U;
-		for (vsize_t i = 0; i < IT; i++) {
-			mask	 = mask << (i * t);
-			expected = expected ^ mask;
-		}
-	}
-	vsize_t val = vatomicsz_read(&g_shared);
-	ASSERT(val == expected);
-	V_UNUSED(expected, val);
+    vsize_t init     = SIZE_MAX;
+    vsize_t mask     = 0xF0F0F0F0U;
+    vsize_t expected = SIZE_MAX;
+    vatomicsz_init(&g_shared, init);
+    launch_threads(N, mt_atomic_xor_run);
+    for (vsize_t t = 0; t < N; t++) {
+        mask = 0xF0F0F0F0U;
+        for (vsize_t i = 0; i < IT; i++) {
+            mask     = mask << (i * t);
+            expected = expected ^ mask;
+        }
+    }
+    vsize_t val = vatomicsz_read(&g_shared);
+    ASSERT(val == expected);
+    V_UNUSED(expected, val);
 }
 /*****************************************************************************
  * MultiThreadedTest: vatomicsz_and_rel
@@ -719,34 +719,34 @@ mt_atomic_xor(void)
 static inline void *
 mt_atomic_and_rel_run(void *args)
 {
-	vsize_t tid	 = (vsize_t)(vuintptr_t)args;
-	vsize_t mask = 0xF0F0F0F0U;
+    vsize_t tid  = (vsize_t)(vuintptr_t)args;
+    vsize_t mask = 0xF0F0F0F0U;
 
-	for (vsize_t i = 0; i < IT; i++) {
-		mask = mask << (i * tid);
-		vatomicsz_and_rel(&g_shared, mask);
-	}
-	V_UNUSED(tid);
-	return NULL;
+    for (vsize_t i = 0; i < IT; i++) {
+        mask = mask << (i * tid);
+        vatomicsz_and_rel(&g_shared, mask);
+    }
+    V_UNUSED(tid);
+    return NULL;
 }
 static inline void
 mt_atomic_and_rel(void)
 {
-	vsize_t init	 = SIZE_MAX;
-	vsize_t mask	 = 0xF0F0F0F0U;
-	vsize_t expected = SIZE_MAX;
-	vatomicsz_init(&g_shared, init);
-	launch_threads(N, mt_atomic_and_rel_run);
-	for (vsize_t t = 0; t < N; t++) {
-		mask = 0xF0F0F0F0U;
-		for (vsize_t i = 0; i < IT; i++) {
-			mask	 = mask << (i * t);
-			expected = expected & mask;
-		}
-	}
-	vsize_t val = vatomicsz_read(&g_shared);
-	ASSERT(val == expected);
-	V_UNUSED(expected, val);
+    vsize_t init     = SIZE_MAX;
+    vsize_t mask     = 0xF0F0F0F0U;
+    vsize_t expected = SIZE_MAX;
+    vatomicsz_init(&g_shared, init);
+    launch_threads(N, mt_atomic_and_rel_run);
+    for (vsize_t t = 0; t < N; t++) {
+        mask = 0xF0F0F0F0U;
+        for (vsize_t i = 0; i < IT; i++) {
+            mask     = mask << (i * t);
+            expected = expected & mask;
+        }
+    }
+    vsize_t val = vatomicsz_read(&g_shared);
+    ASSERT(val == expected);
+    V_UNUSED(expected, val);
 }
 /*****************************************************************************
  * MultiThreadedTest: vatomicsz_or_rel
@@ -754,34 +754,34 @@ mt_atomic_and_rel(void)
 static inline void *
 mt_atomic_or_rel_run(void *args)
 {
-	vsize_t tid	 = (vsize_t)(vuintptr_t)args;
-	vsize_t mask = 0xF0F0F0F0U;
+    vsize_t tid  = (vsize_t)(vuintptr_t)args;
+    vsize_t mask = 0xF0F0F0F0U;
 
-	for (vsize_t i = 0; i < IT; i++) {
-		mask = mask << (i * tid);
-		vatomicsz_or_rel(&g_shared, mask);
-	}
-	V_UNUSED(tid);
-	return NULL;
+    for (vsize_t i = 0; i < IT; i++) {
+        mask = mask << (i * tid);
+        vatomicsz_or_rel(&g_shared, mask);
+    }
+    V_UNUSED(tid);
+    return NULL;
 }
 static inline void
 mt_atomic_or_rel(void)
 {
-	vsize_t init	 = SIZE_MAX;
-	vsize_t mask	 = 0xF0F0F0F0U;
-	vsize_t expected = SIZE_MAX;
-	vatomicsz_init(&g_shared, init);
-	launch_threads(N, mt_atomic_or_rel_run);
-	for (vsize_t t = 0; t < N; t++) {
-		mask = 0xF0F0F0F0U;
-		for (vsize_t i = 0; i < IT; i++) {
-			mask	 = mask << (i * t);
-			expected = expected | mask;
-		}
-	}
-	vsize_t val = vatomicsz_read(&g_shared);
-	ASSERT(val == expected);
-	V_UNUSED(expected, val);
+    vsize_t init     = SIZE_MAX;
+    vsize_t mask     = 0xF0F0F0F0U;
+    vsize_t expected = SIZE_MAX;
+    vatomicsz_init(&g_shared, init);
+    launch_threads(N, mt_atomic_or_rel_run);
+    for (vsize_t t = 0; t < N; t++) {
+        mask = 0xF0F0F0F0U;
+        for (vsize_t i = 0; i < IT; i++) {
+            mask     = mask << (i * t);
+            expected = expected | mask;
+        }
+    }
+    vsize_t val = vatomicsz_read(&g_shared);
+    ASSERT(val == expected);
+    V_UNUSED(expected, val);
 }
 /*****************************************************************************
  * MultiThreadedTest: vatomicsz_xor_rel
@@ -789,34 +789,34 @@ mt_atomic_or_rel(void)
 static inline void *
 mt_atomic_xor_rel_run(void *args)
 {
-	vsize_t tid	 = (vsize_t)(vuintptr_t)args;
-	vsize_t mask = 0xF0F0F0F0U;
+    vsize_t tid  = (vsize_t)(vuintptr_t)args;
+    vsize_t mask = 0xF0F0F0F0U;
 
-	for (vsize_t i = 0; i < IT; i++) {
-		mask = mask << (i * tid);
-		vatomicsz_xor_rel(&g_shared, mask);
-	}
-	V_UNUSED(tid);
-	return NULL;
+    for (vsize_t i = 0; i < IT; i++) {
+        mask = mask << (i * tid);
+        vatomicsz_xor_rel(&g_shared, mask);
+    }
+    V_UNUSED(tid);
+    return NULL;
 }
 static inline void
 mt_atomic_xor_rel(void)
 {
-	vsize_t init	 = SIZE_MAX;
-	vsize_t mask	 = 0xF0F0F0F0U;
-	vsize_t expected = SIZE_MAX;
-	vatomicsz_init(&g_shared, init);
-	launch_threads(N, mt_atomic_xor_rel_run);
-	for (vsize_t t = 0; t < N; t++) {
-		mask = 0xF0F0F0F0U;
-		for (vsize_t i = 0; i < IT; i++) {
-			mask	 = mask << (i * t);
-			expected = expected ^ mask;
-		}
-	}
-	vsize_t val = vatomicsz_read(&g_shared);
-	ASSERT(val == expected);
-	V_UNUSED(expected, val);
+    vsize_t init     = SIZE_MAX;
+    vsize_t mask     = 0xF0F0F0F0U;
+    vsize_t expected = SIZE_MAX;
+    vatomicsz_init(&g_shared, init);
+    launch_threads(N, mt_atomic_xor_rel_run);
+    for (vsize_t t = 0; t < N; t++) {
+        mask = 0xF0F0F0F0U;
+        for (vsize_t i = 0; i < IT; i++) {
+            mask     = mask << (i * t);
+            expected = expected ^ mask;
+        }
+    }
+    vsize_t val = vatomicsz_read(&g_shared);
+    ASSERT(val == expected);
+    V_UNUSED(expected, val);
 }
 /*****************************************************************************
  * MultiThreadedTest: vatomicsz_and_rlx
@@ -824,34 +824,34 @@ mt_atomic_xor_rel(void)
 static inline void *
 mt_atomic_and_rlx_run(void *args)
 {
-	vsize_t tid	 = (vsize_t)(vuintptr_t)args;
-	vsize_t mask = 0xF0F0F0F0U;
+    vsize_t tid  = (vsize_t)(vuintptr_t)args;
+    vsize_t mask = 0xF0F0F0F0U;
 
-	for (vsize_t i = 0; i < IT; i++) {
-		mask = mask << (i * tid);
-		vatomicsz_and_rlx(&g_shared, mask);
-	}
-	V_UNUSED(tid);
-	return NULL;
+    for (vsize_t i = 0; i < IT; i++) {
+        mask = mask << (i * tid);
+        vatomicsz_and_rlx(&g_shared, mask);
+    }
+    V_UNUSED(tid);
+    return NULL;
 }
 static inline void
 mt_atomic_and_rlx(void)
 {
-	vsize_t init	 = SIZE_MAX;
-	vsize_t mask	 = 0xF0F0F0F0U;
-	vsize_t expected = SIZE_MAX;
-	vatomicsz_init(&g_shared, init);
-	launch_threads(N, mt_atomic_and_rlx_run);
-	for (vsize_t t = 0; t < N; t++) {
-		mask = 0xF0F0F0F0U;
-		for (vsize_t i = 0; i < IT; i++) {
-			mask	 = mask << (i * t);
-			expected = expected & mask;
-		}
-	}
-	vsize_t val = vatomicsz_read(&g_shared);
-	ASSERT(val == expected);
-	V_UNUSED(expected, val);
+    vsize_t init     = SIZE_MAX;
+    vsize_t mask     = 0xF0F0F0F0U;
+    vsize_t expected = SIZE_MAX;
+    vatomicsz_init(&g_shared, init);
+    launch_threads(N, mt_atomic_and_rlx_run);
+    for (vsize_t t = 0; t < N; t++) {
+        mask = 0xF0F0F0F0U;
+        for (vsize_t i = 0; i < IT; i++) {
+            mask     = mask << (i * t);
+            expected = expected & mask;
+        }
+    }
+    vsize_t val = vatomicsz_read(&g_shared);
+    ASSERT(val == expected);
+    V_UNUSED(expected, val);
 }
 /*****************************************************************************
  * MultiThreadedTest: vatomicsz_or_rlx
@@ -859,34 +859,34 @@ mt_atomic_and_rlx(void)
 static inline void *
 mt_atomic_or_rlx_run(void *args)
 {
-	vsize_t tid	 = (vsize_t)(vuintptr_t)args;
-	vsize_t mask = 0xF0F0F0F0U;
+    vsize_t tid  = (vsize_t)(vuintptr_t)args;
+    vsize_t mask = 0xF0F0F0F0U;
 
-	for (vsize_t i = 0; i < IT; i++) {
-		mask = mask << (i * tid);
-		vatomicsz_or_rlx(&g_shared, mask);
-	}
-	V_UNUSED(tid);
-	return NULL;
+    for (vsize_t i = 0; i < IT; i++) {
+        mask = mask << (i * tid);
+        vatomicsz_or_rlx(&g_shared, mask);
+    }
+    V_UNUSED(tid);
+    return NULL;
 }
 static inline void
 mt_atomic_or_rlx(void)
 {
-	vsize_t init	 = SIZE_MAX;
-	vsize_t mask	 = 0xF0F0F0F0U;
-	vsize_t expected = SIZE_MAX;
-	vatomicsz_init(&g_shared, init);
-	launch_threads(N, mt_atomic_or_rlx_run);
-	for (vsize_t t = 0; t < N; t++) {
-		mask = 0xF0F0F0F0U;
-		for (vsize_t i = 0; i < IT; i++) {
-			mask	 = mask << (i * t);
-			expected = expected | mask;
-		}
-	}
-	vsize_t val = vatomicsz_read(&g_shared);
-	ASSERT(val == expected);
-	V_UNUSED(expected, val);
+    vsize_t init     = SIZE_MAX;
+    vsize_t mask     = 0xF0F0F0F0U;
+    vsize_t expected = SIZE_MAX;
+    vatomicsz_init(&g_shared, init);
+    launch_threads(N, mt_atomic_or_rlx_run);
+    for (vsize_t t = 0; t < N; t++) {
+        mask = 0xF0F0F0F0U;
+        for (vsize_t i = 0; i < IT; i++) {
+            mask     = mask << (i * t);
+            expected = expected | mask;
+        }
+    }
+    vsize_t val = vatomicsz_read(&g_shared);
+    ASSERT(val == expected);
+    V_UNUSED(expected, val);
 }
 /*****************************************************************************
  * MultiThreadedTest: vatomicsz_xor_rlx
@@ -894,34 +894,34 @@ mt_atomic_or_rlx(void)
 static inline void *
 mt_atomic_xor_rlx_run(void *args)
 {
-	vsize_t tid	 = (vsize_t)(vuintptr_t)args;
-	vsize_t mask = 0xF0F0F0F0U;
+    vsize_t tid  = (vsize_t)(vuintptr_t)args;
+    vsize_t mask = 0xF0F0F0F0U;
 
-	for (vsize_t i = 0; i < IT; i++) {
-		mask = mask << (i * tid);
-		vatomicsz_xor_rlx(&g_shared, mask);
-	}
-	V_UNUSED(tid);
-	return NULL;
+    for (vsize_t i = 0; i < IT; i++) {
+        mask = mask << (i * tid);
+        vatomicsz_xor_rlx(&g_shared, mask);
+    }
+    V_UNUSED(tid);
+    return NULL;
 }
 static inline void
 mt_atomic_xor_rlx(void)
 {
-	vsize_t init	 = SIZE_MAX;
-	vsize_t mask	 = 0xF0F0F0F0U;
-	vsize_t expected = SIZE_MAX;
-	vatomicsz_init(&g_shared, init);
-	launch_threads(N, mt_atomic_xor_rlx_run);
-	for (vsize_t t = 0; t < N; t++) {
-		mask = 0xF0F0F0F0U;
-		for (vsize_t i = 0; i < IT; i++) {
-			mask	 = mask << (i * t);
-			expected = expected ^ mask;
-		}
-	}
-	vsize_t val = vatomicsz_read(&g_shared);
-	ASSERT(val == expected);
-	V_UNUSED(expected, val);
+    vsize_t init     = SIZE_MAX;
+    vsize_t mask     = 0xF0F0F0F0U;
+    vsize_t expected = SIZE_MAX;
+    vatomicsz_init(&g_shared, init);
+    launch_threads(N, mt_atomic_xor_rlx_run);
+    for (vsize_t t = 0; t < N; t++) {
+        mask = 0xF0F0F0F0U;
+        for (vsize_t i = 0; i < IT; i++) {
+            mask     = mask << (i * t);
+            expected = expected ^ mask;
+        }
+    }
+    vsize_t val = vatomicsz_read(&g_shared);
+    ASSERT(val == expected);
+    V_UNUSED(expected, val);
 }
 /*****************************************************************************
  * Entry point
@@ -929,37 +929,37 @@ mt_atomic_xor_rlx(void)
 int
 main(void)
 {
-	mt_atomic_inc();
-	mt_atomic_dec();
-	mt_atomic_sub();
-	mt_atomic_add();
-	mt_atomic_max();
-	mt_atomic_and();
-	mt_atomic_or();
-	mt_atomic_xor();
-	mt_atomic_inc_rel();
-	mt_atomic_dec_rel();
-	mt_atomic_sub_rel();
-	mt_atomic_add_rel();
-	mt_atomic_max_rel();
-	mt_atomic_and_rel();
-	mt_atomic_or_rel();
-	mt_atomic_xor_rel();
-	mt_atomic_inc_rlx();
-	mt_atomic_dec_rlx();
-	mt_atomic_sub_rlx();
-	mt_atomic_add_rlx();
-	mt_atomic_max_rlx();
-	mt_atomic_and_rlx();
-	mt_atomic_or_rlx();
-	mt_atomic_xor_rlx();
-	mt_atomic_cmpxchg();
-	mt_atomic_xchg();
-	mt_atomic_cmpxchg_rel();
-	mt_atomic_xchg_rel();
-	mt_atomic_cmpxchg_acq();
-	mt_atomic_xchg_acq();
-	mt_atomic_cmpxchg_rlx();
-	mt_atomic_xchg_rlx();
-	return 0;
+    mt_atomic_inc();
+    mt_atomic_dec();
+    mt_atomic_sub();
+    mt_atomic_add();
+    mt_atomic_max();
+    mt_atomic_and();
+    mt_atomic_or();
+    mt_atomic_xor();
+    mt_atomic_inc_rel();
+    mt_atomic_dec_rel();
+    mt_atomic_sub_rel();
+    mt_atomic_add_rel();
+    mt_atomic_max_rel();
+    mt_atomic_and_rel();
+    mt_atomic_or_rel();
+    mt_atomic_xor_rel();
+    mt_atomic_inc_rlx();
+    mt_atomic_dec_rlx();
+    mt_atomic_sub_rlx();
+    mt_atomic_add_rlx();
+    mt_atomic_max_rlx();
+    mt_atomic_and_rlx();
+    mt_atomic_or_rlx();
+    mt_atomic_xor_rlx();
+    mt_atomic_cmpxchg();
+    mt_atomic_xchg();
+    mt_atomic_cmpxchg_rel();
+    mt_atomic_xchg_rel();
+    mt_atomic_cmpxchg_acq();
+    mt_atomic_xchg_acq();
+    mt_atomic_cmpxchg_rlx();
+    mt_atomic_xchg_rlx();
+    return 0;
 }

@@ -29,14 +29,14 @@
 #include <vsync/queue/internal/bounded_ret.h>
 
 typedef struct bounded_mpmc_s {
-	vatomic32_t phead;
-	vatomic32_t ptail;
+    vatomic32_t phead;
+    vatomic32_t ptail;
 
-	vatomic32_t chead;
-	vatomic32_t ctail;
+    vatomic32_t chead;
+    vatomic32_t ctail;
 
-	void **buf;
-	vuint32_t size;
+    void **buf;
+    vuint32_t size;
 } bounded_mpmc_t;
 
 /**
@@ -49,15 +49,15 @@ typedef struct bounded_mpmc_s {
 static inline void
 bounded_mpmc_init(bounded_mpmc_t *q, void **b, vuint32_t s)
 {
-	ASSERT(b && "buffer is NULL");
-	ASSERT(s != 0 && "buffer with 0 size");
+    ASSERT(b && "buffer is NULL");
+    ASSERT(s != 0 && "buffer with 0 size");
 
-	q->buf	= b;
-	q->size = s;
-	vatomic32_init(&q->chead, 0);
-	vatomic32_init(&q->ctail, 0);
-	vatomic32_init(&q->phead, 0);
-	vatomic32_init(&q->ptail, 0);
+    q->buf  = b;
+    q->size = s;
+    vatomic32_init(&q->chead, 0);
+    vatomic32_init(&q->ctail, 0);
+    vatomic32_init(&q->phead, 0);
+    vatomic32_init(&q->ptail, 0);
 }
 
 /**
@@ -74,25 +74,25 @@ bounded_mpmc_init(bounded_mpmc_t *q, void **b, vuint32_t s)
 static inline bounded_ret_t
 bounded_mpmc_enq(bounded_mpmc_t *q, void *v)
 {
-	vuint32_t curr, next;
+    vuint32_t curr, next;
 
-	/* try to move producer head */
-	curr = vatomic32_read_acq(&q->phead);
-	if (curr - vatomic32_read_rlx(&q->ctail) == q->size) {
-		return QUEUE_BOUNDED_FULL;
-	}
-	next = curr + 1;
-	if (vatomic32_cmpxchg_rel(&q->phead, curr, next) != curr) {
-		return QUEUE_BOUNDED_AGAIN;
-	}
-	/* push value into buffer */
-	q->buf[curr % q->size] = v;
+    /* try to move producer head */
+    curr = vatomic32_read_acq(&q->phead);
+    if (curr - vatomic32_read_rlx(&q->ctail) == q->size) {
+        return QUEUE_BOUNDED_FULL;
+    }
+    next = curr + 1;
+    if (vatomic32_cmpxchg_rel(&q->phead, curr, next) != curr) {
+        return QUEUE_BOUNDED_AGAIN;
+    }
+    /* push value into buffer */
+    q->buf[curr % q->size] = v;
 
-	/* mode producer tail */
-	vatomic32_await_eq_acq(&q->ptail, curr);
-	vatomic32_write_rel(&q->ptail, next);
+    /* mode producer tail */
+    vatomic32_await_eq_acq(&q->ptail, curr);
+    vatomic32_write_rel(&q->ptail, next);
 
-	return QUEUE_BOUNDED_OK;
+    return QUEUE_BOUNDED_OK;
 }
 
 /**
@@ -110,25 +110,25 @@ bounded_mpmc_enq(bounded_mpmc_t *q, void *v)
 static inline bounded_ret_t
 bounded_mpmc_deq(bounded_mpmc_t *q, void **v)
 {
-	vuint32_t curr, next;
+    vuint32_t curr, next;
 
-	/* try to move consumer head */
-	curr = vatomic32_read_acq(&q->chead);
-	next = curr + 1;
-	if (curr == vatomic32_read_acq(&q->ptail)) {
-		return QUEUE_BOUNDED_EMPTY;
-	}
-	if (vatomic32_cmpxchg_rel(&q->chead, curr, next) != curr) {
-		return QUEUE_BOUNDED_AGAIN;
-	}
-	/* read value */
-	*v = q->buf[curr % q->size];
+    /* try to move consumer head */
+    curr = vatomic32_read_acq(&q->chead);
+    next = curr + 1;
+    if (curr == vatomic32_read_acq(&q->ptail)) {
+        return QUEUE_BOUNDED_EMPTY;
+    }
+    if (vatomic32_cmpxchg_rel(&q->chead, curr, next) != curr) {
+        return QUEUE_BOUNDED_AGAIN;
+    }
+    /* read value */
+    *v = q->buf[curr % q->size];
 
-	/* move consumer tail */
-	vatomic32_await_eq_rlx(&q->ctail, curr);
-	vatomic32_write_rel(&q->ctail, next);
+    /* move consumer tail */
+    vatomic32_await_eq_rlx(&q->ctail, curr);
+    vatomic32_write_rel(&q->ctail, next);
 
-	return QUEUE_BOUNDED_OK;
+    return QUEUE_BOUNDED_OK;
 }
 
 #endif

@@ -29,27 +29,27 @@
 #ifdef VLISTSET_NO_FUN_POINTER
 /* to give the user the option to not use function pointers during comparison */
 extern inline int vlistset_cmp_key(struct vlistset_node_s *node,
-								   vlistset_key_t k);
-	#define VLISTSET_CMP(_l_, _n_, _k_) vlistset_cmp_key((_n_), _k_)
+                                   vlistset_key_t k);
+    #define VLISTSET_CMP(_l_, _n_, _k_) vlistset_cmp_key((_n_), _k_)
 #else
-	#define VLISTSET_CMP(_l_, _n_, _k_) ((_l_)->cmp_fun((_n_), _k_))
+    #define VLISTSET_CMP(_l_, _n_, _k_) ((_l_)->cmp_fun((_n_), _k_))
 #endif
 
 typedef struct vlistset_node_s {
-	vatomicptr_markable(struct vlistset_node_s *) next;
+    vatomicptr_markable(struct vlistset_node_s *) next;
 } vlistset_node_t;
 
 typedef struct vlistset_s {
-	vlistset_node_t head_sentinel;
-	vlistset_node_t tail_sentinel;
-	vlistset_handle_node_t retire_fun;
-	void *retire_fun_arg;
-	vlistset_cmp_key_t cmp_fun;
+    vlistset_node_t head_sentinel;
+    vlistset_node_t tail_sentinel;
+    vlistset_handle_node_t retire_fun;
+    void *retire_fun_arg;
+    vlistset_cmp_key_t cmp_fun;
 } vlistset_t;
 
 static inline vbool_t _vlistset_find(vlistset_t *lst, vlistset_key_t key,
-									 vlistset_node_t **out_pred,
-									 vlistset_node_t **out_curr);
+                                     vlistset_node_t **out_pred,
+                                     vlistset_node_t **out_curr);
 
 /**
  * Initializes the given vlistset_t object `lst`.
@@ -63,19 +63,19 @@ static inline vbool_t _vlistset_find(vlistset_t *lst, vlistset_key_t key,
  */
 static inline void
 vlistset_init(vlistset_t *lst, vlistset_handle_node_t retire_fun,
-			  void *retire_fun_arg, vlistset_cmp_key_t cmp_fun)
+              void *retire_fun_arg, vlistset_cmp_key_t cmp_fun)
 {
-	ASSERT(lst);
-	ASSERT(retire_fun);
-	ASSERT(cmp_fun);
+    ASSERT(lst);
+    ASSERT(retire_fun);
+    ASSERT(cmp_fun);
 
-	vatomicptr_markable_set_rlx(&lst->head_sentinel.next, &lst->tail_sentinel,
-								false);
-	vatomicptr_markable_set_rlx(&lst->tail_sentinel.next, NULL, false);
+    vatomicptr_markable_set_rlx(&lst->head_sentinel.next, &lst->tail_sentinel,
+                                false);
+    vatomicptr_markable_set_rlx(&lst->tail_sentinel.next, NULL, false);
 
-	lst->retire_fun		= retire_fun;
-	lst->retire_fun_arg = retire_fun_arg;
-	lst->cmp_fun		= cmp_fun;
+    lst->retire_fun     = retire_fun;
+    lst->retire_fun_arg = retire_fun_arg;
+    lst->cmp_fun        = cmp_fun;
 }
 /**
  * Destroys all the remaining nodes in the listset.
@@ -87,8 +87,8 @@ vlistset_init(vlistset_t *lst, vlistset_handle_node_t retire_fun,
 static inline void
 vlistset_destroy(vlistset_t *lst)
 {
-	ASSERT(lst);
-	_vlistset_visit(lst, lst->retire_fun, lst->retire_fun_arg, true);
+    ASSERT(lst);
+    _vlistset_visit(lst, lst->retire_fun, lst->retire_fun_arg, true);
 }
 /**
  * Inserts the given node into the listset.
@@ -109,35 +109,35 @@ vlistset_destroy(vlistset_t *lst)
 static inline vbool_t
 vlistset_add(vlistset_t *lst, vlistset_key_t key, vlistset_node_t *node)
 {
-	vlistset_node_t *pred	  = NULL;
-	vlistset_node_t *curr	  = NULL;
-	vlistset_node_t *tail	  = NULL;
-	vbool_t find_modified_mem = false;
+    vlistset_node_t *pred     = NULL;
+    vlistset_node_t *curr     = NULL;
+    vlistset_node_t *tail     = NULL;
+    vbool_t find_modified_mem = false;
 
-	ASSERT(lst);
-	ASSERT(node);
-	tail = &lst->tail_sentinel;
-	while (true) {
-		find_modified_mem = _vlistset_find(lst, key, &pred, &curr);
+    ASSERT(lst);
+    ASSERT(node);
+    tail = &lst->tail_sentinel;
+    while (true) {
+        find_modified_mem = _vlistset_find(lst, key, &pred, &curr);
 
-		if (tail != curr && VLISTSET_CMP(lst, curr, key) == 0) {
-			return false;
-		} else {
-			// node->next = curr
-			vatomicptr_write(&node->next, curr);
+        if (tail != curr && VLISTSET_CMP(lst, curr, key) == 0) {
+            return false;
+        } else {
+            // node->next = curr
+            vatomicptr_write(&node->next, curr);
 
-			// we try to attach the new node
-			// pred->next = node
-			if (vatomicptr_markable_cmpxchg(&pred->next, curr, false, node,
-											false)) {
-				return true;
-			} else {
-				/* ignore failed iterations without side-effects
-				 */
-				verification_assume(find_modified_mem);
-			}
-		} // else
-	}	  // while
+            // we try to attach the new node
+            // pred->next = node
+            if (vatomicptr_markable_cmpxchg(&pred->next, curr, false, node,
+                                            false)) {
+                return true;
+            } else {
+                /* ignore failed iterations without side-effects
+                 */
+                verification_assume(find_modified_mem);
+            }
+        } // else
+    }     // while
 }
 /**
  * Removes the node associated with the given key from the listset.
@@ -152,52 +152,52 @@ vlistset_add(vlistset_t *lst, vlistset_key_t key, vlistset_node_t *node)
 static inline vbool_t
 vlistset_remove(vlistset_t *lst, vlistset_key_t key)
 {
-	vlistset_node_t *pred	  = NULL;
-	vlistset_node_t *curr	  = NULL;
-	vlistset_node_t *succ	  = NULL;
-	vlistset_node_t *tail	  = NULL;
-	vbool_t snip			  = false;
-	vbool_t find_modified_mem = false;
-	vbool_t detached		  = false;
+    vlistset_node_t *pred     = NULL;
+    vlistset_node_t *curr     = NULL;
+    vlistset_node_t *succ     = NULL;
+    vlistset_node_t *tail     = NULL;
+    vbool_t snip              = false;
+    vbool_t find_modified_mem = false;
+    vbool_t detached          = false;
 
-	ASSERT(lst);
-	tail = &lst->tail_sentinel;
-	while (true) {
-		find_modified_mem = _vlistset_find(lst, key, &pred, &curr);
-		if (tail == curr || VLISTSET_CMP(lst, curr, key) != 0) {
-			// key does not exit, fail.
-			return false;
-		} else {
-			// find the succ
-			succ = vatomicptr_markable_get_pointer(&curr->next);
+    ASSERT(lst);
+    tail = &lst->tail_sentinel;
+    while (true) {
+        find_modified_mem = _vlistset_find(lst, key, &pred, &curr);
+        if (tail == curr || VLISTSET_CMP(lst, curr, key) != 0) {
+            // key does not exit, fail.
+            return false;
+        } else {
+            // find the succ
+            succ = vatomicptr_markable_get_pointer(&curr->next);
 
-			/**
-			 * The book uses attemp_mark here, this is a bug that later they
-			 * corrected
-			 * @see https://nanopdf.com/download/errata-5aecfce05a886_pdf
-			 * If one uses attempt_mark here, two threads removing the same key
-			 * can succeed. We need to succeed iff the mark has changed from
-			 * false->true. Thus a cas is the right thing to do.
-			 */
-			snip = vatomicptr_markable_cmpxchg(&curr->next, succ, false, succ,
-											   true);
-			// if marking failed, retry
-			if (!snip) {
-				/* ignore failed iterations */
-				verification_assume(find_modified_mem);
-				continue;
-			}
-			// if marking succeeded remove it physically
-			// pred->next = succ
-			detached = vatomicptr_markable_cmpxchg(&pred->next, curr, false,
-												   succ, false);
-			if (detached) {
-				lst->retire_fun(curr, lst->retire_fun_arg);
-			}
+            /**
+             * The book uses attemp_mark here, this is a bug that later they
+             * corrected
+             * @see https://nanopdf.com/download/errata-5aecfce05a886_pdf
+             * If one uses attempt_mark here, two threads removing the same key
+             * can succeed. We need to succeed iff the mark has changed from
+             * false->true. Thus a cas is the right thing to do.
+             */
+            snip = vatomicptr_markable_cmpxchg(&curr->next, succ, false, succ,
+                                               true);
+            // if marking failed, retry
+            if (!snip) {
+                /* ignore failed iterations */
+                verification_assume(find_modified_mem);
+                continue;
+            }
+            // if marking succeeded remove it physically
+            // pred->next = succ
+            detached = vatomicptr_markable_cmpxchg(&pred->next, curr, false,
+                                                   succ, false);
+            if (detached) {
+                lst->retire_fun(curr, lst->retire_fun_arg);
+            }
 
-			return true;
-		}
-	} // while
+            return true;
+        }
+    } // while
 }
 /**
  * Looks for the listset node associated with the given key.
@@ -212,24 +212,24 @@ vlistset_remove(vlistset_t *lst, vlistset_key_t key)
 static inline vlistset_node_t *
 vlistset_get(vlistset_t *lst, vlistset_key_t key)
 {
-	vlistset_node_t *curr = NULL;
-	vlistset_node_t *tail = NULL;
-	vbool_t marked		  = false;
-	vbool_t found		  = false;
+    vlistset_node_t *curr = NULL;
+    vlistset_node_t *tail = NULL;
+    vbool_t marked        = false;
+    vbool_t found         = false;
 
-	ASSERT(lst);
-	tail = &lst->tail_sentinel;
-	curr = vatomicptr_markable_get_pointer(&lst->head_sentinel.next);
+    ASSERT(lst);
+    tail = &lst->tail_sentinel;
+    curr = vatomicptr_markable_get_pointer(&lst->head_sentinel.next);
 
-	while (tail != curr && VLISTSET_CMP(lst, curr, key) < 0) {
-		curr = vatomicptr_markable_get_pointer(&curr->next);
-	} // while
+    while (tail != curr && VLISTSET_CMP(lst, curr, key) < 0) {
+        curr = vatomicptr_markable_get_pointer(&curr->next);
+    } // while
 
-	if (tail != curr && VLISTSET_CMP(lst, curr, key) == 0) {
-		marked = vatomicptr_markable_get_mark(&curr->next);
-		found  = !marked;
-	}
-	return found ? curr : NULL;
+    if (tail != curr && VLISTSET_CMP(lst, curr, key) == 0) {
+        marked = vatomicptr_markable_get_mark(&curr->next);
+        found  = !marked;
+    }
+    return found ? curr : NULL;
 }
 /**
  * Visits all nodes in the list and calls `visitor` on them.
@@ -245,26 +245,26 @@ vlistset_get(vlistset_t *lst, vlistset_key_t key)
  */
 static inline void
 _vlistset_visit(vlistset_t *lst, vlistset_handle_node_t visitor, void *arg,
-				vbool_t visitor_destructive)
+                vbool_t visitor_destructive)
 {
-	vlistset_node_t *curr = NULL;
-	vlistset_node_t *succ = NULL;
-	vbool_t marked		  = false;
+    vlistset_node_t *curr = NULL;
+    vlistset_node_t *succ = NULL;
+    vbool_t marked        = false;
 
-	ASSERT(lst);
-	ASSERT(visitor);
+    ASSERT(lst);
+    ASSERT(visitor);
 
-	/* note that head_sentinel can never be logically removed */
-	curr = vatomicptr_markable_get_pointer(&lst->head_sentinel.next);
+    /* note that head_sentinel can never be logically removed */
+    curr = vatomicptr_markable_get_pointer(&lst->head_sentinel.next);
 
-	while (curr && curr != &lst->tail_sentinel) {
-		succ = vatomicptr_markable_get(&curr->next, &marked);
+    while (curr && curr != &lst->tail_sentinel) {
+        succ = vatomicptr_markable_get(&curr->next, &marked);
 
-		if (!marked || visitor_destructive) {
-			visitor(curr, arg);
-		}
-		curr = succ;
-	}
+        if (!marked || visitor_destructive) {
+            visitor(curr, arg);
+        }
+        curr = succ;
+    }
 }
 /**
  * Locates the position of the node associated with the given key.
@@ -286,60 +286,60 @@ _vlistset_visit(vlistset_t *lst, vlistset_handle_node_t visitor, void *arg,
  */
 static inline vbool_t
 _vlistset_find_loop(vlistset_t *lst, vlistset_key_t key,
-					vlistset_node_t **out_pred, vlistset_node_t **out_curr,
-					vbool_t *out_snipped)
+                    vlistset_node_t **out_pred, vlistset_node_t **out_curr,
+                    vbool_t *out_snipped)
 {
-	vlistset_node_t *pred = NULL;
-	vlistset_node_t *curr = NULL;
-	vlistset_node_t *succ = NULL;
-	vlistset_node_t *tail = NULL;
-	vbool_t marked		  = false;
-	vbool_t snip		  = false;
+    vlistset_node_t *pred = NULL;
+    vlistset_node_t *curr = NULL;
+    vlistset_node_t *succ = NULL;
+    vlistset_node_t *tail = NULL;
+    vbool_t marked        = false;
+    vbool_t snip          = false;
 
-	tail = &lst->tail_sentinel;
-	pred = &lst->head_sentinel;
-	curr = vatomicptr_markable_get_pointer(&pred->next);
+    tail = &lst->tail_sentinel;
+    pred = &lst->head_sentinel;
+    curr = vatomicptr_markable_get_pointer(&pred->next);
 
-	while (curr != tail) {
-		succ = vatomicptr_markable_get(&curr->next, &marked);
+    while (curr != tail) {
+        succ = vatomicptr_markable_get(&curr->next, &marked);
 
-		// remove marked nodes
-		while (marked) {
-			// remove curr
-			// unmark succ
-			snip = vatomicptr_markable_cmpxchg(&pred->next, curr, false, succ,
-											   false);
+        // remove marked nodes
+        while (marked) {
+            // remove curr
+            // unmark succ
+            snip = vatomicptr_markable_cmpxchg(&pred->next, curr, false, succ,
+                                               false);
 
 #ifdef VSYNC_VERIFICATION
-			*out_snipped = *out_snipped | snip;
-			verification_assume(*out_snipped);
+            *out_snipped = *out_snipped | snip;
+            verification_assume(*out_snipped);
 #else
-			V_UNUSED(out_snipped);
+            V_UNUSED(out_snipped);
 #endif
-			if (!snip) {
-				return true;
-			}
+            if (!snip) {
+                return true;
+            }
 
-			lst->retire_fun(curr, lst->retire_fun_arg);
+            lst->retire_fun(curr, lst->retire_fun_arg);
 
-			if (succ == tail) {
-				break;
-			}
-			curr = succ;
-			succ = vatomicptr_markable_get(&curr->next, &marked);
-		} // while marked
+            if (succ == tail) {
+                break;
+            }
+            curr = succ;
+            succ = vatomicptr_markable_get(&curr->next, &marked);
+        } // while marked
 
-		if (curr == tail || VLISTSET_CMP(lst, curr, key) >= 0) {
-			break;
-		}
-		pred = curr;
-		curr = succ;
-	} // while
+        if (curr == tail || VLISTSET_CMP(lst, curr, key) >= 0) {
+            break;
+        }
+        pred = curr;
+        curr = succ;
+    } // while
 
-	*out_pred = pred;
-	*out_curr = curr;
+    *out_pred = pred;
+    *out_curr = curr;
 
-	return false;
+    return false;
 }
 /**
  * Locates the position of the node associated with the given key.
@@ -356,11 +356,11 @@ _vlistset_find_loop(vlistset_t *lst, vlistset_key_t key,
  */
 static inline vbool_t
 _vlistset_find(vlistset_t *lst, vlistset_key_t key, vlistset_node_t **out_pred,
-			   vlistset_node_t **out_curr)
+               vlistset_node_t **out_curr)
 {
-	vbool_t ever_snipped = false;
-	while (_vlistset_find_loop(lst, key, out_pred, out_curr, &ever_snipped)) {}
-	return ever_snipped;
+    vbool_t ever_snipped = false;
+    while (_vlistset_find_loop(lst, key, out_pred, out_curr, &ever_snipped)) {}
+    return ever_snipped;
 }
 
 #undef VLISTSET_CMP

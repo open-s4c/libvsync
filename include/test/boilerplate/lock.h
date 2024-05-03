@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #ifndef VSYNC_BOILERPLATE_LOCK_H
 #define VSYNC_BOILERPLATE_LOCK_H
 /*******************************************************************************
@@ -23,15 +24,15 @@ void acquire(vuint32_t tid);
 void release(vuint32_t tid);
 
 #ifndef NTHREADS
-	#define NTHREADS 3
+    #define NTHREADS 3
 #endif
 
 #ifndef REACQUIRE
-	#define REACQUIRE 0
+    #define REACQUIRE 0
 #endif
 
 #ifndef REENTRANT
-	#define REENTRANT 0
+    #define REENTRANT 0
 #endif
 
 #define REACQUIRE_LOOP_BOUND (REACQUIRE + 2)
@@ -45,7 +46,7 @@ void release(vuint32_t tid);
 #include <pthread.h>
 #include <vsync/common/assert.h>
 
-#define FINAL_COUNT		(NTHREADS + REACQUIRE + REENTRANT)
+#define FINAL_COUNT     (NTHREADS + REACQUIRE + REENTRANT)
 #define SELECT(k, t, C) ((k) == 1 && ((t) + 1 < (C) + 1))
 
 #ifdef WITH_INIT
@@ -90,14 +91,14 @@ static vuint32_t g_cs_y = 0;
 void
 cs(void)
 {
-	g_cs_x++;
-	g_cs_y++;
+    g_cs_x++;
+    g_cs_y++;
 }
 void
 check(void)
 {
-	ASSERT(g_cs_x == g_cs_y);
-	ASSERT(g_cs_x == FINAL_COUNT);
+    ASSERT(g_cs_x == g_cs_y);
+    ASSERT(g_cs_x == FINAL_COUNT);
 }
 #endif
 
@@ -110,59 +111,59 @@ check(void)
 static void *
 run(void *arg)
 {
-	vuint32_t tid = (vuintptr_t)arg;
+    vuint32_t tid = (vuintptr_t)arg;
 
-	// By default thread 0 runs the following loop twice othread threads
-	// run it only once.
-	verification_loop_bound(REACQUIRE_LOOP_BOUND);
-	for (int i = 0; i == 0 || SELECT(i, tid, REACQUIRE); i++) {
-		// By default NRECURSION == 1 and the loop executes only
-		// once. If REENTRANT is defined, thread 0 will reenter the
-		// critial section.
-		verification_loop_bound(REENTRANT_LOOP_BOUND);
-		for (int j = 0; j == 0 || SELECT(j, tid, REENTRANT); j++) {
-			acquire(tid);
-			cs();
-		}
-		verification_loop_bound(REENTRANT_LOOP_BOUND);
-		for (int j = 0; j == 0 || SELECT(j, tid, REENTRANT); j++) {
-			release(tid);
-		}
-	}
-	return NULL;
+    // By default thread 0 runs the following loop twice othread threads
+    // run it only once.
+    verification_loop_bound(REACQUIRE_LOOP_BOUND);
+    for (int i = 0; i == 0 || SELECT(i, tid, REACQUIRE); i++) {
+        // By default NRECURSION == 1 and the loop executes only
+        // once. If REENTRANT is defined, thread 0 will reenter the
+        // critial section.
+        verification_loop_bound(REENTRANT_LOOP_BOUND);
+        for (int j = 0; j == 0 || SELECT(j, tid, REENTRANT); j++) {
+            acquire(tid);
+            cs();
+        }
+        verification_loop_bound(REENTRANT_LOOP_BOUND);
+        for (int j = 0; j == 0 || SELECT(j, tid, REENTRANT); j++) {
+            release(tid);
+        }
+    }
+    return NULL;
 }
 
 int
 main(void)
 {
-	pthread_t t[NTHREADS];
+    pthread_t t[NTHREADS];
 #ifdef DEBUG
-	printf("TEST %s\n", __FILE__);
-	printf("NTHREADS: %u\n", NTHREADS);
-	printf("REACQUIRE: %u\n", REACQUIRE);
-	printf("REENTRANT: %u\n", REENTRANT);
+    printf("TEST %s\n", __FILE__);
+    printf("NTHREADS: %u\n", NTHREADS);
+    printf("REACQUIRE: %u\n", REACQUIRE);
+    printf("REENTRANT: %u\n", REENTRANT);
 #endif
 
-	init();
+    init();
 
-	for (vuintptr_t i = 0; i < NTHREADS; i++) {
-		(void)pthread_create(&t[i], 0, run, (void *)i);
-	}
+    for (vuintptr_t i = 0; i < NTHREADS; i++) {
+        (void)pthread_create(&t[i], 0, run, (void *)i);
+    }
 
-	post();
+    post();
 
-	for (vuintptr_t i = 0; i < NTHREADS; i++) {
-		(void)pthread_join(t[i], NULL);
-	}
+    for (vuintptr_t i = 0; i < NTHREADS; i++) {
+        (void)pthread_join(t[i], NULL);
+    }
 
 #ifdef DEBUG
-	printf("FINAL: g_cs_x = %d  g_cs_y = %d  (expected %d)\n", g_cs_x, g_cs_y,
-		   FINAL_COUNT);
+    printf("FINAL: g_cs_x = %d  g_cs_y = %d  (expected %d)\n", g_cs_x, g_cs_y,
+           FINAL_COUNT);
 #endif
 
-	check();
-	fini();
+    check();
+    fini();
 
-	return 0;
+    return 0;
 }
 #endif

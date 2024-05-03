@@ -19,19 +19,19 @@ vbool_t deq_succeeded = false;
 void
 t1(vsize_t tid)
 {
-	data_t *node = NULL;
+    data_t *node = NULL;
 
-	enq(tid, 3, 'A'); // reuses nothing
+    enq(tid, 3, 'A'); // reuses nothing
 
-	node = deq(tid);
-	ASSERT(node);
-	ASSERT(node->key == 1);
-	free(node);
+    node = deq(tid);
+    ASSERT(node);
+    ASSERT(node->key == 1);
+    free(node);
 
-	node = deq(tid);
-	ASSERT(node);
-	ASSERT(node->key == 2);
-	free(node);
+    node = deq(tid);
+    ASSERT(node);
+    ASSERT(node->key == 2);
+    free(node);
 }
 
 /**
@@ -41,7 +41,7 @@ t1(vsize_t tid)
 void
 t2(vsize_t tid)
 {
-	enq(tid, 4, 'B');
+    enq(tid, 4, 'B');
 }
 /**
  * for thread with tid = 2
@@ -50,10 +50,10 @@ t2(vsize_t tid)
 void
 t3(vsize_t tid)
 {
-	queue_clean(tid);
+    queue_clean(tid);
 }
 void
 verify(void)
 {
-	ASSERT(g_len == 2);
+    ASSERT(g_len == 2);
 }

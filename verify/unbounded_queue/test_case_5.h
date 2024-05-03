@@ -15,9 +15,9 @@
 void
 t1(vsize_t tid)
 {
-	enq(tid, 2, 'A');
-	void *data = deq(tid);
-	free(data);
+    enq(tid, 2, 'A');
+    void *data = deq(tid);
+    free(data);
 }
 
 /**
@@ -28,9 +28,9 @@ int msg = 0;
 void
 t2(vsize_t tid)
 {
-	msg		   = 1;
-	void *data = deq(tid);
-	free(data);
+    msg        = 1;
+    void *data = deq(tid);
+    free(data);
 }
 /**
  * for thread with tid = 2
@@ -39,15 +39,15 @@ t2(vsize_t tid)
 void
 t3(vsize_t tid)
 {
-	/* must imply both dequeues are done and thus the msg must be passed */
-	if (empty(tid)) {
-		ASSERT(msg == 1);
-	} else {
-		queue_clean(tid);
-	}
+    /* must imply both dequeues are done and thus the msg must be passed */
+    if (empty(tid)) {
+        ASSERT(msg == 1);
+    } else {
+        queue_clean(tid);
+    }
 }
 void
 verify(void)
 {
-	ASSERT(g_len == 0);
+    ASSERT(g_len == 0);
 }

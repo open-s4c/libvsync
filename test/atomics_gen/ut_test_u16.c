@@ -14,10 +14,10 @@
 static inline void
 ut_atomic_u16_read(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t val	= vatomic16_read(&obj);
-	ASSERT(val == (vuint16_t)1);
-	V_UNUSED(val);
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t val   = vatomic16_read(&obj);
+    ASSERT(val == (vuint16_t)1);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_read_acq
@@ -25,10 +25,10 @@ ut_atomic_u16_read(void)
 static inline void
 ut_atomic_u16_read_acq(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t val	= vatomic16_read_acq(&obj);
-	ASSERT(val == (vuint16_t)1);
-	V_UNUSED(val);
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t val   = vatomic16_read_acq(&obj);
+    ASSERT(val == (vuint16_t)1);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_read_rlx
@@ -36,10 +36,10 @@ ut_atomic_u16_read_acq(void)
 static inline void
 ut_atomic_u16_read_rlx(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t val	= vatomic16_read_rlx(&obj);
-	ASSERT(val == (vuint16_t)1);
-	V_UNUSED(val);
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t val   = vatomic16_read_rlx(&obj);
+    ASSERT(val == (vuint16_t)1);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_init
@@ -47,13 +47,13 @@ ut_atomic_u16_read_rlx(void)
 static inline void
 ut_atomic_u16_init(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t val	= vatomic16_read(&obj);
-	ASSERT(val == (vuint16_t)1);
-	vatomic16_init(&obj, VUINT16_MAX);
-	val = vatomic16_read(&obj);
-	ASSERT(val == VUINT16_MAX);
-	V_UNUSED(val);
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t val   = vatomic16_read(&obj);
+    ASSERT(val == (vuint16_t)1);
+    vatomic16_init(&obj, VUINT16_MAX);
+    val = vatomic16_read(&obj);
+    ASSERT(val == VUINT16_MAX);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_write
@@ -61,13 +61,13 @@ ut_atomic_u16_init(void)
 static inline void
 ut_atomic_u16_write(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t val	= vatomic16_read(&obj);
-	ASSERT(val == (vuint16_t)1);
-	vatomic16_write(&obj, VUINT16_MAX);
-	val = vatomic16_read(&obj);
-	ASSERT(val == VUINT16_MAX);
-	V_UNUSED(val);
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t val   = vatomic16_read(&obj);
+    ASSERT(val == (vuint16_t)1);
+    vatomic16_write(&obj, VUINT16_MAX);
+    val = vatomic16_read(&obj);
+    ASSERT(val == VUINT16_MAX);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_write_rel
@@ -75,13 +75,13 @@ ut_atomic_u16_write(void)
 static inline void
 ut_atomic_u16_write_rel(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t val	= vatomic16_read(&obj);
-	ASSERT(val == (vuint16_t)1);
-	vatomic16_write_rel(&obj, VUINT16_MAX);
-	val = vatomic16_read(&obj);
-	ASSERT(val == VUINT16_MAX);
-	V_UNUSED(val);
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t val   = vatomic16_read(&obj);
+    ASSERT(val == (vuint16_t)1);
+    vatomic16_write_rel(&obj, VUINT16_MAX);
+    val = vatomic16_read(&obj);
+    ASSERT(val == VUINT16_MAX);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_write_rlx
@@ -89,13 +89,13 @@ ut_atomic_u16_write_rel(void)
 static inline void
 ut_atomic_u16_write_rlx(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t val	= vatomic16_read(&obj);
-	ASSERT(val == (vuint16_t)1);
-	vatomic16_write_rlx(&obj, VUINT16_MAX);
-	val = vatomic16_read(&obj);
-	ASSERT(val == VUINT16_MAX);
-	V_UNUSED(val);
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t val   = vatomic16_read(&obj);
+    ASSERT(val == (vuint16_t)1);
+    vatomic16_write_rlx(&obj, VUINT16_MAX);
+    val = vatomic16_read(&obj);
+    ASSERT(val == VUINT16_MAX);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_xchg
@@ -103,14 +103,14 @@ ut_atomic_u16_write_rlx(void)
 static inline void
 ut_atomic_u16_xchg(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t val	= vatomic16_read(&obj);
-	ASSERT(val == (vuint16_t)1);
-	vuint16_t old = vatomic16_xchg(&obj, VUINT16_MAX);
-	ASSERT(old == (vuint16_t)1);
-	val = vatomic16_read(&obj);
-	ASSERT(val == VUINT16_MAX);
-	V_UNUSED(val, old);
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t val   = vatomic16_read(&obj);
+    ASSERT(val == (vuint16_t)1);
+    vuint16_t old = vatomic16_xchg(&obj, VUINT16_MAX);
+    ASSERT(old == (vuint16_t)1);
+    val = vatomic16_read(&obj);
+    ASSERT(val == VUINT16_MAX);
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_xchg_acq
@@ -118,14 +118,14 @@ ut_atomic_u16_xchg(void)
 static inline void
 ut_atomic_u16_xchg_acq(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t val	= vatomic16_read(&obj);
-	ASSERT(val == (vuint16_t)1);
-	vuint16_t old = vatomic16_xchg_acq(&obj, VUINT16_MAX);
-	ASSERT(old == (vuint16_t)1);
-	val = vatomic16_read(&obj);
-	ASSERT(val == VUINT16_MAX);
-	V_UNUSED(val, old);
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t val   = vatomic16_read(&obj);
+    ASSERT(val == (vuint16_t)1);
+    vuint16_t old = vatomic16_xchg_acq(&obj, VUINT16_MAX);
+    ASSERT(old == (vuint16_t)1);
+    val = vatomic16_read(&obj);
+    ASSERT(val == VUINT16_MAX);
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_xchg_rel
@@ -133,14 +133,14 @@ ut_atomic_u16_xchg_acq(void)
 static inline void
 ut_atomic_u16_xchg_rel(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t val	= vatomic16_read(&obj);
-	ASSERT(val == (vuint16_t)1);
-	vuint16_t old = vatomic16_xchg_rel(&obj, VUINT16_MAX);
-	ASSERT(old == (vuint16_t)1);
-	val = vatomic16_read(&obj);
-	ASSERT(val == VUINT16_MAX);
-	V_UNUSED(val, old);
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t val   = vatomic16_read(&obj);
+    ASSERT(val == (vuint16_t)1);
+    vuint16_t old = vatomic16_xchg_rel(&obj, VUINT16_MAX);
+    ASSERT(old == (vuint16_t)1);
+    val = vatomic16_read(&obj);
+    ASSERT(val == VUINT16_MAX);
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_xchg_rlx
@@ -148,14 +148,14 @@ ut_atomic_u16_xchg_rel(void)
 static inline void
 ut_atomic_u16_xchg_rlx(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t val	= vatomic16_read(&obj);
-	ASSERT(val == (vuint16_t)1);
-	vuint16_t old = vatomic16_xchg_rlx(&obj, VUINT16_MAX);
-	ASSERT(old == (vuint16_t)1);
-	val = vatomic16_read(&obj);
-	ASSERT(val == VUINT16_MAX);
-	V_UNUSED(val, old);
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t val   = vatomic16_read(&obj);
+    ASSERT(val == (vuint16_t)1);
+    vuint16_t old = vatomic16_xchg_rlx(&obj, VUINT16_MAX);
+    ASSERT(old == (vuint16_t)1);
+    val = vatomic16_read(&obj);
+    ASSERT(val == VUINT16_MAX);
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_cmpxchg
@@ -163,18 +163,18 @@ ut_atomic_u16_xchg_rlx(void)
 static inline void
 ut_atomic_u16_cmpxchg(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	/* test failure */
-	vuint16_t old = vatomic16_cmpxchg(&obj, VUINT16_MAX, (vuint16_t)1);
-	ASSERT(old == (vuint16_t)1);
-	vuint16_t val = vatomic16_read(&obj);
-	ASSERT(val == old);
-	/* test success */
-	old = vatomic16_cmpxchg(&obj, (vuint16_t)1, VUINT16_MAX);
-	ASSERT(old == (vuint16_t)1);
-	val = vatomic16_read(&obj);
-	ASSERT(val == VUINT16_MAX);
-	V_UNUSED(val, old);
+    vatomic16_t obj = {(vuint16_t)1};
+    /* test failure */
+    vuint16_t old = vatomic16_cmpxchg(&obj, VUINT16_MAX, (vuint16_t)1);
+    ASSERT(old == (vuint16_t)1);
+    vuint16_t val = vatomic16_read(&obj);
+    ASSERT(val == old);
+    /* test success */
+    old = vatomic16_cmpxchg(&obj, (vuint16_t)1, VUINT16_MAX);
+    ASSERT(old == (vuint16_t)1);
+    val = vatomic16_read(&obj);
+    ASSERT(val == VUINT16_MAX);
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_cmpxchg_acq
@@ -182,18 +182,18 @@ ut_atomic_u16_cmpxchg(void)
 static inline void
 ut_atomic_u16_cmpxchg_acq(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	/* test failure */
-	vuint16_t old = vatomic16_cmpxchg_acq(&obj, VUINT16_MAX, (vuint16_t)1);
-	ASSERT(old == (vuint16_t)1);
-	vuint16_t val = vatomic16_read(&obj);
-	ASSERT(val == old);
-	/* test success */
-	old = vatomic16_cmpxchg_acq(&obj, (vuint16_t)1, VUINT16_MAX);
-	ASSERT(old == (vuint16_t)1);
-	val = vatomic16_read(&obj);
-	ASSERT(val == VUINT16_MAX);
-	V_UNUSED(val, old);
+    vatomic16_t obj = {(vuint16_t)1};
+    /* test failure */
+    vuint16_t old = vatomic16_cmpxchg_acq(&obj, VUINT16_MAX, (vuint16_t)1);
+    ASSERT(old == (vuint16_t)1);
+    vuint16_t val = vatomic16_read(&obj);
+    ASSERT(val == old);
+    /* test success */
+    old = vatomic16_cmpxchg_acq(&obj, (vuint16_t)1, VUINT16_MAX);
+    ASSERT(old == (vuint16_t)1);
+    val = vatomic16_read(&obj);
+    ASSERT(val == VUINT16_MAX);
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_cmpxchg_rel
@@ -201,18 +201,18 @@ ut_atomic_u16_cmpxchg_acq(void)
 static inline void
 ut_atomic_u16_cmpxchg_rel(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	/* test failure */
-	vuint16_t old = vatomic16_cmpxchg_rel(&obj, VUINT16_MAX, (vuint16_t)1);
-	ASSERT(old == (vuint16_t)1);
-	vuint16_t val = vatomic16_read(&obj);
-	ASSERT(val == old);
-	/* test success */
-	old = vatomic16_cmpxchg_rel(&obj, (vuint16_t)1, VUINT16_MAX);
-	ASSERT(old == (vuint16_t)1);
-	val = vatomic16_read(&obj);
-	ASSERT(val == VUINT16_MAX);
-	V_UNUSED(val, old);
+    vatomic16_t obj = {(vuint16_t)1};
+    /* test failure */
+    vuint16_t old = vatomic16_cmpxchg_rel(&obj, VUINT16_MAX, (vuint16_t)1);
+    ASSERT(old == (vuint16_t)1);
+    vuint16_t val = vatomic16_read(&obj);
+    ASSERT(val == old);
+    /* test success */
+    old = vatomic16_cmpxchg_rel(&obj, (vuint16_t)1, VUINT16_MAX);
+    ASSERT(old == (vuint16_t)1);
+    val = vatomic16_read(&obj);
+    ASSERT(val == VUINT16_MAX);
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_cmpxchg_rlx
@@ -220,18 +220,18 @@ ut_atomic_u16_cmpxchg_rel(void)
 static inline void
 ut_atomic_u16_cmpxchg_rlx(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	/* test failure */
-	vuint16_t old = vatomic16_cmpxchg_rlx(&obj, VUINT16_MAX, (vuint16_t)1);
-	ASSERT(old == (vuint16_t)1);
-	vuint16_t val = vatomic16_read(&obj);
-	ASSERT(val == old);
-	/* test success */
-	old = vatomic16_cmpxchg_rlx(&obj, (vuint16_t)1, VUINT16_MAX);
-	ASSERT(old == (vuint16_t)1);
-	val = vatomic16_read(&obj);
-	ASSERT(val == VUINT16_MAX);
-	V_UNUSED(val, old);
+    vatomic16_t obj = {(vuint16_t)1};
+    /* test failure */
+    vuint16_t old = vatomic16_cmpxchg_rlx(&obj, VUINT16_MAX, (vuint16_t)1);
+    ASSERT(old == (vuint16_t)1);
+    vuint16_t val = vatomic16_read(&obj);
+    ASSERT(val == old);
+    /* test success */
+    old = vatomic16_cmpxchg_rlx(&obj, (vuint16_t)1, VUINT16_MAX);
+    ASSERT(old == (vuint16_t)1);
+    val = vatomic16_read(&obj);
+    ASSERT(val == VUINT16_MAX);
+    V_UNUSED(val, old);
 }
 /* ****************************************************************************
  * UnitTest: vatomic16_add
@@ -239,18 +239,18 @@ ut_atomic_u16_cmpxchg_rlx(void)
 static inline void
 ut_atomic_u16_add(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t val	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t val   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		vatomic16_add(&obj, v);
-		ref += v;
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        vatomic16_add(&obj, v);
+        ref += v;
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val);
 }
 /* ****************************************************************************
  * UnitTest: vatomic16_add_rel
@@ -258,18 +258,18 @@ ut_atomic_u16_add(void)
 static inline void
 ut_atomic_u16_add_rel(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t val	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t val   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		vatomic16_add_rel(&obj, v);
-		ref += v;
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        vatomic16_add_rel(&obj, v);
+        ref += v;
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val);
 }
 /* ****************************************************************************
  * UnitTest: vatomic16_add_rlx
@@ -277,18 +277,18 @@ ut_atomic_u16_add_rel(void)
 static inline void
 ut_atomic_u16_add_rlx(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t val	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t val   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		vatomic16_add_rlx(&obj, v);
-		ref += v;
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        vatomic16_add_rlx(&obj, v);
+        ref += v;
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_get_add
@@ -296,20 +296,20 @@ ut_atomic_u16_add_rlx(void)
 static inline void
 ut_atomic_u16_get_add(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t val	= 0;
-	vuint16_t old	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t val   = 0;
+    vuint16_t old   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		old = vatomic16_get_add(&obj, v);
-		ASSERT(old == ref);
-		ref += v;
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, old);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        old = vatomic16_get_add(&obj, v);
+        ASSERT(old == ref);
+        ref += v;
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_add_get
@@ -317,20 +317,20 @@ ut_atomic_u16_get_add(void)
 static inline void
 ut_atomic_u16_add_get(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t val	= 0;
-	vuint16_t cur	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t val   = 0;
+    vuint16_t cur   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		cur = vatomic16_add_get(&obj, v);
-		ref += v;
-		ASSERT(cur == ref);
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, cur);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        cur = vatomic16_add_get(&obj, v);
+        ref += v;
+        ASSERT(cur == ref);
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_get_add_acq
@@ -338,20 +338,20 @@ ut_atomic_u16_add_get(void)
 static inline void
 ut_atomic_u16_get_add_acq(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t val	= 0;
-	vuint16_t old	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t val   = 0;
+    vuint16_t old   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		old = vatomic16_get_add_acq(&obj, v);
-		ASSERT(old == ref);
-		ref += v;
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, old);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        old = vatomic16_get_add_acq(&obj, v);
+        ASSERT(old == ref);
+        ref += v;
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_add_get_acq
@@ -359,20 +359,20 @@ ut_atomic_u16_get_add_acq(void)
 static inline void
 ut_atomic_u16_add_get_acq(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t val	= 0;
-	vuint16_t cur	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t val   = 0;
+    vuint16_t cur   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		cur = vatomic16_add_get_acq(&obj, v);
-		ref += v;
-		ASSERT(cur == ref);
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, cur);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        cur = vatomic16_add_get_acq(&obj, v);
+        ref += v;
+        ASSERT(cur == ref);
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_get_add_rel
@@ -380,20 +380,20 @@ ut_atomic_u16_add_get_acq(void)
 static inline void
 ut_atomic_u16_get_add_rel(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t val	= 0;
-	vuint16_t old	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t val   = 0;
+    vuint16_t old   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		old = vatomic16_get_add_rel(&obj, v);
-		ASSERT(old == ref);
-		ref += v;
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, old);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        old = vatomic16_get_add_rel(&obj, v);
+        ASSERT(old == ref);
+        ref += v;
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_add_get_rel
@@ -401,20 +401,20 @@ ut_atomic_u16_get_add_rel(void)
 static inline void
 ut_atomic_u16_add_get_rel(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t val	= 0;
-	vuint16_t cur	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t val   = 0;
+    vuint16_t cur   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		cur = vatomic16_add_get_rel(&obj, v);
-		ref += v;
-		ASSERT(cur == ref);
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, cur);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        cur = vatomic16_add_get_rel(&obj, v);
+        ref += v;
+        ASSERT(cur == ref);
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_get_add_rlx
@@ -422,20 +422,20 @@ ut_atomic_u16_add_get_rel(void)
 static inline void
 ut_atomic_u16_get_add_rlx(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t val	= 0;
-	vuint16_t old	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t val   = 0;
+    vuint16_t old   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		old = vatomic16_get_add_rlx(&obj, v);
-		ASSERT(old == ref);
-		ref += v;
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, old);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        old = vatomic16_get_add_rlx(&obj, v);
+        ASSERT(old == ref);
+        ref += v;
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_add_get_rlx
@@ -443,20 +443,20 @@ ut_atomic_u16_get_add_rlx(void)
 static inline void
 ut_atomic_u16_add_get_rlx(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t val	= 0;
-	vuint16_t cur	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t val   = 0;
+    vuint16_t cur   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		cur = vatomic16_add_get_rlx(&obj, v);
-		ref += v;
-		ASSERT(cur == ref);
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, cur);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        cur = vatomic16_add_get_rlx(&obj, v);
+        ref += v;
+        ASSERT(cur == ref);
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, cur);
 }
 /* ****************************************************************************
  * UnitTest: vatomic16_inc
@@ -464,18 +464,18 @@ ut_atomic_u16_add_get_rlx(void)
 static inline void
 ut_atomic_u16_inc(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t val	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t val   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		vatomic16_inc(&obj);
-		ref++;
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        vatomic16_inc(&obj);
+        ref++;
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val);
 }
 /* ****************************************************************************
  * UnitTest: vatomic16_inc_rel
@@ -483,18 +483,18 @@ ut_atomic_u16_inc(void)
 static inline void
 ut_atomic_u16_inc_rel(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t val	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t val   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		vatomic16_inc_rel(&obj);
-		ref++;
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        vatomic16_inc_rel(&obj);
+        ref++;
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val);
 }
 /* ****************************************************************************
  * UnitTest: vatomic16_inc_rlx
@@ -502,18 +502,18 @@ ut_atomic_u16_inc_rel(void)
 static inline void
 ut_atomic_u16_inc_rlx(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t val	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t val   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		vatomic16_inc_rlx(&obj);
-		ref++;
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        vatomic16_inc_rlx(&obj);
+        ref++;
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_get_inc
@@ -521,20 +521,20 @@ ut_atomic_u16_inc_rlx(void)
 static inline void
 ut_atomic_u16_get_inc(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t val	= 0;
-	vuint16_t old	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t val   = 0;
+    vuint16_t old   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		old = vatomic16_get_inc(&obj);
-		ASSERT(old == ref);
-		ref++;
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, old);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        old = vatomic16_get_inc(&obj);
+        ASSERT(old == ref);
+        ref++;
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_inc_get
@@ -542,20 +542,20 @@ ut_atomic_u16_get_inc(void)
 static inline void
 ut_atomic_u16_inc_get(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t cur	= 0;
-	vuint16_t val	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t cur   = 0;
+    vuint16_t val   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		ref++;
-		cur = vatomic16_inc_get(&obj);
-		ASSERT(cur == ref);
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(cur, val);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        ref++;
+        cur = vatomic16_inc_get(&obj);
+        ASSERT(cur == ref);
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(cur, val);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_get_inc_acq
@@ -563,20 +563,20 @@ ut_atomic_u16_inc_get(void)
 static inline void
 ut_atomic_u16_get_inc_acq(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t val	= 0;
-	vuint16_t old	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t val   = 0;
+    vuint16_t old   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		old = vatomic16_get_inc_acq(&obj);
-		ASSERT(old == ref);
-		ref++;
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, old);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        old = vatomic16_get_inc_acq(&obj);
+        ASSERT(old == ref);
+        ref++;
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_inc_get_acq
@@ -584,20 +584,20 @@ ut_atomic_u16_get_inc_acq(void)
 static inline void
 ut_atomic_u16_inc_get_acq(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t cur	= 0;
-	vuint16_t val	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t cur   = 0;
+    vuint16_t val   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		ref++;
-		cur = vatomic16_inc_get_acq(&obj);
-		ASSERT(cur == ref);
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(cur, val);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        ref++;
+        cur = vatomic16_inc_get_acq(&obj);
+        ASSERT(cur == ref);
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(cur, val);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_get_inc_rel
@@ -605,20 +605,20 @@ ut_atomic_u16_inc_get_acq(void)
 static inline void
 ut_atomic_u16_get_inc_rel(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t val	= 0;
-	vuint16_t old	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t val   = 0;
+    vuint16_t old   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		old = vatomic16_get_inc_rel(&obj);
-		ASSERT(old == ref);
-		ref++;
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, old);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        old = vatomic16_get_inc_rel(&obj);
+        ASSERT(old == ref);
+        ref++;
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_inc_get_rel
@@ -626,20 +626,20 @@ ut_atomic_u16_get_inc_rel(void)
 static inline void
 ut_atomic_u16_inc_get_rel(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t cur	= 0;
-	vuint16_t val	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t cur   = 0;
+    vuint16_t val   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		ref++;
-		cur = vatomic16_inc_get_rel(&obj);
-		ASSERT(cur == ref);
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(cur, val);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        ref++;
+        cur = vatomic16_inc_get_rel(&obj);
+        ASSERT(cur == ref);
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(cur, val);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_get_inc_rlx
@@ -647,20 +647,20 @@ ut_atomic_u16_inc_get_rel(void)
 static inline void
 ut_atomic_u16_get_inc_rlx(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t val	= 0;
-	vuint16_t old	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t val   = 0;
+    vuint16_t old   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		old = vatomic16_get_inc_rlx(&obj);
-		ASSERT(old == ref);
-		ref++;
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, old);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        old = vatomic16_get_inc_rlx(&obj);
+        ASSERT(old == ref);
+        ref++;
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_inc_get_rlx
@@ -668,20 +668,20 @@ ut_atomic_u16_get_inc_rlx(void)
 static inline void
 ut_atomic_u16_inc_get_rlx(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t cur	= 0;
-	vuint16_t val	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t cur   = 0;
+    vuint16_t val   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		ref++;
-		cur = vatomic16_inc_get_rlx(&obj);
-		ASSERT(cur == ref);
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(cur, val);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        ref++;
+        cur = vatomic16_inc_get_rlx(&obj);
+        ASSERT(cur == ref);
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(cur, val);
 }
 /* ****************************************************************************
  * UnitTest: vatomic16_sub
@@ -689,18 +689,18 @@ ut_atomic_u16_inc_get_rlx(void)
 static inline void
 ut_atomic_u16_sub(void)
 {
-	vatomic16_t obj = {VUINT16_MAX};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= VUINT16_MAX;
-	vuint16_t val	= 0;
+    vatomic16_t obj = {VUINT16_MAX};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = VUINT16_MAX;
+    vuint16_t val   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		vatomic16_sub(&obj, v);
-		ref -= v;
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        vatomic16_sub(&obj, v);
+        ref -= v;
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val);
 }
 /* ****************************************************************************
  * UnitTest: vatomic16_sub_rel
@@ -708,18 +708,18 @@ ut_atomic_u16_sub(void)
 static inline void
 ut_atomic_u16_sub_rel(void)
 {
-	vatomic16_t obj = {VUINT16_MAX};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= VUINT16_MAX;
-	vuint16_t val	= 0;
+    vatomic16_t obj = {VUINT16_MAX};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = VUINT16_MAX;
+    vuint16_t val   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		vatomic16_sub_rel(&obj, v);
-		ref -= v;
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        vatomic16_sub_rel(&obj, v);
+        ref -= v;
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val);
 }
 /* ****************************************************************************
  * UnitTest: vatomic16_sub_rlx
@@ -727,18 +727,18 @@ ut_atomic_u16_sub_rel(void)
 static inline void
 ut_atomic_u16_sub_rlx(void)
 {
-	vatomic16_t obj = {VUINT16_MAX};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= VUINT16_MAX;
-	vuint16_t val	= 0;
+    vatomic16_t obj = {VUINT16_MAX};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = VUINT16_MAX;
+    vuint16_t val   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		vatomic16_sub_rlx(&obj, v);
-		ref -= v;
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        vatomic16_sub_rlx(&obj, v);
+        ref -= v;
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_get_sub
@@ -746,20 +746,20 @@ ut_atomic_u16_sub_rlx(void)
 static inline void
 ut_atomic_u16_get_sub(void)
 {
-	vatomic16_t obj = {VUINT16_MAX};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= VUINT16_MAX;
-	vuint16_t val	= 0;
-	vuint16_t old	= 0;
+    vatomic16_t obj = {VUINT16_MAX};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = VUINT16_MAX;
+    vuint16_t val   = 0;
+    vuint16_t old   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		old = vatomic16_get_sub(&obj, v);
-		ASSERT(old == ref);
-		ref -= v;
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, old);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        old = vatomic16_get_sub(&obj, v);
+        ASSERT(old == ref);
+        ref -= v;
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_sub_get
@@ -767,20 +767,20 @@ ut_atomic_u16_get_sub(void)
 static inline void
 ut_atomic_u16_sub_get(void)
 {
-	vatomic16_t obj = {VUINT16_MAX};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= VUINT16_MAX;
-	vuint16_t val	= 0;
-	vuint16_t cur	= 0;
+    vatomic16_t obj = {VUINT16_MAX};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = VUINT16_MAX;
+    vuint16_t val   = 0;
+    vuint16_t cur   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		cur = vatomic16_sub_get(&obj, v);
-		ref -= v;
-		ASSERT(cur == ref);
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, cur);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        cur = vatomic16_sub_get(&obj, v);
+        ref -= v;
+        ASSERT(cur == ref);
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_get_sub_acq
@@ -788,20 +788,20 @@ ut_atomic_u16_sub_get(void)
 static inline void
 ut_atomic_u16_get_sub_acq(void)
 {
-	vatomic16_t obj = {VUINT16_MAX};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= VUINT16_MAX;
-	vuint16_t val	= 0;
-	vuint16_t old	= 0;
+    vatomic16_t obj = {VUINT16_MAX};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = VUINT16_MAX;
+    vuint16_t val   = 0;
+    vuint16_t old   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		old = vatomic16_get_sub_acq(&obj, v);
-		ASSERT(old == ref);
-		ref -= v;
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, old);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        old = vatomic16_get_sub_acq(&obj, v);
+        ASSERT(old == ref);
+        ref -= v;
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_sub_get_acq
@@ -809,20 +809,20 @@ ut_atomic_u16_get_sub_acq(void)
 static inline void
 ut_atomic_u16_sub_get_acq(void)
 {
-	vatomic16_t obj = {VUINT16_MAX};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= VUINT16_MAX;
-	vuint16_t val	= 0;
-	vuint16_t cur	= 0;
+    vatomic16_t obj = {VUINT16_MAX};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = VUINT16_MAX;
+    vuint16_t val   = 0;
+    vuint16_t cur   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		cur = vatomic16_sub_get_acq(&obj, v);
-		ref -= v;
-		ASSERT(cur == ref);
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, cur);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        cur = vatomic16_sub_get_acq(&obj, v);
+        ref -= v;
+        ASSERT(cur == ref);
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_get_sub_rel
@@ -830,20 +830,20 @@ ut_atomic_u16_sub_get_acq(void)
 static inline void
 ut_atomic_u16_get_sub_rel(void)
 {
-	vatomic16_t obj = {VUINT16_MAX};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= VUINT16_MAX;
-	vuint16_t val	= 0;
-	vuint16_t old	= 0;
+    vatomic16_t obj = {VUINT16_MAX};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = VUINT16_MAX;
+    vuint16_t val   = 0;
+    vuint16_t old   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		old = vatomic16_get_sub_rel(&obj, v);
-		ASSERT(old == ref);
-		ref -= v;
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, old);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        old = vatomic16_get_sub_rel(&obj, v);
+        ASSERT(old == ref);
+        ref -= v;
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_sub_get_rel
@@ -851,20 +851,20 @@ ut_atomic_u16_get_sub_rel(void)
 static inline void
 ut_atomic_u16_sub_get_rel(void)
 {
-	vatomic16_t obj = {VUINT16_MAX};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= VUINT16_MAX;
-	vuint16_t val	= 0;
-	vuint16_t cur	= 0;
+    vatomic16_t obj = {VUINT16_MAX};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = VUINT16_MAX;
+    vuint16_t val   = 0;
+    vuint16_t cur   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		cur = vatomic16_sub_get_rel(&obj, v);
-		ref -= v;
-		ASSERT(cur == ref);
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, cur);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        cur = vatomic16_sub_get_rel(&obj, v);
+        ref -= v;
+        ASSERT(cur == ref);
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_get_sub_rlx
@@ -872,20 +872,20 @@ ut_atomic_u16_sub_get_rel(void)
 static inline void
 ut_atomic_u16_get_sub_rlx(void)
 {
-	vatomic16_t obj = {VUINT16_MAX};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= VUINT16_MAX;
-	vuint16_t val	= 0;
-	vuint16_t old	= 0;
+    vatomic16_t obj = {VUINT16_MAX};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = VUINT16_MAX;
+    vuint16_t val   = 0;
+    vuint16_t old   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		old = vatomic16_get_sub_rlx(&obj, v);
-		ASSERT(old == ref);
-		ref -= v;
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, old);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        old = vatomic16_get_sub_rlx(&obj, v);
+        ASSERT(old == ref);
+        ref -= v;
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_sub_get_rlx
@@ -893,20 +893,20 @@ ut_atomic_u16_get_sub_rlx(void)
 static inline void
 ut_atomic_u16_sub_get_rlx(void)
 {
-	vatomic16_t obj = {VUINT16_MAX};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= VUINT16_MAX;
-	vuint16_t val	= 0;
-	vuint16_t cur	= 0;
+    vatomic16_t obj = {VUINT16_MAX};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = VUINT16_MAX;
+    vuint16_t val   = 0;
+    vuint16_t cur   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		cur = vatomic16_sub_get_rlx(&obj, v);
-		ref -= v;
-		ASSERT(cur == ref);
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, cur);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        cur = vatomic16_sub_get_rlx(&obj, v);
+        ref -= v;
+        ASSERT(cur == ref);
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, cur);
 }
 /* ****************************************************************************
  * UnitTest: vatomic16_dec
@@ -914,18 +914,18 @@ ut_atomic_u16_sub_get_rlx(void)
 static inline void
 ut_atomic_u16_dec(void)
 {
-	vatomic16_t obj = {VUINT16_MAX};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= VUINT16_MAX;
-	vuint16_t val	= 0;
+    vatomic16_t obj = {VUINT16_MAX};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = VUINT16_MAX;
+    vuint16_t val   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		vatomic16_dec(&obj);
-		ref--;
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        vatomic16_dec(&obj);
+        ref--;
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val);
 }
 /* ****************************************************************************
  * UnitTest: vatomic16_dec_rel
@@ -933,18 +933,18 @@ ut_atomic_u16_dec(void)
 static inline void
 ut_atomic_u16_dec_rel(void)
 {
-	vatomic16_t obj = {VUINT16_MAX};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= VUINT16_MAX;
-	vuint16_t val	= 0;
+    vatomic16_t obj = {VUINT16_MAX};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = VUINT16_MAX;
+    vuint16_t val   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		vatomic16_dec_rel(&obj);
-		ref--;
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        vatomic16_dec_rel(&obj);
+        ref--;
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val);
 }
 /* ****************************************************************************
  * UnitTest: vatomic16_dec_rlx
@@ -952,18 +952,18 @@ ut_atomic_u16_dec_rel(void)
 static inline void
 ut_atomic_u16_dec_rlx(void)
 {
-	vatomic16_t obj = {VUINT16_MAX};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= VUINT16_MAX;
-	vuint16_t val	= 0;
+    vatomic16_t obj = {VUINT16_MAX};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = VUINT16_MAX;
+    vuint16_t val   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		vatomic16_dec_rlx(&obj);
-		ref--;
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        vatomic16_dec_rlx(&obj);
+        ref--;
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_get_dec
@@ -971,20 +971,20 @@ ut_atomic_u16_dec_rlx(void)
 static inline void
 ut_atomic_u16_get_dec(void)
 {
-	vatomic16_t obj = {VUINT16_MAX};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= VUINT16_MAX;
-	vuint16_t old	= 0;
-	vuint16_t val	= 0;
+    vatomic16_t obj = {VUINT16_MAX};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = VUINT16_MAX;
+    vuint16_t old   = 0;
+    vuint16_t val   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		old = vatomic16_get_dec(&obj);
-		ASSERT(old == ref);
-		ref--;
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(old, val);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        old = vatomic16_get_dec(&obj);
+        ASSERT(old == ref);
+        ref--;
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(old, val);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_dec_get
@@ -992,20 +992,20 @@ ut_atomic_u16_get_dec(void)
 static inline void
 ut_atomic_u16_dec_get(void)
 {
-	vatomic16_t obj = {VUINT16_MAX};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= VUINT16_MAX;
-	vuint16_t cur	= 0;
-	vuint16_t val	= 0;
+    vatomic16_t obj = {VUINT16_MAX};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = VUINT16_MAX;
+    vuint16_t cur   = 0;
+    vuint16_t val   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		ref--;
-		cur = vatomic16_dec_get(&obj);
-		ASSERT(cur == ref);
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(cur, val);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        ref--;
+        cur = vatomic16_dec_get(&obj);
+        ASSERT(cur == ref);
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(cur, val);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_get_dec_acq
@@ -1013,20 +1013,20 @@ ut_atomic_u16_dec_get(void)
 static inline void
 ut_atomic_u16_get_dec_acq(void)
 {
-	vatomic16_t obj = {VUINT16_MAX};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= VUINT16_MAX;
-	vuint16_t old	= 0;
-	vuint16_t val	= 0;
+    vatomic16_t obj = {VUINT16_MAX};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = VUINT16_MAX;
+    vuint16_t old   = 0;
+    vuint16_t val   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		old = vatomic16_get_dec_acq(&obj);
-		ASSERT(old == ref);
-		ref--;
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(old, val);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        old = vatomic16_get_dec_acq(&obj);
+        ASSERT(old == ref);
+        ref--;
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(old, val);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_dec_get_acq
@@ -1034,20 +1034,20 @@ ut_atomic_u16_get_dec_acq(void)
 static inline void
 ut_atomic_u16_dec_get_acq(void)
 {
-	vatomic16_t obj = {VUINT16_MAX};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= VUINT16_MAX;
-	vuint16_t cur	= 0;
-	vuint16_t val	= 0;
+    vatomic16_t obj = {VUINT16_MAX};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = VUINT16_MAX;
+    vuint16_t cur   = 0;
+    vuint16_t val   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		ref--;
-		cur = vatomic16_dec_get_acq(&obj);
-		ASSERT(cur == ref);
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(cur, val);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        ref--;
+        cur = vatomic16_dec_get_acq(&obj);
+        ASSERT(cur == ref);
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(cur, val);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_get_dec_rel
@@ -1055,20 +1055,20 @@ ut_atomic_u16_dec_get_acq(void)
 static inline void
 ut_atomic_u16_get_dec_rel(void)
 {
-	vatomic16_t obj = {VUINT16_MAX};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= VUINT16_MAX;
-	vuint16_t old	= 0;
-	vuint16_t val	= 0;
+    vatomic16_t obj = {VUINT16_MAX};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = VUINT16_MAX;
+    vuint16_t old   = 0;
+    vuint16_t val   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		old = vatomic16_get_dec_rel(&obj);
-		ASSERT(old == ref);
-		ref--;
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(old, val);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        old = vatomic16_get_dec_rel(&obj);
+        ASSERT(old == ref);
+        ref--;
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(old, val);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_dec_get_rel
@@ -1076,20 +1076,20 @@ ut_atomic_u16_get_dec_rel(void)
 static inline void
 ut_atomic_u16_dec_get_rel(void)
 {
-	vatomic16_t obj = {VUINT16_MAX};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= VUINT16_MAX;
-	vuint16_t cur	= 0;
-	vuint16_t val	= 0;
+    vatomic16_t obj = {VUINT16_MAX};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = VUINT16_MAX;
+    vuint16_t cur   = 0;
+    vuint16_t val   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		ref--;
-		cur = vatomic16_dec_get_rel(&obj);
-		ASSERT(cur == ref);
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(cur, val);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        ref--;
+        cur = vatomic16_dec_get_rel(&obj);
+        ASSERT(cur == ref);
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(cur, val);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_get_dec_rlx
@@ -1097,20 +1097,20 @@ ut_atomic_u16_dec_get_rel(void)
 static inline void
 ut_atomic_u16_get_dec_rlx(void)
 {
-	vatomic16_t obj = {VUINT16_MAX};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= VUINT16_MAX;
-	vuint16_t old	= 0;
-	vuint16_t val	= 0;
+    vatomic16_t obj = {VUINT16_MAX};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = VUINT16_MAX;
+    vuint16_t old   = 0;
+    vuint16_t val   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		old = vatomic16_get_dec_rlx(&obj);
-		ASSERT(old == ref);
-		ref--;
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(old, val);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        old = vatomic16_get_dec_rlx(&obj);
+        ASSERT(old == ref);
+        ref--;
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(old, val);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_dec_get_rlx
@@ -1118,20 +1118,20 @@ ut_atomic_u16_get_dec_rlx(void)
 static inline void
 ut_atomic_u16_dec_get_rlx(void)
 {
-	vatomic16_t obj = {VUINT16_MAX};
-	vuint16_t max	= (vuint16_t)1 + (vuint16_t)10;
-	vuint16_t ref	= VUINT16_MAX;
-	vuint16_t cur	= 0;
-	vuint16_t val	= 0;
+    vatomic16_t obj = {VUINT16_MAX};
+    vuint16_t max   = (vuint16_t)1 + (vuint16_t)10;
+    vuint16_t ref   = VUINT16_MAX;
+    vuint16_t cur   = 0;
+    vuint16_t val   = 0;
 
-	for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
-		ref--;
-		cur = vatomic16_dec_get_rlx(&obj);
-		ASSERT(cur == ref);
-		val = vatomic16_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(cur, val);
+    for (vuint16_t v = (vuint16_t)1; v <= max; v++) {
+        ref--;
+        cur = vatomic16_dec_get_rlx(&obj);
+        ASSERT(cur == ref);
+        val = vatomic16_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(cur, val);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_max
@@ -1139,18 +1139,18 @@ ut_atomic_u16_dec_get_rlx(void)
 static inline void
 ut_atomic_u16_max(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
+    vatomic16_t obj = {(vuint16_t)1};
 
-	/* test write */
-	vatomic16_max(&obj, VUINT16_MAX);
-	vuint16_t val = vatomic16_read(&obj);
-	ASSERT(val == VUINT16_MAX);
+    /* test write */
+    vatomic16_max(&obj, VUINT16_MAX);
+    vuint16_t val = vatomic16_read(&obj);
+    ASSERT(val == VUINT16_MAX);
 
-	/* test no write */
-	vatomic16_max(&obj, (vuint16_t)1);
-	val = vatomic16_read(&obj);
-	ASSERT(val == VUINT16_MAX);
-	V_UNUSED(val);
+    /* test no write */
+    vatomic16_max(&obj, (vuint16_t)1);
+    val = vatomic16_read(&obj);
+    ASSERT(val == VUINT16_MAX);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_max_rel
@@ -1158,18 +1158,18 @@ ut_atomic_u16_max(void)
 static inline void
 ut_atomic_u16_max_rel(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
+    vatomic16_t obj = {(vuint16_t)1};
 
-	/* test write */
-	vatomic16_max_rel(&obj, VUINT16_MAX);
-	vuint16_t val = vatomic16_read(&obj);
-	ASSERT(val == VUINT16_MAX);
+    /* test write */
+    vatomic16_max_rel(&obj, VUINT16_MAX);
+    vuint16_t val = vatomic16_read(&obj);
+    ASSERT(val == VUINT16_MAX);
 
-	/* test no write */
-	vatomic16_max_rel(&obj, (vuint16_t)1);
-	val = vatomic16_read(&obj);
-	ASSERT(val == VUINT16_MAX);
-	V_UNUSED(val);
+    /* test no write */
+    vatomic16_max_rel(&obj, (vuint16_t)1);
+    val = vatomic16_read(&obj);
+    ASSERT(val == VUINT16_MAX);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_max_rlx
@@ -1177,18 +1177,18 @@ ut_atomic_u16_max_rel(void)
 static inline void
 ut_atomic_u16_max_rlx(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
+    vatomic16_t obj = {(vuint16_t)1};
 
-	/* test write */
-	vatomic16_max_rlx(&obj, VUINT16_MAX);
-	vuint16_t val = vatomic16_read(&obj);
-	ASSERT(val == VUINT16_MAX);
+    /* test write */
+    vatomic16_max_rlx(&obj, VUINT16_MAX);
+    vuint16_t val = vatomic16_read(&obj);
+    ASSERT(val == VUINT16_MAX);
 
-	/* test no write */
-	vatomic16_max_rlx(&obj, (vuint16_t)1);
-	val = vatomic16_read(&obj);
-	ASSERT(val == VUINT16_MAX);
-	V_UNUSED(val);
+    /* test no write */
+    vatomic16_max_rlx(&obj, (vuint16_t)1);
+    val = vatomic16_read(&obj);
+    ASSERT(val == VUINT16_MAX);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_get_max
@@ -1196,21 +1196,21 @@ ut_atomic_u16_max_rlx(void)
 static inline void
 ut_atomic_u16_get_max(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
+    vatomic16_t obj = {(vuint16_t)1};
 
-	/* test write */
-	vuint16_t old = vatomic16_get_max(&obj, VUINT16_MAX);
-	ASSERT(old == (vuint16_t)1);
-	vuint16_t val = vatomic16_read(&obj);
-	ASSERT(val == VUINT16_MAX);
+    /* test write */
+    vuint16_t old = vatomic16_get_max(&obj, VUINT16_MAX);
+    ASSERT(old == (vuint16_t)1);
+    vuint16_t val = vatomic16_read(&obj);
+    ASSERT(val == VUINT16_MAX);
 
-	/* test no write */
-	old = vatomic16_get_max(&obj, (vuint16_t)1);
-	ASSERT(old == VUINT16_MAX);
-	val = vatomic16_read(&obj);
-	ASSERT(val == VUINT16_MAX);
+    /* test no write */
+    old = vatomic16_get_max(&obj, (vuint16_t)1);
+    ASSERT(old == VUINT16_MAX);
+    val = vatomic16_read(&obj);
+    ASSERT(val == VUINT16_MAX);
 
-	V_UNUSED(val, old);
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_max_get
@@ -1218,21 +1218,21 @@ ut_atomic_u16_get_max(void)
 static inline void
 ut_atomic_u16_max_get(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
+    vatomic16_t obj = {(vuint16_t)1};
 
-	/* test write */
-	vuint16_t cur = vatomic16_max_get(&obj, VUINT16_MAX);
-	ASSERT(cur == VUINT16_MAX);
-	vuint16_t val = vatomic16_read(&obj);
-	ASSERT(val == VUINT16_MAX);
+    /* test write */
+    vuint16_t cur = vatomic16_max_get(&obj, VUINT16_MAX);
+    ASSERT(cur == VUINT16_MAX);
+    vuint16_t val = vatomic16_read(&obj);
+    ASSERT(val == VUINT16_MAX);
 
-	/* test no write */
-	cur = vatomic16_max_get(&obj, (vuint16_t)1);
-	ASSERT(cur == VUINT16_MAX);
-	val = vatomic16_read(&obj);
-	ASSERT(val == VUINT16_MAX);
+    /* test no write */
+    cur = vatomic16_max_get(&obj, (vuint16_t)1);
+    ASSERT(cur == VUINT16_MAX);
+    val = vatomic16_read(&obj);
+    ASSERT(val == VUINT16_MAX);
 
-	V_UNUSED(cur, val);
+    V_UNUSED(cur, val);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_get_max_acq
@@ -1240,21 +1240,21 @@ ut_atomic_u16_max_get(void)
 static inline void
 ut_atomic_u16_get_max_acq(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
+    vatomic16_t obj = {(vuint16_t)1};
 
-	/* test write */
-	vuint16_t old = vatomic16_get_max_acq(&obj, VUINT16_MAX);
-	ASSERT(old == (vuint16_t)1);
-	vuint16_t val = vatomic16_read(&obj);
-	ASSERT(val == VUINT16_MAX);
+    /* test write */
+    vuint16_t old = vatomic16_get_max_acq(&obj, VUINT16_MAX);
+    ASSERT(old == (vuint16_t)1);
+    vuint16_t val = vatomic16_read(&obj);
+    ASSERT(val == VUINT16_MAX);
 
-	/* test no write */
-	old = vatomic16_get_max_acq(&obj, (vuint16_t)1);
-	ASSERT(old == VUINT16_MAX);
-	val = vatomic16_read(&obj);
-	ASSERT(val == VUINT16_MAX);
+    /* test no write */
+    old = vatomic16_get_max_acq(&obj, (vuint16_t)1);
+    ASSERT(old == VUINT16_MAX);
+    val = vatomic16_read(&obj);
+    ASSERT(val == VUINT16_MAX);
 
-	V_UNUSED(val, old);
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_max_get_acq
@@ -1262,21 +1262,21 @@ ut_atomic_u16_get_max_acq(void)
 static inline void
 ut_atomic_u16_max_get_acq(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
+    vatomic16_t obj = {(vuint16_t)1};
 
-	/* test write */
-	vuint16_t cur = vatomic16_max_get_acq(&obj, VUINT16_MAX);
-	ASSERT(cur == VUINT16_MAX);
-	vuint16_t val = vatomic16_read(&obj);
-	ASSERT(val == VUINT16_MAX);
+    /* test write */
+    vuint16_t cur = vatomic16_max_get_acq(&obj, VUINT16_MAX);
+    ASSERT(cur == VUINT16_MAX);
+    vuint16_t val = vatomic16_read(&obj);
+    ASSERT(val == VUINT16_MAX);
 
-	/* test no write */
-	cur = vatomic16_max_get_acq(&obj, (vuint16_t)1);
-	ASSERT(cur == VUINT16_MAX);
-	val = vatomic16_read(&obj);
-	ASSERT(val == VUINT16_MAX);
+    /* test no write */
+    cur = vatomic16_max_get_acq(&obj, (vuint16_t)1);
+    ASSERT(cur == VUINT16_MAX);
+    val = vatomic16_read(&obj);
+    ASSERT(val == VUINT16_MAX);
 
-	V_UNUSED(cur, val);
+    V_UNUSED(cur, val);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_get_max_rel
@@ -1284,21 +1284,21 @@ ut_atomic_u16_max_get_acq(void)
 static inline void
 ut_atomic_u16_get_max_rel(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
+    vatomic16_t obj = {(vuint16_t)1};
 
-	/* test write */
-	vuint16_t old = vatomic16_get_max_rel(&obj, VUINT16_MAX);
-	ASSERT(old == (vuint16_t)1);
-	vuint16_t val = vatomic16_read(&obj);
-	ASSERT(val == VUINT16_MAX);
+    /* test write */
+    vuint16_t old = vatomic16_get_max_rel(&obj, VUINT16_MAX);
+    ASSERT(old == (vuint16_t)1);
+    vuint16_t val = vatomic16_read(&obj);
+    ASSERT(val == VUINT16_MAX);
 
-	/* test no write */
-	old = vatomic16_get_max_rel(&obj, (vuint16_t)1);
-	ASSERT(old == VUINT16_MAX);
-	val = vatomic16_read(&obj);
-	ASSERT(val == VUINT16_MAX);
+    /* test no write */
+    old = vatomic16_get_max_rel(&obj, (vuint16_t)1);
+    ASSERT(old == VUINT16_MAX);
+    val = vatomic16_read(&obj);
+    ASSERT(val == VUINT16_MAX);
 
-	V_UNUSED(val, old);
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_max_get_rel
@@ -1306,21 +1306,21 @@ ut_atomic_u16_get_max_rel(void)
 static inline void
 ut_atomic_u16_max_get_rel(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
+    vatomic16_t obj = {(vuint16_t)1};
 
-	/* test write */
-	vuint16_t cur = vatomic16_max_get_rel(&obj, VUINT16_MAX);
-	ASSERT(cur == VUINT16_MAX);
-	vuint16_t val = vatomic16_read(&obj);
-	ASSERT(val == VUINT16_MAX);
+    /* test write */
+    vuint16_t cur = vatomic16_max_get_rel(&obj, VUINT16_MAX);
+    ASSERT(cur == VUINT16_MAX);
+    vuint16_t val = vatomic16_read(&obj);
+    ASSERT(val == VUINT16_MAX);
 
-	/* test no write */
-	cur = vatomic16_max_get_rel(&obj, (vuint16_t)1);
-	ASSERT(cur == VUINT16_MAX);
-	val = vatomic16_read(&obj);
-	ASSERT(val == VUINT16_MAX);
+    /* test no write */
+    cur = vatomic16_max_get_rel(&obj, (vuint16_t)1);
+    ASSERT(cur == VUINT16_MAX);
+    val = vatomic16_read(&obj);
+    ASSERT(val == VUINT16_MAX);
 
-	V_UNUSED(cur, val);
+    V_UNUSED(cur, val);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_get_max_rlx
@@ -1328,21 +1328,21 @@ ut_atomic_u16_max_get_rel(void)
 static inline void
 ut_atomic_u16_get_max_rlx(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
+    vatomic16_t obj = {(vuint16_t)1};
 
-	/* test write */
-	vuint16_t old = vatomic16_get_max_rlx(&obj, VUINT16_MAX);
-	ASSERT(old == (vuint16_t)1);
-	vuint16_t val = vatomic16_read(&obj);
-	ASSERT(val == VUINT16_MAX);
+    /* test write */
+    vuint16_t old = vatomic16_get_max_rlx(&obj, VUINT16_MAX);
+    ASSERT(old == (vuint16_t)1);
+    vuint16_t val = vatomic16_read(&obj);
+    ASSERT(val == VUINT16_MAX);
 
-	/* test no write */
-	old = vatomic16_get_max_rlx(&obj, (vuint16_t)1);
-	ASSERT(old == VUINT16_MAX);
-	val = vatomic16_read(&obj);
-	ASSERT(val == VUINT16_MAX);
+    /* test no write */
+    old = vatomic16_get_max_rlx(&obj, (vuint16_t)1);
+    ASSERT(old == VUINT16_MAX);
+    val = vatomic16_read(&obj);
+    ASSERT(val == VUINT16_MAX);
 
-	V_UNUSED(val, old);
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_max_get_rlx
@@ -1350,21 +1350,21 @@ ut_atomic_u16_get_max_rlx(void)
 static inline void
 ut_atomic_u16_max_get_rlx(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
+    vatomic16_t obj = {(vuint16_t)1};
 
-	/* test write */
-	vuint16_t cur = vatomic16_max_get_rlx(&obj, VUINT16_MAX);
-	ASSERT(cur == VUINT16_MAX);
-	vuint16_t val = vatomic16_read(&obj);
-	ASSERT(val == VUINT16_MAX);
+    /* test write */
+    vuint16_t cur = vatomic16_max_get_rlx(&obj, VUINT16_MAX);
+    ASSERT(cur == VUINT16_MAX);
+    vuint16_t val = vatomic16_read(&obj);
+    ASSERT(val == VUINT16_MAX);
 
-	/* test no write */
-	cur = vatomic16_max_get_rlx(&obj, (vuint16_t)1);
-	ASSERT(cur == VUINT16_MAX);
-	val = vatomic16_read(&obj);
-	ASSERT(val == VUINT16_MAX);
+    /* test no write */
+    cur = vatomic16_max_get_rlx(&obj, (vuint16_t)1);
+    ASSERT(cur == VUINT16_MAX);
+    val = vatomic16_read(&obj);
+    ASSERT(val == VUINT16_MAX);
 
-	V_UNUSED(cur, val);
+    V_UNUSED(cur, val);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_and
@@ -1372,19 +1372,19 @@ ut_atomic_u16_max_get_rlx(void)
 static inline void
 ut_atomic_u16_and(void)
 {
-	vatomic16_t obj = {VUINT16_MAX};
-	vuint16_t mask	= VUINT16_MAX;
-	vuint16_t ref	= VUINT16_MAX;
-	vuint16_t cur	= 0;
+    vatomic16_t obj = {VUINT16_MAX};
+    vuint16_t mask  = VUINT16_MAX;
+    vuint16_t ref   = VUINT16_MAX;
+    vuint16_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
-		mask = (vuint16_t)(mask >> (BYTE_WIDTH * i));
-		ref &= mask;
-		vatomic16_and(&obj, mask);
-		cur = vatomic16_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
+        mask = (vuint16_t)(mask >> (BYTE_WIDTH * i));
+        ref &= mask;
+        vatomic16_and(&obj, mask);
+        cur = vatomic16_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_and_rel
@@ -1392,19 +1392,19 @@ ut_atomic_u16_and(void)
 static inline void
 ut_atomic_u16_and_rel(void)
 {
-	vatomic16_t obj = {VUINT16_MAX};
-	vuint16_t mask	= VUINT16_MAX;
-	vuint16_t ref	= VUINT16_MAX;
-	vuint16_t cur	= 0;
+    vatomic16_t obj = {VUINT16_MAX};
+    vuint16_t mask  = VUINT16_MAX;
+    vuint16_t ref   = VUINT16_MAX;
+    vuint16_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
-		mask = (vuint16_t)(mask >> (BYTE_WIDTH * i));
-		ref &= mask;
-		vatomic16_and_rel(&obj, mask);
-		cur = vatomic16_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
+        mask = (vuint16_t)(mask >> (BYTE_WIDTH * i));
+        ref &= mask;
+        vatomic16_and_rel(&obj, mask);
+        cur = vatomic16_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_and_rlx
@@ -1412,19 +1412,19 @@ ut_atomic_u16_and_rel(void)
 static inline void
 ut_atomic_u16_and_rlx(void)
 {
-	vatomic16_t obj = {VUINT16_MAX};
-	vuint16_t mask	= VUINT16_MAX;
-	vuint16_t ref	= VUINT16_MAX;
-	vuint16_t cur	= 0;
+    vatomic16_t obj = {VUINT16_MAX};
+    vuint16_t mask  = VUINT16_MAX;
+    vuint16_t ref   = VUINT16_MAX;
+    vuint16_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
-		mask = (vuint16_t)(mask >> (BYTE_WIDTH * i));
-		ref &= mask;
-		vatomic16_and_rlx(&obj, mask);
-		cur = vatomic16_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
+        mask = (vuint16_t)(mask >> (BYTE_WIDTH * i));
+        ref &= mask;
+        vatomic16_and_rlx(&obj, mask);
+        cur = vatomic16_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_get_and
@@ -1432,21 +1432,21 @@ ut_atomic_u16_and_rlx(void)
 static inline void
 ut_atomic_u16_get_and(void)
 {
-	vatomic16_t obj = {VUINT16_MAX};
-	vuint16_t mask	= VUINT16_MAX;
-	vuint16_t ref	= VUINT16_MAX;
-	vuint16_t cur	= 0;
-	vuint16_t old	= 0;
+    vatomic16_t obj = {VUINT16_MAX};
+    vuint16_t mask  = VUINT16_MAX;
+    vuint16_t ref   = VUINT16_MAX;
+    vuint16_t cur   = 0;
+    vuint16_t old   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
-		mask = (vuint16_t)(mask >> (BYTE_WIDTH * i));
-		old	 = vatomic16_get_and(&obj, mask);
-		ASSERT(old == ref);
-		ref &= mask;
-		cur = vatomic16_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur, old);
+    for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
+        mask = (vuint16_t)(mask >> (BYTE_WIDTH * i));
+        old  = vatomic16_get_and(&obj, mask);
+        ASSERT(old == ref);
+        ref &= mask;
+        cur = vatomic16_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_and_get
@@ -1454,20 +1454,20 @@ ut_atomic_u16_get_and(void)
 static inline void
 ut_atomic_u16_and_get(void)
 {
-	vatomic16_t obj = {VUINT16_MAX};
-	vuint16_t mask	= VUINT16_MAX;
-	vuint16_t ref	= VUINT16_MAX;
-	vuint16_t cur	= 0;
+    vatomic16_t obj = {VUINT16_MAX};
+    vuint16_t mask  = VUINT16_MAX;
+    vuint16_t ref   = VUINT16_MAX;
+    vuint16_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
-		mask = (vuint16_t)(mask >> (BYTE_WIDTH * i));
-		ref &= mask;
-		cur = vatomic16_and_get(&obj, mask);
-		ASSERT(cur == ref);
-		cur = vatomic16_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
+        mask = (vuint16_t)(mask >> (BYTE_WIDTH * i));
+        ref &= mask;
+        cur = vatomic16_and_get(&obj, mask);
+        ASSERT(cur == ref);
+        cur = vatomic16_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_get_and_acq
@@ -1475,21 +1475,21 @@ ut_atomic_u16_and_get(void)
 static inline void
 ut_atomic_u16_get_and_acq(void)
 {
-	vatomic16_t obj = {VUINT16_MAX};
-	vuint16_t mask	= VUINT16_MAX;
-	vuint16_t ref	= VUINT16_MAX;
-	vuint16_t cur	= 0;
-	vuint16_t old	= 0;
+    vatomic16_t obj = {VUINT16_MAX};
+    vuint16_t mask  = VUINT16_MAX;
+    vuint16_t ref   = VUINT16_MAX;
+    vuint16_t cur   = 0;
+    vuint16_t old   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
-		mask = (vuint16_t)(mask >> (BYTE_WIDTH * i));
-		old	 = vatomic16_get_and_acq(&obj, mask);
-		ASSERT(old == ref);
-		ref &= mask;
-		cur = vatomic16_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur, old);
+    for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
+        mask = (vuint16_t)(mask >> (BYTE_WIDTH * i));
+        old  = vatomic16_get_and_acq(&obj, mask);
+        ASSERT(old == ref);
+        ref &= mask;
+        cur = vatomic16_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_and_get_acq
@@ -1497,20 +1497,20 @@ ut_atomic_u16_get_and_acq(void)
 static inline void
 ut_atomic_u16_and_get_acq(void)
 {
-	vatomic16_t obj = {VUINT16_MAX};
-	vuint16_t mask	= VUINT16_MAX;
-	vuint16_t ref	= VUINT16_MAX;
-	vuint16_t cur	= 0;
+    vatomic16_t obj = {VUINT16_MAX};
+    vuint16_t mask  = VUINT16_MAX;
+    vuint16_t ref   = VUINT16_MAX;
+    vuint16_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
-		mask = (vuint16_t)(mask >> (BYTE_WIDTH * i));
-		ref &= mask;
-		cur = vatomic16_and_get_acq(&obj, mask);
-		ASSERT(cur == ref);
-		cur = vatomic16_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
+        mask = (vuint16_t)(mask >> (BYTE_WIDTH * i));
+        ref &= mask;
+        cur = vatomic16_and_get_acq(&obj, mask);
+        ASSERT(cur == ref);
+        cur = vatomic16_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_get_and_rel
@@ -1518,21 +1518,21 @@ ut_atomic_u16_and_get_acq(void)
 static inline void
 ut_atomic_u16_get_and_rel(void)
 {
-	vatomic16_t obj = {VUINT16_MAX};
-	vuint16_t mask	= VUINT16_MAX;
-	vuint16_t ref	= VUINT16_MAX;
-	vuint16_t cur	= 0;
-	vuint16_t old	= 0;
+    vatomic16_t obj = {VUINT16_MAX};
+    vuint16_t mask  = VUINT16_MAX;
+    vuint16_t ref   = VUINT16_MAX;
+    vuint16_t cur   = 0;
+    vuint16_t old   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
-		mask = (vuint16_t)(mask >> (BYTE_WIDTH * i));
-		old	 = vatomic16_get_and_rel(&obj, mask);
-		ASSERT(old == ref);
-		ref &= mask;
-		cur = vatomic16_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur, old);
+    for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
+        mask = (vuint16_t)(mask >> (BYTE_WIDTH * i));
+        old  = vatomic16_get_and_rel(&obj, mask);
+        ASSERT(old == ref);
+        ref &= mask;
+        cur = vatomic16_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_and_get_rel
@@ -1540,20 +1540,20 @@ ut_atomic_u16_get_and_rel(void)
 static inline void
 ut_atomic_u16_and_get_rel(void)
 {
-	vatomic16_t obj = {VUINT16_MAX};
-	vuint16_t mask	= VUINT16_MAX;
-	vuint16_t ref	= VUINT16_MAX;
-	vuint16_t cur	= 0;
+    vatomic16_t obj = {VUINT16_MAX};
+    vuint16_t mask  = VUINT16_MAX;
+    vuint16_t ref   = VUINT16_MAX;
+    vuint16_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
-		mask = (vuint16_t)(mask >> (BYTE_WIDTH * i));
-		ref &= mask;
-		cur = vatomic16_and_get_rel(&obj, mask);
-		ASSERT(cur == ref);
-		cur = vatomic16_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
+        mask = (vuint16_t)(mask >> (BYTE_WIDTH * i));
+        ref &= mask;
+        cur = vatomic16_and_get_rel(&obj, mask);
+        ASSERT(cur == ref);
+        cur = vatomic16_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_get_and_rlx
@@ -1561,21 +1561,21 @@ ut_atomic_u16_and_get_rel(void)
 static inline void
 ut_atomic_u16_get_and_rlx(void)
 {
-	vatomic16_t obj = {VUINT16_MAX};
-	vuint16_t mask	= VUINT16_MAX;
-	vuint16_t ref	= VUINT16_MAX;
-	vuint16_t cur	= 0;
-	vuint16_t old	= 0;
+    vatomic16_t obj = {VUINT16_MAX};
+    vuint16_t mask  = VUINT16_MAX;
+    vuint16_t ref   = VUINT16_MAX;
+    vuint16_t cur   = 0;
+    vuint16_t old   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
-		mask = (vuint16_t)(mask >> (BYTE_WIDTH * i));
-		old	 = vatomic16_get_and_rlx(&obj, mask);
-		ASSERT(old == ref);
-		ref &= mask;
-		cur = vatomic16_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur, old);
+    for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
+        mask = (vuint16_t)(mask >> (BYTE_WIDTH * i));
+        old  = vatomic16_get_and_rlx(&obj, mask);
+        ASSERT(old == ref);
+        ref &= mask;
+        cur = vatomic16_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_and_get_rlx
@@ -1583,20 +1583,20 @@ ut_atomic_u16_get_and_rlx(void)
 static inline void
 ut_atomic_u16_and_get_rlx(void)
 {
-	vatomic16_t obj = {VUINT16_MAX};
-	vuint16_t mask	= VUINT16_MAX;
-	vuint16_t ref	= VUINT16_MAX;
-	vuint16_t cur	= 0;
+    vatomic16_t obj = {VUINT16_MAX};
+    vuint16_t mask  = VUINT16_MAX;
+    vuint16_t ref   = VUINT16_MAX;
+    vuint16_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
-		mask = (vuint16_t)(mask >> (BYTE_WIDTH * i));
-		ref &= mask;
-		cur = vatomic16_and_get_rlx(&obj, mask);
-		ASSERT(cur == ref);
-		cur = vatomic16_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
+        mask = (vuint16_t)(mask >> (BYTE_WIDTH * i));
+        ref &= mask;
+        cur = vatomic16_and_get_rlx(&obj, mask);
+        ASSERT(cur == ref);
+        cur = vatomic16_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_or
@@ -1604,19 +1604,19 @@ ut_atomic_u16_and_get_rlx(void)
 static inline void
 ut_atomic_u16_or(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t mask	= 0xFF;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t cur	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t mask  = 0xFF;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
-		mask = (vuint16_t)(mask << (BYTE_WIDTH * i));
-		ref |= mask;
-		vatomic16_or(&obj, mask);
-		cur = vatomic16_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
+        mask = (vuint16_t)(mask << (BYTE_WIDTH * i));
+        ref |= mask;
+        vatomic16_or(&obj, mask);
+        cur = vatomic16_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_or_rel
@@ -1624,19 +1624,19 @@ ut_atomic_u16_or(void)
 static inline void
 ut_atomic_u16_or_rel(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t mask	= 0xFF;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t cur	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t mask  = 0xFF;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
-		mask = (vuint16_t)(mask << (BYTE_WIDTH * i));
-		ref |= mask;
-		vatomic16_or_rel(&obj, mask);
-		cur = vatomic16_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
+        mask = (vuint16_t)(mask << (BYTE_WIDTH * i));
+        ref |= mask;
+        vatomic16_or_rel(&obj, mask);
+        cur = vatomic16_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_or_rlx
@@ -1644,19 +1644,19 @@ ut_atomic_u16_or_rel(void)
 static inline void
 ut_atomic_u16_or_rlx(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t mask	= 0xFF;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t cur	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t mask  = 0xFF;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
-		mask = (vuint16_t)(mask << (BYTE_WIDTH * i));
-		ref |= mask;
-		vatomic16_or_rlx(&obj, mask);
-		cur = vatomic16_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
+        mask = (vuint16_t)(mask << (BYTE_WIDTH * i));
+        ref |= mask;
+        vatomic16_or_rlx(&obj, mask);
+        cur = vatomic16_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_get_or
@@ -1664,21 +1664,21 @@ ut_atomic_u16_or_rlx(void)
 static inline void
 ut_atomic_u16_get_or(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t mask	= 0xFF;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t cur	= 0;
-	vuint16_t old	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t mask  = 0xFF;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t cur   = 0;
+    vuint16_t old   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
-		mask = (vuint16_t)(mask << (BYTE_WIDTH * i));
-		old	 = vatomic16_get_or(&obj, mask);
-		ASSERT(old == ref);
-		ref |= mask;
-		cur = vatomic16_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur, old);
+    for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
+        mask = (vuint16_t)(mask << (BYTE_WIDTH * i));
+        old  = vatomic16_get_or(&obj, mask);
+        ASSERT(old == ref);
+        ref |= mask;
+        cur = vatomic16_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_or_get
@@ -1686,20 +1686,20 @@ ut_atomic_u16_get_or(void)
 static inline void
 ut_atomic_u16_or_get(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t mask	= 0xFF;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t cur	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t mask  = 0xFF;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
-		mask = (vuint16_t)(mask << (BYTE_WIDTH * i));
-		ref |= mask;
-		cur = vatomic16_or_get(&obj, mask);
-		ASSERT(cur == ref);
-		cur = vatomic16_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
+        mask = (vuint16_t)(mask << (BYTE_WIDTH * i));
+        ref |= mask;
+        cur = vatomic16_or_get(&obj, mask);
+        ASSERT(cur == ref);
+        cur = vatomic16_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_get_or_acq
@@ -1707,21 +1707,21 @@ ut_atomic_u16_or_get(void)
 static inline void
 ut_atomic_u16_get_or_acq(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t mask	= 0xFF;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t cur	= 0;
-	vuint16_t old	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t mask  = 0xFF;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t cur   = 0;
+    vuint16_t old   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
-		mask = (vuint16_t)(mask << (BYTE_WIDTH * i));
-		old	 = vatomic16_get_or_acq(&obj, mask);
-		ASSERT(old == ref);
-		ref |= mask;
-		cur = vatomic16_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur, old);
+    for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
+        mask = (vuint16_t)(mask << (BYTE_WIDTH * i));
+        old  = vatomic16_get_or_acq(&obj, mask);
+        ASSERT(old == ref);
+        ref |= mask;
+        cur = vatomic16_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_or_get_acq
@@ -1729,20 +1729,20 @@ ut_atomic_u16_get_or_acq(void)
 static inline void
 ut_atomic_u16_or_get_acq(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t mask	= 0xFF;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t cur	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t mask  = 0xFF;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
-		mask = (vuint16_t)(mask << (BYTE_WIDTH * i));
-		ref |= mask;
-		cur = vatomic16_or_get_acq(&obj, mask);
-		ASSERT(cur == ref);
-		cur = vatomic16_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
+        mask = (vuint16_t)(mask << (BYTE_WIDTH * i));
+        ref |= mask;
+        cur = vatomic16_or_get_acq(&obj, mask);
+        ASSERT(cur == ref);
+        cur = vatomic16_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_get_or_rel
@@ -1750,21 +1750,21 @@ ut_atomic_u16_or_get_acq(void)
 static inline void
 ut_atomic_u16_get_or_rel(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t mask	= 0xFF;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t cur	= 0;
-	vuint16_t old	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t mask  = 0xFF;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t cur   = 0;
+    vuint16_t old   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
-		mask = (vuint16_t)(mask << (BYTE_WIDTH * i));
-		old	 = vatomic16_get_or_rel(&obj, mask);
-		ASSERT(old == ref);
-		ref |= mask;
-		cur = vatomic16_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur, old);
+    for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
+        mask = (vuint16_t)(mask << (BYTE_WIDTH * i));
+        old  = vatomic16_get_or_rel(&obj, mask);
+        ASSERT(old == ref);
+        ref |= mask;
+        cur = vatomic16_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_or_get_rel
@@ -1772,20 +1772,20 @@ ut_atomic_u16_get_or_rel(void)
 static inline void
 ut_atomic_u16_or_get_rel(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t mask	= 0xFF;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t cur	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t mask  = 0xFF;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
-		mask = (vuint16_t)(mask << (BYTE_WIDTH * i));
-		ref |= mask;
-		cur = vatomic16_or_get_rel(&obj, mask);
-		ASSERT(cur == ref);
-		cur = vatomic16_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
+        mask = (vuint16_t)(mask << (BYTE_WIDTH * i));
+        ref |= mask;
+        cur = vatomic16_or_get_rel(&obj, mask);
+        ASSERT(cur == ref);
+        cur = vatomic16_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_get_or_rlx
@@ -1793,21 +1793,21 @@ ut_atomic_u16_or_get_rel(void)
 static inline void
 ut_atomic_u16_get_or_rlx(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t mask	= 0xFF;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t cur	= 0;
-	vuint16_t old	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t mask  = 0xFF;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t cur   = 0;
+    vuint16_t old   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
-		mask = (vuint16_t)(mask << (BYTE_WIDTH * i));
-		old	 = vatomic16_get_or_rlx(&obj, mask);
-		ASSERT(old == ref);
-		ref |= mask;
-		cur = vatomic16_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur, old);
+    for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
+        mask = (vuint16_t)(mask << (BYTE_WIDTH * i));
+        old  = vatomic16_get_or_rlx(&obj, mask);
+        ASSERT(old == ref);
+        ref |= mask;
+        cur = vatomic16_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur, old);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_or_get_rlx
@@ -1815,20 +1815,20 @@ ut_atomic_u16_get_or_rlx(void)
 static inline void
 ut_atomic_u16_or_get_rlx(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t mask	= 0xFF;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t cur	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t mask  = 0xFF;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
-		mask = (vuint16_t)(mask << (BYTE_WIDTH * i));
-		ref |= mask;
-		cur = vatomic16_or_get_rlx(&obj, mask);
-		ASSERT(cur == ref);
-		cur = vatomic16_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
+        mask = (vuint16_t)(mask << (BYTE_WIDTH * i));
+        ref |= mask;
+        cur = vatomic16_or_get_rlx(&obj, mask);
+        ASSERT(cur == ref);
+        cur = vatomic16_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_xor
@@ -1836,19 +1836,19 @@ ut_atomic_u16_or_get_rlx(void)
 static inline void
 ut_atomic_u16_xor(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t mask	= 0x33;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t cur	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t mask  = 0x33;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
-		mask = (vuint16_t)(mask << (BYTE_WIDTH * i)) | mask;
-		ref ^= mask;
-		vatomic16_xor(&obj, mask);
-		cur = vatomic16_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
+        mask = (vuint16_t)(mask << (BYTE_WIDTH * i)) | mask;
+        ref ^= mask;
+        vatomic16_xor(&obj, mask);
+        cur = vatomic16_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_xor_rel
@@ -1856,19 +1856,19 @@ ut_atomic_u16_xor(void)
 static inline void
 ut_atomic_u16_xor_rel(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t mask	= 0x33;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t cur	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t mask  = 0x33;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
-		mask = (vuint16_t)(mask << (BYTE_WIDTH * i)) | mask;
-		ref ^= mask;
-		vatomic16_xor_rel(&obj, mask);
-		cur = vatomic16_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
+        mask = (vuint16_t)(mask << (BYTE_WIDTH * i)) | mask;
+        ref ^= mask;
+        vatomic16_xor_rel(&obj, mask);
+        cur = vatomic16_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_xor_rlx
@@ -1876,19 +1876,19 @@ ut_atomic_u16_xor_rel(void)
 static inline void
 ut_atomic_u16_xor_rlx(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t mask	= 0x33;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t cur	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t mask  = 0x33;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
-		mask = (vuint16_t)(mask << (BYTE_WIDTH * i)) | mask;
-		ref ^= mask;
-		vatomic16_xor_rlx(&obj, mask);
-		cur = vatomic16_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
+        mask = (vuint16_t)(mask << (BYTE_WIDTH * i)) | mask;
+        ref ^= mask;
+        vatomic16_xor_rlx(&obj, mask);
+        cur = vatomic16_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_get_xor
@@ -1896,21 +1896,21 @@ ut_atomic_u16_xor_rlx(void)
 static inline void
 ut_atomic_u16_get_xor(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t mask	= 0x33;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t cur	= 0;
-	vuint16_t old	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t mask  = 0x33;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t cur   = 0;
+    vuint16_t old   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
-		mask = (vuint16_t)(mask << (BYTE_WIDTH * i)) | mask;
-		old	 = vatomic16_get_xor(&obj, mask);
-		ASSERT(old == ref);
-		ref ^= mask;
-		cur = vatomic16_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(old, cur);
+    for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
+        mask = (vuint16_t)(mask << (BYTE_WIDTH * i)) | mask;
+        old  = vatomic16_get_xor(&obj, mask);
+        ASSERT(old == ref);
+        ref ^= mask;
+        cur = vatomic16_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(old, cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_or_get
@@ -1918,20 +1918,20 @@ ut_atomic_u16_get_xor(void)
 static inline void
 ut_atomic_u16_xor_get(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t mask	= 0xFF;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t cur	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t mask  = 0xFF;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
-		mask = (vuint16_t)(mask << (BYTE_WIDTH * i)) | mask;
-		ref ^= mask;
-		cur = vatomic16_xor_get(&obj, mask);
-		ASSERT(cur == ref);
-		cur = vatomic16_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
+        mask = (vuint16_t)(mask << (BYTE_WIDTH * i)) | mask;
+        ref ^= mask;
+        cur = vatomic16_xor_get(&obj, mask);
+        ASSERT(cur == ref);
+        cur = vatomic16_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_get_xor_acq
@@ -1939,21 +1939,21 @@ ut_atomic_u16_xor_get(void)
 static inline void
 ut_atomic_u16_get_xor_acq(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t mask	= 0x33;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t cur	= 0;
-	vuint16_t old	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t mask  = 0x33;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t cur   = 0;
+    vuint16_t old   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
-		mask = (vuint16_t)(mask << (BYTE_WIDTH * i)) | mask;
-		old	 = vatomic16_get_xor_acq(&obj, mask);
-		ASSERT(old == ref);
-		ref ^= mask;
-		cur = vatomic16_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(old, cur);
+    for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
+        mask = (vuint16_t)(mask << (BYTE_WIDTH * i)) | mask;
+        old  = vatomic16_get_xor_acq(&obj, mask);
+        ASSERT(old == ref);
+        ref ^= mask;
+        cur = vatomic16_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(old, cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_or_get_acq
@@ -1961,20 +1961,20 @@ ut_atomic_u16_get_xor_acq(void)
 static inline void
 ut_atomic_u16_xor_get_acq(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t mask	= 0xFF;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t cur	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t mask  = 0xFF;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
-		mask = (vuint16_t)(mask << (BYTE_WIDTH * i)) | mask;
-		ref ^= mask;
-		cur = vatomic16_xor_get_acq(&obj, mask);
-		ASSERT(cur == ref);
-		cur = vatomic16_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
+        mask = (vuint16_t)(mask << (BYTE_WIDTH * i)) | mask;
+        ref ^= mask;
+        cur = vatomic16_xor_get_acq(&obj, mask);
+        ASSERT(cur == ref);
+        cur = vatomic16_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_get_xor_rel
@@ -1982,21 +1982,21 @@ ut_atomic_u16_xor_get_acq(void)
 static inline void
 ut_atomic_u16_get_xor_rel(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t mask	= 0x33;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t cur	= 0;
-	vuint16_t old	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t mask  = 0x33;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t cur   = 0;
+    vuint16_t old   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
-		mask = (vuint16_t)(mask << (BYTE_WIDTH * i)) | mask;
-		old	 = vatomic16_get_xor_rel(&obj, mask);
-		ASSERT(old == ref);
-		ref ^= mask;
-		cur = vatomic16_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(old, cur);
+    for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
+        mask = (vuint16_t)(mask << (BYTE_WIDTH * i)) | mask;
+        old  = vatomic16_get_xor_rel(&obj, mask);
+        ASSERT(old == ref);
+        ref ^= mask;
+        cur = vatomic16_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(old, cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_or_get_rel
@@ -2004,20 +2004,20 @@ ut_atomic_u16_get_xor_rel(void)
 static inline void
 ut_atomic_u16_xor_get_rel(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t mask	= 0xFF;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t cur	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t mask  = 0xFF;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
-		mask = (vuint16_t)(mask << (BYTE_WIDTH * i)) | mask;
-		ref ^= mask;
-		cur = vatomic16_xor_get_rel(&obj, mask);
-		ASSERT(cur == ref);
-		cur = vatomic16_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
+        mask = (vuint16_t)(mask << (BYTE_WIDTH * i)) | mask;
+        ref ^= mask;
+        cur = vatomic16_xor_get_rel(&obj, mask);
+        ASSERT(cur == ref);
+        cur = vatomic16_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_get_xor_rlx
@@ -2025,21 +2025,21 @@ ut_atomic_u16_xor_get_rel(void)
 static inline void
 ut_atomic_u16_get_xor_rlx(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t mask	= 0x33;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t cur	= 0;
-	vuint16_t old	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t mask  = 0x33;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t cur   = 0;
+    vuint16_t old   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
-		mask = (vuint16_t)(mask << (BYTE_WIDTH * i)) | mask;
-		old	 = vatomic16_get_xor_rlx(&obj, mask);
-		ASSERT(old == ref);
-		ref ^= mask;
-		cur = vatomic16_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(old, cur);
+    for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
+        mask = (vuint16_t)(mask << (BYTE_WIDTH * i)) | mask;
+        old  = vatomic16_get_xor_rlx(&obj, mask);
+        ASSERT(old == ref);
+        ref ^= mask;
+        cur = vatomic16_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(old, cur);
 }
 /*****************************************************************************
  * UnitTest: vatomic16_or_get_rlx
@@ -2047,20 +2047,20 @@ ut_atomic_u16_get_xor_rlx(void)
 static inline void
 ut_atomic_u16_xor_get_rlx(void)
 {
-	vatomic16_t obj = {(vuint16_t)1};
-	vuint16_t mask	= 0xFF;
-	vuint16_t ref	= (vuint16_t)1;
-	vuint16_t cur	= 0;
+    vatomic16_t obj = {(vuint16_t)1};
+    vuint16_t mask  = 0xFF;
+    vuint16_t ref   = (vuint16_t)1;
+    vuint16_t cur   = 0;
 
-	for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
-		mask = (vuint16_t)(mask << (BYTE_WIDTH * i)) | mask;
-		ref ^= mask;
-		cur = vatomic16_xor_get_rlx(&obj, mask);
-		ASSERT(cur == ref);
-		cur = vatomic16_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vuint16_t); i++) {
+        mask = (vuint16_t)(mask << (BYTE_WIDTH * i)) | mask;
+        ref ^= mask;
+        cur = vatomic16_xor_get_rlx(&obj, mask);
+        ASSERT(cur == ref);
+        cur = vatomic16_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * Entry point
@@ -2068,120 +2068,120 @@ ut_atomic_u16_xor_get_rlx(void)
 int
 main(void)
 {
-	ut_atomic_u16_read();
-	ut_atomic_u16_read_acq();
-	ut_atomic_u16_read_rlx();
+    ut_atomic_u16_read();
+    ut_atomic_u16_read_acq();
+    ut_atomic_u16_read_rlx();
 
-	ut_atomic_u16_init();
+    ut_atomic_u16_init();
 
-	ut_atomic_u16_write();
-	ut_atomic_u16_write_rel();
-	ut_atomic_u16_write_rlx();
+    ut_atomic_u16_write();
+    ut_atomic_u16_write_rel();
+    ut_atomic_u16_write_rlx();
 
-	ut_atomic_u16_xchg();
-	ut_atomic_u16_xchg_acq();
-	ut_atomic_u16_xchg_rel();
-	ut_atomic_u16_xchg_rlx();
+    ut_atomic_u16_xchg();
+    ut_atomic_u16_xchg_acq();
+    ut_atomic_u16_xchg_rel();
+    ut_atomic_u16_xchg_rlx();
 
-	ut_atomic_u16_cmpxchg();
-	ut_atomic_u16_cmpxchg_acq();
-	ut_atomic_u16_cmpxchg_rel();
-	ut_atomic_u16_cmpxchg_rlx();
+    ut_atomic_u16_cmpxchg();
+    ut_atomic_u16_cmpxchg_acq();
+    ut_atomic_u16_cmpxchg_rel();
+    ut_atomic_u16_cmpxchg_rlx();
 
-	ut_atomic_u16_add();
-	ut_atomic_u16_add_rel();
-	ut_atomic_u16_add_rlx();
-	ut_atomic_u16_get_add();
-	ut_atomic_u16_add_get();
-	ut_atomic_u16_get_add_acq();
-	ut_atomic_u16_add_get_acq();
-	ut_atomic_u16_get_add_rel();
-	ut_atomic_u16_add_get_rel();
-	ut_atomic_u16_get_add_rlx();
-	ut_atomic_u16_add_get_rlx();
+    ut_atomic_u16_add();
+    ut_atomic_u16_add_rel();
+    ut_atomic_u16_add_rlx();
+    ut_atomic_u16_get_add();
+    ut_atomic_u16_add_get();
+    ut_atomic_u16_get_add_acq();
+    ut_atomic_u16_add_get_acq();
+    ut_atomic_u16_get_add_rel();
+    ut_atomic_u16_add_get_rel();
+    ut_atomic_u16_get_add_rlx();
+    ut_atomic_u16_add_get_rlx();
 
-	ut_atomic_u16_inc();
-	ut_atomic_u16_inc_rel();
-	ut_atomic_u16_inc_rlx();
-	ut_atomic_u16_get_inc();
-	ut_atomic_u16_inc_get();
-	ut_atomic_u16_get_inc_acq();
-	ut_atomic_u16_inc_get_acq();
-	ut_atomic_u16_get_inc_rel();
-	ut_atomic_u16_inc_get_rel();
-	ut_atomic_u16_get_inc_rlx();
-	ut_atomic_u16_inc_get_rlx();
+    ut_atomic_u16_inc();
+    ut_atomic_u16_inc_rel();
+    ut_atomic_u16_inc_rlx();
+    ut_atomic_u16_get_inc();
+    ut_atomic_u16_inc_get();
+    ut_atomic_u16_get_inc_acq();
+    ut_atomic_u16_inc_get_acq();
+    ut_atomic_u16_get_inc_rel();
+    ut_atomic_u16_inc_get_rel();
+    ut_atomic_u16_get_inc_rlx();
+    ut_atomic_u16_inc_get_rlx();
 
-	ut_atomic_u16_sub();
-	ut_atomic_u16_sub_rel();
-	ut_atomic_u16_sub_rlx();
-	ut_atomic_u16_get_sub();
-	ut_atomic_u16_sub_get();
-	ut_atomic_u16_get_sub_acq();
-	ut_atomic_u16_sub_get_acq();
-	ut_atomic_u16_get_sub_rel();
-	ut_atomic_u16_sub_get_rel();
-	ut_atomic_u16_get_sub_rlx();
-	ut_atomic_u16_sub_get_rlx();
+    ut_atomic_u16_sub();
+    ut_atomic_u16_sub_rel();
+    ut_atomic_u16_sub_rlx();
+    ut_atomic_u16_get_sub();
+    ut_atomic_u16_sub_get();
+    ut_atomic_u16_get_sub_acq();
+    ut_atomic_u16_sub_get_acq();
+    ut_atomic_u16_get_sub_rel();
+    ut_atomic_u16_sub_get_rel();
+    ut_atomic_u16_get_sub_rlx();
+    ut_atomic_u16_sub_get_rlx();
 
-	ut_atomic_u16_dec();
-	ut_atomic_u16_dec_rel();
-	ut_atomic_u16_dec_rlx();
-	ut_atomic_u16_get_dec();
-	ut_atomic_u16_dec_get();
-	ut_atomic_u16_get_dec_acq();
-	ut_atomic_u16_dec_get_acq();
-	ut_atomic_u16_get_dec_rel();
-	ut_atomic_u16_dec_get_rel();
-	ut_atomic_u16_get_dec_rlx();
-	ut_atomic_u16_dec_get_rlx();
+    ut_atomic_u16_dec();
+    ut_atomic_u16_dec_rel();
+    ut_atomic_u16_dec_rlx();
+    ut_atomic_u16_get_dec();
+    ut_atomic_u16_dec_get();
+    ut_atomic_u16_get_dec_acq();
+    ut_atomic_u16_dec_get_acq();
+    ut_atomic_u16_get_dec_rel();
+    ut_atomic_u16_dec_get_rel();
+    ut_atomic_u16_get_dec_rlx();
+    ut_atomic_u16_dec_get_rlx();
 
-	ut_atomic_u16_max();
-	ut_atomic_u16_max_rel();
-	ut_atomic_u16_max_rlx();
-	ut_atomic_u16_get_max();
-	ut_atomic_u16_max_get();
-	ut_atomic_u16_get_max_acq();
-	ut_atomic_u16_max_get_acq();
-	ut_atomic_u16_get_max_rel();
-	ut_atomic_u16_max_get_rel();
-	ut_atomic_u16_get_max_rlx();
-	ut_atomic_u16_max_get_rlx();
+    ut_atomic_u16_max();
+    ut_atomic_u16_max_rel();
+    ut_atomic_u16_max_rlx();
+    ut_atomic_u16_get_max();
+    ut_atomic_u16_max_get();
+    ut_atomic_u16_get_max_acq();
+    ut_atomic_u16_max_get_acq();
+    ut_atomic_u16_get_max_rel();
+    ut_atomic_u16_max_get_rel();
+    ut_atomic_u16_get_max_rlx();
+    ut_atomic_u16_max_get_rlx();
 
-	ut_atomic_u16_and();
-	ut_atomic_u16_and_rel();
-	ut_atomic_u16_and_rlx();
-	ut_atomic_u16_get_and();
-	ut_atomic_u16_and_get();
-	ut_atomic_u16_get_and_acq();
-	ut_atomic_u16_and_get_acq();
-	ut_atomic_u16_get_and_rel();
-	ut_atomic_u16_and_get_rel();
-	ut_atomic_u16_get_and_rlx();
-	ut_atomic_u16_and_get_rlx();
+    ut_atomic_u16_and();
+    ut_atomic_u16_and_rel();
+    ut_atomic_u16_and_rlx();
+    ut_atomic_u16_get_and();
+    ut_atomic_u16_and_get();
+    ut_atomic_u16_get_and_acq();
+    ut_atomic_u16_and_get_acq();
+    ut_atomic_u16_get_and_rel();
+    ut_atomic_u16_and_get_rel();
+    ut_atomic_u16_get_and_rlx();
+    ut_atomic_u16_and_get_rlx();
 
-	ut_atomic_u16_or();
-	ut_atomic_u16_or_rel();
-	ut_atomic_u16_or_rlx();
-	ut_atomic_u16_get_or();
-	ut_atomic_u16_or_get();
-	ut_atomic_u16_get_or_acq();
-	ut_atomic_u16_or_get_acq();
-	ut_atomic_u16_get_or_rel();
-	ut_atomic_u16_or_get_rel();
-	ut_atomic_u16_get_or_rlx();
-	ut_atomic_u16_or_get_rlx();
+    ut_atomic_u16_or();
+    ut_atomic_u16_or_rel();
+    ut_atomic_u16_or_rlx();
+    ut_atomic_u16_get_or();
+    ut_atomic_u16_or_get();
+    ut_atomic_u16_get_or_acq();
+    ut_atomic_u16_or_get_acq();
+    ut_atomic_u16_get_or_rel();
+    ut_atomic_u16_or_get_rel();
+    ut_atomic_u16_get_or_rlx();
+    ut_atomic_u16_or_get_rlx();
 
-	ut_atomic_u16_xor();
-	ut_atomic_u16_xor_rel();
-	ut_atomic_u16_xor_rlx();
-	ut_atomic_u16_get_xor();
-	ut_atomic_u16_xor_get();
-	ut_atomic_u16_get_xor_acq();
-	ut_atomic_u16_xor_get_acq();
-	ut_atomic_u16_get_xor_rel();
-	ut_atomic_u16_xor_get_rel();
-	ut_atomic_u16_get_xor_rlx();
-	ut_atomic_u16_xor_get_rlx();
-	return 0;
+    ut_atomic_u16_xor();
+    ut_atomic_u16_xor_rel();
+    ut_atomic_u16_xor_rlx();
+    ut_atomic_u16_get_xor();
+    ut_atomic_u16_xor_get();
+    ut_atomic_u16_get_xor_acq();
+    ut_atomic_u16_xor_get_acq();
+    ut_atomic_u16_get_xor_rel();
+    ut_atomic_u16_xor_get_rel();
+    ut_atomic_u16_get_xor_rlx();
+    ut_atomic_u16_xor_get_rlx();
+    return 0;
 }

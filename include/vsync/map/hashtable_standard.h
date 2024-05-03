@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #ifndef VHASHTABLE_STANDARD_H
 #define VHASHTABLE_STANDARD_H
 /*******************************************************************************
@@ -39,8 +40,8 @@ typedef vlistset_cmp_key_t vhashtable_cmp_key_t;
 typedef vlistset_handle_node_t vhashtable_entry_retire_t;
 
 typedef struct vhashtable_s {
-	vbucket_t buckets[VHASHTABLE_BUCKET_COUNT];
-	vatomic64_t num_entries;
+    vbucket_t buckets[VHASHTABLE_BUCKET_COUNT];
+    vatomic64_t num_entries;
 } vhashtable_t;
 
 /**
@@ -57,12 +58,12 @@ typedef struct vhashtable_s {
  */
 static inline void
 vhashtable_init(vhashtable_t *table, vhashtable_entry_retire_t retire_cb,
-				void *retire_cb_arg, vhashtable_cmp_key_t cmp_cb)
+                void *retire_cb_arg, vhashtable_cmp_key_t cmp_cb)
 {
-	ASSERT(table);
-	for (vsize_t i = 0; i < VHASHTABLE_BUCKET_COUNT; i++) {
-		vlistset_init(&table->buckets[i], retire_cb, retire_cb_arg, cmp_cb);
-	}
+    ASSERT(table);
+    for (vsize_t i = 0; i < VHASHTABLE_BUCKET_COUNT; i++) {
+        vlistset_init(&table->buckets[i], retire_cb, retire_cb_arg, cmp_cb);
+    }
 }
 /**
  * Retires all entries in the hashtable.
@@ -74,10 +75,10 @@ vhashtable_init(vhashtable_t *table, vhashtable_entry_retire_t retire_cb,
 static inline void
 vhashtable_destroy(vhashtable_t *table)
 {
-	ASSERT(table);
-	for (vsize_t i = 0; i < VHASHTABLE_BUCKET_COUNT; i++) {
-		vlistset_destroy(&table->buckets[i]);
-	}
+    ASSERT(table);
+    for (vsize_t i = 0; i < VHASHTABLE_BUCKET_COUNT; i++) {
+        vlistset_destroy(&table->buckets[i]);
+    }
 }
 /**
  * Inserts the given `entry` into the hashtable.
@@ -94,16 +95,16 @@ vhashtable_destroy(vhashtable_t *table)
  */
 static inline vbool_t
 vhashtable_insert(vhashtable_t *table, vhashtable_key_t key,
-				  vhashtable_entry_t *val, vsize_t hash_idx)
+                  vhashtable_entry_t *val, vsize_t hash_idx)
 {
-	ASSERT(table);
-	ASSERT(val);
-	ASSERT(hash_idx < VHASHTABLE_BUCKET_COUNT);
-	vbool_t success = vlistset_add(&table->buckets[hash_idx], key, val);
-	if (success) {
-		vatomic64_inc_rlx(&table->num_entries);
-	}
-	return success;
+    ASSERT(table);
+    ASSERT(val);
+    ASSERT(hash_idx < VHASHTABLE_BUCKET_COUNT);
+    vbool_t success = vlistset_add(&table->buckets[hash_idx], key, val);
+    if (success) {
+        vatomic64_inc_rlx(&table->num_entries);
+    }
+    return success;
 }
 /**
  * Looks for the entry associated with the given `key`.
@@ -120,9 +121,9 @@ vhashtable_insert(vhashtable_t *table, vhashtable_key_t key,
 static inline vhashtable_entry_t *
 vhashtable_get(vhashtable_t *table, vhashtable_key_t key, vsize_t hash_idx)
 {
-	ASSERT(table);
-	ASSERT(hash_idx < VHASHTABLE_BUCKET_COUNT);
-	return vlistset_get(&table->buckets[hash_idx], key);
+    ASSERT(table);
+    ASSERT(hash_idx < VHASHTABLE_BUCKET_COUNT);
+    return vlistset_get(&table->buckets[hash_idx], key);
 }
 /**
  * Removes the entry associated with the given key from the the hashtable.
@@ -138,13 +139,13 @@ vhashtable_get(vhashtable_t *table, vhashtable_key_t key, vsize_t hash_idx)
 static inline vbool_t
 vhashtable_remove(vhashtable_t *table, vhashtable_key_t key, vsize_t hash_idx)
 {
-	ASSERT(table);
-	ASSERT(hash_idx < VHASHTABLE_BUCKET_COUNT);
-	vbool_t success = vlistset_remove(&table->buckets[hash_idx], key);
-	if (success) {
-		vatomic64_dec_rlx(&table->num_entries);
-	}
-	return success;
+    ASSERT(table);
+    ASSERT(hash_idx < VHASHTABLE_BUCKET_COUNT);
+    vbool_t success = vlistset_remove(&table->buckets[hash_idx], key);
+    if (success) {
+        vatomic64_dec_rlx(&table->num_entries);
+    }
+    return success;
 }
 /**
  * Returns the count of entries currently available in the hashtable.
@@ -156,8 +157,8 @@ vhashtable_remove(vhashtable_t *table, vhashtable_key_t key, vsize_t hash_idx)
 static inline vuint64_t
 vhashtable_get_entries_count(vhashtable_t *table)
 {
-	ASSERT(table);
-	return vatomic64_read_rlx(&table->num_entries);
+    ASSERT(table);
+    return vatomic64_read_rlx(&table->num_entries);
 }
 
 #endif

@@ -28,7 +28,7 @@ typedef vatomicptr_t vatomicptr_stamped_t;
 
 /** @cond DO_NOT_DOCUMENT */
 
-#define V_ATOMICPTR_STAMPED_STAMP_MASK	 ((vuintptr_t)0x7F)
+#define V_ATOMICPTR_STAMPED_STAMP_MASK   ((vuintptr_t)0x7F)
 #define V_ATOMICPTR_STAMPED_ADDRESS_MASK (~(V_ATOMICPTR_STAMPED_STAMP_MASK))
 
 /**
@@ -36,14 +36,14 @@ typedef vatomicptr_t vatomicptr_stamped_t;
  *
  */
 #define V_ATOMICPTR_STAMPED_GET_ADDRESS(_a_)                                   \
-	((void *)(((vuintptr_t)(_a_)) & V_ATOMICPTR_STAMPED_ADDRESS_MASK))
+    ((void *)(((vuintptr_t)(_a_)) & V_ATOMICPTR_STAMPED_ADDRESS_MASK))
 
 /**
  * Extracts the stamp without the address from `_a_`
  *
  */
 #define V_ATOMICPTR_STAMPED_GET_STAMP(_a_)                                     \
-	((vuint8_t)(((vuintptr_t)(_a_)) & V_ATOMICPTR_STAMPED_STAMP_MASK))
+    ((vuint8_t)(((vuintptr_t)(_a_)) & V_ATOMICPTR_STAMPED_STAMP_MASK))
 
 /**
  *  Combines address `_a_` with stamp `_stamp_`
@@ -51,16 +51,16 @@ typedef vatomicptr_t vatomicptr_stamped_t;
  * @note we use V_ATOMICPTR_STAMPED_GET_STAMP on stamp for overflow!
  */
 #define V_ATOMICPTR_STAMPED_COMBINE_ADDRESS_STAMP(_a_, _stamp_)                \
-	((void *)(vuintptr_t)(((vuintptr_t)(_a_)) |                                \
-						  ((vuintptr_t)V_ATOMICPTR_STAMPED_GET_STAMP(          \
-							  _stamp_))))
+    ((void *)(vuintptr_t)(((vuintptr_t)(_a_)) |                                \
+                          ((vuintptr_t)V_ATOMICPTR_STAMPED_GET_STAMP(          \
+                              _stamp_))))
 /** @endcond */
 
 /**
  * Evaluates to `true`, if the given pointer `_ptr_` is 128-byte-aligned.
  */
 #define V_ATOMICPTR_STAMPED_IS_ALIGNED(_ptr_)                                  \
-	((((vuintptr_t)(_ptr_)) & V_ATOMICPTR_STAMPED_STAMP_MASK) == 0)
+    ((((vuintptr_t)(_ptr_)) & V_ATOMICPTR_STAMPED_STAMP_MASK) == 0)
 
 /**
  * Compares and exchanges the address and stamp value in `a`.
@@ -77,19 +77,19 @@ typedef vatomicptr_t vatomicptr_stamped_t;
  */
 static inline vbool_t
 vatomicptr_stamped_cmpxchg(vatomicptr_stamped_t *a, void *e_v, vuint8_t e_stamp,
-						   void *v, vuint8_t stamp)
+                           void *v, vuint8_t stamp)
 {
-	void *old = NULL;
-	void *exp = NULL;
-	void *val = NULL;
+    void *old = NULL;
+    void *exp = NULL;
+    void *val = NULL;
 
-	ASSERT(V_ATOMICPTR_STAMPED_IS_ALIGNED(e_v));
-	ASSERT(V_ATOMICPTR_STAMPED_IS_ALIGNED(v));
+    ASSERT(V_ATOMICPTR_STAMPED_IS_ALIGNED(e_v));
+    ASSERT(V_ATOMICPTR_STAMPED_IS_ALIGNED(v));
 
-	exp = V_ATOMICPTR_STAMPED_COMBINE_ADDRESS_STAMP(e_v, e_stamp);
-	val = V_ATOMICPTR_STAMPED_COMBINE_ADDRESS_STAMP(v, stamp);
-	old = vatomicptr_cmpxchg(a, exp, val);
-	return old == exp;
+    exp = V_ATOMICPTR_STAMPED_COMBINE_ADDRESS_STAMP(e_v, e_stamp);
+    val = V_ATOMICPTR_STAMPED_COMBINE_ADDRESS_STAMP(v, stamp);
+    old = vatomicptr_cmpxchg(a, exp, val);
+    return old == exp;
 }
 /**
  * Compares and exchanges the address and stamp value in `a`.
@@ -106,19 +106,19 @@ vatomicptr_stamped_cmpxchg(vatomicptr_stamped_t *a, void *e_v, vuint8_t e_stamp,
  */
 static inline vbool_t
 vatomicptr_stamped_cmpxchg_acq(vatomicptr_stamped_t *a, void *e_v,
-							   vuint8_t e_stamp, void *v, vuint8_t stamp)
+                               vuint8_t e_stamp, void *v, vuint8_t stamp)
 {
-	void *old = NULL;
-	void *exp = NULL;
-	void *val = NULL;
+    void *old = NULL;
+    void *exp = NULL;
+    void *val = NULL;
 
-	ASSERT(V_ATOMICPTR_STAMPED_IS_ALIGNED(e_v));
-	ASSERT(V_ATOMICPTR_STAMPED_IS_ALIGNED(v));
+    ASSERT(V_ATOMICPTR_STAMPED_IS_ALIGNED(e_v));
+    ASSERT(V_ATOMICPTR_STAMPED_IS_ALIGNED(v));
 
-	exp = V_ATOMICPTR_STAMPED_COMBINE_ADDRESS_STAMP(e_v, e_stamp);
-	val = V_ATOMICPTR_STAMPED_COMBINE_ADDRESS_STAMP(v, stamp);
-	old = vatomicptr_cmpxchg_acq(a, exp, val);
-	return old == exp;
+    exp = V_ATOMICPTR_STAMPED_COMBINE_ADDRESS_STAMP(e_v, e_stamp);
+    val = V_ATOMICPTR_STAMPED_COMBINE_ADDRESS_STAMP(v, stamp);
+    old = vatomicptr_cmpxchg_acq(a, exp, val);
+    return old == exp;
 }
 /**
  * Compares and exchanges the address and stamp value in `a`.
@@ -135,19 +135,19 @@ vatomicptr_stamped_cmpxchg_acq(vatomicptr_stamped_t *a, void *e_v,
  */
 static inline vbool_t
 vatomicptr_stamped_cmpxchg_rel(vatomicptr_stamped_t *a, void *e_v,
-							   vuint8_t e_stamp, void *v, vuint8_t stamp)
+                               vuint8_t e_stamp, void *v, vuint8_t stamp)
 {
-	void *old = NULL;
-	void *exp = NULL;
-	void *val = NULL;
+    void *old = NULL;
+    void *exp = NULL;
+    void *val = NULL;
 
-	ASSERT(V_ATOMICPTR_STAMPED_IS_ALIGNED(e_v));
-	ASSERT(V_ATOMICPTR_STAMPED_IS_ALIGNED(v));
+    ASSERT(V_ATOMICPTR_STAMPED_IS_ALIGNED(e_v));
+    ASSERT(V_ATOMICPTR_STAMPED_IS_ALIGNED(v));
 
-	exp = V_ATOMICPTR_STAMPED_COMBINE_ADDRESS_STAMP(e_v, e_stamp);
-	val = V_ATOMICPTR_STAMPED_COMBINE_ADDRESS_STAMP(v, stamp);
-	old = vatomicptr_cmpxchg_rel(a, exp, val);
-	return old == exp;
+    exp = V_ATOMICPTR_STAMPED_COMBINE_ADDRESS_STAMP(e_v, e_stamp);
+    val = V_ATOMICPTR_STAMPED_COMBINE_ADDRESS_STAMP(v, stamp);
+    old = vatomicptr_cmpxchg_rel(a, exp, val);
+    return old == exp;
 }
 /**
  * Compares and exchanges the address and stamp value in `a`.
@@ -164,19 +164,19 @@ vatomicptr_stamped_cmpxchg_rel(vatomicptr_stamped_t *a, void *e_v,
  */
 static inline vbool_t
 vatomicptr_stamped_cmpxchg_rlx(vatomicptr_stamped_t *a, void *e_v,
-							   vuint8_t e_stamp, void *v, vuint8_t stamp)
+                               vuint8_t e_stamp, void *v, vuint8_t stamp)
 {
-	void *old = NULL;
-	void *exp = NULL;
-	void *val = NULL;
+    void *old = NULL;
+    void *exp = NULL;
+    void *val = NULL;
 
-	ASSERT(V_ATOMICPTR_STAMPED_IS_ALIGNED(e_v));
-	ASSERT(V_ATOMICPTR_STAMPED_IS_ALIGNED(v));
+    ASSERT(V_ATOMICPTR_STAMPED_IS_ALIGNED(e_v));
+    ASSERT(V_ATOMICPTR_STAMPED_IS_ALIGNED(v));
 
-	exp = V_ATOMICPTR_STAMPED_COMBINE_ADDRESS_STAMP(e_v, e_stamp);
-	val = V_ATOMICPTR_STAMPED_COMBINE_ADDRESS_STAMP(v, stamp);
-	old = vatomicptr_cmpxchg_rlx(a, exp, val);
-	return old == exp;
+    exp = V_ATOMICPTR_STAMPED_COMBINE_ADDRESS_STAMP(e_v, e_stamp);
+    val = V_ATOMICPTR_STAMPED_COMBINE_ADDRESS_STAMP(v, stamp);
+    old = vatomicptr_cmpxchg_rlx(a, exp, val);
+    return old == exp;
 }
 /**
  * Attemps to update the stamp in `a`.
@@ -190,18 +190,18 @@ vatomicptr_stamped_cmpxchg_rlx(vatomicptr_stamped_t *a, void *e_v,
  */
 static inline vbool_t
 vatomicptr_stamped_attempt_stamp(vatomicptr_stamped_t *a, void *e_v,
-								 vuint8_t stamp)
+                                 vuint8_t stamp)
 {
-	void *new_val = NULL;
-	void *ret	  = NULL;
-	void *old_val = vatomicptr_read(a);
-	ASSERT(V_ATOMICPTR_STAMPED_IS_ALIGNED(e_v));
-	if (V_ATOMICPTR_STAMPED_GET_ADDRESS(old_val) != e_v) {
-		return false;
-	}
-	new_val = V_ATOMICPTR_STAMPED_COMBINE_ADDRESS_STAMP(e_v, stamp);
-	ret		= vatomicptr_cmpxchg(a, old_val, new_val);
-	return ret == old_val;
+    void *new_val = NULL;
+    void *ret     = NULL;
+    void *old_val = vatomicptr_read(a);
+    ASSERT(V_ATOMICPTR_STAMPED_IS_ALIGNED(e_v));
+    if (V_ATOMICPTR_STAMPED_GET_ADDRESS(old_val) != e_v) {
+        return false;
+    }
+    new_val = V_ATOMICPTR_STAMPED_COMBINE_ADDRESS_STAMP(e_v, stamp);
+    ret     = vatomicptr_cmpxchg(a, old_val, new_val);
+    return ret == old_val;
 }
 /**
  * Attemps to update the stamp in `a`.
@@ -215,18 +215,18 @@ vatomicptr_stamped_attempt_stamp(vatomicptr_stamped_t *a, void *e_v,
  */
 static inline vbool_t
 vatomicptr_stamped_attempt_stamp_acq(vatomicptr_stamped_t *a, void *e_v,
-									 vuint8_t stamp)
+                                     vuint8_t stamp)
 {
-	void *new_val = NULL;
-	void *ret	  = NULL;
-	void *old_val = vatomicptr_read(a);
-	ASSERT(V_ATOMICPTR_STAMPED_IS_ALIGNED(e_v));
-	if (V_ATOMICPTR_STAMPED_GET_ADDRESS(old_val) != e_v) {
-		return false;
-	}
-	new_val = V_ATOMICPTR_STAMPED_COMBINE_ADDRESS_STAMP(e_v, stamp);
-	ret		= vatomicptr_cmpxchg_acq(a, old_val, new_val);
-	return ret == old_val;
+    void *new_val = NULL;
+    void *ret     = NULL;
+    void *old_val = vatomicptr_read(a);
+    ASSERT(V_ATOMICPTR_STAMPED_IS_ALIGNED(e_v));
+    if (V_ATOMICPTR_STAMPED_GET_ADDRESS(old_val) != e_v) {
+        return false;
+    }
+    new_val = V_ATOMICPTR_STAMPED_COMBINE_ADDRESS_STAMP(e_v, stamp);
+    ret     = vatomicptr_cmpxchg_acq(a, old_val, new_val);
+    return ret == old_val;
 }
 /**
  * Attemps to update the stamp in `a`.
@@ -240,18 +240,18 @@ vatomicptr_stamped_attempt_stamp_acq(vatomicptr_stamped_t *a, void *e_v,
  */
 static inline vbool_t
 vatomicptr_stamped_attempt_stamp_rel(vatomicptr_stamped_t *a, void *e_v,
-									 vuint8_t stamp)
+                                     vuint8_t stamp)
 {
-	void *new_val = NULL;
-	void *ret	  = NULL;
-	void *old_val = vatomicptr_read(a);
-	ASSERT(V_ATOMICPTR_STAMPED_IS_ALIGNED(e_v));
-	if (V_ATOMICPTR_STAMPED_GET_ADDRESS(old_val) != e_v) {
-		return false;
-	}
-	new_val = V_ATOMICPTR_STAMPED_COMBINE_ADDRESS_STAMP(e_v, stamp);
-	ret		= vatomicptr_cmpxchg_rel(a, old_val, new_val);
-	return ret == old_val;
+    void *new_val = NULL;
+    void *ret     = NULL;
+    void *old_val = vatomicptr_read(a);
+    ASSERT(V_ATOMICPTR_STAMPED_IS_ALIGNED(e_v));
+    if (V_ATOMICPTR_STAMPED_GET_ADDRESS(old_val) != e_v) {
+        return false;
+    }
+    new_val = V_ATOMICPTR_STAMPED_COMBINE_ADDRESS_STAMP(e_v, stamp);
+    ret     = vatomicptr_cmpxchg_rel(a, old_val, new_val);
+    return ret == old_val;
 }
 /**
  * Attemps to update the stamp in `a`.
@@ -265,18 +265,18 @@ vatomicptr_stamped_attempt_stamp_rel(vatomicptr_stamped_t *a, void *e_v,
  */
 static inline vbool_t
 vatomicptr_stamped_attempt_stamp_rlx(vatomicptr_stamped_t *a, void *e_v,
-									 vuint8_t stamp)
+                                     vuint8_t stamp)
 {
-	void *new_val = NULL;
-	void *ret	  = NULL;
-	void *old_val = vatomicptr_read(a);
-	ASSERT(V_ATOMICPTR_STAMPED_IS_ALIGNED(e_v));
-	if (V_ATOMICPTR_STAMPED_GET_ADDRESS(old_val) != e_v) {
-		return false;
-	}
-	new_val = V_ATOMICPTR_STAMPED_COMBINE_ADDRESS_STAMP(e_v, stamp);
-	ret		= vatomicptr_cmpxchg_rlx(a, old_val, new_val);
-	return ret == old_val;
+    void *new_val = NULL;
+    void *ret     = NULL;
+    void *old_val = vatomicptr_read(a);
+    ASSERT(V_ATOMICPTR_STAMPED_IS_ALIGNED(e_v));
+    if (V_ATOMICPTR_STAMPED_GET_ADDRESS(old_val) != e_v) {
+        return false;
+    }
+    new_val = V_ATOMICPTR_STAMPED_COMBINE_ADDRESS_STAMP(e_v, stamp);
+    ret     = vatomicptr_cmpxchg_rlx(a, old_val, new_val);
+    return ret == old_val;
 }
 /**
  * Sets the address and stamp of a to the given `v` and `stamp`.
@@ -288,9 +288,9 @@ vatomicptr_stamped_attempt_stamp_rlx(vatomicptr_stamped_t *a, void *e_v,
 static inline void
 vatomicptr_stamped_set(vatomicptr_stamped_t *a, void *v, vuint8_t stamp)
 {
-	ASSERT(V_ATOMICPTR_STAMPED_IS_ALIGNED(v));
-	void *n = V_ATOMICPTR_STAMPED_COMBINE_ADDRESS_STAMP(v, stamp);
-	vatomicptr_write(a, n);
+    ASSERT(V_ATOMICPTR_STAMPED_IS_ALIGNED(v));
+    void *n = V_ATOMICPTR_STAMPED_COMBINE_ADDRESS_STAMP(v, stamp);
+    vatomicptr_write(a, n);
 }
 /**
  * Sets the address and stamp of a to the given `v` and `stamp`.
@@ -302,9 +302,9 @@ vatomicptr_stamped_set(vatomicptr_stamped_t *a, void *v, vuint8_t stamp)
 static inline void
 vatomicptr_stamped_set_rel(vatomicptr_stamped_t *a, void *v, vuint8_t stamp)
 {
-	ASSERT(V_ATOMICPTR_STAMPED_IS_ALIGNED(v));
-	void *n = V_ATOMICPTR_STAMPED_COMBINE_ADDRESS_STAMP(v, stamp);
-	vatomicptr_write_rel(a, n);
+    ASSERT(V_ATOMICPTR_STAMPED_IS_ALIGNED(v));
+    void *n = V_ATOMICPTR_STAMPED_COMBINE_ADDRESS_STAMP(v, stamp);
+    vatomicptr_write_rel(a, n);
 }
 /**
  * Sets the address and stamp of a to the given `v` and `stamp`.
@@ -316,9 +316,9 @@ vatomicptr_stamped_set_rel(vatomicptr_stamped_t *a, void *v, vuint8_t stamp)
 static inline void
 vatomicptr_stamped_set_rlx(vatomicptr_stamped_t *a, void *v, vuint8_t stamp)
 {
-	ASSERT(V_ATOMICPTR_STAMPED_IS_ALIGNED(v));
-	void *n = V_ATOMICPTR_STAMPED_COMBINE_ADDRESS_STAMP(v, stamp);
-	vatomicptr_write_rlx(a, n);
+    ASSERT(V_ATOMICPTR_STAMPED_IS_ALIGNED(v));
+    void *n = V_ATOMICPTR_STAMPED_COMBINE_ADDRESS_STAMP(v, stamp);
+    vatomicptr_write_rlx(a, n);
 }
 /**
  * Returns the address value of a.
@@ -330,9 +330,9 @@ vatomicptr_stamped_set_rlx(vatomicptr_stamped_t *a, void *v, vuint8_t stamp)
 static inline void *
 vatomicptr_stamped_get(vatomicptr_stamped_t *a, vuint8_t *out_stamp)
 {
-	void *val  = vatomicptr_read(a);
-	*out_stamp = V_ATOMICPTR_STAMPED_GET_STAMP(val);
-	return V_ATOMICPTR_STAMPED_GET_ADDRESS(val);
+    void *val  = vatomicptr_read(a);
+    *out_stamp = V_ATOMICPTR_STAMPED_GET_STAMP(val);
+    return V_ATOMICPTR_STAMPED_GET_ADDRESS(val);
 }
 /**
  * Returns the address value of a.
@@ -344,9 +344,9 @@ vatomicptr_stamped_get(vatomicptr_stamped_t *a, vuint8_t *out_stamp)
 static inline void *
 vatomicptr_stamped_get_acq(vatomicptr_stamped_t *a, vuint8_t *out_stamp)
 {
-	void *val  = vatomicptr_read_acq(a);
-	*out_stamp = V_ATOMICPTR_STAMPED_GET_STAMP(val);
-	return V_ATOMICPTR_STAMPED_GET_ADDRESS(val);
+    void *val  = vatomicptr_read_acq(a);
+    *out_stamp = V_ATOMICPTR_STAMPED_GET_STAMP(val);
+    return V_ATOMICPTR_STAMPED_GET_ADDRESS(val);
 }
 /**
  * Returns the address value of a.
@@ -358,9 +358,9 @@ vatomicptr_stamped_get_acq(vatomicptr_stamped_t *a, vuint8_t *out_stamp)
 static inline void *
 vatomicptr_stamped_get_rlx(vatomicptr_stamped_t *a, vuint8_t *out_stamp)
 {
-	void *val  = vatomicptr_read_rlx(a);
-	*out_stamp = V_ATOMICPTR_STAMPED_GET_STAMP(val);
-	return V_ATOMICPTR_STAMPED_GET_ADDRESS(val);
+    void *val  = vatomicptr_read_rlx(a);
+    *out_stamp = V_ATOMICPTR_STAMPED_GET_STAMP(val);
+    return V_ATOMICPTR_STAMPED_GET_ADDRESS(val);
 }
 /**
  * Returns the address value of `a`.
@@ -371,8 +371,8 @@ vatomicptr_stamped_get_rlx(vatomicptr_stamped_t *a, vuint8_t *out_stamp)
 static inline void *
 vatomicptr_stamped_get_pointer(vatomicptr_stamped_t *a)
 {
-	vuint8_t stamp = 0;
-	return vatomicptr_stamped_get(a, &stamp);
+    vuint8_t stamp = 0;
+    return vatomicptr_stamped_get(a, &stamp);
 }
 /**
  * Returns the address value of `a`.
@@ -383,8 +383,8 @@ vatomicptr_stamped_get_pointer(vatomicptr_stamped_t *a)
 static inline void *
 vatomicptr_stamped_get_pointer_acq(vatomicptr_stamped_t *a)
 {
-	vuint8_t stamp = 0;
-	return vatomicptr_stamped_get_acq(a, &stamp);
+    vuint8_t stamp = 0;
+    return vatomicptr_stamped_get_acq(a, &stamp);
 }
 /**
  * Returns the address value of `a`.
@@ -395,8 +395,8 @@ vatomicptr_stamped_get_pointer_acq(vatomicptr_stamped_t *a)
 static inline void *
 vatomicptr_stamped_get_pointer_rlx(vatomicptr_stamped_t *a)
 {
-	vuint8_t stamp = 0;
-	return vatomicptr_stamped_get_rlx(a, &stamp);
+    vuint8_t stamp = 0;
+    return vatomicptr_stamped_get_rlx(a, &stamp);
 }
 /**
  * Returns the stamp value of `a`.
@@ -407,9 +407,9 @@ vatomicptr_stamped_get_pointer_rlx(vatomicptr_stamped_t *a)
 static inline vuint8_t
 vatomicptr_stamped_get_stamp(vatomicptr_stamped_t *a)
 {
-	vuint8_t stamp = 0;
-	(void)vatomicptr_stamped_get(a, &stamp);
-	return stamp;
+    vuint8_t stamp = 0;
+    (void)vatomicptr_stamped_get(a, &stamp);
+    return stamp;
 }
 /**
  * Returns the stamp value of `a`.
@@ -420,9 +420,9 @@ vatomicptr_stamped_get_stamp(vatomicptr_stamped_t *a)
 static inline vuint8_t
 vatomicptr_stamped_get_stamp_acq(vatomicptr_stamped_t *a)
 {
-	vuint8_t stamp = 0;
-	(void)vatomicptr_stamped_get_acq(a, &stamp);
-	return stamp;
+    vuint8_t stamp = 0;
+    (void)vatomicptr_stamped_get_acq(a, &stamp);
+    return stamp;
 }
 /**
  * Returns the stamp value of `a`.
@@ -433,9 +433,9 @@ vatomicptr_stamped_get_stamp_acq(vatomicptr_stamped_t *a)
 static inline vuint8_t
 vatomicptr_stamped_get_stamp_rlx(vatomicptr_stamped_t *a)
 {
-	vuint8_t stamp = 0;
-	(void)vatomicptr_stamped_get_rlx(a, &stamp);
-	return stamp;
+    vuint8_t stamp = 0;
+    (void)vatomicptr_stamped_get_rlx(a, &stamp);
+    return stamp;
 }
 #undef V_ATOMICPTR_STAMPED_EXTRACT_ADDRESS
 #undef V_ATOMICPTR_STAMPED_EXTRACT_STAMP

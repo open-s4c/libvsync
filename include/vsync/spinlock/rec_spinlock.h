@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #ifndef VSYNC_REC_SPINLOCK_H
 #define VSYNC_REC_SPINLOCK_H
 /*******************************************************************************
@@ -23,8 +24,8 @@
 
 /** @cond DO_NOT_DOCUMENT */
 DEF_RECURSIVE_LOCK(rec_spinlock, caslock_t, caslock_init, caslock_acquire,
-				   caslock_release, WITH_TRYACQUIRE(caslock_tryacquire),
-				   WITHOUT_CONTEXT)
+                   caslock_release, WITH_TRYACQUIRE(caslock_tryacquire),
+                   WITHOUT_CONTEXT)
 /** @endcond */
 
 /** Initializer of `rec_spinlock`. */

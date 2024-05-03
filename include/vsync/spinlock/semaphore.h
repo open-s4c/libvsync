@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #ifndef VSYNC_SEMAPHORE_H
 #define VSYNC_SEMAPHORE_H
 /*******************************************************************************
@@ -18,14 +19,14 @@
 #include <vsync/vtypes.h>
 
 typedef struct semaphore_s {
-	vatomic32_t s;
+    vatomic32_t s;
 } semaphore_t;
 
 /** Initializer of `semaphore_t` with n resources. */
 #define SEMAPHORE_INIT(n)                                                      \
-	{                                                                          \
-		.s = VATOMIC_INIT(n)                                                   \
-	}
+    {                                                                          \
+        .s = VATOMIC_INIT(n)                                                   \
+    }
 
 /**
  * Initializes the semaphore.
@@ -38,7 +39,7 @@ typedef struct semaphore_s {
 static inline void
 semaphore_init(semaphore_t *s, vuint32_t n)
 {
-	vatomic32_write(&s->s, n);
+    vatomic32_write(&s->s, n);
 }
 /**
  * Acquires i resources of the semaphore if available.
@@ -53,10 +54,10 @@ semaphore_init(semaphore_t *s, vuint32_t n)
 static inline void
 semaphore_acquire(semaphore_t *s, vuint32_t i)
 {
-	// awaits the subtraction does not overflow, then subtract.
-	// This could be implemented with a cmpxchg loop as well, but
-	// vatomic32_await_ge_sub politely waits with WFE instruction.
-	vatomic32_await_ge_sub_acq(&s->s, i, i);
+    // awaits the subtraction does not overflow, then subtract.
+    // This could be implemented with a cmpxchg loop as well, but
+    // vatomic32_await_ge_sub politely waits with WFE instruction.
+    vatomic32_await_ge_sub_acq(&s->s, i, i);
 }
 /**
  * Tries to acquire i resources of the semaphore if available.
@@ -71,11 +72,11 @@ semaphore_acquire(semaphore_t *s, vuint32_t i)
 static inline vbool_t
 semaphore_tryacquire(semaphore_t *s, vuint32_t i)
 {
-	vuint32_t old = vatomic32_read_rlx(&s->s);
-	if (old < i) {
-		return false;
-	}
-	return vatomic32_cmpxchg_acq(&s->s, old, old - i) == old;
+    vuint32_t old = vatomic32_read_rlx(&s->s);
+    if (old < i) {
+        return false;
+    }
+    return vatomic32_cmpxchg_acq(&s->s, old, old - i) == old;
 }
 /**
  * Releases i resources of the semaphore.
@@ -86,6 +87,6 @@ semaphore_tryacquire(semaphore_t *s, vuint32_t i)
 static inline void
 semaphore_release(semaphore_t *s, vuint32_t i)
 {
-	vatomic32_add_rel(&s->s, i);
+    vatomic32_add_rel(&s->s, i);
 }
 #endif

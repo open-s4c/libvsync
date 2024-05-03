@@ -12,20 +12,20 @@ const vsize_t g_lst_idx = 0;
 void
 t0(vsize_t tid)
 {
-	ASSERT(lst_add(tid, g_lst_idx, 0));
-	ASSERT(lst_con(tid, g_lst_idx, 0));
+    ASSERT(lst_add(tid, g_lst_idx, 0));
+    ASSERT(lst_con(tid, g_lst_idx, 0));
 }
 void
 t1(vsize_t tid)
 {
-	ASSERT(lst_add(tid, g_lst_idx, 1));
-	ASSERT(lst_con(tid, g_lst_idx, 1));
+    ASSERT(lst_add(tid, g_lst_idx, 1));
+    ASSERT(lst_con(tid, g_lst_idx, 1));
 }
 void
 t2(vsize_t tid)
 {
-	ASSERT(lst_add(tid, g_lst_idx, 2));
-	ASSERT(lst_con(tid, g_lst_idx, 2));
+    ASSERT(lst_add(tid, g_lst_idx, 2));
+    ASSERT(lst_con(tid, g_lst_idx, 2));
 }
 void
 pre(void)
@@ -34,5 +34,5 @@ pre(void)
 void
 post(void)
 {
-	lst_verify_traces(g_lst_idx);
+    lst_verify_traces(g_lst_idx);
 }

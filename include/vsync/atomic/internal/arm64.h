@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -26,23 +26,23 @@
  ******************************************************************************/
 
 #if defined(__ARM_FEATURE_ATOMICS) && !defined(VATOMIC_DISABLE_ARM64_LSE)
-	#define VATOMIC_ARM64_LSE
+    #define VATOMIC_ARM64_LSE
 #endif
 
 #if defined(VATOMIC_ENABLE_ARM64_LXE) && defined(VATOMIC_ARM64_LSE)
-	#define VATOMIC_ARM64_LXE
+    #define VATOMIC_ARM64_LXE
 #elif defined(VATOMIC_ENABLE_ARM64_LXE)
-	#error "Platform does not support LSE instructions"
+    #error "Platform does not support LSE instructions"
 #endif
 
 #if defined(VATOMIC_DISABLE_POLITE_AWAIT)
-	#define V_SEVL
-	#define V_WFE
-	#define V_LD_WFE V_LD
+    #define V_SEVL
+    #define V_WFE
+    #define V_LD_WFE V_LD
 #else
-	#define V_SEVL	 "sevl\n"
-	#define V_WFE	 "wfe\n"
-	#define V_LD_WFE V_LDX
+    #define V_SEVL   "sevl\n"
+    #define V_WFE    "wfe\n"
+    #define V_LD_WFE V_LDX
 #endif
 
 /*******************************************************************************
@@ -50,7 +50,7 @@
  ******************************************************************************/
 
 /* V_MAP_R: maps a prefix P to a register type R, eg, vatomic32 to "w" */
-#define V_MAP_R(P)		   V_CONCAT(V_MAP_R_, P)
+#define V_MAP_R(P)         V_CONCAT(V_MAP_R_, P)
 #define V_MAP_R_vatomic32  "w"
 #define V_MAP_R_vatomic64  "x"
 #define V_MAP_R_vatomicptr "x"
@@ -75,9 +75,9 @@
 
 /* valid for cas, swp */
 #define V_OP_LSE(op, mo) op V_CONCAT(V_OP_LSE_, V_REMAP(mo))
-#define V_OP_LSE_mo_seq	 "al"
-#define V_OP_LSE_mo_acq	 "a"
-#define V_OP_LSE_mo_rel	 "l"
+#define V_OP_LSE_mo_seq  "al"
+#define V_OP_LSE_mo_acq  "a"
+#define V_OP_LSE_mo_rel  "l"
 #define V_OP_LSE_mo_rlx
 
 /* ldadd, ldclr, ldset */
@@ -103,49 +103,49 @@
  * suffer the cost of changing a cacheline from shared to exclusive state. See
  * https://lore.kernel.org/linux-arm-kernel/1436779519-2232-16/
  */
-#define V_PRFM(a)		   "prfm pstl1strm," V_R(, a) "\n"
+#define V_PRFM(a)          "prfm pstl1strm," V_R(, a) "\n"
 #define V_MOV(T, dst, src) "mov" V_R2(T, dst, T, src) "\n"
-#define V_DEC(T, n, o)	   "sub" V_R2(T, n, T, o) "#1\n"
-#define V_CMP(T, v, e)	   "cmp" V_R2(T, v, T, e) "\n"
-#define V_CBZ(T, r, l)	   "cbz" V_R(T, r) "," #l "\n"
-#define V_CBNZ(T, r, l)	   "cbnz" V_R(T, r) "," #l "\n"
+#define V_DEC(T, n, o)     "sub" V_R2(T, n, T, o) "#1\n"
+#define V_CMP(T, v, e)     "cmp" V_R2(T, v, T, e) "\n"
+#define V_CBZ(T, r, l)     "cbz" V_R(T, r) "," #l "\n"
+#define V_CBNZ(T, r, l)    "cbnz" V_R(T, r) "," #l "\n"
 
-#define V_LD(mo, T, v, a)	  V_OP_LD(, mo) V_R2(T, v, , a) "\n"
-#define V_ST(mo, T, v, a)	  V_OP_ST(, mo) V_R2(T, v, , a) "\n"
-#define V_LDX(mo, T, r, a)	  V_OP_LD(x, mo) V_R2(T, r, , a) "\n"
+#define V_LD(mo, T, v, a)     V_OP_LD(, mo) V_R2(T, v, , a) "\n"
+#define V_ST(mo, T, v, a)     V_OP_ST(, mo) V_R2(T, v, , a) "\n"
+#define V_LDX(mo, T, r, a)    V_OP_LD(x, mo) V_R2(T, r, , a) "\n"
 #define V_STX(mo, T, t, n, a) V_OP_ST(x, mo) V_R3("w", t, T, n, , a) "\n"
 #define V_CAS(mo, T, o, n, a) V_OP_LSE("cas", mo) V_R3(T, o, T, n, , a) "\n"
 #define V_SWP(mo, T, n, o, a) V_OP_LSE("swp", mo) V_R3(T, n, T, o, , a) "\n"
 #define V_OP3(op, T, n, o, v) op V_R3(T, n, T, o, T, v) "\n"
 
 #define V_LDLSE(op, mo, T, n, o, a)                                            \
-	V_OP_LDLSE(op, mo) V_R3(T, n, T, o, , a) "\n"
+    V_OP_LDLSE(op, mo) V_R3(T, n, T, o, , a) "\n"
 #define V_STLSE(op, mo, T, n, o, a) V_OP_STLSE(op, mo) V_R2(T, n, , a) "\n"
 
-#define V_MVN(T, v)						"mvn" V_R2(T, v, T, v) "\n"
+#define V_MVN(T, v)                     "mvn" V_R2(T, v, T, v) "\n"
 #define V_MVN_LDSE(arg, mo, T, v, o, a) V_MVN(T, v) V_LDLSE(arg, mo, T, v, o, a)
 #define V_MVN_STLSE(arg, mo, T, v, o, a)                                       \
-	V_MVN(T, v) V_STLSE(arg, mo, T, v, o, a)
+    V_MVN(T, v) V_STLSE(arg, mo, T, v, o, a)
 
 #define V_NEG(T, v) "neg" V_R2(T, v, T, v) "\n"
 #define V_NEG_LDLSE(arg, mo, T, v, o, a)                                       \
-	V_NEG(T, v) V_LDLSE(arg, mo, T, v, o, a)
+    V_NEG(T, v) V_LDLSE(arg, mo, T, v, o, a)
 #define V_NEG_STLSE(arg, mo, T, v, o, a)                                       \
-	V_NEG(T, v) V_STLSE(arg, mo, T, v, o, a)
+    V_NEG(T, v) V_STLSE(arg, mo, T, v, o, a)
 
 /*******************************************************************************
  * assembly region selector
  ******************************************************************************/
 
 #if defined(VATOMIC_ARM64_LSE)
-	#define V_WITH_LSE(X) X
-	#define V_WITH_LLSC_LXE(X, COND_LLSC, COND_LXE)
+    #define V_WITH_LSE(X) X
+    #define V_WITH_LLSC_LXE(X, COND_LLSC, COND_LXE)
 #elif defined(VATOMIC_ARM64_LXE)
-	#define V_WITH_LSE(X)							X
-	#define V_WITH_LLSC_LXE(X, COND_LLSC, COND_LXE) X COND_LXE
+    #define V_WITH_LSE(X)                           X
+    #define V_WITH_LLSC_LXE(X, COND_LLSC, COND_LXE) X COND_LXE
 #else
-	#define V_WITH_LSE(X)
-	#define V_WITH_LLSC_LXE(X, COND_LLSC, COND_LXE) X COND_LLSC
+    #define V_WITH_LSE(X)
+    #define V_WITH_LLSC_LXE(X, COND_LLSC, COND_LXE) X COND_LLSC
 #endif
 
 /*******************************************************************************
@@ -153,24 +153,24 @@
  ******************************************************************************/
 
 #define V_DEFINE_read(P, mo)                                                   \
-	static inline V_MAP_T(P) V_FUNC(P, read, mo)(V_MAP_A(P) *a)                \
-	{                                                                          \
-		V_MAP_T(P) val;                                                        \
-		V_ASM(V_LD(mo, V_MAP_R(P), v, a)                                       \
-			  : [v] "=&r"(val)                                                 \
-			  : [a] "Q"(a->_v)                                                 \
-			  : "memory");                                                     \
-		return val;                                                            \
-	}
+    static inline V_MAP_T(P) V_FUNC(P, read, mo)(V_MAP_A(P) *a)                \
+    {                                                                          \
+        V_MAP_T(P) val;                                                        \
+        V_ASM(V_LD(mo, V_MAP_R(P), v, a)                                       \
+                         : [v] "=&r"(val)                                      \
+                         : [a] "Q"(a->_v)                                      \
+                         : "memory");                                 \
+        return val;                                                            \
+    }
 
 #define V_DEFINE_write(P, mo)                                                  \
-	static inline void V_FUNC(P, write, mo)(V_MAP_A(P) *a, V_MAP_T(P) v)       \
-	{                                                                          \
-		V_ASM(V_ST(mo, V_MAP_R(P), v, a)                                       \
-			  :                                                                \
-			  : [v] "r"(v), [a] "Q"(a->_v)                                     \
-			  : "memory");                                                     \
-	}
+    static inline void V_FUNC(P, write, mo)(V_MAP_A(P) *a, V_MAP_T(P) v)       \
+    {                                                                          \
+        V_ASM(V_ST(mo, V_MAP_R(P), v, a)                                       \
+                         :                                                     \
+                         : [v] "r"(v), [a] "Q"(a->_v)                          \
+                         : "memory");  \
+    }
 
 /*******************************************************************************
  * vatomic_xchg
@@ -185,19 +185,30 @@
  ******************************************************************************/
 
 #define V_DEFINE_xchg(P, mo)                                                   \
-	static inline V_MAP_T(P) V_FUNC(P, xchg, mo)(V_MAP_A(P) *a, V_MAP_T(P) v)  \
-	{                                                                          \
-		V_MAP_T(P) oldv;                                                       \
-		vuint32_t tmp;                                                         \
-		V_ASM(V_WITH_LLSC_LXE(V_PRFM(a) "1:\n" V_LDX(mo, V_MAP_R(P), oldv, a)  \
-								  V_STX(mo, V_MAP_R(P), tmp, newv, a),         \
-							  V_CBNZ("w", tmp, 1b), V_CBZ("w", tmp, 2f))       \
-				  V_WITH_LSE(V_SWP(mo, V_MAP_R(P), newv, oldv, a) "2:\n")      \
-			  : [oldv] "=&r"(oldv), [tmp] "=&r"(tmp)                           \
-			  : [newv] "r"(v), [a] "Q"(a->_v)                                  \
-			  : "memory");                                                     \
-		return oldv;                                                           \
-	}
+    static inline V_MAP_T(P) V_FUNC(P, xchg, mo)(V_MAP_A(P) *a, V_MAP_T(P) v)  \
+    {                                                                          \
+        V_MAP_T(P) oldv;                                                       \
+        vuint32_t tmp;                                                         \
+        V_ASM(                                                                 \
+            V_WITH_LLSC_LXE(                                                   \
+                V_PRFM(a)                                                      \
+                "1:\n"                                                         \
+                V_LDX(mo, V_MAP_R(P), oldv, a)                                 \
+                V_STX(mo, V_MAP_R(P), tmp, newv, a)                            \
+                , V_CBNZ("w", tmp, 1b)                                         \
+                , V_CBZ("w", tmp, 2f)                                          \
+            )V_WITH_LSE(                                                       \
+                V_SWP(mo, V_MAP_R(P), newv, oldv, a)                           \
+                "2:\n"                                                         \
+            )                                                                  \
+            : [oldv] "=&r"(oldv),                                              \
+              [tmp] "=&r"(tmp)                                                 \
+            : [newv]   "r"(v),                                                 \
+              [a]   "Q"(a->_v)                                                 \
+            : "memory"                                                         \
+        ); \
+        return oldv;                                                           \
+    }
 
 /*******************************************************************************
  * vatomic_cmpxchg
@@ -212,84 +223,108 @@
  ******************************************************************************/
 
 #define V_DEFINE_cmpxchg(P, mo)                                                \
-	static inline V_MAP_T(P) V_FUNC(P, cmpxchg, mo)(                           \
-		V_MAP_A(P) *a, V_MAP_T(P) e, V_MAP_T(P) v)                             \
-	{                                                                          \
-		V_MAP_T(P) oldv;                                                       \
-		vuint32_t tmp;                                                         \
-		V_ASM(V_WITH_LLSC_LXE(V_PRFM(a) "1:\n" V_LDX(mo, V_MAP_R(P), oldv, a)  \
-								  V_CMP(V_MAP_R(P), oldv, exp) V_BNE(2f)       \
-									  V_STX(mo, V_MAP_R(P), tmp, newv, a),     \
-							  V_CBNZ("w", tmp, 1b), V_CBZ("w", tmp, 2f))       \
-				  V_WITH_LSE(V_MOV(V_MAP_R(P), oldv, exp)                      \
-								 V_CAS(mo, V_MAP_R(P), oldv, newv, a)) "2:\n"  \
-			  : [oldv] "=&r"(oldv), [tmp] "=&r"(tmp)                           \
-			  : [newv] "r"(v), [exp] "r"(e), [a] "Q"(a->_v)                    \
-			  : "memory", "cc");                                               \
-		return oldv;                                                           \
-	}
+    static inline V_MAP_T(P) V_FUNC(P, cmpxchg, mo)(                           \
+        V_MAP_A(P) *a, V_MAP_T(P) e, V_MAP_T(P) v)                             \
+    {                                                                          \
+        V_MAP_T(P) oldv;                                                       \
+        vuint32_t tmp;                                                         \
+        V_ASM(                                                                 \
+            V_WITH_LLSC_LXE(                                                   \
+                V_PRFM(a)                                                      \
+                "1:\n"                                                         \
+                V_LDX(mo, V_MAP_R(P), oldv, a)                                 \
+                V_CMP(V_MAP_R(P), oldv, exp)                                   \
+                V_BNE(2f)                                                      \
+                V_STX(mo, V_MAP_R(P), tmp, newv, a)                            \
+                , V_CBNZ("w", tmp, 1b)                                         \
+                , V_CBZ("w", tmp, 2f)                                          \
+            )V_WITH_LSE(                                                       \
+                V_MOV(V_MAP_R(P), oldv, exp)                                   \
+                V_CAS(mo, V_MAP_R(P), oldv, newv, a)                           \
+            )                                                                  \
+            "2:\n"                                                             \
+            : [oldv] "=&r"(oldv),                                              \
+              [tmp] "=&r"(tmp)                                                 \
+            : [newv]   "r"(v),                                                 \
+              [exp]   "r"(e),                                                  \
+                [a]   "Q"(a->_v)                                               \
+            : "memory","cc"                                                    \
+        );            \
+        return oldv;                                                           \
+    }
 
 /*******************************************************************************
  * assembly helpers
  ******************************************************************************/
 
 #define V_OP_RMW(_OP1, arg1, _OP2, arg2, mo, T, vtyp)                          \
-	({                                                                         \
-		vuint32_t tmp;                                                         \
-		vtyp newv;                                                             \
-		V_ASM(V_WITH_LLSC_LXE(V_PRFM(a) "1:\n" V_LDX(mo, T, oldv, a)           \
-								  _OP1(arg1, T, newv, oldv, v)                 \
-									  V_STX(mo, T, tmp, newv, a),              \
-							  V_CBNZ("w", tmp, 1b), V_CBZ("w", tmp, 2f))       \
-				  V_WITH_LSE(_OP2(arg2, mo, T, v, oldv, a)) "2:\n"             \
-			  : [oldv] "=&r"(oldv), [newv] "=&r"(newv), [tmp] "=&r"(tmp),      \
-				[v] "+&r"(v)                                                   \
-			  : [a] "Q"(a->_v)                                                 \
-			  : "memory", "cc");                                               \
-	})
+    ({                                                                         \
+        vuint32_t tmp;                                                         \
+        vtyp newv;                                                             \
+        V_ASM(                                                                 \
+            V_WITH_LLSC_LXE(                                                   \
+                V_PRFM(a)                                                      \
+                "1:\n"                                                         \
+                V_LDX(mo, T, oldv, a)                                          \
+                _OP1(arg1, T, newv, oldv, v)                                   \
+                V_STX(mo, T, tmp, newv, a)                                     \
+                , V_CBNZ("w", tmp, 1b)                                         \
+                , V_CBZ("w", tmp, 2f)                                          \
+            )V_WITH_LSE(                                                       \
+                _OP2(arg2, mo, T, v, oldv, a)                                  \
+            )                                                                  \
+            "2:\n"                                                             \
+            : [oldv] "=&r"(oldv),                                              \
+              [newv] "=&r"(newv),                                              \
+              [tmp] "=&r"(tmp),                                                \
+                [v] "+&r"(v)                                                   \
+            :   [a]   "Q"(a->_v)                                               \
+            : "memory", "cc"                                                   \
+        );             \
+    })
 
 /*******************************************************************************
  * vatomic_{get_max, max, max_get}
  ******************************************************************************/
 
 #define V_MAX_CMP(target, T, newv, oldv, v)                                    \
-	V_CMP(T, oldv, v) V_BHS(target) V_MOV(T, newv, v)
+    V_CMP(T, oldv, v) V_BHS(target) V_MOV(T, newv, v)
 
 #define V_DEFINE_get_max(P, mo)                                                \
-	static inline V_MAP_T(P) V_FUNC(P, get_max, mo)(V_MAP_A(P) *a,             \
-													V_MAP_T(P) v)              \
-	{                                                                          \
-		V_MAP_T(P) oldv;                                                       \
-		V_OP_RMW(V_MAX_CMP, 2f, V_LDLSE, "umax", mo, V_MAP_R(P), V_MAP_T(P));  \
-		return oldv;                                                           \
-	}
+    static inline V_MAP_T(P) V_FUNC(P, get_max, mo)(V_MAP_A(P) *a,             \
+                                                    V_MAP_T(P) v)              \
+    {                                                                          \
+        V_MAP_T(P) oldv;                                                       \
+        V_OP_RMW(V_MAX_CMP, 2f, V_LDLSE, "umax", mo, V_MAP_R(P), V_MAP_T(P));  \
+        return oldv;                                                           \
+    }
 
 #define V_DEFINE_max(P, mo)                                                    \
-	static inline void V_FUNC(P, max, mo)(V_MAP_A(P) *a, V_MAP_T(P) v)         \
-	{                                                                          \
-		V_MAP_T(P) oldv;                                                       \
-		V_OP_RMW(V_MAX_CMP, 2f, V_STLSE, "umax", mo, V_MAP_R(P), V_MAP_T(P));  \
-	}
+    static inline void V_FUNC(P, max, mo)(V_MAP_A(P) *a, V_MAP_T(P) v)         \
+    {                                                                          \
+        V_MAP_T(P) oldv;                                                       \
+        V_OP_RMW(V_MAX_CMP, 2f, V_STLSE, "umax", mo, V_MAP_R(P), V_MAP_T(P));  \
+    }
 
 /*******************************************************************************
  * vatomic_{get_add, add, add_get}
  ******************************************************************************/
 
 #define V_DEFINE_get_add(P, mo)                                                \
-	static inline V_MAP_T(P) V_FUNC(P, get_add, mo)(V_MAP_A(P) *a,             \
-													V_MAP_T(P) v)              \
-	{                                                                          \
-		V_MAP_T(P) oldv;                                                       \
-		V_OP_RMW(V_OP3, "add", V_LDLSE, "add", mo, V_MAP_R(P), V_MAP_T(P));    \
-		return oldv;                                                           \
-	}
+    static inline V_MAP_T(P) V_FUNC(P, get_add, mo)(V_MAP_A(P) *a,             \
+                                                    V_MAP_T(P) v)              \
+    {                                                                          \
+        V_MAP_T(P) oldv;                                                       \
+        V_OP_RMW(V_OP3, "add", V_LDLSE, "add", mo, V_MAP_R(P), V_MAP_T(P));    \
+        return oldv;                                                           \
+    }
 
 #define V_DEFINE_add(P, mo)                                                    \
-	static inline void V_FUNC(P, add, mo)(V_MAP_A(P) *a, V_MAP_T(P) v)         \
-	{                                                                          \
-		V_MAP_T(P) oldv;                                                       \
-		V_OP_RMW(V_OP3, "add", V_STLSE, "add", mo, V_MAP_R(P), V_MAP_T(P));    \
-	}
+    static inline void V_FUNC(P, add, mo)(V_MAP_A(P) *a, V_MAP_T(P) v)         \
+    {                                                                          \
+        V_MAP_T(P) oldv;                                                       \
+        V_OP_RMW(V_OP3, "add", V_STLSE, "add", mo, V_MAP_R(P), V_MAP_T(P));    \
+    }
 
 /*******************************************************************************
  * vatomic_{get_or, or, or_get}
@@ -307,20 +342,20 @@
  ******************************************************************************/
 
 #define V_DEFINE_get_or(P, mo)                                                 \
-	static inline V_MAP_T(P) V_FUNC(P, get_or, mo)(V_MAP_A(P) *a,              \
-												   V_MAP_T(P) v)               \
-	{                                                                          \
-		V_MAP_T(P) oldv;                                                       \
-		V_OP_RMW(V_OP3, "orr", V_LDLSE, "set", mo, V_MAP_R(P), V_MAP_T(P));    \
-		return oldv;                                                           \
-	}
+    static inline V_MAP_T(P) V_FUNC(P, get_or, mo)(V_MAP_A(P) *a,              \
+                                                   V_MAP_T(P) v)               \
+    {                                                                          \
+        V_MAP_T(P) oldv;                                                       \
+        V_OP_RMW(V_OP3, "orr", V_LDLSE, "set", mo, V_MAP_R(P), V_MAP_T(P));    \
+        return oldv;                                                           \
+    }
 
 #define V_DEFINE_or(P, mo)                                                     \
-	static inline void V_FUNC(P, or, mo)(V_MAP_A(P) *a, V_MAP_T(P) v)          \
-	{                                                                          \
-		V_MAP_T(P) oldv;                                                       \
-		V_OP_RMW(V_OP3, "orr", V_STLSE, "set", mo, V_MAP_R(P), V_MAP_T(P));    \
-	}
+    static inline void V_FUNC(P, or, mo)(V_MAP_A(P) *a, V_MAP_T(P) v)          \
+    {                                                                          \
+        V_MAP_T(P) oldv;                                                       \
+        V_OP_RMW(V_OP3, "orr", V_STLSE, "set", mo, V_MAP_R(P), V_MAP_T(P));    \
+    }
 
 /*******************************************************************************
  * vatomic_{get_xor, xor, xor_get}
@@ -338,20 +373,20 @@
  ******************************************************************************/
 
 #define V_DEFINE_get_xor(P, mo)                                                \
-	static inline V_MAP_T(P) V_FUNC(P, get_xor, mo)(V_MAP_A(P) *a,             \
-													V_MAP_T(P) v)              \
-	{                                                                          \
-		V_MAP_T(P) oldv;                                                       \
-		V_OP_RMW(V_OP3, "eor", V_LDLSE, "eor", mo, V_MAP_R(P), V_MAP_T(P));    \
-		return oldv;                                                           \
-	}
+    static inline V_MAP_T(P) V_FUNC(P, get_xor, mo)(V_MAP_A(P) *a,             \
+                                                    V_MAP_T(P) v)              \
+    {                                                                          \
+        V_MAP_T(P) oldv;                                                       \
+        V_OP_RMW(V_OP3, "eor", V_LDLSE, "eor", mo, V_MAP_R(P), V_MAP_T(P));    \
+        return oldv;                                                           \
+    }
 
 #define V_DEFINE_xor(P, mo)                                                    \
-	static inline void V_FUNC(P, xor, mo)(V_MAP_A(P) *a, V_MAP_T(P) v)         \
-	{                                                                          \
-		V_MAP_T(P) oldv;                                                       \
-		V_OP_RMW(V_OP3, "eor", V_STLSE, "eor", mo, V_MAP_R(P), V_MAP_T(P));    \
-	}
+    static inline void V_FUNC(P, xor, mo)(V_MAP_A(P) *a, V_MAP_T(P) v)         \
+    {                                                                          \
+        V_MAP_T(P) oldv;                                                       \
+        V_OP_RMW(V_OP3, "eor", V_STLSE, "eor", mo, V_MAP_R(P), V_MAP_T(P));    \
+    }
 
 /*******************************************************************************
  * vatomic_{get_and, and}
@@ -369,21 +404,21 @@
  ******************************************************************************/
 
 #define V_DEFINE_get_and(P, mo)                                                \
-	static inline V_MAP_T(P) V_FUNC(P, get_and, mo)(V_MAP_A(P) *a,             \
-													V_MAP_T(P) v)              \
-	{                                                                          \
-		V_MAP_T(P) oldv;                                                       \
-		V_OP_RMW(V_OP3, "and", V_MVN_LDSE, "clr", mo, V_MAP_R(P), V_MAP_T(P)); \
-		return oldv;                                                           \
-	}
+    static inline V_MAP_T(P) V_FUNC(P, get_and, mo)(V_MAP_A(P) *a,             \
+                                                    V_MAP_T(P) v)              \
+    {                                                                          \
+        V_MAP_T(P) oldv;                                                       \
+        V_OP_RMW(V_OP3, "and", V_MVN_LDSE, "clr", mo, V_MAP_R(P), V_MAP_T(P)); \
+        return oldv;                                                           \
+    }
 
 #define V_DEFINE_and(P, mo)                                                    \
-	static inline void V_FUNC(P, and, mo)(V_MAP_A(P) *a, V_MAP_T(P) v)         \
-	{                                                                          \
-		V_MAP_T(P) oldv;                                                       \
-		V_OP_RMW(V_OP3, "and", V_MVN_STLSE, "clr", mo, V_MAP_R(P),             \
-				 V_MAP_T(P));                                                  \
-	}
+    static inline void V_FUNC(P, and, mo)(V_MAP_A(P) *a, V_MAP_T(P) v)         \
+    {                                                                          \
+        V_MAP_T(P) oldv;                                                       \
+        V_OP_RMW(V_OP3, "and", V_MVN_STLSE, "clr", mo, V_MAP_R(P),             \
+                 V_MAP_T(P));                                                  \
+    }
 
 /*******************************************************************************
  * vatomic_{get_sub, sub, sub_get}
@@ -399,22 +434,22 @@
  ******************************************************************************/
 
 #define V_DEFINE_get_sub(P, mo)                                                \
-	static inline V_MAP_T(P) V_FUNC(P, get_sub, mo)(V_MAP_A(P) *a,             \
-													V_MAP_T(P) v)              \
-	{                                                                          \
-		V_MAP_T(P) oldv;                                                       \
-		V_OP_RMW(V_OP3, "sub", V_NEG_LDLSE, "add", mo, V_MAP_R(P),             \
-				 V_MAP_T(P));                                                  \
-		return oldv;                                                           \
-	}
+    static inline V_MAP_T(P) V_FUNC(P, get_sub, mo)(V_MAP_A(P) *a,             \
+                                                    V_MAP_T(P) v)              \
+    {                                                                          \
+        V_MAP_T(P) oldv;                                                       \
+        V_OP_RMW(V_OP3, "sub", V_NEG_LDLSE, "add", mo, V_MAP_R(P),             \
+                 V_MAP_T(P));                                                  \
+        return oldv;                                                           \
+    }
 
 #define V_DEFINE_sub(P, mo)                                                    \
-	static inline void V_FUNC(P, sub, mo)(V_MAP_A(P) *a, V_MAP_T(P) v)         \
-	{                                                                          \
-		V_MAP_T(P) oldv;                                                       \
-		V_OP_RMW(V_OP3, "sub", V_NEG_STLSE, "add", mo, V_MAP_R(P),             \
-				 V_MAP_T(P));                                                  \
-	}
+    static inline void V_FUNC(P, sub, mo)(V_MAP_A(P) *a, V_MAP_T(P) v)         \
+    {                                                                          \
+        V_MAP_T(P) oldv;                                                       \
+        V_OP_RMW(V_OP3, "sub", V_NEG_STLSE, "add", mo, V_MAP_R(P),             \
+                 V_MAP_T(P));                                                  \
+    }
 
 /*******************************************************************************
  * vatomic_await functions (binary variants)
@@ -445,64 +480,98 @@
 #define V_AWAIT_BNOT(cond, l) V_CONCAT(V_MAP_await_b_not_, cond) " " #l "\n"
 
 #define V_DEFINE_await(P, mo, cond)                                            \
-	static inline V_MAP_T(P) V_FUNC(P, await, cond, mo)(V_MAP_A(P) *a,         \
-														V_MAP_T(P) v)          \
-	{                                                                          \
-		V_MAP_T(P) val;                                                        \
-		V_ASM(V_LD(mo, V_MAP_R(P), val, a) V_CMP(V_MAP_R(P), val, exp)         \
-				  V_AWAIT_B(cond, 2f) V_SEVL V_CODE_ALIGN                      \
-			  "1:\n" V_WFE V_LD_WFE(mo, V_MAP_R(P), val, a)                    \
-				  V_CMP(V_MAP_R(P), val, exp) V_AWAIT_BNOT(cond, 1b) "2:\n"    \
-			  : [val] "=&r"(val)                                               \
-			  : [exp] "r"(v), [a] "Q"(a->_v)                                   \
-			  : "memory", "cc");                                               \
-		return val;                                                            \
-	}
+    static inline V_MAP_T(P) V_FUNC(P, await, cond, mo)(V_MAP_A(P) *a,         \
+                                                        V_MAP_T(P) v)          \
+    {                                                                          \
+        V_MAP_T(P) val;                                                        \
+        V_ASM(                                                                 \
+            V_LD(mo, V_MAP_R(P), val, a)                                       \
+            V_CMP(V_MAP_R(P), val, exp)                                        \
+            V_AWAIT_B(cond, 2f)                                                \
+            V_SEVL                                                             \
+            V_CODE_ALIGN                                                       \
+            "1:\n"                                                             \
+            V_WFE                                                              \
+            V_LD_WFE(mo, V_MAP_R(P), val, a)                                   \
+            V_CMP(V_MAP_R(P), val, exp)                                        \
+            V_AWAIT_BNOT(cond, 1b)                                             \
+            "2:\n"                                                             \
+            : [val] "=&r"(val)                                                 \
+            : [exp]   "r"(v),                                                  \
+                [a]   "Q"(a->_v)                                               \
+            : "memory","cc"                                                    \
+        );  \
+        return val;                                                            \
+    }
 
 #define V_DEFINE_await_eq(P, mo)                                               \
-	static inline V_MAP_T(P) V_FUNC(P, await_eq, mo)(V_MAP_A(P) *a,            \
-													 V_MAP_T(P) v)             \
-	{                                                                          \
-		V_MAP_T(P) val;                                                        \
-		V_ASM(V_LD(mo, V_MAP_R(P), val, a) V_CMP(V_MAP_R(P), val, exp)         \
-				  V_AWAIT_B(eq, 2f) V_SEVL V_CODE_ALIGN                        \
-			  "1:\n" V_WFE V_LD_WFE(mo, V_MAP_R(P), val, a)                    \
-				  V_CMP(V_MAP_R(P), val, exp) V_AWAIT_BNOT(eq, 1b) "2:\n"      \
-			  : [val] "=&r"(val)                                               \
-			  : [exp] "r"(v), [a] "Q"(a->_v)                                   \
-			  : "memory", "cc");                                               \
-		return val;                                                            \
-	}
+    static inline V_MAP_T(P) V_FUNC(P, await_eq, mo)(V_MAP_A(P) *a,            \
+                                                     V_MAP_T(P) v)             \
+    {                                                                          \
+        V_MAP_T(P) val;                                                        \
+        V_ASM(                                                                 \
+            V_LD(mo, V_MAP_R(P), val, a)                                       \
+            V_CMP(V_MAP_R(P), val, exp)                                        \
+            V_AWAIT_B(eq, 2f)                                                  \
+            V_SEVL                                                             \
+            V_CODE_ALIGN                                                       \
+            "1:\n"                                                             \
+            V_WFE                                                              \
+            V_LD_WFE(mo, V_MAP_R(P), val, a)                                   \
+            V_CMP(V_MAP_R(P), val, exp)                                        \
+            V_AWAIT_BNOT(eq, 1b)                                               \
+            "2:\n"                                                             \
+            : [val] "=&r"(val)                                                 \
+            : [exp]   "r"(v),                                                  \
+                [a]   "Q"(a->_v)                                               \
+            : "memory","cc"                                                    \
+        );      \
+        return val;                                                            \
+    }
 
 /*******************************************************************************
  * vatomic_await functions (ternary variants)
  ******************************************************************************/
 
 #define V_AWAIT_OP(op, T, newv, oldv, v)                                       \
-	V_CONCAT(V_MAP_await_op_, op)(T, newv, oldv, v) "\n"
+    V_CONCAT(V_MAP_await_op_, op)(T, newv, oldv, v) "\n"
 #define V_MAP_await_op_add(T, newv, oldv, v) "add" V_R3(T, newv, T, oldv, T, v)
 #define V_MAP_await_op_sub(T, newv, oldv, v) "sub" V_R3(T, newv, T, oldv, T, v)
 #define V_MAP_await_op_set(T, newv, oldv, v) "mov" V_R2(T, newv, T, v)
 
 #define V_DEFINE_await_COND_OP(P, mo, cond, op)                                \
-	static inline V_MAP_T(P) V_FUNC(P, await, cond, op, mo)(                   \
-		V_MAP_A(P) *a, V_MAP_T(P) c, V_MAP_T(P) v)                             \
-	{                                                                          \
-		V_MAP_T(P) oldv;                                                       \
-		V_MAP_T(P) newv;                                                       \
-		vuint32_t tmp;                                                         \
-		V_ASM(                                                                 \
-			V_PRFM(a) V_LDX(mo, V_MAP_R(P), oldv, a)                           \
-				V_CMP(V_MAP_R(P), oldv, cmpv) V_AWAIT_B(cond, 3f) V_CODE_ALIGN \
-			"1:\n" V_WFE "2:\n" V_LDX(mo, V_MAP_R(P), oldv, a)                 \
-				V_CMP(V_MAP_R(P), oldv, cmpv) V_AWAIT_BNOT(                    \
-					cond, 1b) "3:\n" V_AWAIT_OP(op, V_MAP_R(P), newv, oldv, v) \
-					V_STX(mo, V_MAP_R(P), tmp, newv, a) V_CBNZ("w", tmp, 2b)   \
-			: [oldv] "=&r"(oldv), [newv] "=&r"(newv), [tmp] "=&r"(tmp)         \
-			: [cmpv] "r"(c), [v] "r"(v), [a] "Q"(a->_v)                        \
-			: "memory", "cc");                                                 \
-		return oldv;                                                           \
-	}
+    static inline V_MAP_T(P) V_FUNC(P, await, cond, op, mo)(                   \
+        V_MAP_A(P) *a, V_MAP_T(P) c, V_MAP_T(P) v)                             \
+    {                                                                          \
+        V_MAP_T(P) oldv;                                                       \
+        V_MAP_T(P) newv;                                                       \
+        vuint32_t tmp;                                                         \
+        V_ASM(                                                                 \
+            V_PRFM(a)                                                          \
+            V_LDX(mo, V_MAP_R(P), oldv, a)                                     \
+            V_CMP(V_MAP_R(P), oldv, cmpv)                                      \
+            V_AWAIT_B(cond, 3f)                                                \
+            V_CODE_ALIGN                                                       \
+            "1:\n"                                                             \
+            V_WFE                                                              \
+            "2:\n"                                                             \
+            V_LDX(mo, V_MAP_R(P), oldv, a)                                     \
+            V_CMP(V_MAP_R(P), oldv, cmpv)                                      \
+            V_AWAIT_BNOT(cond, 1b)                                             \
+            "3:\n"                                                             \
+            V_AWAIT_OP(op, V_MAP_R(P), newv, oldv, v)                          \
+            V_STX(mo, V_MAP_R(P), tmp, newv, a)                                \
+            V_CBNZ("w", tmp, 2b)                                               \
+            : [oldv] "=&r"(oldv),                                              \
+              [newv] "=&r"(newv),                                              \
+              [tmp] "=&r"(tmp)                                                 \
+            : [cmpv]   "r"(c),                                                 \
+                 [v]   "r"(v),                                                 \
+                 [a]   "Q"(a->_v)                                              \
+            : "memory","cc"                                                    \
+        );             \
+        return oldv;                                                           \
+    }
 
 /*******************************************************************************
  * Generate definitions

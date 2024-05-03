@@ -98,18 +98,18 @@
  * Template commands
  ******************************************************************************/
 
-#define TMPL_MAP	"_tmpl_map"
-#define TMPL_BEGIN	"_tmpl_begin"
-#define TMPL_END	"_tmpl_end"
-#define TMPL_MUTE	"_tmpl_mute"
+#define TMPL_MAP    "_tmpl_map"
+#define TMPL_BEGIN  "_tmpl_begin"
+#define TMPL_END    "_tmpl_end"
+#define TMPL_MUTE   "_tmpl_mute"
 #define TMPL_UNMUTE "_tmpl_unmute"
 
-#define TMPL_ABORT	"_tmpl_abort"
-#define TMPL_SKIP	"_tmpl_skip"
-#define TMPL_DL		"_tmpl_dl"
-#define TMPL_NL		"_tmpl_nl"
+#define TMPL_ABORT  "_tmpl_abort"
+#define TMPL_SKIP   "_tmpl_skip"
+#define TMPL_DL     "_tmpl_dl"
+#define TMPL_NL     "_tmpl_nl"
 #define TMPL_UPCASE "_tmpl_upcase"
-#define TMPL_HOOK	"_tmpl_hook"
+#define TMPL_HOOK   "_tmpl_hook"
 
 /*******************************************************************************
  * Maximum line lengths and buffer sizes
@@ -138,25 +138,25 @@
 
 /* pair_t is a key-value pair. Key and value are 0-terminated char arrays. */
 typedef struct {
-	char key[K_BUF_LEN];
-	char val[V_BUF_LEN];
+    char key[K_BUF_LEN];
+    char val[V_BUF_LEN];
 } pair_t;
 
 /* err_t represents an error message */
 typedef struct {
-	const char *msg;
+    const char *msg;
 } err_t;
 
 #define NO_ERROR                                                               \
-	(err_t)                                                                    \
-	{                                                                          \
-		0                                                                      \
-	}
+    (err_t)                                                                    \
+    {                                                                          \
+        0                                                                      \
+    }
 #define ERROR(m)                                                               \
-	(err_t)                                                                    \
-	{                                                                          \
-		.msg = m                                                               \
-	}
+    (err_t)                                                                    \
+    {                                                                          \
+        .msg = m                                                               \
+    }
 #define IS_ERROR(err) (err).msg != NULL
 
 /*******************************************************************************
@@ -165,10 +165,10 @@ typedef struct {
 
 bool _verbose;
 #define debugf(fmt, ...)                                                       \
-	do {                                                                       \
-		if (_verbose)                                                          \
-			printf("// " fmt, ##__VA_ARGS__);                                  \
-	} while (0)
+    do {                                                                       \
+        if (_verbose)                                                          \
+            printf("// " fmt, ##__VA_ARGS__);                                  \
+    } while (0)
 
 /*******************************************************************************
  * String functions
@@ -177,22 +177,22 @@ bool _verbose;
 void
 trim(char *s, char c)
 {
-	assert(s);
-	/* remove trailing space */
-	while (s[strlen(s) - 1] == c)
-		s[strlen(s) - 1] = '\0';
+    assert(s);
+    /* remove trailing space */
+    while (s[strlen(s) - 1] == c)
+        s[strlen(s) - 1] = '\0';
 
-	/* remove leading space */
-	while (s[0] == c)
-		/* use len of s to include \0 */
-		memmove(s, s + 1, strlen(s));
+    /* remove leading space */
+    while (s[0] == c)
+        /* use len of s to include \0 */
+        memmove(s, s + 1, strlen(s));
 }
 
 void
 trims(char *s, char *chars)
 {
-	for (char *c = chars; *c; c++)
-		trim(s, *c);
+    for (char *c = chars; *c; c++)
+        trim(s, *c);
 }
 
 
@@ -235,62 +235,62 @@ pair_t block_hooks[MAX_KEYS];
 void
 remap(pair_t *map, const char *key, const char *val)
 {
-	if (key == NULL)
-		return;
-	for (int i = 0; i < MAX_KEYS; i++) {
-		pair_t *p = map + i;
-		if (!p->key[0] || strcmp(p->key, key) == 0) {
-			memset(p->key, 0, MAX_KLEN);
-			strcat(p->key, key);
-			trim(p->key, ' ');
+    if (key == NULL)
+        return;
+    for (int i = 0; i < MAX_KEYS; i++) {
+        pair_t *p = map + i;
+        if (!p->key[0] || strcmp(p->key, key) == 0) {
+            memset(p->key, 0, MAX_KLEN);
+            strcat(p->key, key);
+            trim(p->key, ' ');
 
-			memset(p->val, 0, MAX_VLEN);
-			strcat(p->val, val);
-			trim(p->val, ' ');
-			debugf("[REMAP] %s = %s\n", p->key, p->val);
-			return;
-		}
-	}
+            memset(p->val, 0, MAX_VLEN);
+            strcat(p->val, val);
+            trim(p->val, ' ');
+            debugf("[REMAP] %s = %s\n", p->key, p->val);
+            return;
+        }
+    }
 }
 
 pair_t *
 find(pair_t *map, const char *key)
 {
-	for (int i = 0; i < MAX_KEYS; i++) {
-		pair_t *p = map + i;
-		if (strcmp(p->key, key) == 0)
-			return p;
-	}
-	return NULL;
+    for (int i = 0; i < MAX_KEYS; i++) {
+        pair_t *p = map + i;
+        if (strcmp(p->key, key) == 0)
+            return p;
+    }
+    return NULL;
 }
 
 void
 unmap(pair_t *map, char *key)
 {
-	pair_t *p = find(map, key);
-	if (p == NULL)
-		return;
+    pair_t *p = find(map, key);
+    if (p == NULL)
+        return;
 
-	memset(p->key, 0, MAX_KLEN);
-	memset(p->val, 0, MAX_VLEN);
+    memset(p->key, 0, MAX_KLEN);
+    memset(p->val, 0, MAX_VLEN);
 }
 
 void
 show(pair_t *map, const char *name)
 {
-	debugf("[SHOW MAP] %s\n", name);
-	for (int i = 0; i < MAX_KEYS; i++) {
-		pair_t *p = map + i;
-		if (p->key[0]) {
-			debugf("\t%s = %s\n", p->key, p->val);
-		}
-	}
+    debugf("[SHOW MAP] %s\n", name);
+    for (int i = 0; i < MAX_KEYS; i++) {
+        pair_t *p = map + i;
+        if (p->key[0]) {
+            debugf("\t%s = %s\n", p->key, p->val);
+        }
+    }
 }
 
 void
 clean(pair_t *map)
 {
-	memset(map, 0, sizeof(pair_t) * MAX_KEYS);
+    memset(map, 0, sizeof(pair_t) * MAX_KEYS);
 }
 
 /*******************************************************************************
@@ -300,54 +300,54 @@ clean(pair_t *map)
 err_t
 parse_assign(pair_t *p, char *start, char *end)
 {
-	char key[K_BUF_LEN] = {0};
-	char val[V_BUF_LEN] = {0};
+    char key[K_BUF_LEN] = {0};
+    char val[V_BUF_LEN] = {0};
 
-	char *comma = strstr(start, ",");
-	if (comma == NULL)
-		return ERROR("expected ','");
-	start++;
-	strncat(key, start, comma - start);
-	comma++;
-	strncat(val, comma, end - comma);
-	remap(p, key, val);
-	return NO_ERROR;
+    char *comma = strstr(start, ",");
+    if (comma == NULL)
+        return ERROR("expected ','");
+    start++;
+    strncat(key, start, comma - start);
+    comma++;
+    strncat(val, comma, end - comma);
+    remap(p, key, val);
+    return NO_ERROR;
 }
 
 err_t
 parse_template_map(char *start, char *end)
 {
-	char *next, *values;
-	start++;
-	*end = '\0';
+    char *next, *values;
+    start++;
+    *end = '\0';
 
 again:
-	next = strstr(start, ",");
-	if (next) {
-		*next = '\0';
-		next++;
-	}
-	values = strstr(start, "=");
-	if (values == NULL)
-		return ERROR("expected '='");
-	*values = '\0';
-	values++;
+    next = strstr(start, ",");
+    if (next) {
+        *next = '\0';
+        next++;
+    }
+    values = strstr(start, "=");
+    if (values == NULL)
+        return ERROR("expected '='");
+    *values = '\0';
+    values++;
 
-	char key[K_BUF_LEN] = {0};
-	strncat(key, start, MAX_KLEN);
+    char key[K_BUF_LEN] = {0};
+    strncat(key, start, MAX_KLEN);
 
-	char val[V_BUF_LEN] = {0};
-	strncat(val, values, strlen(values));
-	trims(val, " []");
+    char val[V_BUF_LEN] = {0};
+    strncat(val, values, strlen(values));
+    trims(val, " []");
 
-	remap(template_map, key, val);
+    remap(template_map, key, val);
 
-	if (next) {
-		start = next;
-		goto again;
-	}
+    if (next) {
+        start = next;
+        goto again;
+    }
 
-	return NO_ERROR;
+    return NO_ERROR;
 }
 
 /*******************************************************************************
@@ -358,108 +358,108 @@ bool muted = false;
 void
 line_add_nl(char *line)
 {
-	const size_t len = strlen(line);
-	if (line[len - 1] != '\n') {
-		assert(len + 1 < MAX_SLEN);
-		line[len]	  = '\n';
-		line[len + 1] = '\0';
-	}
+    const size_t len = strlen(line);
+    if (line[len - 1] != '\n') {
+        assert(len + 1 < MAX_SLEN);
+        line[len]     = '\n';
+        line[len + 1] = '\0';
+    }
 }
 
 bool
 line_apply(char *line, const char *key, const char *val)
 {
-	char *cur;
+    char *cur;
 
-	if (!key[0] || (cur = strstr(line, key)) == NULL)
-		return false;
+    if (!key[0] || (cur = strstr(line, key)) == NULL)
+        return false;
 
-	const size_t vlen = strlen(val);
-	const size_t klen = strlen(key);
-	const size_t slen = strlen(cur);
+    const size_t vlen = strlen(val);
+    const size_t klen = strlen(key);
+    const size_t slen = strlen(cur);
 
-	const bool is_nl = strcmp(key, TMPL_NL) == 0;
-	if (!is_nl)
-		debugf("[APPLY] KEY: %s(%lu) VAL: %s(%lu)\n", key, klen, val, vlen);
+    const bool is_nl = strcmp(key, TMPL_NL) == 0;
+    if (!is_nl)
+        debugf("[APPLY] KEY: %s(%lu) VAL: %s(%lu)\n", key, klen, val, vlen);
 
-	/* make space for value */
-	if (!is_nl)
-		debugf("\tBEFORE: %s", line);
-	memmove(cur + vlen, cur + klen, slen);
-	memcpy(cur, val, vlen);
-	if (!is_nl)
-		debugf("\tAFTER:  %s", line);
+    /* make space for value */
+    if (!is_nl)
+        debugf("\tBEFORE: %s", line);
+    memmove(cur + vlen, cur + klen, slen);
+    memcpy(cur, val, vlen);
+    if (!is_nl)
+        debugf("\tAFTER:  %s", line);
 
-	return true;
+    return true;
 }
 
 bool
 process_block_line(char *line)
 {
-	bool applied;
-	char *cur;
+    bool applied;
+    char *cur;
 
-	char buf[MAX_SLEN] = {0};
-	strcat(buf, line);
-	line_add_nl(buf);
+    char buf[MAX_SLEN] = {0};
+    strcat(buf, line);
+    line_add_nl(buf);
 
-	debugf("[LINE] %s", buf);
-	int cnt = 0;
+    debugf("[LINE] %s", buf);
+    int cnt = 0;
 again:
-	applied = false;
+    applied = false;
 
-	for (int i = 0; i < MAX_KEYS && cnt < MAX_APPLY; i++) {
-		/* should delete line? */
-		if (strstr(buf, TMPL_DL)) {
-			strcpy(buf, "");
-			goto end;
-		}
-		if (strstr(buf, TMPL_SKIP))
-			return false;
+    for (int i = 0; i < MAX_KEYS && cnt < MAX_APPLY; i++) {
+        /* should delete line? */
+        if (strstr(buf, TMPL_DL)) {
+            strcpy(buf, "");
+            goto end;
+        }
+        if (strstr(buf, TMPL_SKIP))
+            return false;
 
-		const pair_t *pi = iteration_map + i;
-		const pair_t *pp = persistent_map + i;
-		if (!line_apply(buf, pi->key, pi->val) &&
-			!line_apply(buf, pp->key, pp->val))
-			continue;
-		applied = true;
-		cnt++;
+        const pair_t *pi = iteration_map + i;
+        const pair_t *pp = persistent_map + i;
+        if (!line_apply(buf, pi->key, pi->val) &&
+            !line_apply(buf, pp->key, pp->val))
+            continue;
+        applied = true;
+        cnt++;
 
-		/* if one mapping is applied, restart testing all mappings */
-		i = -1;
-	}
-	if (applied)
-		goto again;
+        /* if one mapping is applied, restart testing all mappings */
+        i = -1;
+    }
+    if (applied)
+        goto again;
 
 end:
 
-	/* apply UPCASE */
-	while ((cur = strstr(buf, TMPL_UPCASE))) {
-		char *start = cur + strlen(TMPL_UPCASE);
-		char sep	= start[0] == '(' ? ')' : start[0];
-		char ssep[] = {sep, 0};
-		char *end	= strstr(start + 1, ssep);
-		assert(start && end && end > start);
-		char *ch = start + 1;
-		while (ch < end) {
-			if (*ch >= 'a' && *ch <= 'z')
-				*ch -= ('a' - 'A');
-			ch++;
-		}
-		size_t len = (end - start) - 1;
-		memmove(cur, start + 1, len);
-		/* include the end of line */
-		memmove(cur + len, end + 1, strlen(end));
-	}
+    /* apply UPCASE */
+    while ((cur = strstr(buf, TMPL_UPCASE))) {
+        char *start = cur + strlen(TMPL_UPCASE);
+        char sep    = start[0] == '(' ? ')' : start[0];
+        char ssep[] = {sep, 0};
+        char *end   = strstr(start + 1, ssep);
+        assert(start && end && end > start);
+        char *ch = start + 1;
+        while (ch < end) {
+            if (*ch >= 'a' && *ch <= 'z')
+                *ch -= ('a' - 'A');
+            ch++;
+        }
+        size_t len = (end - start) - 1;
+        memmove(cur, start + 1, len);
+        /* include the end of line */
+        memmove(cur + len, end + 1, strlen(end));
+    }
 
-	/* apply NL */
-	while (line_apply(buf, TMPL_NL, "\n"))
-		;
+    /* apply NL */
+    while (line_apply(buf, TMPL_NL, "\n"))
+        ;
 
-	/* output and return */
-	printf("%s", buf);
-	assert(cnt < MAX_APPLY);
-	return true;
+    /* output and return */
+    printf("%s", buf);
+    assert(cnt < MAX_APPLY);
+    return true;
 }
 
 /*******************************************************************************
@@ -469,12 +469,12 @@ end:
 void
 process_begin()
 {
-	debugf("============================\n");
-	debugf("[BLOCK_BEGIN]\n");
-	show(persistent_map, "persistent_map");
-	show(block_hooks, "block_hooks");
-	show(template_map, "template_map");
-	debugf("----------------------------\n");
+    debugf("============================\n");
+    debugf("[BLOCK_BEGIN]\n");
+    show(persistent_map, "persistent_map");
+    show(block_hooks, "block_hooks");
+    show(template_map, "template_map");
+    debugf("----------------------------\n");
 }
 
 /*******************************************************************************
@@ -490,51 +490,51 @@ int save_k;
 const char *
 sticking(const char *key)
 {
-	for (int i = 0; i < MAX_KEYS && strlen(override_map[i].key) != 0; i++)
-		if (strcmp(override_map[i].key, key) == 0)
-			return override_map[i].val;
-	return NULL;
+    for (int i = 0; i < MAX_KEYS && strlen(override_map[i].key) != 0; i++)
+        if (strcmp(override_map[i].key, key) == 0)
+            return override_map[i].val;
+    return NULL;
 }
 
 void
 process_block(int i, const int nvars)
 {
-	pair_t *hook = NULL;
-	if (i == nvars) {
-		if ((hook = find(block_hooks, "begin")))
-			if (!process_block_line(hook->val))
-				return;
+    pair_t *hook = NULL;
+    if (i == nvars) {
+        if ((hook = find(block_hooks, "begin")))
+            if (!process_block_line(hook->val))
+                return;
 
-		for (int k = 0; k < save_k && process_block_line(save_block[k]); k++)
-			;
+        for (int k = 0; k < save_k && process_block_line(save_block[k]); k++)
+            ;
 
-		if ((hook = find(block_hooks, "end")))
-			(void)process_block_line(hook->val);
+        if ((hook = find(block_hooks, "end")))
+            (void)process_block_line(hook->val);
 
-		return;
-	}
-	pair_t *p			= template_map + i;
-	char val[V_BUF_LEN] = {0};
-	strcat(val, p->val);
+        return;
+    }
+    pair_t *p           = template_map + i;
+    char val[V_BUF_LEN] = {0};
+    strcat(val, p->val);
 
-	const char *sval = sticking(p->key);
-	const char *sep	 = ";";
-	char *saveptr	 = NULL;
-	char *tok		 = strtok_r(val, sep, &saveptr);
-	int c			 = 0;
-	while (tok) {
-		trims(tok, " ");
-		if (sval == NULL || strcmp(sval, tok) == 0) {
-			(void)c;
-			remap(iteration_map, p->key, tok);
-			process_block(i + 1, nvars);
-			unmap(iteration_map, p->key);
-		}
-		tok = strtok_r(0, sep, &saveptr);
-	}
-	if (i == 0 && (hook = find(block_hooks, "final"))) {
-		(void)process_block_line(hook->val);
-	}
+    const char *sval = sticking(p->key);
+    const char *sep  = ";";
+    char *saveptr    = NULL;
+    char *tok        = strtok_r(val, sep, &saveptr);
+    int c            = 0;
+    while (tok) {
+        trims(tok, " ");
+        if (sval == NULL || strcmp(sval, tok) == 0) {
+            (void)c;
+            remap(iteration_map, p->key, tok);
+            process_block(i + 1, nvars);
+            unmap(iteration_map, p->key);
+        }
+        tok = strtok_r(0, sep, &saveptr);
+    }
+    if (i == 0 && (hook = find(block_hooks, "final"))) {
+        (void)process_block_line(hook->val);
+    }
 }
 
 /*******************************************************************************
@@ -543,137 +543,137 @@ process_block(int i, const int nvars)
 
 /* processing state */
 enum state {
-	TEXT,
-	IGNORE_BLOCK,
-	BLOCK_BEGIN,
-	BLOCK_BEGIN_ARGS,
-	BLOCK_TEXT,
-	BLOCK_END,
+    TEXT,
+    IGNORE_BLOCK,
+    BLOCK_BEGIN,
+    BLOCK_BEGIN_ARGS,
+    BLOCK_TEXT,
+    BLOCK_END,
 
-	MAP,
-	HOOK,
+    MAP,
+    HOOK,
 } S = TEXT;
 
 
 err_t
 process_line(char *line)
 {
-	char *cur = NULL;
-	char *end = NULL;
-	err_t err;
+    char *cur = NULL;
+    char *end = NULL;
+    err_t err;
 
 again:
-	switch (S) {
-		case TEXT:
-			if (!muted && strstr(line, TMPL_ABORT)) {
-				fflush(stdout);
-				abort();
-			}
-			if (!muted && strstr(line, TMPL_BEGIN "(")) {
-				S = BLOCK_BEGIN;
-				goto again;
-			}
-			if (!muted && strstr(line, TMPL_MAP)) {
-				S = MAP;
-				goto again;
-			}
-			if (!muted && strstr(line, TMPL_HOOK)) {
-				S = HOOK;
-				goto again;
-			}
-			if (!muted && strstr(line, TMPL_MUTE)) {
-				debugf("[OUTPUT] muted\n");
-				muted = true;
-				break;
-			}
-			if (strstr(line, TMPL_UNMUTE)) {
-				debugf("[OUTPUT] unmuted\n");
-				muted = false;
-				break;
-			}
-			if (!muted && strstr(line, TMPL_DL) == NULL)
-				printf("%s", line);
-			break;
+    switch (S) {
+        case TEXT:
+            if (!muted && strstr(line, TMPL_ABORT)) {
+                fflush(stdout);
+                abort();
+            }
+            if (!muted && strstr(line, TMPL_BEGIN "(")) {
+                S = BLOCK_BEGIN;
+                goto again;
+            }
+            if (!muted && strstr(line, TMPL_MAP)) {
+                S = MAP;
+                goto again;
+            }
+            if (!muted && strstr(line, TMPL_HOOK)) {
+                S = HOOK;
+                goto again;
+            }
+            if (!muted && strstr(line, TMPL_MUTE)) {
+                debugf("[OUTPUT] muted\n");
+                muted = true;
+                break;
+            }
+            if (strstr(line, TMPL_UNMUTE)) {
+                debugf("[OUTPUT] unmuted\n");
+                muted = false;
+                break;
+            }
+            if (!muted && strstr(line, TMPL_DL) == NULL)
+                printf("%s", line);
+            break;
 
-		case BLOCK_BEGIN:
-			clean(template_map);
-			cur = strstr(line, "(");
-			if (cur == NULL)
-				return ERROR("expected '('");
-			S	 = BLOCK_BEGIN_ARGS;
-			line = cur;
-			goto again;
+        case BLOCK_BEGIN:
+            clean(template_map);
+            cur = strstr(line, "(");
+            if (cur == NULL)
+                return ERROR("expected '('");
+            S    = BLOCK_BEGIN_ARGS;
+            line = cur;
+            goto again;
 
-		case BLOCK_BEGIN_ARGS:
-			if ((end = strstr(line, ")"))) {
-				err_t err = parse_template_map(line, end);
-				if (IS_ERROR(err))
-					return err;
-				S = BLOCK_TEXT;
-				process_begin();
-			} else {
-				if ((end = strstr(line, ",")) == NULL)
-					return ERROR("expected ','");
-				for (char *e = NULL; (e = strstr(end + 1, ","), e && e != end);
-					 end	 = e)
-					;
-				parse_template_map(line, end);
-			}
-			break;
+        case BLOCK_BEGIN_ARGS:
+            if ((end = strstr(line, ")"))) {
+                err_t err = parse_template_map(line, end);
+                if (IS_ERROR(err))
+                    return err;
+                S = BLOCK_TEXT;
+                process_begin();
+            } else {
+                if ((end = strstr(line, ",")) == NULL)
+                    return ERROR("expected ','");
+                for (char *e = NULL; (e = strstr(end + 1, ","), e && e != end);
+                     end     = e)
+                    ;
+                parse_template_map(line, end);
+            }
+            break;
 
-		case BLOCK_TEXT:
-			cur = strstr(line, TMPL_END);
-			if (cur != NULL) {
-				S = BLOCK_END;
-				goto again;
-			}
-			if (save_k >= MAX_BLEN)
-				return ERROR("block too long");
+        case BLOCK_TEXT:
+            cur = strstr(line, TMPL_END);
+            if (cur != NULL) {
+                S = BLOCK_END;
+                goto again;
+            }
+            if (save_k >= MAX_BLEN)
+                return ERROR("block too long");
 
-			memcpy(save_block[save_k++], line, strlen(line) + 1);
-			break;
-		case BLOCK_END:
-			/* consume */
-			{
-				int nvars = 0;
-				for (int i = 0; i < MAX_KEYS; i++)
-					if (template_map[i].key[0])
-						nvars++;
-				process_block(0, nvars);
-			}
-			save_k = 0;
-			S	   = TEXT;
-			break;
+            memcpy(save_block[save_k++], line, strlen(line) + 1);
+            break;
+        case BLOCK_END:
+            /* consume */
+            {
+                int nvars = 0;
+                for (int i = 0; i < MAX_KEYS; i++)
+                    if (template_map[i].key[0])
+                        nvars++;
+                process_block(0, nvars);
+            }
+            save_k = 0;
+            S      = TEXT;
+            break;
 
-		case MAP:
-			if ((cur = strstr(line, "(")) == NULL)
-				return ERROR("expected '('");
-			if ((end = strstr(cur, ")")) == NULL)
-				return ERROR("expected ')'");
-			for (char *e = NULL; (e = strstr(end + 1, ")"), e && e != end);
-				 end	 = e)
-				;
-			err = parse_assign(persistent_map, cur, end);
-			if (IS_ERROR(err))
-				return err;
-			S = TEXT;
-			break;
+        case MAP:
+            if ((cur = strstr(line, "(")) == NULL)
+                return ERROR("expected '('");
+            if ((end = strstr(cur, ")")) == NULL)
+                return ERROR("expected ')'");
+            for (char *e = NULL; (e = strstr(end + 1, ")"), e && e != end);
+                 end     = e)
+                ;
+            err = parse_assign(persistent_map, cur, end);
+            if (IS_ERROR(err))
+                return err;
+            S = TEXT;
+            break;
 
-		case HOOK:
-			if ((cur = strstr(line, "(")) == NULL)
-				return ERROR("expected '('");
-			if ((end = strstr(cur, ")")) == NULL)
-				return ERROR("expected ')'");
-			err = parse_assign(block_hooks, cur, end);
-			if (IS_ERROR(err))
-				return err;
-			S = TEXT;
-			break;
+        case HOOK:
+            if ((cur = strstr(line, "(")) == NULL)
+                return ERROR("expected '('");
+            if ((end = strstr(cur, ")")) == NULL)
+                return ERROR("expected ')'");
+            err = parse_assign(block_hooks, cur, end);
+            if (IS_ERROR(err))
+                return err;
+            S = TEXT;
+            break;
 
-		default:
-			assert(0 && "invalid");
-	}
-	return NO_ERROR;
+        default:
+            assert(0 && "invalid");
+    }
+    return NO_ERROR;
 }
 
 /*******************************************************************************
@@ -683,31 +683,31 @@ again:
 void
 process_file(const char *fn)
 {
-	FILE *fp = fopen(fn, "r+");
-	assert(fp);
+    FILE *fp = fopen(fn, "r+");
+    assert(fp);
 
-	char *line = NULL;
-	size_t len = 0;
-	ssize_t read;
-	err_t err;
-	int i = 0;
-	while ((read = getline(&line, &len, fp)) != -1) {
-		assert(line);
-		err = process_line(line);
-		if (IS_ERROR(err)) {
-			fprintf(stderr, "%s:%d: error: %s\n", fn, i + 1, err.msg);
-			abort();
-		}
-		if (line) {
-			free(line);
-			line = NULL;
-		}
-		i++;
-	}
-	if (line)
-		free(line);
+    char *line = NULL;
+    size_t len = 0;
+    ssize_t read;
+    err_t err;
+    int i = 0;
+    while ((read = getline(&line, &len, fp)) != -1) {
+        assert(line);
+        err = process_line(line);
+        if (IS_ERROR(err)) {
+            fprintf(stderr, "%s:%d: error: %s\n", fn, i + 1, err.msg);
+            abort();
+        }
+        if (line) {
+            free(line);
+            line = NULL;
+        }
+        i++;
+    }
+    if (line)
+        free(line);
 
-	fclose(fp);
+    fclose(fp);
 }
 
 /*******************************************************************************
@@ -718,36 +718,36 @@ process_file(const char *fn)
 int
 main(int argc, char *argv[])
 {
-	debugf("vatomic generator\n");
-	int c;
-	char *k;
-	while ((c = getopt(argc, argv, "hvD:")) != -1) {
-		switch (c) {
-			case 'D':
-				k	 = strstr(optarg, "=");
-				*k++ = '\0';
-				remap(override_map, optarg, k);
-				break;
-			case 'v':
-				_verbose = true;
-				break;
-			case 'h':
-				printf("tmplr - a simple templating tool\n\n");
-				printf("Usage:\n\ttmplr [FLAGS] <FILE> [FILE ...]\n\n");
-				printf("Flags:\n");
-				printf("\t-v            verbose\n");
-				printf(
-					"\t-Dkey=value   override template map assignement of "
-					"key\n");
-				exit(0);
-			case '?':
-				printf("error");
-				exit(1);
-			default:
-				break;
-		}
-	}
-	for (int i = optind; i < argc; i++)
-		process_file(argv[i]);
-	return 0;
+    debugf("vatomic generator\n");
+    int c;
+    char *k;
+    while ((c = getopt(argc, argv, "hvD:")) != -1) {
+        switch (c) {
+            case 'D':
+                k    = strstr(optarg, "=");
+                *k++ = '\0';
+                remap(override_map, optarg, k);
+                break;
+            case 'v':
+                _verbose = true;
+                break;
+            case 'h':
+                printf("tmplr - a simple templating tool\n\n");
+                printf("Usage:\n\ttmplr [FLAGS] <FILE> [FILE ...]\n\n");
+                printf("Flags:\n");
+                printf("\t-v            verbose\n");
+                printf(
+                    "\t-Dkey=value   override template map assignement of "
+                    "key\n");
+                exit(0);
+            case '?':
+                printf("error");
+                exit(1);
+            default:
+                break;
+        }
+    }
+    for (int i = optind; i < argc; i++)
+        process_file(argv[i]);
+    return 0;
 }

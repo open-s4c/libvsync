@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #ifndef VSYNC_TIME_MEASUREMENT
 #define VSYNC_TIME_MEASUREMENT
 
@@ -25,20 +26,20 @@ typedef struct timespec cpu_time_t;
 static inline vuint64_t
 read_time_stamp_counter(void)
 {
-	barrier();
+    barrier();
 #if defined(__x86_64__)
-	unsigned int lo, hi;
-	const vuint32_t shift_to_msb = 32;
-	__asm__ __volatile__("rdtsc" : "=a"(lo), "=d"(hi));
-	barrier();
-	return ((vuint64_t)hi << shift_to_msb) | lo;
+    unsigned int lo, hi;
+    const vuint32_t shift_to_msb = 32;
+    __asm__ __volatile__("rdtsc" : "=a"(lo), "=d"(hi));
+    barrier();
+    return ((vuint64_t)hi << shift_to_msb) | lo;
 #elif defined(__aarch64__)
-	int64_t virtual_timer_value;
-	asm volatile("mrs %0, cntvct_el0" : "=r"(virtual_timer_value));
-	barrier();
-	return virtual_timer_value;
+    int64_t virtual_timer_value;
+    asm volatile("mrs %0, cntvct_el0" : "=r"(virtual_timer_value));
+    barrier();
+    return virtual_timer_value;
 #else
-	ASSERT(0 && "implement read_time_stamp_counter for the target arch");
+    ASSERT(0 && "implement read_time_stamp_counter for the target arch");
 #endif
 }
 
@@ -46,22 +47,22 @@ static inline vuint64_t
 calc_ticks_in_ms(void)
 {
 #if defined(VSYNC_VERIFICATION)
-	return 0;
+    return 0;
 #else
-	vuint64_t ticks_before	= 0;
-	vuint64_t ticks_after	= 0;
-	vuint64_t ticks_elapsed = 0;
-	vuint64_t milliseconds	= 1000;
-	// 1 millisecond is 1000 microseconds
-	vuint64_t microseconds = 1000 * milliseconds;
-	ticks_before		   = read_time_stamp_counter();
-	// sleeps for the given amount of microseconds
-	usleep(microseconds);
-	ticks_after	  = read_time_stamp_counter();
-	ticks_elapsed = ticks_after - ticks_before;
-	// calculate how many ticks correlate to a millisecond
-	vuint64_t ticks_in_millisecond = ticks_elapsed / milliseconds;
-	return ticks_in_millisecond;
+    vuint64_t ticks_before  = 0;
+    vuint64_t ticks_after   = 0;
+    vuint64_t ticks_elapsed = 0;
+    vuint64_t milliseconds  = 1000;
+    // 1 millisecond is 1000 microseconds
+    vuint64_t microseconds = 1000 * milliseconds;
+    ticks_before           = read_time_stamp_counter();
+    // sleeps for the given amount of microseconds
+    usleep(microseconds);
+    ticks_after   = read_time_stamp_counter();
+    ticks_elapsed = ticks_after - ticks_before;
+    // calculate how many ticks correlate to a millisecond
+    vuint64_t ticks_in_millisecond = ticks_elapsed / milliseconds;
+    return ticks_in_millisecond;
 #endif
 }
 
@@ -74,7 +75,7 @@ static inline void
 record_time(cpu_time_t *_time)
 {
 #if !defined(VSYNC_VERIFICATION)
-	clock_gettime(CLOCK_REALTIME, _time);
+    clock_gettime(CLOCK_REALTIME, _time);
 #endif
 }
 
@@ -88,10 +89,10 @@ static inline long
 calc_spent_time(cpu_time_t start_time, cpu_time_t finish_time)
 {
 #if defined(VSYNC_VERIFICATION)
-	return 0;
+    return 0;
 #else
-	return (finish_time.tv_sec - start_time.tv_sec) * VTIME_MICROSEC_IN_SEC +
-		   (finish_time.tv_nsec - start_time.tv_nsec) / VTIME_MILLISEC_IN_SEC;
+    return (finish_time.tv_sec - start_time.tv_sec) * VTIME_MICROSEC_IN_SEC +
+           (finish_time.tv_nsec - start_time.tv_nsec) / VTIME_MILLISEC_IN_SEC;
 #endif
 }
 /**
@@ -104,10 +105,10 @@ static inline long
 calc_spent_time_nano(cpu_time_t start_time, cpu_time_t finish_time)
 {
 #if defined(VSYNC_VERIFICATION)
-	return 0;
+    return 0;
 #else
-	return (finish_time.tv_sec - start_time.tv_sec) * VTIME_NANOSEC_IN_SEC +
-		   (finish_time.tv_nsec - start_time.tv_nsec);
+    return (finish_time.tv_sec - start_time.tv_sec) * VTIME_NANOSEC_IN_SEC +
+           (finish_time.tv_nsec - start_time.tv_nsec);
 #endif
 }
 /**
@@ -119,11 +120,11 @@ calc_spent_time_nano(cpu_time_t start_time, cpu_time_t finish_time)
 static inline char *
 get_local_time(void)
 {
-	time_t rawtime;
-	struct tm *timeinfo;
-	(void)time(&rawtime);
-	timeinfo = localtime(&rawtime);
-	return asctime(timeinfo);
+    time_t rawtime;
+    struct tm *timeinfo;
+    (void)time(&rawtime);
+    timeinfo = localtime(&rawtime);
+    return asctime(timeinfo);
 }
 
 

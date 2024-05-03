@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #ifndef VSYNC_REC_TICKETLOCK_H
 #define VSYNC_REC_TICKETLOCK_H
 /*******************************************************************************
@@ -24,8 +25,8 @@
 
 /** @cond DO_NOT_DOCUMENT */
 DEF_RECURSIVE_LOCK(rec_ticketlock, ticketlock_t, ticketlock_init,
-				   ticketlock_acquire, ticketlock_release,
-				   WITH_TRYACQUIRE(ticketlock_tryacquire), WITHOUT_CONTEXT)
+                   ticketlock_acquire, ticketlock_release,
+                   WITH_TRYACQUIRE(ticketlock_tryacquire), WITHOUT_CONTEXT)
 /** @endcond */
 
 /** Initializer of `rec_ticketlock`. */
@@ -69,5 +70,5 @@ static inline void rec_ticketlock_release(rec_ticketlock_t *l);
  * @return false, if failed to acquire the lock.
  */
 static inline vbool_t rec_ticketlock_tryacquire(rec_ticketlock_t *l,
-												vuint32_t id);
+                                                vuint32_t id);
 #endif

@@ -14,7 +14,7 @@
  ******************************************************************************/
 
 #ifndef VATOMIC_CORE_H
-	#error "File included directly. Include <vsync/atomic/core.h> instead!"
+    #error "File included directly. Include <vsync/atomic/core.h> instead!"
 #endif
 
 /*******************************************************************************
@@ -26,16 +26,16 @@
  * operations.
  ******************************************************************************/
 #ifdef DOC
-	// Note: We need to define this, for the macro to be documented in our
-	// documentation. However, we actually don't want to document anything
-	// in our library which is hidden behind `VSYNC_VERIFICATION`, since
-	// those would be internal implementation details. Thus we undefine
-	// the macro again immediately.
-	#define VSYNC_VERIFICATION
-	#undef VSYNC_VERIFICATION
+    // Note: We need to define this, for the macro to be documented in our
+    // documentation. However, we actually don't want to document anything
+    // in our library which is hidden behind `VSYNC_VERIFICATION`, since
+    // those would be internal implementation details. Thus we undefine
+    // the macro again immediately.
+    #define VSYNC_VERIFICATION
+    #undef VSYNC_VERIFICATION
 #elif defined(VSYNC_VERIFICATION)
-	#define VATOMIC_BUILTINS
-	#define VATOMIC_DISABLE_POLITE_AWAIT
+    #define VATOMIC_BUILTINS
+    #define VATOMIC_DISABLE_POLITE_AWAIT
 #endif
 
 #include <vsync/common/await_while.h>
@@ -45,11 +45,11 @@
  * @brief maps `vatomic_fence_rlx` to a NOP instruction, otherwise to nothing.
  ******************************************************************************/
 #ifdef DOC
-	#define VATOMIC_ENABLE_FENCE_RLX_NOP
+    #define VATOMIC_ENABLE_FENCE_RLX_NOP
 #elif defined(VATOMIC_ENABLE_FENCE_RLX_NOP) || defined(VSYNC_MAP_RLX_TO_NOP)
-	#define V_FENCE_RLX_INSTRUCTION "nop"
+    #define V_FENCE_RLX_INSTRUCTION "nop"
 #else
-	#define V_FENCE_RLX_INSTRUCTION ""
+    #define V_FENCE_RLX_INSTRUCTION ""
 #endif
 
 /*******************************************************************************
@@ -61,9 +61,9 @@
  * VATOMIC_DISABLE_POLITE_AWAIT to busy loop without such instructions.
  ******************************************************************************/
 #ifdef DOC
-	#define VATOMIC_DISABLE_POLITE_AWAIT
+    #define VATOMIC_DISABLE_POLITE_AWAIT
 #elif defined(VSYNC_NO_WFE) && !defined(VATOMIC_DISABLE_POLITE_AWAIT)
-	#define VATOMIC_DISABLE_POLITE_AWAIT
+    #define VATOMIC_DISABLE_POLITE_AWAIT
 #endif
 
 /*******************************************************************************
@@ -75,9 +75,9 @@
  * architectures, including x86_64, always employ compiler builtins.
  ******************************************************************************/
 #ifdef DOC
-	#define VATOMIC_BUILTINS
+    #define VATOMIC_BUILTINS
 #elif defined(VSYNC_BUILTINS)
-	#define VATOMIC_BUILTINS
+    #define VATOMIC_BUILTINS
 #endif
 
 /*******************************************************************************
@@ -85,9 +85,9 @@
  * @brief turns barrier mode of all atomic operations and fences to seq_cst.
  ******************************************************************************/
 #ifdef DOC
-	#define VATOMIC_ENABLE_ATOMIC_SC
+    #define VATOMIC_ENABLE_ATOMIC_SC
 #elif defined(VSYNC_SC)
-	#define VATOMIC_ENABLE_ATOMIC_SC
+    #define VATOMIC_ENABLE_ATOMIC_SC
 #endif
 
 /*******************************************************************************
@@ -95,9 +95,9 @@
  * @brief turns barrier mode of all atomic operations and fences to relaxed.
  ******************************************************************************/
 #ifdef DOC
-	#define VATOMIC_ENABLE_ATOMIC_RLX
+    #define VATOMIC_ENABLE_ATOMIC_RLX
 #elif defined(VSYNC_RLX)
-	#define VATOMIC_ENABLE_ATOMIC_RLX
+    #define VATOMIC_ENABLE_ATOMIC_RLX
 #endif
 
 /*******************************************************************************
@@ -109,7 +109,7 @@
  * disables the use of these instructions.
  ******************************************************************************/
 #ifdef DOC
-	#define VATOMIC_DISABLE_ARM64_LSE
+    #define VATOMIC_DISABLE_ARM64_LSE
 #endif
 
 /*******************************************************************************
@@ -120,7 +120,7 @@
  * with some flag such as -march=armv8-a+lse.
  ******************************************************************************/
 #ifdef DOC
-	#define VATOMIC_ENABLE_ARM64_LXE
+    #define VATOMIC_ENABLE_ARM64_LXE
 #endif
 
 #endif /* VATOMIC_CONFIG_H */

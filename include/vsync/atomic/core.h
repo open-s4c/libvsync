@@ -43,9 +43,9 @@
  * @brief Initializes an atomic variable with value v.
  ******************************************************************************/
 #define VATOMIC_INIT(v)                                                        \
-	{                                                                          \
-		._v = v                                                                \
-	}
+    {                                                                          \
+        ._v = v                                                                \
+    }
 
 /*******************************************************************************
  * @def vatomicptr(T)
@@ -78,7 +78,7 @@
  * ```
  ******************************************************************************/
 #ifdef DOC
-	#define vatomic_cpu_pause()
+    #define vatomic_cpu_pause()
 #endif
 
 /* *****************************************************************************
@@ -118,11 +118,11 @@ static inline void vatomic_fence_rlx(void);
  * ****************************************************************************/
 
 #if !defined(VATOMIC_BUILTINS) && defined(__arm__)
-	#include <vsync/atomic/internal/arm32.h>
+    #include <vsync/atomic/internal/arm32.h>
 #elif !defined(VATOMIC_BUILTINS) && defined(__aarch64__)
-	#include <vsync/atomic/internal/arm64.h>
+    #include <vsync/atomic/internal/arm64.h>
 #elif !defined(VATOMIC_BUILTINS) && defined(__x86_64__)
-	#include <vsync/atomic/internal/x86.h>
+    #include <vsync/atomic/internal/x86.h>
 #endif
 
 /* *****************************************************************************
@@ -146,9 +146,9 @@ static inline void vatomic_fence_rlx(void);
  * testing.
  ******************************************************************************/
 #ifdef DOC
-	#define VATOMIC_DISABLE_MACRO_UNDEF
+    #define VATOMIC_DISABLE_MACRO_UNDEF
 #elif !defined(VATOMIC_DISABLE_MACRO_UNDEF)
-	#include <vsync/atomic/internal/undef.h>
+    #include <vsync/atomic/internal/undef.h>
 #endif
 
 #endif /* VATOMIC_CORE_H */

@@ -51,7 +51,7 @@ SpacesInContainerLiterals                 : false
 SpacesInParentheses                       : false
 SpacesInSquareBrackets                    : false
 TabWidth                                  : 4
-UseTab                                    : Always
+UseTab                                    : Never
 ForEachMacros:
 - await_while
 - await_do
@@ -59,6 +59,9 @@ ForEachMacros:
 
 StatementMacros:
 - V_DEFINE_FUNC
+
+WhitespaceSensitiveMacros:
+- V_ASM
 
 TypenameMacros:
 - V_MAP_T
