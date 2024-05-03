@@ -14,20 +14,20 @@ struct mcs_node_s nodes[NTHREADS];
 void
 acquire(vuint32_t tid)
 {
-	if (tid == NTHREADS - 1) {
+    if (tid == NTHREADS - 1) {
 #if defined(VSYNC_VERIFICATION_DAT3M)
-		vbool_t acquired = mcslock_tryacquire(&lock, &nodes[tid]);
-		verification_assume(acquired);
+        vbool_t acquired = mcslock_tryacquire(&lock, &nodes[tid]);
+        verification_assume(acquired);
 #else
-		await_while (!mcslock_tryacquire(&lock, &nodes[tid])) {}
+        await_while (!mcslock_tryacquire(&lock, &nodes[tid])) {}
 #endif
-	} else {
-		mcslock_acquire(&lock, &nodes[tid]);
-	}
+    } else {
+        mcslock_acquire(&lock, &nodes[tid]);
+    }
 }
 
 void
 release(vuint32_t tid)
 {
-	mcslock_release(&lock, &nodes[tid]);
+    mcslock_release(&lock, &nodes[tid]);
 }

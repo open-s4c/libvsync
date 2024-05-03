@@ -15,10 +15,10 @@
 static inline void
 ut_atomic_u32_await_eq(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t val	= vatomic32_await_eq(&obj, VUINT32_VAL);
-	ASSERT(val == VUINT32_VAL);
-	V_UNUSED(val);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t val   = vatomic32_await_eq(&obj, VUINT32_VAL);
+    ASSERT(val == VUINT32_VAL);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_neq
@@ -26,10 +26,10 @@ ut_atomic_u32_await_eq(void)
 static inline void
 ut_atomic_u32_await_neq(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t val	= vatomic32_await_neq(&obj, VUINT32_MAX);
-	ASSERT(val == VUINT32_VAL);
-	V_UNUSED(val);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t val   = vatomic32_await_neq(&obj, VUINT32_MAX);
+    ASSERT(val == VUINT32_VAL);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_eq_acq
@@ -37,10 +37,10 @@ ut_atomic_u32_await_neq(void)
 static inline void
 ut_atomic_u32_await_eq_acq(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t val	= vatomic32_await_eq_acq(&obj, VUINT32_VAL);
-	ASSERT(val == VUINT32_VAL);
-	V_UNUSED(val);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t val   = vatomic32_await_eq_acq(&obj, VUINT32_VAL);
+    ASSERT(val == VUINT32_VAL);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_neq_acq
@@ -48,10 +48,10 @@ ut_atomic_u32_await_eq_acq(void)
 static inline void
 ut_atomic_u32_await_neq_acq(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t val	= vatomic32_await_neq_acq(&obj, VUINT32_MAX);
-	ASSERT(val == VUINT32_VAL);
-	V_UNUSED(val);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t val   = vatomic32_await_neq_acq(&obj, VUINT32_MAX);
+    ASSERT(val == VUINT32_VAL);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_eq_rlx
@@ -59,10 +59,10 @@ ut_atomic_u32_await_neq_acq(void)
 static inline void
 ut_atomic_u32_await_eq_rlx(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t val	= vatomic32_await_eq_rlx(&obj, VUINT32_VAL);
-	ASSERT(val == VUINT32_VAL);
-	V_UNUSED(val);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t val   = vatomic32_await_eq_rlx(&obj, VUINT32_VAL);
+    ASSERT(val == VUINT32_VAL);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_neq_rlx
@@ -70,10 +70,10 @@ ut_atomic_u32_await_eq_rlx(void)
 static inline void
 ut_atomic_u32_await_neq_rlx(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t val	= vatomic32_await_neq_rlx(&obj, VUINT32_MAX);
-	ASSERT(val == VUINT32_VAL);
-	V_UNUSED(val);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t val   = vatomic32_await_neq_rlx(&obj, VUINT32_MAX);
+    ASSERT(val == VUINT32_VAL);
+    V_UNUSED(val);
 }
 
 /*****************************************************************************
@@ -82,13 +82,13 @@ ut_atomic_u32_await_neq_rlx(void)
 static inline void
 ut_atomic_u32_await_eq_set(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t n_val = (vuint32_t)0xFF;
-	vuint32_t val	= vatomic32_await_eq_set(&obj, VUINT32_VAL, n_val);
-	ASSERT(val == VUINT32_VAL);
-	val = vatomic32_read(&obj);
-	ASSERT(val == n_val);
-	V_UNUSED(val);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t n_val = (vuint32_t)0xFF;
+    vuint32_t val   = vatomic32_await_eq_set(&obj, VUINT32_VAL, n_val);
+    ASSERT(val == VUINT32_VAL);
+    val = vatomic32_read(&obj);
+    ASSERT(val == n_val);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_neq_set
@@ -96,13 +96,13 @@ ut_atomic_u32_await_eq_set(void)
 static inline void
 ut_atomic_u32_await_neq_set(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t n_val = (vuint32_t)0xFF;
-	vuint32_t val	= vatomic32_await_neq_set(&obj, VUINT32_MAX, n_val);
-	ASSERT(val == VUINT32_VAL);
-	val = vatomic32_read(&obj);
-	ASSERT(val == n_val);
-	V_UNUSED(val);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t n_val = (vuint32_t)0xFF;
+    vuint32_t val   = vatomic32_await_neq_set(&obj, VUINT32_MAX, n_val);
+    ASSERT(val == VUINT32_VAL);
+    val = vatomic32_read(&obj);
+    ASSERT(val == n_val);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_eq_set_rel
@@ -110,13 +110,13 @@ ut_atomic_u32_await_neq_set(void)
 static inline void
 ut_atomic_u32_await_eq_set_rel(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t n_val = (vuint32_t)0xFF;
-	vuint32_t val	= vatomic32_await_eq_set_rel(&obj, VUINT32_VAL, n_val);
-	ASSERT(val == VUINT32_VAL);
-	val = vatomic32_read(&obj);
-	ASSERT(val == n_val);
-	V_UNUSED(val);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t n_val = (vuint32_t)0xFF;
+    vuint32_t val   = vatomic32_await_eq_set_rel(&obj, VUINT32_VAL, n_val);
+    ASSERT(val == VUINT32_VAL);
+    val = vatomic32_read(&obj);
+    ASSERT(val == n_val);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_neq_set_rel
@@ -124,13 +124,13 @@ ut_atomic_u32_await_eq_set_rel(void)
 static inline void
 ut_atomic_u32_await_neq_set_rel(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t n_val = (vuint32_t)0xFF;
-	vuint32_t val	= vatomic32_await_neq_set_rel(&obj, VUINT32_MAX, n_val);
-	ASSERT(val == VUINT32_VAL);
-	val = vatomic32_read(&obj);
-	ASSERT(val == n_val);
-	V_UNUSED(val);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t n_val = (vuint32_t)0xFF;
+    vuint32_t val   = vatomic32_await_neq_set_rel(&obj, VUINT32_MAX, n_val);
+    ASSERT(val == VUINT32_VAL);
+    val = vatomic32_read(&obj);
+    ASSERT(val == n_val);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_eq_set_acq
@@ -138,13 +138,13 @@ ut_atomic_u32_await_neq_set_rel(void)
 static inline void
 ut_atomic_u32_await_eq_set_acq(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t n_val = (vuint32_t)0xFF;
-	vuint32_t val	= vatomic32_await_eq_set_acq(&obj, VUINT32_VAL, n_val);
-	ASSERT(val == VUINT32_VAL);
-	val = vatomic32_read(&obj);
-	ASSERT(val == n_val);
-	V_UNUSED(val);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t n_val = (vuint32_t)0xFF;
+    vuint32_t val   = vatomic32_await_eq_set_acq(&obj, VUINT32_VAL, n_val);
+    ASSERT(val == VUINT32_VAL);
+    val = vatomic32_read(&obj);
+    ASSERT(val == n_val);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_neq_set_acq
@@ -152,13 +152,13 @@ ut_atomic_u32_await_eq_set_acq(void)
 static inline void
 ut_atomic_u32_await_neq_set_acq(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t n_val = (vuint32_t)0xFF;
-	vuint32_t val	= vatomic32_await_neq_set_acq(&obj, VUINT32_MAX, n_val);
-	ASSERT(val == VUINT32_VAL);
-	val = vatomic32_read(&obj);
-	ASSERT(val == n_val);
-	V_UNUSED(val);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t n_val = (vuint32_t)0xFF;
+    vuint32_t val   = vatomic32_await_neq_set_acq(&obj, VUINT32_MAX, n_val);
+    ASSERT(val == VUINT32_VAL);
+    val = vatomic32_read(&obj);
+    ASSERT(val == n_val);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_eq_set_rlx
@@ -166,13 +166,13 @@ ut_atomic_u32_await_neq_set_acq(void)
 static inline void
 ut_atomic_u32_await_eq_set_rlx(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t n_val = (vuint32_t)0xFF;
-	vuint32_t val	= vatomic32_await_eq_set_rlx(&obj, VUINT32_VAL, n_val);
-	ASSERT(val == VUINT32_VAL);
-	val = vatomic32_read(&obj);
-	ASSERT(val == n_val);
-	V_UNUSED(val);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t n_val = (vuint32_t)0xFF;
+    vuint32_t val   = vatomic32_await_eq_set_rlx(&obj, VUINT32_VAL, n_val);
+    ASSERT(val == VUINT32_VAL);
+    val = vatomic32_read(&obj);
+    ASSERT(val == n_val);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_neq_set_rlx
@@ -180,13 +180,13 @@ ut_atomic_u32_await_eq_set_rlx(void)
 static inline void
 ut_atomic_u32_await_neq_set_rlx(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t n_val = (vuint32_t)0xFF;
-	vuint32_t val	= vatomic32_await_neq_set_rlx(&obj, VUINT32_MAX, n_val);
-	ASSERT(val == VUINT32_VAL);
-	val = vatomic32_read(&obj);
-	ASSERT(val == n_val);
-	V_UNUSED(val);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t n_val = (vuint32_t)0xFF;
+    vuint32_t val   = vatomic32_await_neq_set_rlx(&obj, VUINT32_MAX, n_val);
+    ASSERT(val == VUINT32_VAL);
+    val = vatomic32_read(&obj);
+    ASSERT(val == n_val);
+    V_UNUSED(val);
 }
 
 /*****************************************************************************
@@ -195,10 +195,10 @@ ut_atomic_u32_await_neq_set_rlx(void)
 static inline void
 ut_atomic_u32_await_le(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t val	= vatomic32_await_le(&obj, VUINT32_MAX);
-	ASSERT(val == VUINT32_VAL);
-	V_UNUSED(val);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t val   = vatomic32_await_le(&obj, VUINT32_MAX);
+    ASSERT(val == VUINT32_VAL);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_gt
@@ -206,10 +206,10 @@ ut_atomic_u32_await_le(void)
 static inline void
 ut_atomic_u32_await_gt(void)
 {
-	vatomic32_t obj = {VUINT32_MAX};
-	vuint32_t val	= vatomic32_await_gt(&obj, VUINT32_VAL);
-	ASSERT(val == VUINT32_MAX);
-	V_UNUSED(val);
+    vatomic32_t obj = {VUINT32_MAX};
+    vuint32_t val   = vatomic32_await_gt(&obj, VUINT32_VAL);
+    ASSERT(val == VUINT32_MAX);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_ge
@@ -217,10 +217,10 @@ ut_atomic_u32_await_gt(void)
 static inline void
 ut_atomic_u32_await_ge(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t val	= vatomic32_await_ge(&obj, VUINT32_VAL);
-	ASSERT(val == VUINT32_VAL);
-	V_UNUSED(val);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t val   = vatomic32_await_ge(&obj, VUINT32_VAL);
+    ASSERT(val == VUINT32_VAL);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_le_acq
@@ -228,10 +228,10 @@ ut_atomic_u32_await_ge(void)
 static inline void
 ut_atomic_u32_await_le_acq(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t val	= vatomic32_await_le_acq(&obj, VUINT32_MAX);
-	ASSERT(val == VUINT32_VAL);
-	V_UNUSED(val);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t val   = vatomic32_await_le_acq(&obj, VUINT32_MAX);
+    ASSERT(val == VUINT32_VAL);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_gt_acq
@@ -239,10 +239,10 @@ ut_atomic_u32_await_le_acq(void)
 static inline void
 ut_atomic_u32_await_gt_acq(void)
 {
-	vatomic32_t obj = {VUINT32_MAX};
-	vuint32_t val	= vatomic32_await_gt_acq(&obj, VUINT32_VAL);
-	ASSERT(val == VUINT32_MAX);
-	V_UNUSED(val);
+    vatomic32_t obj = {VUINT32_MAX};
+    vuint32_t val   = vatomic32_await_gt_acq(&obj, VUINT32_VAL);
+    ASSERT(val == VUINT32_MAX);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_ge_acq
@@ -250,10 +250,10 @@ ut_atomic_u32_await_gt_acq(void)
 static inline void
 ut_atomic_u32_await_ge_acq(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t val	= vatomic32_await_ge_acq(&obj, VUINT32_VAL);
-	ASSERT(val == VUINT32_VAL);
-	V_UNUSED(val);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t val   = vatomic32_await_ge_acq(&obj, VUINT32_VAL);
+    ASSERT(val == VUINT32_VAL);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_le_rlx
@@ -261,10 +261,10 @@ ut_atomic_u32_await_ge_acq(void)
 static inline void
 ut_atomic_u32_await_le_rlx(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t val	= vatomic32_await_le_rlx(&obj, VUINT32_MAX);
-	ASSERT(val == VUINT32_VAL);
-	V_UNUSED(val);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t val   = vatomic32_await_le_rlx(&obj, VUINT32_MAX);
+    ASSERT(val == VUINT32_VAL);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_gt_rlx
@@ -272,10 +272,10 @@ ut_atomic_u32_await_le_rlx(void)
 static inline void
 ut_atomic_u32_await_gt_rlx(void)
 {
-	vatomic32_t obj = {VUINT32_MAX};
-	vuint32_t val	= vatomic32_await_gt_rlx(&obj, VUINT32_VAL);
-	ASSERT(val == VUINT32_MAX);
-	V_UNUSED(val);
+    vatomic32_t obj = {VUINT32_MAX};
+    vuint32_t val   = vatomic32_await_gt_rlx(&obj, VUINT32_VAL);
+    ASSERT(val == VUINT32_MAX);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_ge_rlx
@@ -283,10 +283,10 @@ ut_atomic_u32_await_gt_rlx(void)
 static inline void
 ut_atomic_u32_await_ge_rlx(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t val	= vatomic32_await_ge_rlx(&obj, VUINT32_VAL);
-	ASSERT(val == VUINT32_VAL);
-	V_UNUSED(val);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t val   = vatomic32_await_ge_rlx(&obj, VUINT32_VAL);
+    ASSERT(val == VUINT32_VAL);
+    V_UNUSED(val);
 }
 
 /*****************************************************************************
@@ -295,13 +295,13 @@ ut_atomic_u32_await_ge_rlx(void)
 static inline void
 ut_atomic_u32_await_le_set(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t n_val = (vuint32_t)0xFF;
-	vuint32_t val	= vatomic32_await_le_set(&obj, VUINT32_MAX, n_val);
-	ASSERT(val == VUINT32_VAL);
-	val = vatomic32_read(&obj);
-	ASSERT(val == n_val);
-	V_UNUSED(val);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t n_val = (vuint32_t)0xFF;
+    vuint32_t val   = vatomic32_await_le_set(&obj, VUINT32_MAX, n_val);
+    ASSERT(val == VUINT32_VAL);
+    val = vatomic32_read(&obj);
+    ASSERT(val == n_val);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_gt_set
@@ -309,13 +309,13 @@ ut_atomic_u32_await_le_set(void)
 static inline void
 ut_atomic_u32_await_gt_set(void)
 {
-	vatomic32_t obj = {VUINT32_MAX};
-	vuint32_t n_val = (vuint32_t)0xFF;
-	vuint32_t val	= vatomic32_await_gt_set(&obj, VUINT32_VAL, n_val);
-	ASSERT(val == VUINT32_MAX);
-	val = vatomic32_read(&obj);
-	ASSERT(val == n_val);
-	V_UNUSED(val);
+    vatomic32_t obj = {VUINT32_MAX};
+    vuint32_t n_val = (vuint32_t)0xFF;
+    vuint32_t val   = vatomic32_await_gt_set(&obj, VUINT32_VAL, n_val);
+    ASSERT(val == VUINT32_MAX);
+    val = vatomic32_read(&obj);
+    ASSERT(val == n_val);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_ge_set
@@ -323,13 +323,13 @@ ut_atomic_u32_await_gt_set(void)
 static inline void
 ut_atomic_u32_await_ge_set(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t n_val = (vuint32_t)0xFF;
-	vuint32_t val	= vatomic32_await_ge_set(&obj, VUINT32_VAL, n_val);
-	ASSERT(val == VUINT32_VAL);
-	val = vatomic32_read(&obj);
-	ASSERT(val == n_val);
-	V_UNUSED(val);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t n_val = (vuint32_t)0xFF;
+    vuint32_t val   = vatomic32_await_ge_set(&obj, VUINT32_VAL, n_val);
+    ASSERT(val == VUINT32_VAL);
+    val = vatomic32_read(&obj);
+    ASSERT(val == n_val);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_le_set_rel
@@ -337,13 +337,13 @@ ut_atomic_u32_await_ge_set(void)
 static inline void
 ut_atomic_u32_await_le_set_rel(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t n_val = (vuint32_t)0xFF;
-	vuint32_t val	= vatomic32_await_le_set_rel(&obj, VUINT32_MAX, n_val);
-	ASSERT(val == VUINT32_VAL);
-	val = vatomic32_read(&obj);
-	ASSERT(val == n_val);
-	V_UNUSED(val);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t n_val = (vuint32_t)0xFF;
+    vuint32_t val   = vatomic32_await_le_set_rel(&obj, VUINT32_MAX, n_val);
+    ASSERT(val == VUINT32_VAL);
+    val = vatomic32_read(&obj);
+    ASSERT(val == n_val);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_gt_set_rel
@@ -351,13 +351,13 @@ ut_atomic_u32_await_le_set_rel(void)
 static inline void
 ut_atomic_u32_await_gt_set_rel(void)
 {
-	vatomic32_t obj = {VUINT32_MAX};
-	vuint32_t n_val = (vuint32_t)0xFF;
-	vuint32_t val	= vatomic32_await_gt_set_rel(&obj, VUINT32_VAL, n_val);
-	ASSERT(val == VUINT32_MAX);
-	val = vatomic32_read(&obj);
-	ASSERT(val == n_val);
-	V_UNUSED(val);
+    vatomic32_t obj = {VUINT32_MAX};
+    vuint32_t n_val = (vuint32_t)0xFF;
+    vuint32_t val   = vatomic32_await_gt_set_rel(&obj, VUINT32_VAL, n_val);
+    ASSERT(val == VUINT32_MAX);
+    val = vatomic32_read(&obj);
+    ASSERT(val == n_val);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_ge_set_rel
@@ -365,13 +365,13 @@ ut_atomic_u32_await_gt_set_rel(void)
 static inline void
 ut_atomic_u32_await_ge_set_rel(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t n_val = (vuint32_t)0xFF;
-	vuint32_t val	= vatomic32_await_ge_set_rel(&obj, VUINT32_VAL, n_val);
-	ASSERT(val == VUINT32_VAL);
-	val = vatomic32_read(&obj);
-	ASSERT(val == n_val);
-	V_UNUSED(val);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t n_val = (vuint32_t)0xFF;
+    vuint32_t val   = vatomic32_await_ge_set_rel(&obj, VUINT32_VAL, n_val);
+    ASSERT(val == VUINT32_VAL);
+    val = vatomic32_read(&obj);
+    ASSERT(val == n_val);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_le_set_acq
@@ -379,13 +379,13 @@ ut_atomic_u32_await_ge_set_rel(void)
 static inline void
 ut_atomic_u32_await_le_set_acq(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t n_val = (vuint32_t)0xFF;
-	vuint32_t val	= vatomic32_await_le_set_acq(&obj, VUINT32_MAX, n_val);
-	ASSERT(val == VUINT32_VAL);
-	val = vatomic32_read(&obj);
-	ASSERT(val == n_val);
-	V_UNUSED(val);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t n_val = (vuint32_t)0xFF;
+    vuint32_t val   = vatomic32_await_le_set_acq(&obj, VUINT32_MAX, n_val);
+    ASSERT(val == VUINT32_VAL);
+    val = vatomic32_read(&obj);
+    ASSERT(val == n_val);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_gt_set_acq
@@ -393,13 +393,13 @@ ut_atomic_u32_await_le_set_acq(void)
 static inline void
 ut_atomic_u32_await_gt_set_acq(void)
 {
-	vatomic32_t obj = {VUINT32_MAX};
-	vuint32_t n_val = (vuint32_t)0xFF;
-	vuint32_t val	= vatomic32_await_gt_set_acq(&obj, VUINT32_VAL, n_val);
-	ASSERT(val == VUINT32_MAX);
-	val = vatomic32_read(&obj);
-	ASSERT(val == n_val);
-	V_UNUSED(val);
+    vatomic32_t obj = {VUINT32_MAX};
+    vuint32_t n_val = (vuint32_t)0xFF;
+    vuint32_t val   = vatomic32_await_gt_set_acq(&obj, VUINT32_VAL, n_val);
+    ASSERT(val == VUINT32_MAX);
+    val = vatomic32_read(&obj);
+    ASSERT(val == n_val);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_ge_set_acq
@@ -407,13 +407,13 @@ ut_atomic_u32_await_gt_set_acq(void)
 static inline void
 ut_atomic_u32_await_ge_set_acq(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t n_val = (vuint32_t)0xFF;
-	vuint32_t val	= vatomic32_await_ge_set_acq(&obj, VUINT32_VAL, n_val);
-	ASSERT(val == VUINT32_VAL);
-	val = vatomic32_read(&obj);
-	ASSERT(val == n_val);
-	V_UNUSED(val);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t n_val = (vuint32_t)0xFF;
+    vuint32_t val   = vatomic32_await_ge_set_acq(&obj, VUINT32_VAL, n_val);
+    ASSERT(val == VUINT32_VAL);
+    val = vatomic32_read(&obj);
+    ASSERT(val == n_val);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_le_set_rlx
@@ -421,13 +421,13 @@ ut_atomic_u32_await_ge_set_acq(void)
 static inline void
 ut_atomic_u32_await_le_set_rlx(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t n_val = (vuint32_t)0xFF;
-	vuint32_t val	= vatomic32_await_le_set_rlx(&obj, VUINT32_MAX, n_val);
-	ASSERT(val == VUINT32_VAL);
-	val = vatomic32_read(&obj);
-	ASSERT(val == n_val);
-	V_UNUSED(val);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t n_val = (vuint32_t)0xFF;
+    vuint32_t val   = vatomic32_await_le_set_rlx(&obj, VUINT32_MAX, n_val);
+    ASSERT(val == VUINT32_VAL);
+    val = vatomic32_read(&obj);
+    ASSERT(val == n_val);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_gt_set_rlx
@@ -435,13 +435,13 @@ ut_atomic_u32_await_le_set_rlx(void)
 static inline void
 ut_atomic_u32_await_gt_set_rlx(void)
 {
-	vatomic32_t obj = {VUINT32_MAX};
-	vuint32_t n_val = (vuint32_t)0xFF;
-	vuint32_t val	= vatomic32_await_gt_set_rlx(&obj, VUINT32_VAL, n_val);
-	ASSERT(val == VUINT32_MAX);
-	val = vatomic32_read(&obj);
-	ASSERT(val == n_val);
-	V_UNUSED(val);
+    vatomic32_t obj = {VUINT32_MAX};
+    vuint32_t n_val = (vuint32_t)0xFF;
+    vuint32_t val   = vatomic32_await_gt_set_rlx(&obj, VUINT32_VAL, n_val);
+    ASSERT(val == VUINT32_MAX);
+    val = vatomic32_read(&obj);
+    ASSERT(val == n_val);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_ge_set_rlx
@@ -449,13 +449,13 @@ ut_atomic_u32_await_gt_set_rlx(void)
 static inline void
 ut_atomic_u32_await_ge_set_rlx(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t n_val = (vuint32_t)0xFF;
-	vuint32_t val	= vatomic32_await_ge_set_rlx(&obj, VUINT32_VAL, n_val);
-	ASSERT(val == VUINT32_VAL);
-	val = vatomic32_read(&obj);
-	ASSERT(val == n_val);
-	V_UNUSED(val);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t n_val = (vuint32_t)0xFF;
+    vuint32_t val   = vatomic32_await_ge_set_rlx(&obj, VUINT32_VAL, n_val);
+    ASSERT(val == VUINT32_VAL);
+    val = vatomic32_read(&obj);
+    ASSERT(val == n_val);
+    V_UNUSED(val);
 }
 
 /*****************************************************************************
@@ -464,14 +464,14 @@ ut_atomic_u32_await_ge_set_rlx(void)
 static inline void
 ut_atomic_u32_await_neq_add(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t ref	= VUINT32_VAL;
-	vuint32_t val	= vatomic32_await_neq_add(&obj, VUINT32_MAX, 0x1U);
-	ASSERT(val == VUINT32_VAL);
-	ref = ref + 0x1U;
-	val = vatomic32_read(&obj);
-	ASSERT(val == ref);
-	V_UNUSED(val, ref);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t ref   = VUINT32_VAL;
+    vuint32_t val   = vatomic32_await_neq_add(&obj, VUINT32_MAX, 0x1U);
+    ASSERT(val == VUINT32_VAL);
+    ref = ref + 0x1U;
+    val = vatomic32_read(&obj);
+    ASSERT(val == ref);
+    V_UNUSED(val, ref);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_neq_sub
@@ -479,14 +479,14 @@ ut_atomic_u32_await_neq_add(void)
 static inline void
 ut_atomic_u32_await_neq_sub(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t ref	= VUINT32_VAL;
-	vuint32_t val	= vatomic32_await_neq_sub(&obj, VUINT32_MAX, 0x1U);
-	ASSERT(val == VUINT32_VAL);
-	ref = ref - 0x1U;
-	val = vatomic32_read(&obj);
-	ASSERT(val == ref);
-	V_UNUSED(val, ref);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t ref   = VUINT32_VAL;
+    vuint32_t val   = vatomic32_await_neq_sub(&obj, VUINT32_MAX, 0x1U);
+    ASSERT(val == VUINT32_VAL);
+    ref = ref - 0x1U;
+    val = vatomic32_read(&obj);
+    ASSERT(val == ref);
+    V_UNUSED(val, ref);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_eq_add
@@ -494,14 +494,14 @@ ut_atomic_u32_await_neq_sub(void)
 static inline void
 ut_atomic_u32_await_eq_add(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t ref	= VUINT32_VAL;
-	vuint32_t val	= vatomic32_await_eq_add(&obj, VUINT32_VAL, 0x1U);
-	ASSERT(val == VUINT32_VAL);
-	ref = ref + 0x1U;
-	val = vatomic32_read(&obj);
-	ASSERT(val == ref);
-	V_UNUSED(val, ref);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t ref   = VUINT32_VAL;
+    vuint32_t val   = vatomic32_await_eq_add(&obj, VUINT32_VAL, 0x1U);
+    ASSERT(val == VUINT32_VAL);
+    ref = ref + 0x1U;
+    val = vatomic32_read(&obj);
+    ASSERT(val == ref);
+    V_UNUSED(val, ref);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_eq_sub
@@ -509,14 +509,14 @@ ut_atomic_u32_await_eq_add(void)
 static inline void
 ut_atomic_u32_await_eq_sub(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t ref	= VUINT32_VAL;
-	vuint32_t val	= vatomic32_await_eq_sub(&obj, VUINT32_VAL, 0x1U);
-	ASSERT(val == VUINT32_VAL);
-	ref = ref - 0x1U;
-	val = vatomic32_read(&obj);
-	ASSERT(val == ref);
-	V_UNUSED(val, ref);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t ref   = VUINT32_VAL;
+    vuint32_t val   = vatomic32_await_eq_sub(&obj, VUINT32_VAL, 0x1U);
+    ASSERT(val == VUINT32_VAL);
+    ref = ref - 0x1U;
+    val = vatomic32_read(&obj);
+    ASSERT(val == ref);
+    V_UNUSED(val, ref);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_le_add
@@ -524,14 +524,14 @@ ut_atomic_u32_await_eq_sub(void)
 static inline void
 ut_atomic_u32_await_le_add(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t ref	= VUINT32_VAL;
-	vuint32_t val	= vatomic32_await_le_add(&obj, VUINT32_MAX, 0x1U);
-	ASSERT(val == VUINT32_VAL);
-	ref = ref + 0x1U;
-	val = vatomic32_read(&obj);
-	ASSERT(val == ref);
-	V_UNUSED(val, ref);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t ref   = VUINT32_VAL;
+    vuint32_t val   = vatomic32_await_le_add(&obj, VUINT32_MAX, 0x1U);
+    ASSERT(val == VUINT32_VAL);
+    ref = ref + 0x1U;
+    val = vatomic32_read(&obj);
+    ASSERT(val == ref);
+    V_UNUSED(val, ref);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_le_sub
@@ -539,14 +539,14 @@ ut_atomic_u32_await_le_add(void)
 static inline void
 ut_atomic_u32_await_le_sub(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t ref	= VUINT32_VAL;
-	vuint32_t val	= vatomic32_await_le_sub(&obj, VUINT32_MAX, 0x1U);
-	ASSERT(val == VUINT32_VAL);
-	ref = ref - 0x1U;
-	val = vatomic32_read(&obj);
-	ASSERT(val == ref);
-	V_UNUSED(val, ref);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t ref   = VUINT32_VAL;
+    vuint32_t val   = vatomic32_await_le_sub(&obj, VUINT32_MAX, 0x1U);
+    ASSERT(val == VUINT32_VAL);
+    ref = ref - 0x1U;
+    val = vatomic32_read(&obj);
+    ASSERT(val == ref);
+    V_UNUSED(val, ref);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_gt_add
@@ -554,14 +554,14 @@ ut_atomic_u32_await_le_sub(void)
 static inline void
 ut_atomic_u32_await_gt_add(void)
 {
-	vatomic32_t obj = {VUINT32_MAX};
-	vuint32_t ref	= VUINT32_MAX;
-	vuint32_t val	= vatomic32_await_gt_add(&obj, VUINT32_VAL, 0x1U);
-	ASSERT(val == VUINT32_MAX);
-	ref = ref + 0x1U;
-	val = vatomic32_read(&obj);
-	ASSERT(val == ref);
-	V_UNUSED(val, ref);
+    vatomic32_t obj = {VUINT32_MAX};
+    vuint32_t ref   = VUINT32_MAX;
+    vuint32_t val   = vatomic32_await_gt_add(&obj, VUINT32_VAL, 0x1U);
+    ASSERT(val == VUINT32_MAX);
+    ref = ref + 0x1U;
+    val = vatomic32_read(&obj);
+    ASSERT(val == ref);
+    V_UNUSED(val, ref);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_gt_sub
@@ -569,14 +569,14 @@ ut_atomic_u32_await_gt_add(void)
 static inline void
 ut_atomic_u32_await_gt_sub(void)
 {
-	vatomic32_t obj = {VUINT32_MAX};
-	vuint32_t ref	= VUINT32_MAX;
-	vuint32_t val	= vatomic32_await_gt_sub(&obj, VUINT32_VAL, 0x1U);
-	ASSERT(val == VUINT32_MAX);
-	ref = ref - 0x1U;
-	val = vatomic32_read(&obj);
-	ASSERT(val == ref);
-	V_UNUSED(val, ref);
+    vatomic32_t obj = {VUINT32_MAX};
+    vuint32_t ref   = VUINT32_MAX;
+    vuint32_t val   = vatomic32_await_gt_sub(&obj, VUINT32_VAL, 0x1U);
+    ASSERT(val == VUINT32_MAX);
+    ref = ref - 0x1U;
+    val = vatomic32_read(&obj);
+    ASSERT(val == ref);
+    V_UNUSED(val, ref);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_ge_add
@@ -584,14 +584,14 @@ ut_atomic_u32_await_gt_sub(void)
 static inline void
 ut_atomic_u32_await_ge_add(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t ref	= VUINT32_VAL;
-	vuint32_t val	= vatomic32_await_ge_add(&obj, VUINT32_VAL, 0x1U);
-	ASSERT(val == VUINT32_VAL);
-	ref = ref + 0x1U;
-	val = vatomic32_read(&obj);
-	ASSERT(val == ref);
-	V_UNUSED(val, ref);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t ref   = VUINT32_VAL;
+    vuint32_t val   = vatomic32_await_ge_add(&obj, VUINT32_VAL, 0x1U);
+    ASSERT(val == VUINT32_VAL);
+    ref = ref + 0x1U;
+    val = vatomic32_read(&obj);
+    ASSERT(val == ref);
+    V_UNUSED(val, ref);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_ge_sub
@@ -599,14 +599,14 @@ ut_atomic_u32_await_ge_add(void)
 static inline void
 ut_atomic_u32_await_ge_sub(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t ref	= VUINT32_VAL;
-	vuint32_t val	= vatomic32_await_ge_sub(&obj, VUINT32_VAL, 0x1U);
-	ASSERT(val == VUINT32_VAL);
-	ref = ref - 0x1U;
-	val = vatomic32_read(&obj);
-	ASSERT(val == ref);
-	V_UNUSED(val, ref);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t ref   = VUINT32_VAL;
+    vuint32_t val   = vatomic32_await_ge_sub(&obj, VUINT32_VAL, 0x1U);
+    ASSERT(val == VUINT32_VAL);
+    ref = ref - 0x1U;
+    val = vatomic32_read(&obj);
+    ASSERT(val == ref);
+    V_UNUSED(val, ref);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_neq_add_rel
@@ -614,14 +614,14 @@ ut_atomic_u32_await_ge_sub(void)
 static inline void
 ut_atomic_u32_await_neq_add_rel(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t ref	= VUINT32_VAL;
-	vuint32_t val	= vatomic32_await_neq_add_rel(&obj, VUINT32_MAX, 0x1U);
-	ASSERT(val == VUINT32_VAL);
-	ref = ref + 0x1U;
-	val = vatomic32_read(&obj);
-	ASSERT(val == ref);
-	V_UNUSED(val, ref);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t ref   = VUINT32_VAL;
+    vuint32_t val   = vatomic32_await_neq_add_rel(&obj, VUINT32_MAX, 0x1U);
+    ASSERT(val == VUINT32_VAL);
+    ref = ref + 0x1U;
+    val = vatomic32_read(&obj);
+    ASSERT(val == ref);
+    V_UNUSED(val, ref);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_neq_sub_rel
@@ -629,14 +629,14 @@ ut_atomic_u32_await_neq_add_rel(void)
 static inline void
 ut_atomic_u32_await_neq_sub_rel(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t ref	= VUINT32_VAL;
-	vuint32_t val	= vatomic32_await_neq_sub_rel(&obj, VUINT32_MAX, 0x1U);
-	ASSERT(val == VUINT32_VAL);
-	ref = ref - 0x1U;
-	val = vatomic32_read(&obj);
-	ASSERT(val == ref);
-	V_UNUSED(val, ref);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t ref   = VUINT32_VAL;
+    vuint32_t val   = vatomic32_await_neq_sub_rel(&obj, VUINT32_MAX, 0x1U);
+    ASSERT(val == VUINT32_VAL);
+    ref = ref - 0x1U;
+    val = vatomic32_read(&obj);
+    ASSERT(val == ref);
+    V_UNUSED(val, ref);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_eq_add_rel
@@ -644,14 +644,14 @@ ut_atomic_u32_await_neq_sub_rel(void)
 static inline void
 ut_atomic_u32_await_eq_add_rel(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t ref	= VUINT32_VAL;
-	vuint32_t val	= vatomic32_await_eq_add_rel(&obj, VUINT32_VAL, 0x1U);
-	ASSERT(val == VUINT32_VAL);
-	ref = ref + 0x1U;
-	val = vatomic32_read(&obj);
-	ASSERT(val == ref);
-	V_UNUSED(val, ref);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t ref   = VUINT32_VAL;
+    vuint32_t val   = vatomic32_await_eq_add_rel(&obj, VUINT32_VAL, 0x1U);
+    ASSERT(val == VUINT32_VAL);
+    ref = ref + 0x1U;
+    val = vatomic32_read(&obj);
+    ASSERT(val == ref);
+    V_UNUSED(val, ref);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_eq_sub_rel
@@ -659,14 +659,14 @@ ut_atomic_u32_await_eq_add_rel(void)
 static inline void
 ut_atomic_u32_await_eq_sub_rel(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t ref	= VUINT32_VAL;
-	vuint32_t val	= vatomic32_await_eq_sub_rel(&obj, VUINT32_VAL, 0x1U);
-	ASSERT(val == VUINT32_VAL);
-	ref = ref - 0x1U;
-	val = vatomic32_read(&obj);
-	ASSERT(val == ref);
-	V_UNUSED(val, ref);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t ref   = VUINT32_VAL;
+    vuint32_t val   = vatomic32_await_eq_sub_rel(&obj, VUINT32_VAL, 0x1U);
+    ASSERT(val == VUINT32_VAL);
+    ref = ref - 0x1U;
+    val = vatomic32_read(&obj);
+    ASSERT(val == ref);
+    V_UNUSED(val, ref);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_le_add_rel
@@ -674,14 +674,14 @@ ut_atomic_u32_await_eq_sub_rel(void)
 static inline void
 ut_atomic_u32_await_le_add_rel(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t ref	= VUINT32_VAL;
-	vuint32_t val	= vatomic32_await_le_add_rel(&obj, VUINT32_MAX, 0x1U);
-	ASSERT(val == VUINT32_VAL);
-	ref = ref + 0x1U;
-	val = vatomic32_read(&obj);
-	ASSERT(val == ref);
-	V_UNUSED(val, ref);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t ref   = VUINT32_VAL;
+    vuint32_t val   = vatomic32_await_le_add_rel(&obj, VUINT32_MAX, 0x1U);
+    ASSERT(val == VUINT32_VAL);
+    ref = ref + 0x1U;
+    val = vatomic32_read(&obj);
+    ASSERT(val == ref);
+    V_UNUSED(val, ref);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_le_sub_rel
@@ -689,14 +689,14 @@ ut_atomic_u32_await_le_add_rel(void)
 static inline void
 ut_atomic_u32_await_le_sub_rel(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t ref	= VUINT32_VAL;
-	vuint32_t val	= vatomic32_await_le_sub_rel(&obj, VUINT32_MAX, 0x1U);
-	ASSERT(val == VUINT32_VAL);
-	ref = ref - 0x1U;
-	val = vatomic32_read(&obj);
-	ASSERT(val == ref);
-	V_UNUSED(val, ref);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t ref   = VUINT32_VAL;
+    vuint32_t val   = vatomic32_await_le_sub_rel(&obj, VUINT32_MAX, 0x1U);
+    ASSERT(val == VUINT32_VAL);
+    ref = ref - 0x1U;
+    val = vatomic32_read(&obj);
+    ASSERT(val == ref);
+    V_UNUSED(val, ref);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_gt_add_rel
@@ -704,14 +704,14 @@ ut_atomic_u32_await_le_sub_rel(void)
 static inline void
 ut_atomic_u32_await_gt_add_rel(void)
 {
-	vatomic32_t obj = {VUINT32_MAX};
-	vuint32_t ref	= VUINT32_MAX;
-	vuint32_t val	= vatomic32_await_gt_add_rel(&obj, VUINT32_VAL, 0x1U);
-	ASSERT(val == VUINT32_MAX);
-	ref = ref + 0x1U;
-	val = vatomic32_read(&obj);
-	ASSERT(val == ref);
-	V_UNUSED(val, ref);
+    vatomic32_t obj = {VUINT32_MAX};
+    vuint32_t ref   = VUINT32_MAX;
+    vuint32_t val   = vatomic32_await_gt_add_rel(&obj, VUINT32_VAL, 0x1U);
+    ASSERT(val == VUINT32_MAX);
+    ref = ref + 0x1U;
+    val = vatomic32_read(&obj);
+    ASSERT(val == ref);
+    V_UNUSED(val, ref);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_gt_sub_rel
@@ -719,14 +719,14 @@ ut_atomic_u32_await_gt_add_rel(void)
 static inline void
 ut_atomic_u32_await_gt_sub_rel(void)
 {
-	vatomic32_t obj = {VUINT32_MAX};
-	vuint32_t ref	= VUINT32_MAX;
-	vuint32_t val	= vatomic32_await_gt_sub_rel(&obj, VUINT32_VAL, 0x1U);
-	ASSERT(val == VUINT32_MAX);
-	ref = ref - 0x1U;
-	val = vatomic32_read(&obj);
-	ASSERT(val == ref);
-	V_UNUSED(val, ref);
+    vatomic32_t obj = {VUINT32_MAX};
+    vuint32_t ref   = VUINT32_MAX;
+    vuint32_t val   = vatomic32_await_gt_sub_rel(&obj, VUINT32_VAL, 0x1U);
+    ASSERT(val == VUINT32_MAX);
+    ref = ref - 0x1U;
+    val = vatomic32_read(&obj);
+    ASSERT(val == ref);
+    V_UNUSED(val, ref);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_ge_add_rel
@@ -734,14 +734,14 @@ ut_atomic_u32_await_gt_sub_rel(void)
 static inline void
 ut_atomic_u32_await_ge_add_rel(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t ref	= VUINT32_VAL;
-	vuint32_t val	= vatomic32_await_ge_add_rel(&obj, VUINT32_VAL, 0x1U);
-	ASSERT(val == VUINT32_VAL);
-	ref = ref + 0x1U;
-	val = vatomic32_read(&obj);
-	ASSERT(val == ref);
-	V_UNUSED(val, ref);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t ref   = VUINT32_VAL;
+    vuint32_t val   = vatomic32_await_ge_add_rel(&obj, VUINT32_VAL, 0x1U);
+    ASSERT(val == VUINT32_VAL);
+    ref = ref + 0x1U;
+    val = vatomic32_read(&obj);
+    ASSERT(val == ref);
+    V_UNUSED(val, ref);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_ge_sub_rel
@@ -749,14 +749,14 @@ ut_atomic_u32_await_ge_add_rel(void)
 static inline void
 ut_atomic_u32_await_ge_sub_rel(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t ref	= VUINT32_VAL;
-	vuint32_t val	= vatomic32_await_ge_sub_rel(&obj, VUINT32_VAL, 0x1U);
-	ASSERT(val == VUINT32_VAL);
-	ref = ref - 0x1U;
-	val = vatomic32_read(&obj);
-	ASSERT(val == ref);
-	V_UNUSED(val, ref);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t ref   = VUINT32_VAL;
+    vuint32_t val   = vatomic32_await_ge_sub_rel(&obj, VUINT32_VAL, 0x1U);
+    ASSERT(val == VUINT32_VAL);
+    ref = ref - 0x1U;
+    val = vatomic32_read(&obj);
+    ASSERT(val == ref);
+    V_UNUSED(val, ref);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_neq_add_acq
@@ -764,14 +764,14 @@ ut_atomic_u32_await_ge_sub_rel(void)
 static inline void
 ut_atomic_u32_await_neq_add_acq(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t ref	= VUINT32_VAL;
-	vuint32_t val	= vatomic32_await_neq_add_acq(&obj, VUINT32_MAX, 0x1U);
-	ASSERT(val == VUINT32_VAL);
-	ref = ref + 0x1U;
-	val = vatomic32_read(&obj);
-	ASSERT(val == ref);
-	V_UNUSED(val, ref);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t ref   = VUINT32_VAL;
+    vuint32_t val   = vatomic32_await_neq_add_acq(&obj, VUINT32_MAX, 0x1U);
+    ASSERT(val == VUINT32_VAL);
+    ref = ref + 0x1U;
+    val = vatomic32_read(&obj);
+    ASSERT(val == ref);
+    V_UNUSED(val, ref);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_neq_sub_acq
@@ -779,14 +779,14 @@ ut_atomic_u32_await_neq_add_acq(void)
 static inline void
 ut_atomic_u32_await_neq_sub_acq(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t ref	= VUINT32_VAL;
-	vuint32_t val	= vatomic32_await_neq_sub_acq(&obj, VUINT32_MAX, 0x1U);
-	ASSERT(val == VUINT32_VAL);
-	ref = ref - 0x1U;
-	val = vatomic32_read(&obj);
-	ASSERT(val == ref);
-	V_UNUSED(val, ref);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t ref   = VUINT32_VAL;
+    vuint32_t val   = vatomic32_await_neq_sub_acq(&obj, VUINT32_MAX, 0x1U);
+    ASSERT(val == VUINT32_VAL);
+    ref = ref - 0x1U;
+    val = vatomic32_read(&obj);
+    ASSERT(val == ref);
+    V_UNUSED(val, ref);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_eq_add_acq
@@ -794,14 +794,14 @@ ut_atomic_u32_await_neq_sub_acq(void)
 static inline void
 ut_atomic_u32_await_eq_add_acq(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t ref	= VUINT32_VAL;
-	vuint32_t val	= vatomic32_await_eq_add_acq(&obj, VUINT32_VAL, 0x1U);
-	ASSERT(val == VUINT32_VAL);
-	ref = ref + 0x1U;
-	val = vatomic32_read(&obj);
-	ASSERT(val == ref);
-	V_UNUSED(val, ref);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t ref   = VUINT32_VAL;
+    vuint32_t val   = vatomic32_await_eq_add_acq(&obj, VUINT32_VAL, 0x1U);
+    ASSERT(val == VUINT32_VAL);
+    ref = ref + 0x1U;
+    val = vatomic32_read(&obj);
+    ASSERT(val == ref);
+    V_UNUSED(val, ref);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_eq_sub_acq
@@ -809,14 +809,14 @@ ut_atomic_u32_await_eq_add_acq(void)
 static inline void
 ut_atomic_u32_await_eq_sub_acq(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t ref	= VUINT32_VAL;
-	vuint32_t val	= vatomic32_await_eq_sub_acq(&obj, VUINT32_VAL, 0x1U);
-	ASSERT(val == VUINT32_VAL);
-	ref = ref - 0x1U;
-	val = vatomic32_read(&obj);
-	ASSERT(val == ref);
-	V_UNUSED(val, ref);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t ref   = VUINT32_VAL;
+    vuint32_t val   = vatomic32_await_eq_sub_acq(&obj, VUINT32_VAL, 0x1U);
+    ASSERT(val == VUINT32_VAL);
+    ref = ref - 0x1U;
+    val = vatomic32_read(&obj);
+    ASSERT(val == ref);
+    V_UNUSED(val, ref);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_le_add_acq
@@ -824,14 +824,14 @@ ut_atomic_u32_await_eq_sub_acq(void)
 static inline void
 ut_atomic_u32_await_le_add_acq(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t ref	= VUINT32_VAL;
-	vuint32_t val	= vatomic32_await_le_add_acq(&obj, VUINT32_MAX, 0x1U);
-	ASSERT(val == VUINT32_VAL);
-	ref = ref + 0x1U;
-	val = vatomic32_read(&obj);
-	ASSERT(val == ref);
-	V_UNUSED(val, ref);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t ref   = VUINT32_VAL;
+    vuint32_t val   = vatomic32_await_le_add_acq(&obj, VUINT32_MAX, 0x1U);
+    ASSERT(val == VUINT32_VAL);
+    ref = ref + 0x1U;
+    val = vatomic32_read(&obj);
+    ASSERT(val == ref);
+    V_UNUSED(val, ref);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_le_sub_acq
@@ -839,14 +839,14 @@ ut_atomic_u32_await_le_add_acq(void)
 static inline void
 ut_atomic_u32_await_le_sub_acq(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t ref	= VUINT32_VAL;
-	vuint32_t val	= vatomic32_await_le_sub_acq(&obj, VUINT32_MAX, 0x1U);
-	ASSERT(val == VUINT32_VAL);
-	ref = ref - 0x1U;
-	val = vatomic32_read(&obj);
-	ASSERT(val == ref);
-	V_UNUSED(val, ref);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t ref   = VUINT32_VAL;
+    vuint32_t val   = vatomic32_await_le_sub_acq(&obj, VUINT32_MAX, 0x1U);
+    ASSERT(val == VUINT32_VAL);
+    ref = ref - 0x1U;
+    val = vatomic32_read(&obj);
+    ASSERT(val == ref);
+    V_UNUSED(val, ref);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_gt_add_acq
@@ -854,14 +854,14 @@ ut_atomic_u32_await_le_sub_acq(void)
 static inline void
 ut_atomic_u32_await_gt_add_acq(void)
 {
-	vatomic32_t obj = {VUINT32_MAX};
-	vuint32_t ref	= VUINT32_MAX;
-	vuint32_t val	= vatomic32_await_gt_add_acq(&obj, VUINT32_VAL, 0x1U);
-	ASSERT(val == VUINT32_MAX);
-	ref = ref + 0x1U;
-	val = vatomic32_read(&obj);
-	ASSERT(val == ref);
-	V_UNUSED(val, ref);
+    vatomic32_t obj = {VUINT32_MAX};
+    vuint32_t ref   = VUINT32_MAX;
+    vuint32_t val   = vatomic32_await_gt_add_acq(&obj, VUINT32_VAL, 0x1U);
+    ASSERT(val == VUINT32_MAX);
+    ref = ref + 0x1U;
+    val = vatomic32_read(&obj);
+    ASSERT(val == ref);
+    V_UNUSED(val, ref);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_gt_sub_acq
@@ -869,14 +869,14 @@ ut_atomic_u32_await_gt_add_acq(void)
 static inline void
 ut_atomic_u32_await_gt_sub_acq(void)
 {
-	vatomic32_t obj = {VUINT32_MAX};
-	vuint32_t ref	= VUINT32_MAX;
-	vuint32_t val	= vatomic32_await_gt_sub_acq(&obj, VUINT32_VAL, 0x1U);
-	ASSERT(val == VUINT32_MAX);
-	ref = ref - 0x1U;
-	val = vatomic32_read(&obj);
-	ASSERT(val == ref);
-	V_UNUSED(val, ref);
+    vatomic32_t obj = {VUINT32_MAX};
+    vuint32_t ref   = VUINT32_MAX;
+    vuint32_t val   = vatomic32_await_gt_sub_acq(&obj, VUINT32_VAL, 0x1U);
+    ASSERT(val == VUINT32_MAX);
+    ref = ref - 0x1U;
+    val = vatomic32_read(&obj);
+    ASSERT(val == ref);
+    V_UNUSED(val, ref);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_ge_add_acq
@@ -884,14 +884,14 @@ ut_atomic_u32_await_gt_sub_acq(void)
 static inline void
 ut_atomic_u32_await_ge_add_acq(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t ref	= VUINT32_VAL;
-	vuint32_t val	= vatomic32_await_ge_add_acq(&obj, VUINT32_VAL, 0x1U);
-	ASSERT(val == VUINT32_VAL);
-	ref = ref + 0x1U;
-	val = vatomic32_read(&obj);
-	ASSERT(val == ref);
-	V_UNUSED(val, ref);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t ref   = VUINT32_VAL;
+    vuint32_t val   = vatomic32_await_ge_add_acq(&obj, VUINT32_VAL, 0x1U);
+    ASSERT(val == VUINT32_VAL);
+    ref = ref + 0x1U;
+    val = vatomic32_read(&obj);
+    ASSERT(val == ref);
+    V_UNUSED(val, ref);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_ge_sub_acq
@@ -899,14 +899,14 @@ ut_atomic_u32_await_ge_add_acq(void)
 static inline void
 ut_atomic_u32_await_ge_sub_acq(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t ref	= VUINT32_VAL;
-	vuint32_t val	= vatomic32_await_ge_sub_acq(&obj, VUINT32_VAL, 0x1U);
-	ASSERT(val == VUINT32_VAL);
-	ref = ref - 0x1U;
-	val = vatomic32_read(&obj);
-	ASSERT(val == ref);
-	V_UNUSED(val, ref);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t ref   = VUINT32_VAL;
+    vuint32_t val   = vatomic32_await_ge_sub_acq(&obj, VUINT32_VAL, 0x1U);
+    ASSERT(val == VUINT32_VAL);
+    ref = ref - 0x1U;
+    val = vatomic32_read(&obj);
+    ASSERT(val == ref);
+    V_UNUSED(val, ref);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_neq_add_rlx
@@ -914,14 +914,14 @@ ut_atomic_u32_await_ge_sub_acq(void)
 static inline void
 ut_atomic_u32_await_neq_add_rlx(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t ref	= VUINT32_VAL;
-	vuint32_t val	= vatomic32_await_neq_add_rlx(&obj, VUINT32_MAX, 0x1U);
-	ASSERT(val == VUINT32_VAL);
-	ref = ref + 0x1U;
-	val = vatomic32_read(&obj);
-	ASSERT(val == ref);
-	V_UNUSED(val, ref);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t ref   = VUINT32_VAL;
+    vuint32_t val   = vatomic32_await_neq_add_rlx(&obj, VUINT32_MAX, 0x1U);
+    ASSERT(val == VUINT32_VAL);
+    ref = ref + 0x1U;
+    val = vatomic32_read(&obj);
+    ASSERT(val == ref);
+    V_UNUSED(val, ref);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_neq_sub_rlx
@@ -929,14 +929,14 @@ ut_atomic_u32_await_neq_add_rlx(void)
 static inline void
 ut_atomic_u32_await_neq_sub_rlx(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t ref	= VUINT32_VAL;
-	vuint32_t val	= vatomic32_await_neq_sub_rlx(&obj, VUINT32_MAX, 0x1U);
-	ASSERT(val == VUINT32_VAL);
-	ref = ref - 0x1U;
-	val = vatomic32_read(&obj);
-	ASSERT(val == ref);
-	V_UNUSED(val, ref);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t ref   = VUINT32_VAL;
+    vuint32_t val   = vatomic32_await_neq_sub_rlx(&obj, VUINT32_MAX, 0x1U);
+    ASSERT(val == VUINT32_VAL);
+    ref = ref - 0x1U;
+    val = vatomic32_read(&obj);
+    ASSERT(val == ref);
+    V_UNUSED(val, ref);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_eq_add_rlx
@@ -944,14 +944,14 @@ ut_atomic_u32_await_neq_sub_rlx(void)
 static inline void
 ut_atomic_u32_await_eq_add_rlx(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t ref	= VUINT32_VAL;
-	vuint32_t val	= vatomic32_await_eq_add_rlx(&obj, VUINT32_VAL, 0x1U);
-	ASSERT(val == VUINT32_VAL);
-	ref = ref + 0x1U;
-	val = vatomic32_read(&obj);
-	ASSERT(val == ref);
-	V_UNUSED(val, ref);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t ref   = VUINT32_VAL;
+    vuint32_t val   = vatomic32_await_eq_add_rlx(&obj, VUINT32_VAL, 0x1U);
+    ASSERT(val == VUINT32_VAL);
+    ref = ref + 0x1U;
+    val = vatomic32_read(&obj);
+    ASSERT(val == ref);
+    V_UNUSED(val, ref);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_eq_sub_rlx
@@ -959,14 +959,14 @@ ut_atomic_u32_await_eq_add_rlx(void)
 static inline void
 ut_atomic_u32_await_eq_sub_rlx(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t ref	= VUINT32_VAL;
-	vuint32_t val	= vatomic32_await_eq_sub_rlx(&obj, VUINT32_VAL, 0x1U);
-	ASSERT(val == VUINT32_VAL);
-	ref = ref - 0x1U;
-	val = vatomic32_read(&obj);
-	ASSERT(val == ref);
-	V_UNUSED(val, ref);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t ref   = VUINT32_VAL;
+    vuint32_t val   = vatomic32_await_eq_sub_rlx(&obj, VUINT32_VAL, 0x1U);
+    ASSERT(val == VUINT32_VAL);
+    ref = ref - 0x1U;
+    val = vatomic32_read(&obj);
+    ASSERT(val == ref);
+    V_UNUSED(val, ref);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_le_add_rlx
@@ -974,14 +974,14 @@ ut_atomic_u32_await_eq_sub_rlx(void)
 static inline void
 ut_atomic_u32_await_le_add_rlx(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t ref	= VUINT32_VAL;
-	vuint32_t val	= vatomic32_await_le_add_rlx(&obj, VUINT32_MAX, 0x1U);
-	ASSERT(val == VUINT32_VAL);
-	ref = ref + 0x1U;
-	val = vatomic32_read(&obj);
-	ASSERT(val == ref);
-	V_UNUSED(val, ref);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t ref   = VUINT32_VAL;
+    vuint32_t val   = vatomic32_await_le_add_rlx(&obj, VUINT32_MAX, 0x1U);
+    ASSERT(val == VUINT32_VAL);
+    ref = ref + 0x1U;
+    val = vatomic32_read(&obj);
+    ASSERT(val == ref);
+    V_UNUSED(val, ref);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_le_sub_rlx
@@ -989,14 +989,14 @@ ut_atomic_u32_await_le_add_rlx(void)
 static inline void
 ut_atomic_u32_await_le_sub_rlx(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t ref	= VUINT32_VAL;
-	vuint32_t val	= vatomic32_await_le_sub_rlx(&obj, VUINT32_MAX, 0x1U);
-	ASSERT(val == VUINT32_VAL);
-	ref = ref - 0x1U;
-	val = vatomic32_read(&obj);
-	ASSERT(val == ref);
-	V_UNUSED(val, ref);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t ref   = VUINT32_VAL;
+    vuint32_t val   = vatomic32_await_le_sub_rlx(&obj, VUINT32_MAX, 0x1U);
+    ASSERT(val == VUINT32_VAL);
+    ref = ref - 0x1U;
+    val = vatomic32_read(&obj);
+    ASSERT(val == ref);
+    V_UNUSED(val, ref);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_gt_add_rlx
@@ -1004,14 +1004,14 @@ ut_atomic_u32_await_le_sub_rlx(void)
 static inline void
 ut_atomic_u32_await_gt_add_rlx(void)
 {
-	vatomic32_t obj = {VUINT32_MAX};
-	vuint32_t ref	= VUINT32_MAX;
-	vuint32_t val	= vatomic32_await_gt_add_rlx(&obj, VUINT32_VAL, 0x1U);
-	ASSERT(val == VUINT32_MAX);
-	ref = ref + 0x1U;
-	val = vatomic32_read(&obj);
-	ASSERT(val == ref);
-	V_UNUSED(val, ref);
+    vatomic32_t obj = {VUINT32_MAX};
+    vuint32_t ref   = VUINT32_MAX;
+    vuint32_t val   = vatomic32_await_gt_add_rlx(&obj, VUINT32_VAL, 0x1U);
+    ASSERT(val == VUINT32_MAX);
+    ref = ref + 0x1U;
+    val = vatomic32_read(&obj);
+    ASSERT(val == ref);
+    V_UNUSED(val, ref);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_gt_sub_rlx
@@ -1019,14 +1019,14 @@ ut_atomic_u32_await_gt_add_rlx(void)
 static inline void
 ut_atomic_u32_await_gt_sub_rlx(void)
 {
-	vatomic32_t obj = {VUINT32_MAX};
-	vuint32_t ref	= VUINT32_MAX;
-	vuint32_t val	= vatomic32_await_gt_sub_rlx(&obj, VUINT32_VAL, 0x1U);
-	ASSERT(val == VUINT32_MAX);
-	ref = ref - 0x1U;
-	val = vatomic32_read(&obj);
-	ASSERT(val == ref);
-	V_UNUSED(val, ref);
+    vatomic32_t obj = {VUINT32_MAX};
+    vuint32_t ref   = VUINT32_MAX;
+    vuint32_t val   = vatomic32_await_gt_sub_rlx(&obj, VUINT32_VAL, 0x1U);
+    ASSERT(val == VUINT32_MAX);
+    ref = ref - 0x1U;
+    val = vatomic32_read(&obj);
+    ASSERT(val == ref);
+    V_UNUSED(val, ref);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_ge_add_rlx
@@ -1034,14 +1034,14 @@ ut_atomic_u32_await_gt_sub_rlx(void)
 static inline void
 ut_atomic_u32_await_ge_add_rlx(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t ref	= VUINT32_VAL;
-	vuint32_t val	= vatomic32_await_ge_add_rlx(&obj, VUINT32_VAL, 0x1U);
-	ASSERT(val == VUINT32_VAL);
-	ref = ref + 0x1U;
-	val = vatomic32_read(&obj);
-	ASSERT(val == ref);
-	V_UNUSED(val, ref);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t ref   = VUINT32_VAL;
+    vuint32_t val   = vatomic32_await_ge_add_rlx(&obj, VUINT32_VAL, 0x1U);
+    ASSERT(val == VUINT32_VAL);
+    ref = ref + 0x1U;
+    val = vatomic32_read(&obj);
+    ASSERT(val == ref);
+    V_UNUSED(val, ref);
 }
 /*****************************************************************************
  * UnitTest: vatomic32_await_ge_sub_rlx
@@ -1049,14 +1049,14 @@ ut_atomic_u32_await_ge_add_rlx(void)
 static inline void
 ut_atomic_u32_await_ge_sub_rlx(void)
 {
-	vatomic32_t obj = {VUINT32_VAL};
-	vuint32_t ref	= VUINT32_VAL;
-	vuint32_t val	= vatomic32_await_ge_sub_rlx(&obj, VUINT32_VAL, 0x1U);
-	ASSERT(val == VUINT32_VAL);
-	ref = ref - 0x1U;
-	val = vatomic32_read(&obj);
-	ASSERT(val == ref);
-	V_UNUSED(val, ref);
+    vatomic32_t obj = {VUINT32_VAL};
+    vuint32_t ref   = VUINT32_VAL;
+    vuint32_t val   = vatomic32_await_ge_sub_rlx(&obj, VUINT32_VAL, 0x1U);
+    ASSERT(val == VUINT32_VAL);
+    ref = ref - 0x1U;
+    val = vatomic32_read(&obj);
+    ASSERT(val == ref);
+    V_UNUSED(val, ref);
 }
 /*****************************************************************************
  * Entry point
@@ -1064,85 +1064,85 @@ ut_atomic_u32_await_ge_sub_rlx(void)
 int
 main(void)
 {
-	ut_atomic_u32_await_eq();
-	ut_atomic_u32_await_neq();
-	ut_atomic_u32_await_eq_acq();
-	ut_atomic_u32_await_neq_acq();
-	ut_atomic_u32_await_eq_rlx();
-	ut_atomic_u32_await_neq_rlx();
+    ut_atomic_u32_await_eq();
+    ut_atomic_u32_await_neq();
+    ut_atomic_u32_await_eq_acq();
+    ut_atomic_u32_await_neq_acq();
+    ut_atomic_u32_await_eq_rlx();
+    ut_atomic_u32_await_neq_rlx();
 
-	ut_atomic_u32_await_eq_set();
-	ut_atomic_u32_await_neq_set();
-	ut_atomic_u32_await_eq_set_rel();
-	ut_atomic_u32_await_neq_set_rel();
-	ut_atomic_u32_await_eq_set_acq();
-	ut_atomic_u32_await_neq_set_acq();
-	ut_atomic_u32_await_eq_set_rlx();
-	ut_atomic_u32_await_neq_set_rlx();
+    ut_atomic_u32_await_eq_set();
+    ut_atomic_u32_await_neq_set();
+    ut_atomic_u32_await_eq_set_rel();
+    ut_atomic_u32_await_neq_set_rel();
+    ut_atomic_u32_await_eq_set_acq();
+    ut_atomic_u32_await_neq_set_acq();
+    ut_atomic_u32_await_eq_set_rlx();
+    ut_atomic_u32_await_neq_set_rlx();
 
-	ut_atomic_u32_await_le();
-	ut_atomic_u32_await_gt();
-	ut_atomic_u32_await_ge();
-	ut_atomic_u32_await_le_acq();
-	ut_atomic_u32_await_gt_acq();
-	ut_atomic_u32_await_ge_acq();
-	ut_atomic_u32_await_le_rlx();
-	ut_atomic_u32_await_gt_rlx();
-	ut_atomic_u32_await_ge_rlx();
+    ut_atomic_u32_await_le();
+    ut_atomic_u32_await_gt();
+    ut_atomic_u32_await_ge();
+    ut_atomic_u32_await_le_acq();
+    ut_atomic_u32_await_gt_acq();
+    ut_atomic_u32_await_ge_acq();
+    ut_atomic_u32_await_le_rlx();
+    ut_atomic_u32_await_gt_rlx();
+    ut_atomic_u32_await_ge_rlx();
 
-	ut_atomic_u32_await_le_set();
-	ut_atomic_u32_await_gt_set();
-	ut_atomic_u32_await_ge_set();
-	ut_atomic_u32_await_le_set_rel();
-	ut_atomic_u32_await_gt_set_rel();
-	ut_atomic_u32_await_ge_set_rel();
-	ut_atomic_u32_await_le_set_acq();
-	ut_atomic_u32_await_gt_set_acq();
-	ut_atomic_u32_await_ge_set_acq();
-	ut_atomic_u32_await_le_set_rlx();
-	ut_atomic_u32_await_gt_set_rlx();
-	ut_atomic_u32_await_ge_set_rlx();
+    ut_atomic_u32_await_le_set();
+    ut_atomic_u32_await_gt_set();
+    ut_atomic_u32_await_ge_set();
+    ut_atomic_u32_await_le_set_rel();
+    ut_atomic_u32_await_gt_set_rel();
+    ut_atomic_u32_await_ge_set_rel();
+    ut_atomic_u32_await_le_set_acq();
+    ut_atomic_u32_await_gt_set_acq();
+    ut_atomic_u32_await_ge_set_acq();
+    ut_atomic_u32_await_le_set_rlx();
+    ut_atomic_u32_await_gt_set_rlx();
+    ut_atomic_u32_await_ge_set_rlx();
 
-	ut_atomic_u32_await_neq_add();
-	ut_atomic_u32_await_neq_sub();
-	ut_atomic_u32_await_eq_add();
-	ut_atomic_u32_await_eq_sub();
-	ut_atomic_u32_await_le_add();
-	ut_atomic_u32_await_le_sub();
-	ut_atomic_u32_await_gt_add();
-	ut_atomic_u32_await_gt_sub();
-	ut_atomic_u32_await_ge_add();
-	ut_atomic_u32_await_ge_sub();
-	ut_atomic_u32_await_neq_add_rel();
-	ut_atomic_u32_await_neq_sub_rel();
-	ut_atomic_u32_await_eq_add_rel();
-	ut_atomic_u32_await_eq_sub_rel();
-	ut_atomic_u32_await_le_add_rel();
-	ut_atomic_u32_await_le_sub_rel();
-	ut_atomic_u32_await_gt_add_rel();
-	ut_atomic_u32_await_gt_sub_rel();
-	ut_atomic_u32_await_ge_add_rel();
-	ut_atomic_u32_await_ge_sub_rel();
-	ut_atomic_u32_await_neq_add_acq();
-	ut_atomic_u32_await_neq_sub_acq();
-	ut_atomic_u32_await_eq_add_acq();
-	ut_atomic_u32_await_eq_sub_acq();
-	ut_atomic_u32_await_le_add_acq();
-	ut_atomic_u32_await_le_sub_acq();
-	ut_atomic_u32_await_gt_add_acq();
-	ut_atomic_u32_await_gt_sub_acq();
-	ut_atomic_u32_await_ge_add_acq();
-	ut_atomic_u32_await_ge_sub_acq();
-	ut_atomic_u32_await_neq_add_rlx();
-	ut_atomic_u32_await_neq_sub_rlx();
-	ut_atomic_u32_await_eq_add_rlx();
-	ut_atomic_u32_await_eq_sub_rlx();
-	ut_atomic_u32_await_le_add_rlx();
-	ut_atomic_u32_await_le_sub_rlx();
-	ut_atomic_u32_await_gt_add_rlx();
-	ut_atomic_u32_await_gt_sub_rlx();
-	ut_atomic_u32_await_ge_add_rlx();
-	ut_atomic_u32_await_ge_sub_rlx();
+    ut_atomic_u32_await_neq_add();
+    ut_atomic_u32_await_neq_sub();
+    ut_atomic_u32_await_eq_add();
+    ut_atomic_u32_await_eq_sub();
+    ut_atomic_u32_await_le_add();
+    ut_atomic_u32_await_le_sub();
+    ut_atomic_u32_await_gt_add();
+    ut_atomic_u32_await_gt_sub();
+    ut_atomic_u32_await_ge_add();
+    ut_atomic_u32_await_ge_sub();
+    ut_atomic_u32_await_neq_add_rel();
+    ut_atomic_u32_await_neq_sub_rel();
+    ut_atomic_u32_await_eq_add_rel();
+    ut_atomic_u32_await_eq_sub_rel();
+    ut_atomic_u32_await_le_add_rel();
+    ut_atomic_u32_await_le_sub_rel();
+    ut_atomic_u32_await_gt_add_rel();
+    ut_atomic_u32_await_gt_sub_rel();
+    ut_atomic_u32_await_ge_add_rel();
+    ut_atomic_u32_await_ge_sub_rel();
+    ut_atomic_u32_await_neq_add_acq();
+    ut_atomic_u32_await_neq_sub_acq();
+    ut_atomic_u32_await_eq_add_acq();
+    ut_atomic_u32_await_eq_sub_acq();
+    ut_atomic_u32_await_le_add_acq();
+    ut_atomic_u32_await_le_sub_acq();
+    ut_atomic_u32_await_gt_add_acq();
+    ut_atomic_u32_await_gt_sub_acq();
+    ut_atomic_u32_await_ge_add_acq();
+    ut_atomic_u32_await_ge_sub_acq();
+    ut_atomic_u32_await_neq_add_rlx();
+    ut_atomic_u32_await_neq_sub_rlx();
+    ut_atomic_u32_await_eq_add_rlx();
+    ut_atomic_u32_await_eq_sub_rlx();
+    ut_atomic_u32_await_le_add_rlx();
+    ut_atomic_u32_await_le_sub_rlx();
+    ut_atomic_u32_await_gt_add_rlx();
+    ut_atomic_u32_await_gt_sub_rlx();
+    ut_atomic_u32_await_ge_add_rlx();
+    ut_atomic_u32_await_ge_sub_rlx();
 
-	return 0;
+    return 0;
 }

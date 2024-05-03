@@ -11,16 +11,16 @@ ticketlock_t lock = TICKETLOCK_INIT();
 void
 acquire(vuint32_t tid)
 {
-	if (tid == NTHREADS - 1) {
-		await_while (!ticketlock_tryacquire(&lock)) {}
-	} else {
-		ticketlock_acquire(&lock);
-	}
+    if (tid == NTHREADS - 1) {
+        await_while (!ticketlock_tryacquire(&lock)) {}
+    } else {
+        ticketlock_acquire(&lock);
+    }
 }
 
 void
 release(vuint32_t tid)
 {
-	V_UNUSED(tid);
-	ticketlock_release(&lock);
+    V_UNUSED(tid);
+    ticketlock_release(&lock);
 }

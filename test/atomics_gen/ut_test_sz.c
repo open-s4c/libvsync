@@ -14,10 +14,10 @@
 static inline void
 ut_atomic_sz_read(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t val		= vatomicsz_read(&obj);
-	ASSERT(val == (vsize_t)1);
-	V_UNUSED(val);
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t val     = vatomicsz_read(&obj);
+    ASSERT(val == (vsize_t)1);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_read_acq
@@ -25,10 +25,10 @@ ut_atomic_sz_read(void)
 static inline void
 ut_atomic_sz_read_acq(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t val		= vatomicsz_read_acq(&obj);
-	ASSERT(val == (vsize_t)1);
-	V_UNUSED(val);
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t val     = vatomicsz_read_acq(&obj);
+    ASSERT(val == (vsize_t)1);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_read_rlx
@@ -36,10 +36,10 @@ ut_atomic_sz_read_acq(void)
 static inline void
 ut_atomic_sz_read_rlx(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t val		= vatomicsz_read_rlx(&obj);
-	ASSERT(val == (vsize_t)1);
-	V_UNUSED(val);
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t val     = vatomicsz_read_rlx(&obj);
+    ASSERT(val == (vsize_t)1);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_init
@@ -47,13 +47,13 @@ ut_atomic_sz_read_rlx(void)
 static inline void
 ut_atomic_sz_init(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t val		= vatomicsz_read(&obj);
-	ASSERT(val == (vsize_t)1);
-	vatomicsz_init(&obj, SIZE_MAX);
-	val = vatomicsz_read(&obj);
-	ASSERT(val == SIZE_MAX);
-	V_UNUSED(val);
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t val     = vatomicsz_read(&obj);
+    ASSERT(val == (vsize_t)1);
+    vatomicsz_init(&obj, SIZE_MAX);
+    val = vatomicsz_read(&obj);
+    ASSERT(val == SIZE_MAX);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_write
@@ -61,13 +61,13 @@ ut_atomic_sz_init(void)
 static inline void
 ut_atomic_sz_write(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t val		= vatomicsz_read(&obj);
-	ASSERT(val == (vsize_t)1);
-	vatomicsz_write(&obj, SIZE_MAX);
-	val = vatomicsz_read(&obj);
-	ASSERT(val == SIZE_MAX);
-	V_UNUSED(val);
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t val     = vatomicsz_read(&obj);
+    ASSERT(val == (vsize_t)1);
+    vatomicsz_write(&obj, SIZE_MAX);
+    val = vatomicsz_read(&obj);
+    ASSERT(val == SIZE_MAX);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_write_rel
@@ -75,13 +75,13 @@ ut_atomic_sz_write(void)
 static inline void
 ut_atomic_sz_write_rel(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t val		= vatomicsz_read(&obj);
-	ASSERT(val == (vsize_t)1);
-	vatomicsz_write_rel(&obj, SIZE_MAX);
-	val = vatomicsz_read(&obj);
-	ASSERT(val == SIZE_MAX);
-	V_UNUSED(val);
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t val     = vatomicsz_read(&obj);
+    ASSERT(val == (vsize_t)1);
+    vatomicsz_write_rel(&obj, SIZE_MAX);
+    val = vatomicsz_read(&obj);
+    ASSERT(val == SIZE_MAX);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_write_rlx
@@ -89,13 +89,13 @@ ut_atomic_sz_write_rel(void)
 static inline void
 ut_atomic_sz_write_rlx(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t val		= vatomicsz_read(&obj);
-	ASSERT(val == (vsize_t)1);
-	vatomicsz_write_rlx(&obj, SIZE_MAX);
-	val = vatomicsz_read(&obj);
-	ASSERT(val == SIZE_MAX);
-	V_UNUSED(val);
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t val     = vatomicsz_read(&obj);
+    ASSERT(val == (vsize_t)1);
+    vatomicsz_write_rlx(&obj, SIZE_MAX);
+    val = vatomicsz_read(&obj);
+    ASSERT(val == SIZE_MAX);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_xchg
@@ -103,14 +103,14 @@ ut_atomic_sz_write_rlx(void)
 static inline void
 ut_atomic_sz_xchg(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t val		= vatomicsz_read(&obj);
-	ASSERT(val == (vsize_t)1);
-	vsize_t old = vatomicsz_xchg(&obj, SIZE_MAX);
-	ASSERT(old == (vsize_t)1);
-	val = vatomicsz_read(&obj);
-	ASSERT(val == SIZE_MAX);
-	V_UNUSED(val, old);
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t val     = vatomicsz_read(&obj);
+    ASSERT(val == (vsize_t)1);
+    vsize_t old = vatomicsz_xchg(&obj, SIZE_MAX);
+    ASSERT(old == (vsize_t)1);
+    val = vatomicsz_read(&obj);
+    ASSERT(val == SIZE_MAX);
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_xchg_acq
@@ -118,14 +118,14 @@ ut_atomic_sz_xchg(void)
 static inline void
 ut_atomic_sz_xchg_acq(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t val		= vatomicsz_read(&obj);
-	ASSERT(val == (vsize_t)1);
-	vsize_t old = vatomicsz_xchg_acq(&obj, SIZE_MAX);
-	ASSERT(old == (vsize_t)1);
-	val = vatomicsz_read(&obj);
-	ASSERT(val == SIZE_MAX);
-	V_UNUSED(val, old);
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t val     = vatomicsz_read(&obj);
+    ASSERT(val == (vsize_t)1);
+    vsize_t old = vatomicsz_xchg_acq(&obj, SIZE_MAX);
+    ASSERT(old == (vsize_t)1);
+    val = vatomicsz_read(&obj);
+    ASSERT(val == SIZE_MAX);
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_xchg_rel
@@ -133,14 +133,14 @@ ut_atomic_sz_xchg_acq(void)
 static inline void
 ut_atomic_sz_xchg_rel(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t val		= vatomicsz_read(&obj);
-	ASSERT(val == (vsize_t)1);
-	vsize_t old = vatomicsz_xchg_rel(&obj, SIZE_MAX);
-	ASSERT(old == (vsize_t)1);
-	val = vatomicsz_read(&obj);
-	ASSERT(val == SIZE_MAX);
-	V_UNUSED(val, old);
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t val     = vatomicsz_read(&obj);
+    ASSERT(val == (vsize_t)1);
+    vsize_t old = vatomicsz_xchg_rel(&obj, SIZE_MAX);
+    ASSERT(old == (vsize_t)1);
+    val = vatomicsz_read(&obj);
+    ASSERT(val == SIZE_MAX);
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_xchg_rlx
@@ -148,14 +148,14 @@ ut_atomic_sz_xchg_rel(void)
 static inline void
 ut_atomic_sz_xchg_rlx(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t val		= vatomicsz_read(&obj);
-	ASSERT(val == (vsize_t)1);
-	vsize_t old = vatomicsz_xchg_rlx(&obj, SIZE_MAX);
-	ASSERT(old == (vsize_t)1);
-	val = vatomicsz_read(&obj);
-	ASSERT(val == SIZE_MAX);
-	V_UNUSED(val, old);
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t val     = vatomicsz_read(&obj);
+    ASSERT(val == (vsize_t)1);
+    vsize_t old = vatomicsz_xchg_rlx(&obj, SIZE_MAX);
+    ASSERT(old == (vsize_t)1);
+    val = vatomicsz_read(&obj);
+    ASSERT(val == SIZE_MAX);
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_cmpxchg
@@ -163,18 +163,18 @@ ut_atomic_sz_xchg_rlx(void)
 static inline void
 ut_atomic_sz_cmpxchg(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	/* test failure */
-	vsize_t old = vatomicsz_cmpxchg(&obj, SIZE_MAX, (vsize_t)1);
-	ASSERT(old == (vsize_t)1);
-	vsize_t val = vatomicsz_read(&obj);
-	ASSERT(val == old);
-	/* test success */
-	old = vatomicsz_cmpxchg(&obj, (vsize_t)1, SIZE_MAX);
-	ASSERT(old == (vsize_t)1);
-	val = vatomicsz_read(&obj);
-	ASSERT(val == SIZE_MAX);
-	V_UNUSED(val, old);
+    vatomicsz_t obj = {(vsize_t)1};
+    /* test failure */
+    vsize_t old = vatomicsz_cmpxchg(&obj, SIZE_MAX, (vsize_t)1);
+    ASSERT(old == (vsize_t)1);
+    vsize_t val = vatomicsz_read(&obj);
+    ASSERT(val == old);
+    /* test success */
+    old = vatomicsz_cmpxchg(&obj, (vsize_t)1, SIZE_MAX);
+    ASSERT(old == (vsize_t)1);
+    val = vatomicsz_read(&obj);
+    ASSERT(val == SIZE_MAX);
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_cmpxchg_acq
@@ -182,18 +182,18 @@ ut_atomic_sz_cmpxchg(void)
 static inline void
 ut_atomic_sz_cmpxchg_acq(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	/* test failure */
-	vsize_t old = vatomicsz_cmpxchg_acq(&obj, SIZE_MAX, (vsize_t)1);
-	ASSERT(old == (vsize_t)1);
-	vsize_t val = vatomicsz_read(&obj);
-	ASSERT(val == old);
-	/* test success */
-	old = vatomicsz_cmpxchg_acq(&obj, (vsize_t)1, SIZE_MAX);
-	ASSERT(old == (vsize_t)1);
-	val = vatomicsz_read(&obj);
-	ASSERT(val == SIZE_MAX);
-	V_UNUSED(val, old);
+    vatomicsz_t obj = {(vsize_t)1};
+    /* test failure */
+    vsize_t old = vatomicsz_cmpxchg_acq(&obj, SIZE_MAX, (vsize_t)1);
+    ASSERT(old == (vsize_t)1);
+    vsize_t val = vatomicsz_read(&obj);
+    ASSERT(val == old);
+    /* test success */
+    old = vatomicsz_cmpxchg_acq(&obj, (vsize_t)1, SIZE_MAX);
+    ASSERT(old == (vsize_t)1);
+    val = vatomicsz_read(&obj);
+    ASSERT(val == SIZE_MAX);
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_cmpxchg_rel
@@ -201,18 +201,18 @@ ut_atomic_sz_cmpxchg_acq(void)
 static inline void
 ut_atomic_sz_cmpxchg_rel(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	/* test failure */
-	vsize_t old = vatomicsz_cmpxchg_rel(&obj, SIZE_MAX, (vsize_t)1);
-	ASSERT(old == (vsize_t)1);
-	vsize_t val = vatomicsz_read(&obj);
-	ASSERT(val == old);
-	/* test success */
-	old = vatomicsz_cmpxchg_rel(&obj, (vsize_t)1, SIZE_MAX);
-	ASSERT(old == (vsize_t)1);
-	val = vatomicsz_read(&obj);
-	ASSERT(val == SIZE_MAX);
-	V_UNUSED(val, old);
+    vatomicsz_t obj = {(vsize_t)1};
+    /* test failure */
+    vsize_t old = vatomicsz_cmpxchg_rel(&obj, SIZE_MAX, (vsize_t)1);
+    ASSERT(old == (vsize_t)1);
+    vsize_t val = vatomicsz_read(&obj);
+    ASSERT(val == old);
+    /* test success */
+    old = vatomicsz_cmpxchg_rel(&obj, (vsize_t)1, SIZE_MAX);
+    ASSERT(old == (vsize_t)1);
+    val = vatomicsz_read(&obj);
+    ASSERT(val == SIZE_MAX);
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_cmpxchg_rlx
@@ -220,18 +220,18 @@ ut_atomic_sz_cmpxchg_rel(void)
 static inline void
 ut_atomic_sz_cmpxchg_rlx(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	/* test failure */
-	vsize_t old = vatomicsz_cmpxchg_rlx(&obj, SIZE_MAX, (vsize_t)1);
-	ASSERT(old == (vsize_t)1);
-	vsize_t val = vatomicsz_read(&obj);
-	ASSERT(val == old);
-	/* test success */
-	old = vatomicsz_cmpxchg_rlx(&obj, (vsize_t)1, SIZE_MAX);
-	ASSERT(old == (vsize_t)1);
-	val = vatomicsz_read(&obj);
-	ASSERT(val == SIZE_MAX);
-	V_UNUSED(val, old);
+    vatomicsz_t obj = {(vsize_t)1};
+    /* test failure */
+    vsize_t old = vatomicsz_cmpxchg_rlx(&obj, SIZE_MAX, (vsize_t)1);
+    ASSERT(old == (vsize_t)1);
+    vsize_t val = vatomicsz_read(&obj);
+    ASSERT(val == old);
+    /* test success */
+    old = vatomicsz_cmpxchg_rlx(&obj, (vsize_t)1, SIZE_MAX);
+    ASSERT(old == (vsize_t)1);
+    val = vatomicsz_read(&obj);
+    ASSERT(val == SIZE_MAX);
+    V_UNUSED(val, old);
 }
 /* ****************************************************************************
  * UnitTest: vatomicsz_add
@@ -239,18 +239,18 @@ ut_atomic_sz_cmpxchg_rlx(void)
 static inline void
 ut_atomic_sz_add(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t val		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t val     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		vatomicsz_add(&obj, v);
-		ref += v;
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        vatomicsz_add(&obj, v);
+        ref += v;
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val);
 }
 /* ****************************************************************************
  * UnitTest: vatomicsz_add_rel
@@ -258,18 +258,18 @@ ut_atomic_sz_add(void)
 static inline void
 ut_atomic_sz_add_rel(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t val		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t val     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		vatomicsz_add_rel(&obj, v);
-		ref += v;
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        vatomicsz_add_rel(&obj, v);
+        ref += v;
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val);
 }
 /* ****************************************************************************
  * UnitTest: vatomicsz_add_rlx
@@ -277,18 +277,18 @@ ut_atomic_sz_add_rel(void)
 static inline void
 ut_atomic_sz_add_rlx(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t val		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t val     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		vatomicsz_add_rlx(&obj, v);
-		ref += v;
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        vatomicsz_add_rlx(&obj, v);
+        ref += v;
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_get_add
@@ -296,20 +296,20 @@ ut_atomic_sz_add_rlx(void)
 static inline void
 ut_atomic_sz_get_add(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t val		= 0;
-	vsize_t old		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t val     = 0;
+    vsize_t old     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		old = vatomicsz_get_add(&obj, v);
-		ASSERT(old == ref);
-		ref += v;
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, old);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        old = vatomicsz_get_add(&obj, v);
+        ASSERT(old == ref);
+        ref += v;
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_add_get
@@ -317,20 +317,20 @@ ut_atomic_sz_get_add(void)
 static inline void
 ut_atomic_sz_add_get(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t val		= 0;
-	vsize_t cur		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t val     = 0;
+    vsize_t cur     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		cur = vatomicsz_add_get(&obj, v);
-		ref += v;
-		ASSERT(cur == ref);
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, cur);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        cur = vatomicsz_add_get(&obj, v);
+        ref += v;
+        ASSERT(cur == ref);
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, cur);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_get_add_acq
@@ -338,20 +338,20 @@ ut_atomic_sz_add_get(void)
 static inline void
 ut_atomic_sz_get_add_acq(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t val		= 0;
-	vsize_t old		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t val     = 0;
+    vsize_t old     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		old = vatomicsz_get_add_acq(&obj, v);
-		ASSERT(old == ref);
-		ref += v;
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, old);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        old = vatomicsz_get_add_acq(&obj, v);
+        ASSERT(old == ref);
+        ref += v;
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_add_get_acq
@@ -359,20 +359,20 @@ ut_atomic_sz_get_add_acq(void)
 static inline void
 ut_atomic_sz_add_get_acq(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t val		= 0;
-	vsize_t cur		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t val     = 0;
+    vsize_t cur     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		cur = vatomicsz_add_get_acq(&obj, v);
-		ref += v;
-		ASSERT(cur == ref);
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, cur);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        cur = vatomicsz_add_get_acq(&obj, v);
+        ref += v;
+        ASSERT(cur == ref);
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, cur);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_get_add_rel
@@ -380,20 +380,20 @@ ut_atomic_sz_add_get_acq(void)
 static inline void
 ut_atomic_sz_get_add_rel(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t val		= 0;
-	vsize_t old		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t val     = 0;
+    vsize_t old     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		old = vatomicsz_get_add_rel(&obj, v);
-		ASSERT(old == ref);
-		ref += v;
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, old);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        old = vatomicsz_get_add_rel(&obj, v);
+        ASSERT(old == ref);
+        ref += v;
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_add_get_rel
@@ -401,20 +401,20 @@ ut_atomic_sz_get_add_rel(void)
 static inline void
 ut_atomic_sz_add_get_rel(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t val		= 0;
-	vsize_t cur		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t val     = 0;
+    vsize_t cur     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		cur = vatomicsz_add_get_rel(&obj, v);
-		ref += v;
-		ASSERT(cur == ref);
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, cur);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        cur = vatomicsz_add_get_rel(&obj, v);
+        ref += v;
+        ASSERT(cur == ref);
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, cur);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_get_add_rlx
@@ -422,20 +422,20 @@ ut_atomic_sz_add_get_rel(void)
 static inline void
 ut_atomic_sz_get_add_rlx(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t val		= 0;
-	vsize_t old		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t val     = 0;
+    vsize_t old     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		old = vatomicsz_get_add_rlx(&obj, v);
-		ASSERT(old == ref);
-		ref += v;
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, old);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        old = vatomicsz_get_add_rlx(&obj, v);
+        ASSERT(old == ref);
+        ref += v;
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_add_get_rlx
@@ -443,20 +443,20 @@ ut_atomic_sz_get_add_rlx(void)
 static inline void
 ut_atomic_sz_add_get_rlx(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t val		= 0;
-	vsize_t cur		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t val     = 0;
+    vsize_t cur     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		cur = vatomicsz_add_get_rlx(&obj, v);
-		ref += v;
-		ASSERT(cur == ref);
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, cur);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        cur = vatomicsz_add_get_rlx(&obj, v);
+        ref += v;
+        ASSERT(cur == ref);
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, cur);
 }
 /* ****************************************************************************
  * UnitTest: vatomicsz_inc
@@ -464,18 +464,18 @@ ut_atomic_sz_add_get_rlx(void)
 static inline void
 ut_atomic_sz_inc(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t val		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t val     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		vatomicsz_inc(&obj);
-		ref++;
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        vatomicsz_inc(&obj);
+        ref++;
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val);
 }
 /* ****************************************************************************
  * UnitTest: vatomicsz_inc_rel
@@ -483,18 +483,18 @@ ut_atomic_sz_inc(void)
 static inline void
 ut_atomic_sz_inc_rel(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t val		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t val     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		vatomicsz_inc_rel(&obj);
-		ref++;
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        vatomicsz_inc_rel(&obj);
+        ref++;
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val);
 }
 /* ****************************************************************************
  * UnitTest: vatomicsz_inc_rlx
@@ -502,18 +502,18 @@ ut_atomic_sz_inc_rel(void)
 static inline void
 ut_atomic_sz_inc_rlx(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t val		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t val     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		vatomicsz_inc_rlx(&obj);
-		ref++;
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        vatomicsz_inc_rlx(&obj);
+        ref++;
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_get_inc
@@ -521,20 +521,20 @@ ut_atomic_sz_inc_rlx(void)
 static inline void
 ut_atomic_sz_get_inc(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t val		= 0;
-	vsize_t old		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t val     = 0;
+    vsize_t old     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		old = vatomicsz_get_inc(&obj);
-		ASSERT(old == ref);
-		ref++;
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, old);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        old = vatomicsz_get_inc(&obj);
+        ASSERT(old == ref);
+        ref++;
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_inc_get
@@ -542,20 +542,20 @@ ut_atomic_sz_get_inc(void)
 static inline void
 ut_atomic_sz_inc_get(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t cur		= 0;
-	vsize_t val		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t cur     = 0;
+    vsize_t val     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		ref++;
-		cur = vatomicsz_inc_get(&obj);
-		ASSERT(cur == ref);
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(cur, val);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        ref++;
+        cur = vatomicsz_inc_get(&obj);
+        ASSERT(cur == ref);
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(cur, val);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_get_inc_acq
@@ -563,20 +563,20 @@ ut_atomic_sz_inc_get(void)
 static inline void
 ut_atomic_sz_get_inc_acq(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t val		= 0;
-	vsize_t old		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t val     = 0;
+    vsize_t old     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		old = vatomicsz_get_inc_acq(&obj);
-		ASSERT(old == ref);
-		ref++;
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, old);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        old = vatomicsz_get_inc_acq(&obj);
+        ASSERT(old == ref);
+        ref++;
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_inc_get_acq
@@ -584,20 +584,20 @@ ut_atomic_sz_get_inc_acq(void)
 static inline void
 ut_atomic_sz_inc_get_acq(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t cur		= 0;
-	vsize_t val		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t cur     = 0;
+    vsize_t val     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		ref++;
-		cur = vatomicsz_inc_get_acq(&obj);
-		ASSERT(cur == ref);
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(cur, val);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        ref++;
+        cur = vatomicsz_inc_get_acq(&obj);
+        ASSERT(cur == ref);
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(cur, val);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_get_inc_rel
@@ -605,20 +605,20 @@ ut_atomic_sz_inc_get_acq(void)
 static inline void
 ut_atomic_sz_get_inc_rel(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t val		= 0;
-	vsize_t old		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t val     = 0;
+    vsize_t old     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		old = vatomicsz_get_inc_rel(&obj);
-		ASSERT(old == ref);
-		ref++;
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, old);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        old = vatomicsz_get_inc_rel(&obj);
+        ASSERT(old == ref);
+        ref++;
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_inc_get_rel
@@ -626,20 +626,20 @@ ut_atomic_sz_get_inc_rel(void)
 static inline void
 ut_atomic_sz_inc_get_rel(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t cur		= 0;
-	vsize_t val		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t cur     = 0;
+    vsize_t val     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		ref++;
-		cur = vatomicsz_inc_get_rel(&obj);
-		ASSERT(cur == ref);
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(cur, val);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        ref++;
+        cur = vatomicsz_inc_get_rel(&obj);
+        ASSERT(cur == ref);
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(cur, val);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_get_inc_rlx
@@ -647,20 +647,20 @@ ut_atomic_sz_inc_get_rel(void)
 static inline void
 ut_atomic_sz_get_inc_rlx(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t val		= 0;
-	vsize_t old		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t val     = 0;
+    vsize_t old     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		old = vatomicsz_get_inc_rlx(&obj);
-		ASSERT(old == ref);
-		ref++;
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, old);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        old = vatomicsz_get_inc_rlx(&obj);
+        ASSERT(old == ref);
+        ref++;
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_inc_get_rlx
@@ -668,20 +668,20 @@ ut_atomic_sz_get_inc_rlx(void)
 static inline void
 ut_atomic_sz_inc_get_rlx(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t cur		= 0;
-	vsize_t val		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t cur     = 0;
+    vsize_t val     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		ref++;
-		cur = vatomicsz_inc_get_rlx(&obj);
-		ASSERT(cur == ref);
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(cur, val);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        ref++;
+        cur = vatomicsz_inc_get_rlx(&obj);
+        ASSERT(cur == ref);
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(cur, val);
 }
 /* ****************************************************************************
  * UnitTest: vatomicsz_sub
@@ -689,18 +689,18 @@ ut_atomic_sz_inc_get_rlx(void)
 static inline void
 ut_atomic_sz_sub(void)
 {
-	vatomicsz_t obj = {SIZE_MAX};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= SIZE_MAX;
-	vsize_t val		= 0;
+    vatomicsz_t obj = {SIZE_MAX};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = SIZE_MAX;
+    vsize_t val     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		vatomicsz_sub(&obj, v);
-		ref -= v;
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        vatomicsz_sub(&obj, v);
+        ref -= v;
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val);
 }
 /* ****************************************************************************
  * UnitTest: vatomicsz_sub_rel
@@ -708,18 +708,18 @@ ut_atomic_sz_sub(void)
 static inline void
 ut_atomic_sz_sub_rel(void)
 {
-	vatomicsz_t obj = {SIZE_MAX};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= SIZE_MAX;
-	vsize_t val		= 0;
+    vatomicsz_t obj = {SIZE_MAX};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = SIZE_MAX;
+    vsize_t val     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		vatomicsz_sub_rel(&obj, v);
-		ref -= v;
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        vatomicsz_sub_rel(&obj, v);
+        ref -= v;
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val);
 }
 /* ****************************************************************************
  * UnitTest: vatomicsz_sub_rlx
@@ -727,18 +727,18 @@ ut_atomic_sz_sub_rel(void)
 static inline void
 ut_atomic_sz_sub_rlx(void)
 {
-	vatomicsz_t obj = {SIZE_MAX};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= SIZE_MAX;
-	vsize_t val		= 0;
+    vatomicsz_t obj = {SIZE_MAX};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = SIZE_MAX;
+    vsize_t val     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		vatomicsz_sub_rlx(&obj, v);
-		ref -= v;
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        vatomicsz_sub_rlx(&obj, v);
+        ref -= v;
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_get_sub
@@ -746,20 +746,20 @@ ut_atomic_sz_sub_rlx(void)
 static inline void
 ut_atomic_sz_get_sub(void)
 {
-	vatomicsz_t obj = {SIZE_MAX};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= SIZE_MAX;
-	vsize_t val		= 0;
-	vsize_t old		= 0;
+    vatomicsz_t obj = {SIZE_MAX};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = SIZE_MAX;
+    vsize_t val     = 0;
+    vsize_t old     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		old = vatomicsz_get_sub(&obj, v);
-		ASSERT(old == ref);
-		ref -= v;
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, old);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        old = vatomicsz_get_sub(&obj, v);
+        ASSERT(old == ref);
+        ref -= v;
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_sub_get
@@ -767,20 +767,20 @@ ut_atomic_sz_get_sub(void)
 static inline void
 ut_atomic_sz_sub_get(void)
 {
-	vatomicsz_t obj = {SIZE_MAX};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= SIZE_MAX;
-	vsize_t val		= 0;
-	vsize_t cur		= 0;
+    vatomicsz_t obj = {SIZE_MAX};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = SIZE_MAX;
+    vsize_t val     = 0;
+    vsize_t cur     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		cur = vatomicsz_sub_get(&obj, v);
-		ref -= v;
-		ASSERT(cur == ref);
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, cur);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        cur = vatomicsz_sub_get(&obj, v);
+        ref -= v;
+        ASSERT(cur == ref);
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, cur);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_get_sub_acq
@@ -788,20 +788,20 @@ ut_atomic_sz_sub_get(void)
 static inline void
 ut_atomic_sz_get_sub_acq(void)
 {
-	vatomicsz_t obj = {SIZE_MAX};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= SIZE_MAX;
-	vsize_t val		= 0;
-	vsize_t old		= 0;
+    vatomicsz_t obj = {SIZE_MAX};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = SIZE_MAX;
+    vsize_t val     = 0;
+    vsize_t old     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		old = vatomicsz_get_sub_acq(&obj, v);
-		ASSERT(old == ref);
-		ref -= v;
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, old);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        old = vatomicsz_get_sub_acq(&obj, v);
+        ASSERT(old == ref);
+        ref -= v;
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_sub_get_acq
@@ -809,20 +809,20 @@ ut_atomic_sz_get_sub_acq(void)
 static inline void
 ut_atomic_sz_sub_get_acq(void)
 {
-	vatomicsz_t obj = {SIZE_MAX};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= SIZE_MAX;
-	vsize_t val		= 0;
-	vsize_t cur		= 0;
+    vatomicsz_t obj = {SIZE_MAX};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = SIZE_MAX;
+    vsize_t val     = 0;
+    vsize_t cur     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		cur = vatomicsz_sub_get_acq(&obj, v);
-		ref -= v;
-		ASSERT(cur == ref);
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, cur);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        cur = vatomicsz_sub_get_acq(&obj, v);
+        ref -= v;
+        ASSERT(cur == ref);
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, cur);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_get_sub_rel
@@ -830,20 +830,20 @@ ut_atomic_sz_sub_get_acq(void)
 static inline void
 ut_atomic_sz_get_sub_rel(void)
 {
-	vatomicsz_t obj = {SIZE_MAX};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= SIZE_MAX;
-	vsize_t val		= 0;
-	vsize_t old		= 0;
+    vatomicsz_t obj = {SIZE_MAX};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = SIZE_MAX;
+    vsize_t val     = 0;
+    vsize_t old     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		old = vatomicsz_get_sub_rel(&obj, v);
-		ASSERT(old == ref);
-		ref -= v;
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, old);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        old = vatomicsz_get_sub_rel(&obj, v);
+        ASSERT(old == ref);
+        ref -= v;
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_sub_get_rel
@@ -851,20 +851,20 @@ ut_atomic_sz_get_sub_rel(void)
 static inline void
 ut_atomic_sz_sub_get_rel(void)
 {
-	vatomicsz_t obj = {SIZE_MAX};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= SIZE_MAX;
-	vsize_t val		= 0;
-	vsize_t cur		= 0;
+    vatomicsz_t obj = {SIZE_MAX};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = SIZE_MAX;
+    vsize_t val     = 0;
+    vsize_t cur     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		cur = vatomicsz_sub_get_rel(&obj, v);
-		ref -= v;
-		ASSERT(cur == ref);
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, cur);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        cur = vatomicsz_sub_get_rel(&obj, v);
+        ref -= v;
+        ASSERT(cur == ref);
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, cur);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_get_sub_rlx
@@ -872,20 +872,20 @@ ut_atomic_sz_sub_get_rel(void)
 static inline void
 ut_atomic_sz_get_sub_rlx(void)
 {
-	vatomicsz_t obj = {SIZE_MAX};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= SIZE_MAX;
-	vsize_t val		= 0;
-	vsize_t old		= 0;
+    vatomicsz_t obj = {SIZE_MAX};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = SIZE_MAX;
+    vsize_t val     = 0;
+    vsize_t old     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		old = vatomicsz_get_sub_rlx(&obj, v);
-		ASSERT(old == ref);
-		ref -= v;
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, old);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        old = vatomicsz_get_sub_rlx(&obj, v);
+        ASSERT(old == ref);
+        ref -= v;
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_sub_get_rlx
@@ -893,20 +893,20 @@ ut_atomic_sz_get_sub_rlx(void)
 static inline void
 ut_atomic_sz_sub_get_rlx(void)
 {
-	vatomicsz_t obj = {SIZE_MAX};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= SIZE_MAX;
-	vsize_t val		= 0;
-	vsize_t cur		= 0;
+    vatomicsz_t obj = {SIZE_MAX};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = SIZE_MAX;
+    vsize_t val     = 0;
+    vsize_t cur     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		cur = vatomicsz_sub_get_rlx(&obj, v);
-		ref -= v;
-		ASSERT(cur == ref);
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val, cur);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        cur = vatomicsz_sub_get_rlx(&obj, v);
+        ref -= v;
+        ASSERT(cur == ref);
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val, cur);
 }
 /* ****************************************************************************
  * UnitTest: vatomicsz_dec
@@ -914,18 +914,18 @@ ut_atomic_sz_sub_get_rlx(void)
 static inline void
 ut_atomic_sz_dec(void)
 {
-	vatomicsz_t obj = {SIZE_MAX};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= SIZE_MAX;
-	vsize_t val		= 0;
+    vatomicsz_t obj = {SIZE_MAX};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = SIZE_MAX;
+    vsize_t val     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		vatomicsz_dec(&obj);
-		ref--;
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        vatomicsz_dec(&obj);
+        ref--;
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val);
 }
 /* ****************************************************************************
  * UnitTest: vatomicsz_dec_rel
@@ -933,18 +933,18 @@ ut_atomic_sz_dec(void)
 static inline void
 ut_atomic_sz_dec_rel(void)
 {
-	vatomicsz_t obj = {SIZE_MAX};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= SIZE_MAX;
-	vsize_t val		= 0;
+    vatomicsz_t obj = {SIZE_MAX};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = SIZE_MAX;
+    vsize_t val     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		vatomicsz_dec_rel(&obj);
-		ref--;
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        vatomicsz_dec_rel(&obj);
+        ref--;
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val);
 }
 /* ****************************************************************************
  * UnitTest: vatomicsz_dec_rlx
@@ -952,18 +952,18 @@ ut_atomic_sz_dec_rel(void)
 static inline void
 ut_atomic_sz_dec_rlx(void)
 {
-	vatomicsz_t obj = {SIZE_MAX};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= SIZE_MAX;
-	vsize_t val		= 0;
+    vatomicsz_t obj = {SIZE_MAX};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = SIZE_MAX;
+    vsize_t val     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		vatomicsz_dec_rlx(&obj);
-		ref--;
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(val);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        vatomicsz_dec_rlx(&obj);
+        ref--;
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_get_dec
@@ -971,20 +971,20 @@ ut_atomic_sz_dec_rlx(void)
 static inline void
 ut_atomic_sz_get_dec(void)
 {
-	vatomicsz_t obj = {SIZE_MAX};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= SIZE_MAX;
-	vsize_t old		= 0;
-	vsize_t val		= 0;
+    vatomicsz_t obj = {SIZE_MAX};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = SIZE_MAX;
+    vsize_t old     = 0;
+    vsize_t val     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		old = vatomicsz_get_dec(&obj);
-		ASSERT(old == ref);
-		ref--;
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(old, val);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        old = vatomicsz_get_dec(&obj);
+        ASSERT(old == ref);
+        ref--;
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(old, val);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_dec_get
@@ -992,20 +992,20 @@ ut_atomic_sz_get_dec(void)
 static inline void
 ut_atomic_sz_dec_get(void)
 {
-	vatomicsz_t obj = {SIZE_MAX};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= SIZE_MAX;
-	vsize_t cur		= 0;
-	vsize_t val		= 0;
+    vatomicsz_t obj = {SIZE_MAX};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = SIZE_MAX;
+    vsize_t cur     = 0;
+    vsize_t val     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		ref--;
-		cur = vatomicsz_dec_get(&obj);
-		ASSERT(cur == ref);
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(cur, val);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        ref--;
+        cur = vatomicsz_dec_get(&obj);
+        ASSERT(cur == ref);
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(cur, val);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_get_dec_acq
@@ -1013,20 +1013,20 @@ ut_atomic_sz_dec_get(void)
 static inline void
 ut_atomic_sz_get_dec_acq(void)
 {
-	vatomicsz_t obj = {SIZE_MAX};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= SIZE_MAX;
-	vsize_t old		= 0;
-	vsize_t val		= 0;
+    vatomicsz_t obj = {SIZE_MAX};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = SIZE_MAX;
+    vsize_t old     = 0;
+    vsize_t val     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		old = vatomicsz_get_dec_acq(&obj);
-		ASSERT(old == ref);
-		ref--;
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(old, val);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        old = vatomicsz_get_dec_acq(&obj);
+        ASSERT(old == ref);
+        ref--;
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(old, val);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_dec_get_acq
@@ -1034,20 +1034,20 @@ ut_atomic_sz_get_dec_acq(void)
 static inline void
 ut_atomic_sz_dec_get_acq(void)
 {
-	vatomicsz_t obj = {SIZE_MAX};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= SIZE_MAX;
-	vsize_t cur		= 0;
-	vsize_t val		= 0;
+    vatomicsz_t obj = {SIZE_MAX};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = SIZE_MAX;
+    vsize_t cur     = 0;
+    vsize_t val     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		ref--;
-		cur = vatomicsz_dec_get_acq(&obj);
-		ASSERT(cur == ref);
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(cur, val);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        ref--;
+        cur = vatomicsz_dec_get_acq(&obj);
+        ASSERT(cur == ref);
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(cur, val);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_get_dec_rel
@@ -1055,20 +1055,20 @@ ut_atomic_sz_dec_get_acq(void)
 static inline void
 ut_atomic_sz_get_dec_rel(void)
 {
-	vatomicsz_t obj = {SIZE_MAX};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= SIZE_MAX;
-	vsize_t old		= 0;
-	vsize_t val		= 0;
+    vatomicsz_t obj = {SIZE_MAX};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = SIZE_MAX;
+    vsize_t old     = 0;
+    vsize_t val     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		old = vatomicsz_get_dec_rel(&obj);
-		ASSERT(old == ref);
-		ref--;
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(old, val);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        old = vatomicsz_get_dec_rel(&obj);
+        ASSERT(old == ref);
+        ref--;
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(old, val);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_dec_get_rel
@@ -1076,20 +1076,20 @@ ut_atomic_sz_get_dec_rel(void)
 static inline void
 ut_atomic_sz_dec_get_rel(void)
 {
-	vatomicsz_t obj = {SIZE_MAX};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= SIZE_MAX;
-	vsize_t cur		= 0;
-	vsize_t val		= 0;
+    vatomicsz_t obj = {SIZE_MAX};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = SIZE_MAX;
+    vsize_t cur     = 0;
+    vsize_t val     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		ref--;
-		cur = vatomicsz_dec_get_rel(&obj);
-		ASSERT(cur == ref);
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(cur, val);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        ref--;
+        cur = vatomicsz_dec_get_rel(&obj);
+        ASSERT(cur == ref);
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(cur, val);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_get_dec_rlx
@@ -1097,20 +1097,20 @@ ut_atomic_sz_dec_get_rel(void)
 static inline void
 ut_atomic_sz_get_dec_rlx(void)
 {
-	vatomicsz_t obj = {SIZE_MAX};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= SIZE_MAX;
-	vsize_t old		= 0;
-	vsize_t val		= 0;
+    vatomicsz_t obj = {SIZE_MAX};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = SIZE_MAX;
+    vsize_t old     = 0;
+    vsize_t val     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		old = vatomicsz_get_dec_rlx(&obj);
-		ASSERT(old == ref);
-		ref--;
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(old, val);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        old = vatomicsz_get_dec_rlx(&obj);
+        ASSERT(old == ref);
+        ref--;
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(old, val);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_dec_get_rlx
@@ -1118,20 +1118,20 @@ ut_atomic_sz_get_dec_rlx(void)
 static inline void
 ut_atomic_sz_dec_get_rlx(void)
 {
-	vatomicsz_t obj = {SIZE_MAX};
-	vsize_t max		= (vsize_t)1 + (vsize_t)10;
-	vsize_t ref		= SIZE_MAX;
-	vsize_t cur		= 0;
-	vsize_t val		= 0;
+    vatomicsz_t obj = {SIZE_MAX};
+    vsize_t max     = (vsize_t)1 + (vsize_t)10;
+    vsize_t ref     = SIZE_MAX;
+    vsize_t cur     = 0;
+    vsize_t val     = 0;
 
-	for (vsize_t v = (vsize_t)1; v <= max; v++) {
-		ref--;
-		cur = vatomicsz_dec_get_rlx(&obj);
-		ASSERT(cur == ref);
-		val = vatomicsz_read(&obj);
-		ASSERT(val == ref);
-	}
-	V_UNUSED(cur, val);
+    for (vsize_t v = (vsize_t)1; v <= max; v++) {
+        ref--;
+        cur = vatomicsz_dec_get_rlx(&obj);
+        ASSERT(cur == ref);
+        val = vatomicsz_read(&obj);
+        ASSERT(val == ref);
+    }
+    V_UNUSED(cur, val);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_max
@@ -1139,18 +1139,18 @@ ut_atomic_sz_dec_get_rlx(void)
 static inline void
 ut_atomic_sz_max(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
+    vatomicsz_t obj = {(vsize_t)1};
 
-	/* test write */
-	vatomicsz_max(&obj, SIZE_MAX);
-	vsize_t val = vatomicsz_read(&obj);
-	ASSERT(val == SIZE_MAX);
+    /* test write */
+    vatomicsz_max(&obj, SIZE_MAX);
+    vsize_t val = vatomicsz_read(&obj);
+    ASSERT(val == SIZE_MAX);
 
-	/* test no write */
-	vatomicsz_max(&obj, (vsize_t)1);
-	val = vatomicsz_read(&obj);
-	ASSERT(val == SIZE_MAX);
-	V_UNUSED(val);
+    /* test no write */
+    vatomicsz_max(&obj, (vsize_t)1);
+    val = vatomicsz_read(&obj);
+    ASSERT(val == SIZE_MAX);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_max_rel
@@ -1158,18 +1158,18 @@ ut_atomic_sz_max(void)
 static inline void
 ut_atomic_sz_max_rel(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
+    vatomicsz_t obj = {(vsize_t)1};
 
-	/* test write */
-	vatomicsz_max_rel(&obj, SIZE_MAX);
-	vsize_t val = vatomicsz_read(&obj);
-	ASSERT(val == SIZE_MAX);
+    /* test write */
+    vatomicsz_max_rel(&obj, SIZE_MAX);
+    vsize_t val = vatomicsz_read(&obj);
+    ASSERT(val == SIZE_MAX);
 
-	/* test no write */
-	vatomicsz_max_rel(&obj, (vsize_t)1);
-	val = vatomicsz_read(&obj);
-	ASSERT(val == SIZE_MAX);
-	V_UNUSED(val);
+    /* test no write */
+    vatomicsz_max_rel(&obj, (vsize_t)1);
+    val = vatomicsz_read(&obj);
+    ASSERT(val == SIZE_MAX);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_max_rlx
@@ -1177,18 +1177,18 @@ ut_atomic_sz_max_rel(void)
 static inline void
 ut_atomic_sz_max_rlx(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
+    vatomicsz_t obj = {(vsize_t)1};
 
-	/* test write */
-	vatomicsz_max_rlx(&obj, SIZE_MAX);
-	vsize_t val = vatomicsz_read(&obj);
-	ASSERT(val == SIZE_MAX);
+    /* test write */
+    vatomicsz_max_rlx(&obj, SIZE_MAX);
+    vsize_t val = vatomicsz_read(&obj);
+    ASSERT(val == SIZE_MAX);
 
-	/* test no write */
-	vatomicsz_max_rlx(&obj, (vsize_t)1);
-	val = vatomicsz_read(&obj);
-	ASSERT(val == SIZE_MAX);
-	V_UNUSED(val);
+    /* test no write */
+    vatomicsz_max_rlx(&obj, (vsize_t)1);
+    val = vatomicsz_read(&obj);
+    ASSERT(val == SIZE_MAX);
+    V_UNUSED(val);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_get_max
@@ -1196,21 +1196,21 @@ ut_atomic_sz_max_rlx(void)
 static inline void
 ut_atomic_sz_get_max(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
+    vatomicsz_t obj = {(vsize_t)1};
 
-	/* test write */
-	vsize_t old = vatomicsz_get_max(&obj, SIZE_MAX);
-	ASSERT(old == (vsize_t)1);
-	vsize_t val = vatomicsz_read(&obj);
-	ASSERT(val == SIZE_MAX);
+    /* test write */
+    vsize_t old = vatomicsz_get_max(&obj, SIZE_MAX);
+    ASSERT(old == (vsize_t)1);
+    vsize_t val = vatomicsz_read(&obj);
+    ASSERT(val == SIZE_MAX);
 
-	/* test no write */
-	old = vatomicsz_get_max(&obj, (vsize_t)1);
-	ASSERT(old == SIZE_MAX);
-	val = vatomicsz_read(&obj);
-	ASSERT(val == SIZE_MAX);
+    /* test no write */
+    old = vatomicsz_get_max(&obj, (vsize_t)1);
+    ASSERT(old == SIZE_MAX);
+    val = vatomicsz_read(&obj);
+    ASSERT(val == SIZE_MAX);
 
-	V_UNUSED(val, old);
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_max_get
@@ -1218,21 +1218,21 @@ ut_atomic_sz_get_max(void)
 static inline void
 ut_atomic_sz_max_get(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
+    vatomicsz_t obj = {(vsize_t)1};
 
-	/* test write */
-	vsize_t cur = vatomicsz_max_get(&obj, SIZE_MAX);
-	ASSERT(cur == SIZE_MAX);
-	vsize_t val = vatomicsz_read(&obj);
-	ASSERT(val == SIZE_MAX);
+    /* test write */
+    vsize_t cur = vatomicsz_max_get(&obj, SIZE_MAX);
+    ASSERT(cur == SIZE_MAX);
+    vsize_t val = vatomicsz_read(&obj);
+    ASSERT(val == SIZE_MAX);
 
-	/* test no write */
-	cur = vatomicsz_max_get(&obj, (vsize_t)1);
-	ASSERT(cur == SIZE_MAX);
-	val = vatomicsz_read(&obj);
-	ASSERT(val == SIZE_MAX);
+    /* test no write */
+    cur = vatomicsz_max_get(&obj, (vsize_t)1);
+    ASSERT(cur == SIZE_MAX);
+    val = vatomicsz_read(&obj);
+    ASSERT(val == SIZE_MAX);
 
-	V_UNUSED(cur, val);
+    V_UNUSED(cur, val);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_get_max_acq
@@ -1240,21 +1240,21 @@ ut_atomic_sz_max_get(void)
 static inline void
 ut_atomic_sz_get_max_acq(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
+    vatomicsz_t obj = {(vsize_t)1};
 
-	/* test write */
-	vsize_t old = vatomicsz_get_max_acq(&obj, SIZE_MAX);
-	ASSERT(old == (vsize_t)1);
-	vsize_t val = vatomicsz_read(&obj);
-	ASSERT(val == SIZE_MAX);
+    /* test write */
+    vsize_t old = vatomicsz_get_max_acq(&obj, SIZE_MAX);
+    ASSERT(old == (vsize_t)1);
+    vsize_t val = vatomicsz_read(&obj);
+    ASSERT(val == SIZE_MAX);
 
-	/* test no write */
-	old = vatomicsz_get_max_acq(&obj, (vsize_t)1);
-	ASSERT(old == SIZE_MAX);
-	val = vatomicsz_read(&obj);
-	ASSERT(val == SIZE_MAX);
+    /* test no write */
+    old = vatomicsz_get_max_acq(&obj, (vsize_t)1);
+    ASSERT(old == SIZE_MAX);
+    val = vatomicsz_read(&obj);
+    ASSERT(val == SIZE_MAX);
 
-	V_UNUSED(val, old);
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_max_get_acq
@@ -1262,21 +1262,21 @@ ut_atomic_sz_get_max_acq(void)
 static inline void
 ut_atomic_sz_max_get_acq(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
+    vatomicsz_t obj = {(vsize_t)1};
 
-	/* test write */
-	vsize_t cur = vatomicsz_max_get_acq(&obj, SIZE_MAX);
-	ASSERT(cur == SIZE_MAX);
-	vsize_t val = vatomicsz_read(&obj);
-	ASSERT(val == SIZE_MAX);
+    /* test write */
+    vsize_t cur = vatomicsz_max_get_acq(&obj, SIZE_MAX);
+    ASSERT(cur == SIZE_MAX);
+    vsize_t val = vatomicsz_read(&obj);
+    ASSERT(val == SIZE_MAX);
 
-	/* test no write */
-	cur = vatomicsz_max_get_acq(&obj, (vsize_t)1);
-	ASSERT(cur == SIZE_MAX);
-	val = vatomicsz_read(&obj);
-	ASSERT(val == SIZE_MAX);
+    /* test no write */
+    cur = vatomicsz_max_get_acq(&obj, (vsize_t)1);
+    ASSERT(cur == SIZE_MAX);
+    val = vatomicsz_read(&obj);
+    ASSERT(val == SIZE_MAX);
 
-	V_UNUSED(cur, val);
+    V_UNUSED(cur, val);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_get_max_rel
@@ -1284,21 +1284,21 @@ ut_atomic_sz_max_get_acq(void)
 static inline void
 ut_atomic_sz_get_max_rel(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
+    vatomicsz_t obj = {(vsize_t)1};
 
-	/* test write */
-	vsize_t old = vatomicsz_get_max_rel(&obj, SIZE_MAX);
-	ASSERT(old == (vsize_t)1);
-	vsize_t val = vatomicsz_read(&obj);
-	ASSERT(val == SIZE_MAX);
+    /* test write */
+    vsize_t old = vatomicsz_get_max_rel(&obj, SIZE_MAX);
+    ASSERT(old == (vsize_t)1);
+    vsize_t val = vatomicsz_read(&obj);
+    ASSERT(val == SIZE_MAX);
 
-	/* test no write */
-	old = vatomicsz_get_max_rel(&obj, (vsize_t)1);
-	ASSERT(old == SIZE_MAX);
-	val = vatomicsz_read(&obj);
-	ASSERT(val == SIZE_MAX);
+    /* test no write */
+    old = vatomicsz_get_max_rel(&obj, (vsize_t)1);
+    ASSERT(old == SIZE_MAX);
+    val = vatomicsz_read(&obj);
+    ASSERT(val == SIZE_MAX);
 
-	V_UNUSED(val, old);
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_max_get_rel
@@ -1306,21 +1306,21 @@ ut_atomic_sz_get_max_rel(void)
 static inline void
 ut_atomic_sz_max_get_rel(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
+    vatomicsz_t obj = {(vsize_t)1};
 
-	/* test write */
-	vsize_t cur = vatomicsz_max_get_rel(&obj, SIZE_MAX);
-	ASSERT(cur == SIZE_MAX);
-	vsize_t val = vatomicsz_read(&obj);
-	ASSERT(val == SIZE_MAX);
+    /* test write */
+    vsize_t cur = vatomicsz_max_get_rel(&obj, SIZE_MAX);
+    ASSERT(cur == SIZE_MAX);
+    vsize_t val = vatomicsz_read(&obj);
+    ASSERT(val == SIZE_MAX);
 
-	/* test no write */
-	cur = vatomicsz_max_get_rel(&obj, (vsize_t)1);
-	ASSERT(cur == SIZE_MAX);
-	val = vatomicsz_read(&obj);
-	ASSERT(val == SIZE_MAX);
+    /* test no write */
+    cur = vatomicsz_max_get_rel(&obj, (vsize_t)1);
+    ASSERT(cur == SIZE_MAX);
+    val = vatomicsz_read(&obj);
+    ASSERT(val == SIZE_MAX);
 
-	V_UNUSED(cur, val);
+    V_UNUSED(cur, val);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_get_max_rlx
@@ -1328,21 +1328,21 @@ ut_atomic_sz_max_get_rel(void)
 static inline void
 ut_atomic_sz_get_max_rlx(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
+    vatomicsz_t obj = {(vsize_t)1};
 
-	/* test write */
-	vsize_t old = vatomicsz_get_max_rlx(&obj, SIZE_MAX);
-	ASSERT(old == (vsize_t)1);
-	vsize_t val = vatomicsz_read(&obj);
-	ASSERT(val == SIZE_MAX);
+    /* test write */
+    vsize_t old = vatomicsz_get_max_rlx(&obj, SIZE_MAX);
+    ASSERT(old == (vsize_t)1);
+    vsize_t val = vatomicsz_read(&obj);
+    ASSERT(val == SIZE_MAX);
 
-	/* test no write */
-	old = vatomicsz_get_max_rlx(&obj, (vsize_t)1);
-	ASSERT(old == SIZE_MAX);
-	val = vatomicsz_read(&obj);
-	ASSERT(val == SIZE_MAX);
+    /* test no write */
+    old = vatomicsz_get_max_rlx(&obj, (vsize_t)1);
+    ASSERT(old == SIZE_MAX);
+    val = vatomicsz_read(&obj);
+    ASSERT(val == SIZE_MAX);
 
-	V_UNUSED(val, old);
+    V_UNUSED(val, old);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_max_get_rlx
@@ -1350,21 +1350,21 @@ ut_atomic_sz_get_max_rlx(void)
 static inline void
 ut_atomic_sz_max_get_rlx(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
+    vatomicsz_t obj = {(vsize_t)1};
 
-	/* test write */
-	vsize_t cur = vatomicsz_max_get_rlx(&obj, SIZE_MAX);
-	ASSERT(cur == SIZE_MAX);
-	vsize_t val = vatomicsz_read(&obj);
-	ASSERT(val == SIZE_MAX);
+    /* test write */
+    vsize_t cur = vatomicsz_max_get_rlx(&obj, SIZE_MAX);
+    ASSERT(cur == SIZE_MAX);
+    vsize_t val = vatomicsz_read(&obj);
+    ASSERT(val == SIZE_MAX);
 
-	/* test no write */
-	cur = vatomicsz_max_get_rlx(&obj, (vsize_t)1);
-	ASSERT(cur == SIZE_MAX);
-	val = vatomicsz_read(&obj);
-	ASSERT(val == SIZE_MAX);
+    /* test no write */
+    cur = vatomicsz_max_get_rlx(&obj, (vsize_t)1);
+    ASSERT(cur == SIZE_MAX);
+    val = vatomicsz_read(&obj);
+    ASSERT(val == SIZE_MAX);
 
-	V_UNUSED(cur, val);
+    V_UNUSED(cur, val);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_and
@@ -1372,19 +1372,19 @@ ut_atomic_sz_max_get_rlx(void)
 static inline void
 ut_atomic_sz_and(void)
 {
-	vatomicsz_t obj = {SIZE_MAX};
-	vsize_t mask	= SIZE_MAX;
-	vsize_t ref		= SIZE_MAX;
-	vsize_t cur		= 0;
+    vatomicsz_t obj = {SIZE_MAX};
+    vsize_t mask    = SIZE_MAX;
+    vsize_t ref     = SIZE_MAX;
+    vsize_t cur     = 0;
 
-	for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
-		mask = (vsize_t)(mask >> (BYTE_WIDTH * i));
-		ref &= mask;
-		vatomicsz_and(&obj, mask);
-		cur = vatomicsz_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
+        mask = (vsize_t)(mask >> (BYTE_WIDTH * i));
+        ref &= mask;
+        vatomicsz_and(&obj, mask);
+        cur = vatomicsz_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_and_rel
@@ -1392,19 +1392,19 @@ ut_atomic_sz_and(void)
 static inline void
 ut_atomic_sz_and_rel(void)
 {
-	vatomicsz_t obj = {SIZE_MAX};
-	vsize_t mask	= SIZE_MAX;
-	vsize_t ref		= SIZE_MAX;
-	vsize_t cur		= 0;
+    vatomicsz_t obj = {SIZE_MAX};
+    vsize_t mask    = SIZE_MAX;
+    vsize_t ref     = SIZE_MAX;
+    vsize_t cur     = 0;
 
-	for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
-		mask = (vsize_t)(mask >> (BYTE_WIDTH * i));
-		ref &= mask;
-		vatomicsz_and_rel(&obj, mask);
-		cur = vatomicsz_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
+        mask = (vsize_t)(mask >> (BYTE_WIDTH * i));
+        ref &= mask;
+        vatomicsz_and_rel(&obj, mask);
+        cur = vatomicsz_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_and_rlx
@@ -1412,19 +1412,19 @@ ut_atomic_sz_and_rel(void)
 static inline void
 ut_atomic_sz_and_rlx(void)
 {
-	vatomicsz_t obj = {SIZE_MAX};
-	vsize_t mask	= SIZE_MAX;
-	vsize_t ref		= SIZE_MAX;
-	vsize_t cur		= 0;
+    vatomicsz_t obj = {SIZE_MAX};
+    vsize_t mask    = SIZE_MAX;
+    vsize_t ref     = SIZE_MAX;
+    vsize_t cur     = 0;
 
-	for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
-		mask = (vsize_t)(mask >> (BYTE_WIDTH * i));
-		ref &= mask;
-		vatomicsz_and_rlx(&obj, mask);
-		cur = vatomicsz_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
+        mask = (vsize_t)(mask >> (BYTE_WIDTH * i));
+        ref &= mask;
+        vatomicsz_and_rlx(&obj, mask);
+        cur = vatomicsz_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_get_and
@@ -1432,21 +1432,21 @@ ut_atomic_sz_and_rlx(void)
 static inline void
 ut_atomic_sz_get_and(void)
 {
-	vatomicsz_t obj = {SIZE_MAX};
-	vsize_t mask	= SIZE_MAX;
-	vsize_t ref		= SIZE_MAX;
-	vsize_t cur		= 0;
-	vsize_t old		= 0;
+    vatomicsz_t obj = {SIZE_MAX};
+    vsize_t mask    = SIZE_MAX;
+    vsize_t ref     = SIZE_MAX;
+    vsize_t cur     = 0;
+    vsize_t old     = 0;
 
-	for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
-		mask = (vsize_t)(mask >> (BYTE_WIDTH * i));
-		old	 = vatomicsz_get_and(&obj, mask);
-		ASSERT(old == ref);
-		ref &= mask;
-		cur = vatomicsz_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur, old);
+    for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
+        mask = (vsize_t)(mask >> (BYTE_WIDTH * i));
+        old  = vatomicsz_get_and(&obj, mask);
+        ASSERT(old == ref);
+        ref &= mask;
+        cur = vatomicsz_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur, old);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_and_get
@@ -1454,20 +1454,20 @@ ut_atomic_sz_get_and(void)
 static inline void
 ut_atomic_sz_and_get(void)
 {
-	vatomicsz_t obj = {SIZE_MAX};
-	vsize_t mask	= SIZE_MAX;
-	vsize_t ref		= SIZE_MAX;
-	vsize_t cur		= 0;
+    vatomicsz_t obj = {SIZE_MAX};
+    vsize_t mask    = SIZE_MAX;
+    vsize_t ref     = SIZE_MAX;
+    vsize_t cur     = 0;
 
-	for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
-		mask = (vsize_t)(mask >> (BYTE_WIDTH * i));
-		ref &= mask;
-		cur = vatomicsz_and_get(&obj, mask);
-		ASSERT(cur == ref);
-		cur = vatomicsz_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
+        mask = (vsize_t)(mask >> (BYTE_WIDTH * i));
+        ref &= mask;
+        cur = vatomicsz_and_get(&obj, mask);
+        ASSERT(cur == ref);
+        cur = vatomicsz_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_get_and_acq
@@ -1475,21 +1475,21 @@ ut_atomic_sz_and_get(void)
 static inline void
 ut_atomic_sz_get_and_acq(void)
 {
-	vatomicsz_t obj = {SIZE_MAX};
-	vsize_t mask	= SIZE_MAX;
-	vsize_t ref		= SIZE_MAX;
-	vsize_t cur		= 0;
-	vsize_t old		= 0;
+    vatomicsz_t obj = {SIZE_MAX};
+    vsize_t mask    = SIZE_MAX;
+    vsize_t ref     = SIZE_MAX;
+    vsize_t cur     = 0;
+    vsize_t old     = 0;
 
-	for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
-		mask = (vsize_t)(mask >> (BYTE_WIDTH * i));
-		old	 = vatomicsz_get_and_acq(&obj, mask);
-		ASSERT(old == ref);
-		ref &= mask;
-		cur = vatomicsz_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur, old);
+    for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
+        mask = (vsize_t)(mask >> (BYTE_WIDTH * i));
+        old  = vatomicsz_get_and_acq(&obj, mask);
+        ASSERT(old == ref);
+        ref &= mask;
+        cur = vatomicsz_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur, old);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_and_get_acq
@@ -1497,20 +1497,20 @@ ut_atomic_sz_get_and_acq(void)
 static inline void
 ut_atomic_sz_and_get_acq(void)
 {
-	vatomicsz_t obj = {SIZE_MAX};
-	vsize_t mask	= SIZE_MAX;
-	vsize_t ref		= SIZE_MAX;
-	vsize_t cur		= 0;
+    vatomicsz_t obj = {SIZE_MAX};
+    vsize_t mask    = SIZE_MAX;
+    vsize_t ref     = SIZE_MAX;
+    vsize_t cur     = 0;
 
-	for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
-		mask = (vsize_t)(mask >> (BYTE_WIDTH * i));
-		ref &= mask;
-		cur = vatomicsz_and_get_acq(&obj, mask);
-		ASSERT(cur == ref);
-		cur = vatomicsz_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
+        mask = (vsize_t)(mask >> (BYTE_WIDTH * i));
+        ref &= mask;
+        cur = vatomicsz_and_get_acq(&obj, mask);
+        ASSERT(cur == ref);
+        cur = vatomicsz_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_get_and_rel
@@ -1518,21 +1518,21 @@ ut_atomic_sz_and_get_acq(void)
 static inline void
 ut_atomic_sz_get_and_rel(void)
 {
-	vatomicsz_t obj = {SIZE_MAX};
-	vsize_t mask	= SIZE_MAX;
-	vsize_t ref		= SIZE_MAX;
-	vsize_t cur		= 0;
-	vsize_t old		= 0;
+    vatomicsz_t obj = {SIZE_MAX};
+    vsize_t mask    = SIZE_MAX;
+    vsize_t ref     = SIZE_MAX;
+    vsize_t cur     = 0;
+    vsize_t old     = 0;
 
-	for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
-		mask = (vsize_t)(mask >> (BYTE_WIDTH * i));
-		old	 = vatomicsz_get_and_rel(&obj, mask);
-		ASSERT(old == ref);
-		ref &= mask;
-		cur = vatomicsz_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur, old);
+    for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
+        mask = (vsize_t)(mask >> (BYTE_WIDTH * i));
+        old  = vatomicsz_get_and_rel(&obj, mask);
+        ASSERT(old == ref);
+        ref &= mask;
+        cur = vatomicsz_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur, old);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_and_get_rel
@@ -1540,20 +1540,20 @@ ut_atomic_sz_get_and_rel(void)
 static inline void
 ut_atomic_sz_and_get_rel(void)
 {
-	vatomicsz_t obj = {SIZE_MAX};
-	vsize_t mask	= SIZE_MAX;
-	vsize_t ref		= SIZE_MAX;
-	vsize_t cur		= 0;
+    vatomicsz_t obj = {SIZE_MAX};
+    vsize_t mask    = SIZE_MAX;
+    vsize_t ref     = SIZE_MAX;
+    vsize_t cur     = 0;
 
-	for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
-		mask = (vsize_t)(mask >> (BYTE_WIDTH * i));
-		ref &= mask;
-		cur = vatomicsz_and_get_rel(&obj, mask);
-		ASSERT(cur == ref);
-		cur = vatomicsz_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
+        mask = (vsize_t)(mask >> (BYTE_WIDTH * i));
+        ref &= mask;
+        cur = vatomicsz_and_get_rel(&obj, mask);
+        ASSERT(cur == ref);
+        cur = vatomicsz_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_get_and_rlx
@@ -1561,21 +1561,21 @@ ut_atomic_sz_and_get_rel(void)
 static inline void
 ut_atomic_sz_get_and_rlx(void)
 {
-	vatomicsz_t obj = {SIZE_MAX};
-	vsize_t mask	= SIZE_MAX;
-	vsize_t ref		= SIZE_MAX;
-	vsize_t cur		= 0;
-	vsize_t old		= 0;
+    vatomicsz_t obj = {SIZE_MAX};
+    vsize_t mask    = SIZE_MAX;
+    vsize_t ref     = SIZE_MAX;
+    vsize_t cur     = 0;
+    vsize_t old     = 0;
 
-	for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
-		mask = (vsize_t)(mask >> (BYTE_WIDTH * i));
-		old	 = vatomicsz_get_and_rlx(&obj, mask);
-		ASSERT(old == ref);
-		ref &= mask;
-		cur = vatomicsz_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur, old);
+    for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
+        mask = (vsize_t)(mask >> (BYTE_WIDTH * i));
+        old  = vatomicsz_get_and_rlx(&obj, mask);
+        ASSERT(old == ref);
+        ref &= mask;
+        cur = vatomicsz_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur, old);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_and_get_rlx
@@ -1583,20 +1583,20 @@ ut_atomic_sz_get_and_rlx(void)
 static inline void
 ut_atomic_sz_and_get_rlx(void)
 {
-	vatomicsz_t obj = {SIZE_MAX};
-	vsize_t mask	= SIZE_MAX;
-	vsize_t ref		= SIZE_MAX;
-	vsize_t cur		= 0;
+    vatomicsz_t obj = {SIZE_MAX};
+    vsize_t mask    = SIZE_MAX;
+    vsize_t ref     = SIZE_MAX;
+    vsize_t cur     = 0;
 
-	for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
-		mask = (vsize_t)(mask >> (BYTE_WIDTH * i));
-		ref &= mask;
-		cur = vatomicsz_and_get_rlx(&obj, mask);
-		ASSERT(cur == ref);
-		cur = vatomicsz_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
+        mask = (vsize_t)(mask >> (BYTE_WIDTH * i));
+        ref &= mask;
+        cur = vatomicsz_and_get_rlx(&obj, mask);
+        ASSERT(cur == ref);
+        cur = vatomicsz_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_or
@@ -1604,19 +1604,19 @@ ut_atomic_sz_and_get_rlx(void)
 static inline void
 ut_atomic_sz_or(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t mask	= 0xFF;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t cur		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t mask    = 0xFF;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t cur     = 0;
 
-	for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
-		mask = (vsize_t)(mask << (BYTE_WIDTH * i));
-		ref |= mask;
-		vatomicsz_or(&obj, mask);
-		cur = vatomicsz_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
+        mask = (vsize_t)(mask << (BYTE_WIDTH * i));
+        ref |= mask;
+        vatomicsz_or(&obj, mask);
+        cur = vatomicsz_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_or_rel
@@ -1624,19 +1624,19 @@ ut_atomic_sz_or(void)
 static inline void
 ut_atomic_sz_or_rel(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t mask	= 0xFF;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t cur		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t mask    = 0xFF;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t cur     = 0;
 
-	for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
-		mask = (vsize_t)(mask << (BYTE_WIDTH * i));
-		ref |= mask;
-		vatomicsz_or_rel(&obj, mask);
-		cur = vatomicsz_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
+        mask = (vsize_t)(mask << (BYTE_WIDTH * i));
+        ref |= mask;
+        vatomicsz_or_rel(&obj, mask);
+        cur = vatomicsz_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_or_rlx
@@ -1644,19 +1644,19 @@ ut_atomic_sz_or_rel(void)
 static inline void
 ut_atomic_sz_or_rlx(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t mask	= 0xFF;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t cur		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t mask    = 0xFF;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t cur     = 0;
 
-	for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
-		mask = (vsize_t)(mask << (BYTE_WIDTH * i));
-		ref |= mask;
-		vatomicsz_or_rlx(&obj, mask);
-		cur = vatomicsz_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
+        mask = (vsize_t)(mask << (BYTE_WIDTH * i));
+        ref |= mask;
+        vatomicsz_or_rlx(&obj, mask);
+        cur = vatomicsz_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_get_or
@@ -1664,21 +1664,21 @@ ut_atomic_sz_or_rlx(void)
 static inline void
 ut_atomic_sz_get_or(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t mask	= 0xFF;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t cur		= 0;
-	vsize_t old		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t mask    = 0xFF;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t cur     = 0;
+    vsize_t old     = 0;
 
-	for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
-		mask = (vsize_t)(mask << (BYTE_WIDTH * i));
-		old	 = vatomicsz_get_or(&obj, mask);
-		ASSERT(old == ref);
-		ref |= mask;
-		cur = vatomicsz_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur, old);
+    for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
+        mask = (vsize_t)(mask << (BYTE_WIDTH * i));
+        old  = vatomicsz_get_or(&obj, mask);
+        ASSERT(old == ref);
+        ref |= mask;
+        cur = vatomicsz_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur, old);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_or_get
@@ -1686,20 +1686,20 @@ ut_atomic_sz_get_or(void)
 static inline void
 ut_atomic_sz_or_get(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t mask	= 0xFF;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t cur		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t mask    = 0xFF;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t cur     = 0;
 
-	for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
-		mask = (vsize_t)(mask << (BYTE_WIDTH * i));
-		ref |= mask;
-		cur = vatomicsz_or_get(&obj, mask);
-		ASSERT(cur == ref);
-		cur = vatomicsz_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
+        mask = (vsize_t)(mask << (BYTE_WIDTH * i));
+        ref |= mask;
+        cur = vatomicsz_or_get(&obj, mask);
+        ASSERT(cur == ref);
+        cur = vatomicsz_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_get_or_acq
@@ -1707,21 +1707,21 @@ ut_atomic_sz_or_get(void)
 static inline void
 ut_atomic_sz_get_or_acq(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t mask	= 0xFF;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t cur		= 0;
-	vsize_t old		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t mask    = 0xFF;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t cur     = 0;
+    vsize_t old     = 0;
 
-	for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
-		mask = (vsize_t)(mask << (BYTE_WIDTH * i));
-		old	 = vatomicsz_get_or_acq(&obj, mask);
-		ASSERT(old == ref);
-		ref |= mask;
-		cur = vatomicsz_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur, old);
+    for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
+        mask = (vsize_t)(mask << (BYTE_WIDTH * i));
+        old  = vatomicsz_get_or_acq(&obj, mask);
+        ASSERT(old == ref);
+        ref |= mask;
+        cur = vatomicsz_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur, old);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_or_get_acq
@@ -1729,20 +1729,20 @@ ut_atomic_sz_get_or_acq(void)
 static inline void
 ut_atomic_sz_or_get_acq(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t mask	= 0xFF;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t cur		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t mask    = 0xFF;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t cur     = 0;
 
-	for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
-		mask = (vsize_t)(mask << (BYTE_WIDTH * i));
-		ref |= mask;
-		cur = vatomicsz_or_get_acq(&obj, mask);
-		ASSERT(cur == ref);
-		cur = vatomicsz_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
+        mask = (vsize_t)(mask << (BYTE_WIDTH * i));
+        ref |= mask;
+        cur = vatomicsz_or_get_acq(&obj, mask);
+        ASSERT(cur == ref);
+        cur = vatomicsz_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_get_or_rel
@@ -1750,21 +1750,21 @@ ut_atomic_sz_or_get_acq(void)
 static inline void
 ut_atomic_sz_get_or_rel(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t mask	= 0xFF;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t cur		= 0;
-	vsize_t old		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t mask    = 0xFF;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t cur     = 0;
+    vsize_t old     = 0;
 
-	for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
-		mask = (vsize_t)(mask << (BYTE_WIDTH * i));
-		old	 = vatomicsz_get_or_rel(&obj, mask);
-		ASSERT(old == ref);
-		ref |= mask;
-		cur = vatomicsz_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur, old);
+    for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
+        mask = (vsize_t)(mask << (BYTE_WIDTH * i));
+        old  = vatomicsz_get_or_rel(&obj, mask);
+        ASSERT(old == ref);
+        ref |= mask;
+        cur = vatomicsz_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur, old);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_or_get_rel
@@ -1772,20 +1772,20 @@ ut_atomic_sz_get_or_rel(void)
 static inline void
 ut_atomic_sz_or_get_rel(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t mask	= 0xFF;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t cur		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t mask    = 0xFF;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t cur     = 0;
 
-	for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
-		mask = (vsize_t)(mask << (BYTE_WIDTH * i));
-		ref |= mask;
-		cur = vatomicsz_or_get_rel(&obj, mask);
-		ASSERT(cur == ref);
-		cur = vatomicsz_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
+        mask = (vsize_t)(mask << (BYTE_WIDTH * i));
+        ref |= mask;
+        cur = vatomicsz_or_get_rel(&obj, mask);
+        ASSERT(cur == ref);
+        cur = vatomicsz_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_get_or_rlx
@@ -1793,21 +1793,21 @@ ut_atomic_sz_or_get_rel(void)
 static inline void
 ut_atomic_sz_get_or_rlx(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t mask	= 0xFF;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t cur		= 0;
-	vsize_t old		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t mask    = 0xFF;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t cur     = 0;
+    vsize_t old     = 0;
 
-	for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
-		mask = (vsize_t)(mask << (BYTE_WIDTH * i));
-		old	 = vatomicsz_get_or_rlx(&obj, mask);
-		ASSERT(old == ref);
-		ref |= mask;
-		cur = vatomicsz_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur, old);
+    for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
+        mask = (vsize_t)(mask << (BYTE_WIDTH * i));
+        old  = vatomicsz_get_or_rlx(&obj, mask);
+        ASSERT(old == ref);
+        ref |= mask;
+        cur = vatomicsz_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur, old);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_or_get_rlx
@@ -1815,20 +1815,20 @@ ut_atomic_sz_get_or_rlx(void)
 static inline void
 ut_atomic_sz_or_get_rlx(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t mask	= 0xFF;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t cur		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t mask    = 0xFF;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t cur     = 0;
 
-	for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
-		mask = (vsize_t)(mask << (BYTE_WIDTH * i));
-		ref |= mask;
-		cur = vatomicsz_or_get_rlx(&obj, mask);
-		ASSERT(cur == ref);
-		cur = vatomicsz_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
+        mask = (vsize_t)(mask << (BYTE_WIDTH * i));
+        ref |= mask;
+        cur = vatomicsz_or_get_rlx(&obj, mask);
+        ASSERT(cur == ref);
+        cur = vatomicsz_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_xor
@@ -1836,19 +1836,19 @@ ut_atomic_sz_or_get_rlx(void)
 static inline void
 ut_atomic_sz_xor(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t mask	= 0x33;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t cur		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t mask    = 0x33;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t cur     = 0;
 
-	for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
-		mask = (vsize_t)(mask << (BYTE_WIDTH * i)) | mask;
-		ref ^= mask;
-		vatomicsz_xor(&obj, mask);
-		cur = vatomicsz_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
+        mask = (vsize_t)(mask << (BYTE_WIDTH * i)) | mask;
+        ref ^= mask;
+        vatomicsz_xor(&obj, mask);
+        cur = vatomicsz_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_xor_rel
@@ -1856,19 +1856,19 @@ ut_atomic_sz_xor(void)
 static inline void
 ut_atomic_sz_xor_rel(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t mask	= 0x33;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t cur		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t mask    = 0x33;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t cur     = 0;
 
-	for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
-		mask = (vsize_t)(mask << (BYTE_WIDTH * i)) | mask;
-		ref ^= mask;
-		vatomicsz_xor_rel(&obj, mask);
-		cur = vatomicsz_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
+        mask = (vsize_t)(mask << (BYTE_WIDTH * i)) | mask;
+        ref ^= mask;
+        vatomicsz_xor_rel(&obj, mask);
+        cur = vatomicsz_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_xor_rlx
@@ -1876,19 +1876,19 @@ ut_atomic_sz_xor_rel(void)
 static inline void
 ut_atomic_sz_xor_rlx(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t mask	= 0x33;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t cur		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t mask    = 0x33;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t cur     = 0;
 
-	for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
-		mask = (vsize_t)(mask << (BYTE_WIDTH * i)) | mask;
-		ref ^= mask;
-		vatomicsz_xor_rlx(&obj, mask);
-		cur = vatomicsz_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
+        mask = (vsize_t)(mask << (BYTE_WIDTH * i)) | mask;
+        ref ^= mask;
+        vatomicsz_xor_rlx(&obj, mask);
+        cur = vatomicsz_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_get_xor
@@ -1896,21 +1896,21 @@ ut_atomic_sz_xor_rlx(void)
 static inline void
 ut_atomic_sz_get_xor(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t mask	= 0x33;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t cur		= 0;
-	vsize_t old		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t mask    = 0x33;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t cur     = 0;
+    vsize_t old     = 0;
 
-	for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
-		mask = (vsize_t)(mask << (BYTE_WIDTH * i)) | mask;
-		old	 = vatomicsz_get_xor(&obj, mask);
-		ASSERT(old == ref);
-		ref ^= mask;
-		cur = vatomicsz_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(old, cur);
+    for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
+        mask = (vsize_t)(mask << (BYTE_WIDTH * i)) | mask;
+        old  = vatomicsz_get_xor(&obj, mask);
+        ASSERT(old == ref);
+        ref ^= mask;
+        cur = vatomicsz_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(old, cur);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_or_get
@@ -1918,20 +1918,20 @@ ut_atomic_sz_get_xor(void)
 static inline void
 ut_atomic_sz_xor_get(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t mask	= 0xFF;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t cur		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t mask    = 0xFF;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t cur     = 0;
 
-	for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
-		mask = (vsize_t)(mask << (BYTE_WIDTH * i)) | mask;
-		ref ^= mask;
-		cur = vatomicsz_xor_get(&obj, mask);
-		ASSERT(cur == ref);
-		cur = vatomicsz_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
+        mask = (vsize_t)(mask << (BYTE_WIDTH * i)) | mask;
+        ref ^= mask;
+        cur = vatomicsz_xor_get(&obj, mask);
+        ASSERT(cur == ref);
+        cur = vatomicsz_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_get_xor_acq
@@ -1939,21 +1939,21 @@ ut_atomic_sz_xor_get(void)
 static inline void
 ut_atomic_sz_get_xor_acq(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t mask	= 0x33;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t cur		= 0;
-	vsize_t old		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t mask    = 0x33;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t cur     = 0;
+    vsize_t old     = 0;
 
-	for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
-		mask = (vsize_t)(mask << (BYTE_WIDTH * i)) | mask;
-		old	 = vatomicsz_get_xor_acq(&obj, mask);
-		ASSERT(old == ref);
-		ref ^= mask;
-		cur = vatomicsz_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(old, cur);
+    for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
+        mask = (vsize_t)(mask << (BYTE_WIDTH * i)) | mask;
+        old  = vatomicsz_get_xor_acq(&obj, mask);
+        ASSERT(old == ref);
+        ref ^= mask;
+        cur = vatomicsz_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(old, cur);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_or_get_acq
@@ -1961,20 +1961,20 @@ ut_atomic_sz_get_xor_acq(void)
 static inline void
 ut_atomic_sz_xor_get_acq(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t mask	= 0xFF;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t cur		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t mask    = 0xFF;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t cur     = 0;
 
-	for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
-		mask = (vsize_t)(mask << (BYTE_WIDTH * i)) | mask;
-		ref ^= mask;
-		cur = vatomicsz_xor_get_acq(&obj, mask);
-		ASSERT(cur == ref);
-		cur = vatomicsz_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
+        mask = (vsize_t)(mask << (BYTE_WIDTH * i)) | mask;
+        ref ^= mask;
+        cur = vatomicsz_xor_get_acq(&obj, mask);
+        ASSERT(cur == ref);
+        cur = vatomicsz_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_get_xor_rel
@@ -1982,21 +1982,21 @@ ut_atomic_sz_xor_get_acq(void)
 static inline void
 ut_atomic_sz_get_xor_rel(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t mask	= 0x33;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t cur		= 0;
-	vsize_t old		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t mask    = 0x33;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t cur     = 0;
+    vsize_t old     = 0;
 
-	for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
-		mask = (vsize_t)(mask << (BYTE_WIDTH * i)) | mask;
-		old	 = vatomicsz_get_xor_rel(&obj, mask);
-		ASSERT(old == ref);
-		ref ^= mask;
-		cur = vatomicsz_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(old, cur);
+    for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
+        mask = (vsize_t)(mask << (BYTE_WIDTH * i)) | mask;
+        old  = vatomicsz_get_xor_rel(&obj, mask);
+        ASSERT(old == ref);
+        ref ^= mask;
+        cur = vatomicsz_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(old, cur);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_or_get_rel
@@ -2004,20 +2004,20 @@ ut_atomic_sz_get_xor_rel(void)
 static inline void
 ut_atomic_sz_xor_get_rel(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t mask	= 0xFF;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t cur		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t mask    = 0xFF;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t cur     = 0;
 
-	for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
-		mask = (vsize_t)(mask << (BYTE_WIDTH * i)) | mask;
-		ref ^= mask;
-		cur = vatomicsz_xor_get_rel(&obj, mask);
-		ASSERT(cur == ref);
-		cur = vatomicsz_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
+        mask = (vsize_t)(mask << (BYTE_WIDTH * i)) | mask;
+        ref ^= mask;
+        cur = vatomicsz_xor_get_rel(&obj, mask);
+        ASSERT(cur == ref);
+        cur = vatomicsz_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_get_xor_rlx
@@ -2025,21 +2025,21 @@ ut_atomic_sz_xor_get_rel(void)
 static inline void
 ut_atomic_sz_get_xor_rlx(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t mask	= 0x33;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t cur		= 0;
-	vsize_t old		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t mask    = 0x33;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t cur     = 0;
+    vsize_t old     = 0;
 
-	for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
-		mask = (vsize_t)(mask << (BYTE_WIDTH * i)) | mask;
-		old	 = vatomicsz_get_xor_rlx(&obj, mask);
-		ASSERT(old == ref);
-		ref ^= mask;
-		cur = vatomicsz_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(old, cur);
+    for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
+        mask = (vsize_t)(mask << (BYTE_WIDTH * i)) | mask;
+        old  = vatomicsz_get_xor_rlx(&obj, mask);
+        ASSERT(old == ref);
+        ref ^= mask;
+        cur = vatomicsz_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(old, cur);
 }
 /*****************************************************************************
  * UnitTest: vatomicsz_or_get_rlx
@@ -2047,20 +2047,20 @@ ut_atomic_sz_get_xor_rlx(void)
 static inline void
 ut_atomic_sz_xor_get_rlx(void)
 {
-	vatomicsz_t obj = {(vsize_t)1};
-	vsize_t mask	= 0xFF;
-	vsize_t ref		= (vsize_t)1;
-	vsize_t cur		= 0;
+    vatomicsz_t obj = {(vsize_t)1};
+    vsize_t mask    = 0xFF;
+    vsize_t ref     = (vsize_t)1;
+    vsize_t cur     = 0;
 
-	for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
-		mask = (vsize_t)(mask << (BYTE_WIDTH * i)) | mask;
-		ref ^= mask;
-		cur = vatomicsz_xor_get_rlx(&obj, mask);
-		ASSERT(cur == ref);
-		cur = vatomicsz_read(&obj);
-		ASSERT(cur == ref);
-	}
-	V_UNUSED(cur);
+    for (vsize_t i = 0; i < sizeof(vsize_t); i++) {
+        mask = (vsize_t)(mask << (BYTE_WIDTH * i)) | mask;
+        ref ^= mask;
+        cur = vatomicsz_xor_get_rlx(&obj, mask);
+        ASSERT(cur == ref);
+        cur = vatomicsz_read(&obj);
+        ASSERT(cur == ref);
+    }
+    V_UNUSED(cur);
 }
 /*****************************************************************************
  * Entry point
@@ -2068,120 +2068,120 @@ ut_atomic_sz_xor_get_rlx(void)
 int
 main(void)
 {
-	ut_atomic_sz_read();
-	ut_atomic_sz_read_acq();
-	ut_atomic_sz_read_rlx();
+    ut_atomic_sz_read();
+    ut_atomic_sz_read_acq();
+    ut_atomic_sz_read_rlx();
 
-	ut_atomic_sz_init();
+    ut_atomic_sz_init();
 
-	ut_atomic_sz_write();
-	ut_atomic_sz_write_rel();
-	ut_atomic_sz_write_rlx();
+    ut_atomic_sz_write();
+    ut_atomic_sz_write_rel();
+    ut_atomic_sz_write_rlx();
 
-	ut_atomic_sz_xchg();
-	ut_atomic_sz_xchg_acq();
-	ut_atomic_sz_xchg_rel();
-	ut_atomic_sz_xchg_rlx();
+    ut_atomic_sz_xchg();
+    ut_atomic_sz_xchg_acq();
+    ut_atomic_sz_xchg_rel();
+    ut_atomic_sz_xchg_rlx();
 
-	ut_atomic_sz_cmpxchg();
-	ut_atomic_sz_cmpxchg_acq();
-	ut_atomic_sz_cmpxchg_rel();
-	ut_atomic_sz_cmpxchg_rlx();
+    ut_atomic_sz_cmpxchg();
+    ut_atomic_sz_cmpxchg_acq();
+    ut_atomic_sz_cmpxchg_rel();
+    ut_atomic_sz_cmpxchg_rlx();
 
-	ut_atomic_sz_add();
-	ut_atomic_sz_add_rel();
-	ut_atomic_sz_add_rlx();
-	ut_atomic_sz_get_add();
-	ut_atomic_sz_add_get();
-	ut_atomic_sz_get_add_acq();
-	ut_atomic_sz_add_get_acq();
-	ut_atomic_sz_get_add_rel();
-	ut_atomic_sz_add_get_rel();
-	ut_atomic_sz_get_add_rlx();
-	ut_atomic_sz_add_get_rlx();
+    ut_atomic_sz_add();
+    ut_atomic_sz_add_rel();
+    ut_atomic_sz_add_rlx();
+    ut_atomic_sz_get_add();
+    ut_atomic_sz_add_get();
+    ut_atomic_sz_get_add_acq();
+    ut_atomic_sz_add_get_acq();
+    ut_atomic_sz_get_add_rel();
+    ut_atomic_sz_add_get_rel();
+    ut_atomic_sz_get_add_rlx();
+    ut_atomic_sz_add_get_rlx();
 
-	ut_atomic_sz_inc();
-	ut_atomic_sz_inc_rel();
-	ut_atomic_sz_inc_rlx();
-	ut_atomic_sz_get_inc();
-	ut_atomic_sz_inc_get();
-	ut_atomic_sz_get_inc_acq();
-	ut_atomic_sz_inc_get_acq();
-	ut_atomic_sz_get_inc_rel();
-	ut_atomic_sz_inc_get_rel();
-	ut_atomic_sz_get_inc_rlx();
-	ut_atomic_sz_inc_get_rlx();
+    ut_atomic_sz_inc();
+    ut_atomic_sz_inc_rel();
+    ut_atomic_sz_inc_rlx();
+    ut_atomic_sz_get_inc();
+    ut_atomic_sz_inc_get();
+    ut_atomic_sz_get_inc_acq();
+    ut_atomic_sz_inc_get_acq();
+    ut_atomic_sz_get_inc_rel();
+    ut_atomic_sz_inc_get_rel();
+    ut_atomic_sz_get_inc_rlx();
+    ut_atomic_sz_inc_get_rlx();
 
-	ut_atomic_sz_sub();
-	ut_atomic_sz_sub_rel();
-	ut_atomic_sz_sub_rlx();
-	ut_atomic_sz_get_sub();
-	ut_atomic_sz_sub_get();
-	ut_atomic_sz_get_sub_acq();
-	ut_atomic_sz_sub_get_acq();
-	ut_atomic_sz_get_sub_rel();
-	ut_atomic_sz_sub_get_rel();
-	ut_atomic_sz_get_sub_rlx();
-	ut_atomic_sz_sub_get_rlx();
+    ut_atomic_sz_sub();
+    ut_atomic_sz_sub_rel();
+    ut_atomic_sz_sub_rlx();
+    ut_atomic_sz_get_sub();
+    ut_atomic_sz_sub_get();
+    ut_atomic_sz_get_sub_acq();
+    ut_atomic_sz_sub_get_acq();
+    ut_atomic_sz_get_sub_rel();
+    ut_atomic_sz_sub_get_rel();
+    ut_atomic_sz_get_sub_rlx();
+    ut_atomic_sz_sub_get_rlx();
 
-	ut_atomic_sz_dec();
-	ut_atomic_sz_dec_rel();
-	ut_atomic_sz_dec_rlx();
-	ut_atomic_sz_get_dec();
-	ut_atomic_sz_dec_get();
-	ut_atomic_sz_get_dec_acq();
-	ut_atomic_sz_dec_get_acq();
-	ut_atomic_sz_get_dec_rel();
-	ut_atomic_sz_dec_get_rel();
-	ut_atomic_sz_get_dec_rlx();
-	ut_atomic_sz_dec_get_rlx();
+    ut_atomic_sz_dec();
+    ut_atomic_sz_dec_rel();
+    ut_atomic_sz_dec_rlx();
+    ut_atomic_sz_get_dec();
+    ut_atomic_sz_dec_get();
+    ut_atomic_sz_get_dec_acq();
+    ut_atomic_sz_dec_get_acq();
+    ut_atomic_sz_get_dec_rel();
+    ut_atomic_sz_dec_get_rel();
+    ut_atomic_sz_get_dec_rlx();
+    ut_atomic_sz_dec_get_rlx();
 
-	ut_atomic_sz_max();
-	ut_atomic_sz_max_rel();
-	ut_atomic_sz_max_rlx();
-	ut_atomic_sz_get_max();
-	ut_atomic_sz_max_get();
-	ut_atomic_sz_get_max_acq();
-	ut_atomic_sz_max_get_acq();
-	ut_atomic_sz_get_max_rel();
-	ut_atomic_sz_max_get_rel();
-	ut_atomic_sz_get_max_rlx();
-	ut_atomic_sz_max_get_rlx();
+    ut_atomic_sz_max();
+    ut_atomic_sz_max_rel();
+    ut_atomic_sz_max_rlx();
+    ut_atomic_sz_get_max();
+    ut_atomic_sz_max_get();
+    ut_atomic_sz_get_max_acq();
+    ut_atomic_sz_max_get_acq();
+    ut_atomic_sz_get_max_rel();
+    ut_atomic_sz_max_get_rel();
+    ut_atomic_sz_get_max_rlx();
+    ut_atomic_sz_max_get_rlx();
 
-	ut_atomic_sz_and();
-	ut_atomic_sz_and_rel();
-	ut_atomic_sz_and_rlx();
-	ut_atomic_sz_get_and();
-	ut_atomic_sz_and_get();
-	ut_atomic_sz_get_and_acq();
-	ut_atomic_sz_and_get_acq();
-	ut_atomic_sz_get_and_rel();
-	ut_atomic_sz_and_get_rel();
-	ut_atomic_sz_get_and_rlx();
-	ut_atomic_sz_and_get_rlx();
+    ut_atomic_sz_and();
+    ut_atomic_sz_and_rel();
+    ut_atomic_sz_and_rlx();
+    ut_atomic_sz_get_and();
+    ut_atomic_sz_and_get();
+    ut_atomic_sz_get_and_acq();
+    ut_atomic_sz_and_get_acq();
+    ut_atomic_sz_get_and_rel();
+    ut_atomic_sz_and_get_rel();
+    ut_atomic_sz_get_and_rlx();
+    ut_atomic_sz_and_get_rlx();
 
-	ut_atomic_sz_or();
-	ut_atomic_sz_or_rel();
-	ut_atomic_sz_or_rlx();
-	ut_atomic_sz_get_or();
-	ut_atomic_sz_or_get();
-	ut_atomic_sz_get_or_acq();
-	ut_atomic_sz_or_get_acq();
-	ut_atomic_sz_get_or_rel();
-	ut_atomic_sz_or_get_rel();
-	ut_atomic_sz_get_or_rlx();
-	ut_atomic_sz_or_get_rlx();
+    ut_atomic_sz_or();
+    ut_atomic_sz_or_rel();
+    ut_atomic_sz_or_rlx();
+    ut_atomic_sz_get_or();
+    ut_atomic_sz_or_get();
+    ut_atomic_sz_get_or_acq();
+    ut_atomic_sz_or_get_acq();
+    ut_atomic_sz_get_or_rel();
+    ut_atomic_sz_or_get_rel();
+    ut_atomic_sz_get_or_rlx();
+    ut_atomic_sz_or_get_rlx();
 
-	ut_atomic_sz_xor();
-	ut_atomic_sz_xor_rel();
-	ut_atomic_sz_xor_rlx();
-	ut_atomic_sz_get_xor();
-	ut_atomic_sz_xor_get();
-	ut_atomic_sz_get_xor_acq();
-	ut_atomic_sz_xor_get_acq();
-	ut_atomic_sz_get_xor_rel();
-	ut_atomic_sz_xor_get_rel();
-	ut_atomic_sz_get_xor_rlx();
-	ut_atomic_sz_xor_get_rlx();
-	return 0;
+    ut_atomic_sz_xor();
+    ut_atomic_sz_xor_rel();
+    ut_atomic_sz_xor_rlx();
+    ut_atomic_sz_get_xor();
+    ut_atomic_sz_xor_get();
+    ut_atomic_sz_get_xor_acq();
+    ut_atomic_sz_xor_get_acq();
+    ut_atomic_sz_get_xor_rel();
+    ut_atomic_sz_xor_get_rel();
+    ut_atomic_sz_get_xor_rlx();
+    ut_atomic_sz_xor_get_rlx();
+    return 0;
 }

@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #define REENTRANT 1
 
 #include <vsync/spinlock/rec_mcslock.h>
@@ -13,11 +14,11 @@ struct mcs_node_s nodes[NTHREADS];
 void
 acquire(vuint32_t tid)
 {
-	rec_mcslock_acquire(&lock, tid, &nodes[tid]);
+    rec_mcslock_acquire(&lock, tid, &nodes[tid]);
 }
 
 void
 release(vuint32_t tid)
 {
-	rec_mcslock_release(&lock, &nodes[tid]);
+    rec_mcslock_release(&lock, &nodes[tid]);
 }
