@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #ifndef VSYNC_SEQLOCK_H
 #define VSYNC_SEQLOCK_H
 
@@ -27,15 +28,15 @@
 typedef vuint32_t seqvalue_t;
 
 typedef struct seqlock_s {
-	vatomic32_t
-		seqcount; /* odd value indicates that a writer has acquired the lock */
+    vatomic32_t
+        seqcount; /* odd value indicates that a writer has acquired the lock */
 } seqlock_t;
 
 /** Initializer of `seqlock_t`. */
 #define SEQ_LOCK_INIT()                                                        \
-	{                                                                          \
-		.seqcount = VATOMIC_INIT(0)                                            \
-	}
+    {                                                                          \
+        .seqcount = VATOMIC_INIT(0)                                            \
+    }
 
 /**
  * Awaits the sequence value to become even.
@@ -46,12 +47,12 @@ typedef struct seqlock_s {
 static inline seqvalue_t
 _seqlock_await_even(seqlock_t *seq)
 {
-	seqvalue_t count = vatomic32_read_acq(&seq->seqcount);
-	while (VIS_ODD(count)) {
-		count = vatomic32_await_neq_acq(&seq->seqcount, count);
-	}
-	ASSERT(VIS_EVEN(count));
-	return count;
+    seqvalue_t count = vatomic32_read_acq(&seq->seqcount);
+    while (VIS_ODD(count)) {
+        count = vatomic32_await_neq_acq(&seq->seqcount, count);
+    }
+    ASSERT(VIS_EVEN(count));
+    return count;
 }
 /**
  * Initializes the seqlock.
@@ -63,7 +64,7 @@ _seqlock_await_even(seqlock_t *seq)
 static inline void
 seqlock_init(seqlock_t *seq)
 {
-	vatomic32_write_rlx(&seq->seqcount, 0);
+    vatomic32_write_rlx(&seq->seqcount, 0);
 }
 /**
  * Acquires the lock in write-mode.
@@ -79,23 +80,23 @@ seqlock_init(seqlock_t *seq)
 static inline void
 seqlock_acquire(seqlock_t *seq)
 {
-	seqvalue_t count   = 0;
-	seqvalue_t o_count = 0;
+    seqvalue_t count   = 0;
+    seqvalue_t o_count = 0;
 
-	do {
-		/* wait for the value to become even */
-		count = _seqlock_await_even(seq);
+    do {
+        /* wait for the value to become even */
+        count = _seqlock_await_even(seq);
 
-		/* attempt to increment to an odd value, to acquire the lock */
-		o_count = vatomic32_cmpxchg_acq(&seq->seqcount, count, count + 1);
-		/* if the cas succeeds then we are done, otherwise, it means another
-		 * writer was faster in acquiring the lock */
-		if (o_count == count) {
-			break;
-		}
-	} while (true);
+        /* attempt to increment to an odd value, to acquire the lock */
+        o_count = vatomic32_cmpxchg_acq(&seq->seqcount, count, count + 1);
+        /* if the cas succeeds then we are done, otherwise, it means another
+         * writer was faster in acquiring the lock */
+        if (o_count == count) {
+            break;
+        }
+    } while (true);
 
-	vatomic_fence_rel();
+    vatomic_fence_rel();
 }
 /**
  * Releases the lock in write-mode.
@@ -111,13 +112,13 @@ seqlock_acquire(seqlock_t *seq)
 static inline void
 seqlock_release(seqlock_t *seq)
 {
-	/* we read the current seqcount (expected to be odd), and then increment it
-	 * to make it even */
-	seqvalue_t cur_val = vatomic32_read_rlx(&seq->seqcount);
-	ASSERT((cur_val & 0x1UL) == 0x1UL);
-	vatomic32_write_rel(&seq->seqcount, cur_val + 1);
-	/* @TODO: check if changing this to vatomic32_inc would degrade the
-	 * performance */
+    /* we read the current seqcount (expected to be odd), and then increment it
+     * to make it even */
+    seqvalue_t cur_val = vatomic32_read_rlx(&seq->seqcount);
+    ASSERT((cur_val & 0x1UL) == 0x1UL);
+    vatomic32_write_rel(&seq->seqcount, cur_val + 1);
+    /* @TODO: check if changing this to vatomic32_inc would degrade the
+     * performance */
 }
 /**
  * Begins reader critical section.
@@ -135,7 +136,7 @@ seqlock_release(seqlock_t *seq)
 static inline seqvalue_t
 seqlock_rbegin(seqlock_t *seq)
 {
-	return _seqlock_await_even(seq);
+    return _seqlock_await_even(seq);
 }
 /**
  * Ends reader critical section.
@@ -152,10 +153,10 @@ seqlock_rbegin(seqlock_t *seq)
 static inline vbool_t
 seqlock_rend(seqlock_t *seq, seqvalue_t sv)
 {
-	ASSERT(VIS_EVEN(sv));
-	vatomic_fence_acq();
-	/* If the seqcount is still the same, it means that no writer has
-	 * attempted to write and thus the read data is consistent  */
-	return vatomic32_read_rlx(&seq->seqcount) == sv;
+    ASSERT(VIS_EVEN(sv));
+    vatomic_fence_acq();
+    /* If the seqcount is still the same, it means that no writer has
+     * attempted to write and thus the read data is consistent  */
+    return vatomic32_read_rlx(&seq->seqcount) == sv;
 }
 #endif

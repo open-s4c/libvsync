@@ -31,24 +31,24 @@
 #include <vsync/spinlock/ttaslock.h>
 
 DEF_ABSTRACT_LOCK(vlistset_lock, ttaslock_t, ttaslock_init, ttaslock_acquire,
-				  ttaslock_release, ttaslock_tryacquire)
+                  ttaslock_release, ttaslock_tryacquire)
 
 typedef struct vlistset_node_s {
-	vlistset_lock_t lock;
-	vatomicptr(struct vlistset_node_s *) next;
+    vlistset_lock_t lock;
+    vatomicptr(struct vlistset_node_s *) next;
 } vlistset_node_t;
 
 typedef struct vlistset_s {
-	vlistset_node_t head_sentinel;
-	vlistset_node_t tail_sentinel;
-	vlistset_handle_node_t retire_fun;
-	void *retire_fun_arg;
-	vlistset_cmp_key_t cmp_fun;
+    vlistset_node_t head_sentinel;
+    vlistset_node_t tail_sentinel;
+    vlistset_handle_node_t retire_fun;
+    void *retire_fun_arg;
+    vlistset_cmp_key_t cmp_fun;
 } vlistset_t;
 
 static inline vbool_t _vlistset_validate(vlistset_t *lst, vlistset_node_t *pred,
-										 vlistset_node_t *curr,
-										 vlistset_key_t key);
+                                         vlistset_node_t *curr,
+                                         vlistset_key_t key);
 
 /**
  * Initializes the given vlistset_t object `lst`.
@@ -62,21 +62,21 @@ static inline vbool_t _vlistset_validate(vlistset_t *lst, vlistset_node_t *pred,
  */
 static inline void
 vlistset_init(vlistset_t *lst, vlistset_handle_node_t retire_fun,
-			  void *retire_fun_arg, vlistset_cmp_key_t cmp_fun)
+              void *retire_fun_arg, vlistset_cmp_key_t cmp_fun)
 {
-	ASSERT(lst);
-	ASSERT(retire_fun);
-	ASSERT(cmp_fun);
+    ASSERT(lst);
+    ASSERT(retire_fun);
+    ASSERT(cmp_fun);
 
-	vlistset_lock_init(&lst->head_sentinel.lock);
-	vlistset_lock_init(&lst->tail_sentinel.lock);
+    vlistset_lock_init(&lst->head_sentinel.lock);
+    vlistset_lock_init(&lst->tail_sentinel.lock);
 
-	vatomicptr_write_rlx(&lst->head_sentinel.next, &lst->tail_sentinel);
-	vatomicptr_write_rlx(&lst->tail_sentinel.next, NULL);
+    vatomicptr_write_rlx(&lst->head_sentinel.next, &lst->tail_sentinel);
+    vatomicptr_write_rlx(&lst->tail_sentinel.next, NULL);
 
-	lst->retire_fun		= retire_fun;
-	lst->retire_fun_arg = retire_fun_arg;
-	lst->cmp_fun		= cmp_fun;
+    lst->retire_fun     = retire_fun;
+    lst->retire_fun_arg = retire_fun_arg;
+    lst->cmp_fun        = cmp_fun;
 }
 /**
  * Destroys all the remaining nodes in the listset.
@@ -88,8 +88,8 @@ vlistset_init(vlistset_t *lst, vlistset_handle_node_t retire_fun,
 static inline void
 vlistset_destroy(vlistset_t *lst)
 {
-	ASSERT(lst);
-	_vlistset_visit(lst, lst->retire_fun, lst->retire_fun_arg, true);
+    ASSERT(lst);
+    _vlistset_visit(lst, lst->retire_fun, lst->retire_fun_arg, true);
 }
 /**
  * Inserts the given node into the listset.
@@ -110,47 +110,47 @@ vlistset_destroy(vlistset_t *lst)
 static inline vbool_t
 vlistset_add(vlistset_t *lst, vlistset_key_t key, vlistset_node_t *node)
 {
-	vlistset_node_t *pred = NULL;
-	vlistset_node_t *curr = NULL;
-	vlistset_node_t *tail = NULL;
-	vbool_t success		  = false;
-	vbool_t stop		  = false;
+    vlistset_node_t *pred = NULL;
+    vlistset_node_t *curr = NULL;
+    vlistset_node_t *tail = NULL;
+    vbool_t success       = false;
+    vbool_t stop          = false;
 
-	ASSERT(lst);
-	ASSERT(node);
-	tail = &lst->tail_sentinel;
+    ASSERT(lst);
+    ASSERT(node);
+    tail = &lst->tail_sentinel;
 
-	while (!stop) {
-		pred = &lst->head_sentinel;
-		curr = vatomicptr_read(&pred->next);
-		/* find the node without acquiring locks */
-		while (curr != tail && lst->cmp_fun(curr, key) < 0) {
-			pred = curr;
-			curr = vatomicptr_read(&curr->next);
-		} // while <= key
+    while (!stop) {
+        pred = &lst->head_sentinel;
+        curr = vatomicptr_read(&pred->next);
+        /* find the node without acquiring locks */
+        while (curr != tail && lst->cmp_fun(curr, key) < 0) {
+            pred = curr;
+            curr = vatomicptr_read(&curr->next);
+        } // while <= key
 
-		vlistset_lock_acquire(&pred->lock);
-		vlistset_lock_acquire(&curr->lock);
-		/* validate your findings in the critical section */
-		if (_vlistset_validate(lst, pred, curr, key)) {
-			if (curr != tail && lst->cmp_fun(curr, key) == 0) {
-				success = false;
-			} else {
-				vlistset_lock_init(&node->lock);
-				vatomicptr_write(&node->next, curr);
-				vatomicptr_write(&pred->next, node);
-				success = true;
-			}
-			stop = true;
-		} else {
-			verification_ignore();
-		}
+        vlistset_lock_acquire(&pred->lock);
+        vlistset_lock_acquire(&curr->lock);
+        /* validate your findings in the critical section */
+        if (_vlistset_validate(lst, pred, curr, key)) {
+            if (curr != tail && lst->cmp_fun(curr, key) == 0) {
+                success = false;
+            } else {
+                vlistset_lock_init(&node->lock);
+                vatomicptr_write(&node->next, curr);
+                vatomicptr_write(&pred->next, node);
+                success = true;
+            }
+            stop = true;
+        } else {
+            verification_ignore();
+        }
 
-		vlistset_lock_release(&pred->lock);
-		vlistset_lock_release(&curr->lock);
-	} // while
+        vlistset_lock_release(&pred->lock);
+        vlistset_lock_release(&curr->lock);
+    } // while
 
-	return success;
+    return success;
 }
 /**
  * Removes the node associated with the given key from the listset.
@@ -165,44 +165,44 @@ vlistset_add(vlistset_t *lst, vlistset_key_t key, vlistset_node_t *node)
 static inline vbool_t
 vlistset_remove(vlistset_t *lst, vlistset_key_t key)
 {
-	vlistset_node_t *pred = NULL;
-	vlistset_node_t *curr = NULL;
-	vlistset_node_t *tail = NULL;
-	vbool_t success		  = false;
-	vbool_t stop		  = false;
+    vlistset_node_t *pred = NULL;
+    vlistset_node_t *curr = NULL;
+    vlistset_node_t *tail = NULL;
+    vbool_t success       = false;
+    vbool_t stop          = false;
 
-	ASSERT(lst);
-	tail = &lst->tail_sentinel;
+    ASSERT(lst);
+    tail = &lst->tail_sentinel;
 
-	while (!stop) {
-		pred = &lst->head_sentinel;
-		curr = vatomicptr_read(&pred->next);
-		/* find the node without acquiring locks */
-		while (curr != tail && lst->cmp_fun(curr, key) < 0) {
-			pred = curr;
-			curr = vatomicptr_read(&curr->next);
-		}
-		vlistset_lock_acquire(&pred->lock);
-		vlistset_lock_acquire(&curr->lock);
+    while (!stop) {
+        pred = &lst->head_sentinel;
+        curr = vatomicptr_read(&pred->next);
+        /* find the node without acquiring locks */
+        while (curr != tail && lst->cmp_fun(curr, key) < 0) {
+            pred = curr;
+            curr = vatomicptr_read(&curr->next);
+        }
+        vlistset_lock_acquire(&pred->lock);
+        vlistset_lock_acquire(&curr->lock);
 
-		/* validate your findings in the critical section */
-		if (_vlistset_validate(lst, pred, curr, key)) {
-			if (curr != tail && lst->cmp_fun(curr, key) == 0) {
-				vatomicptr_write(&pred->next, vatomicptr_read(&curr->next));
-				lst->retire_fun(curr, lst->retire_fun_arg);
-				success = true;
-			} else {
-				success = false;
-			}
-			stop = true;
-		} else {
-			verification_ignore();
-		}
-		vlistset_lock_release(&pred->lock);
-		vlistset_lock_release(&curr->lock);
-	}
+        /* validate your findings in the critical section */
+        if (_vlistset_validate(lst, pred, curr, key)) {
+            if (curr != tail && lst->cmp_fun(curr, key) == 0) {
+                vatomicptr_write(&pred->next, vatomicptr_read(&curr->next));
+                lst->retire_fun(curr, lst->retire_fun_arg);
+                success = true;
+            } else {
+                success = false;
+            }
+            stop = true;
+        } else {
+            verification_ignore();
+        }
+        vlistset_lock_release(&pred->lock);
+        vlistset_lock_release(&curr->lock);
+    }
 
-	return success;
+    return success;
 }
 /**
  * Looks for the listset node associated with the given key.
@@ -217,41 +217,41 @@ vlistset_remove(vlistset_t *lst, vlistset_key_t key)
 static inline vlistset_node_t *
 vlistset_get(vlistset_t *lst, vlistset_key_t key)
 {
-	vlistset_node_t *pred = NULL;
-	vlistset_node_t *curr = NULL;
-	vlistset_node_t *tail = NULL;
-	vbool_t found		  = false;
-	vbool_t stop		  = false;
+    vlistset_node_t *pred = NULL;
+    vlistset_node_t *curr = NULL;
+    vlistset_node_t *tail = NULL;
+    vbool_t found         = false;
+    vbool_t stop          = false;
 
-	ASSERT(lst);
-	tail = &lst->tail_sentinel;
+    ASSERT(lst);
+    tail = &lst->tail_sentinel;
 
-	while (!stop) {
-		pred = &lst->head_sentinel;
-		curr = vatomicptr_read(&pred->next);
+    while (!stop) {
+        pred = &lst->head_sentinel;
+        curr = vatomicptr_read(&pred->next);
 
-		/* find the node without acquiring locks */
-		while (curr != tail && lst->cmp_fun(curr, key) < 0) {
-			pred = curr;
-			curr = vatomicptr_read(&curr->next);
-		}
+        /* find the node without acquiring locks */
+        while (curr != tail && lst->cmp_fun(curr, key) < 0) {
+            pred = curr;
+            curr = vatomicptr_read(&curr->next);
+        }
 
-		vlistset_lock_acquire(&pred->lock);
-		vlistset_lock_acquire(&curr->lock);
+        vlistset_lock_acquire(&pred->lock);
+        vlistset_lock_acquire(&curr->lock);
 
-		/* validate your findings in the critical section */
-		if (_vlistset_validate(lst, pred, curr, key)) {
-			found = curr != tail && lst->cmp_fun(curr, key) == 0;
-			stop  = true;
-		} else {
-			verification_ignore();
-		}
+        /* validate your findings in the critical section */
+        if (_vlistset_validate(lst, pred, curr, key)) {
+            found = curr != tail && lst->cmp_fun(curr, key) == 0;
+            stop  = true;
+        } else {
+            verification_ignore();
+        }
 
-		vlistset_lock_release(&pred->lock);
-		vlistset_lock_release(&curr->lock);
-	} // while
+        vlistset_lock_release(&pred->lock);
+        vlistset_lock_release(&curr->lock);
+    } // while
 
-	return found ? curr : NULL;
+    return found ? curr : NULL;
 }
 /**
  * Visits all nodes in the list and calls `visitor` on them.
@@ -267,22 +267,22 @@ vlistset_get(vlistset_t *lst, vlistset_key_t key)
  */
 static inline void
 _vlistset_visit(vlistset_t *lst, vlistset_handle_node_t visitor, void *arg,
-				vbool_t visitor_destructive)
+                vbool_t visitor_destructive)
 {
-	vlistset_node_t *next = NULL;
-	vlistset_node_t *curr = NULL;
-	V_UNUSED(visitor_destructive);
+    vlistset_node_t *next = NULL;
+    vlistset_node_t *curr = NULL;
+    V_UNUSED(visitor_destructive);
 
-	ASSERT(lst);
-	ASSERT(visitor);
+    ASSERT(lst);
+    ASSERT(visitor);
 
-	curr = vatomicptr_read(&lst->head_sentinel.next);
+    curr = vatomicptr_read(&lst->head_sentinel.next);
 
-	while (curr != &lst->tail_sentinel) {
-		next = vatomicptr_read(&curr->next);
-		visitor(curr, arg);
-		curr = next;
-	}
+    while (curr != &lst->tail_sentinel) {
+        next = vatomicptr_read(&curr->next);
+        visitor(curr, arg);
+        curr = next;
+    }
 }
 /**
  * Validates that `pred` is reachable and its `pred->next == curr`.
@@ -296,28 +296,28 @@ _vlistset_visit(vlistset_t *lst, vlistset_handle_node_t visitor, void *arg,
  */
 static inline vbool_t
 _vlistset_validate(vlistset_t *lst, vlistset_node_t *pred,
-				   vlistset_node_t *curr, vlistset_key_t key)
+                   vlistset_node_t *curr, vlistset_key_t key)
 {
-	vlistset_node_t *node = NULL;
-	vlistset_node_t *tail = NULL;
+    vlistset_node_t *node = NULL;
+    vlistset_node_t *tail = NULL;
 
-	node = &lst->head_sentinel;
-	if (pred == node) {
-		/* if pred == head, it will not have a key to compare to */
-		return vatomicptr_read(&pred->next) == curr ? true : false;
-	}
+    node = &lst->head_sentinel;
+    if (pred == node) {
+        /* if pred == head, it will not have a key to compare to */
+        return vatomicptr_read(&pred->next) == curr ? true : false;
+    }
 
-	tail = &lst->tail_sentinel;
-	/* move to head->next */
-	node = vatomicptr_read(&node->next);
+    tail = &lst->tail_sentinel;
+    /* move to head->next */
+    node = vatomicptr_read(&node->next);
 
-	/* find pred and confirm pred->next = curr */
-	while (node != tail && lst->cmp_fun(node, key) < 0) {
-		if (node == pred) {
-			return vatomicptr_read(&pred->next) == curr ? true : false;
-		}
-		node = vatomicptr_read(&node->next);
-	}
-	return false;
+    /* find pred and confirm pred->next = curr */
+    while (node != tail && lst->cmp_fun(node, key) < 0) {
+        if (node == pred) {
+            return vatomicptr_read(&pred->next) == curr ? true : false;
+        }
+        node = vatomicptr_read(&node->next);
+    }
+    return false;
 }
 #endif

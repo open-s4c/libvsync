@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #ifndef VQUEUE_UB_TOTAL_H
 #define VQUEUE_UB_TOTAL_H
 
@@ -29,21 +30,21 @@
 #include <vsync/queue/internal/ub/vqueue_ub_common.h>
 
 DEF_ABSTRACT_LOCK(queue_lock, ttaslock_t, ttaslock_init, ttaslock_acquire,
-				  ttaslock_release, ttaslock_tryacquire)
+                  ttaslock_release, ttaslock_tryacquire)
 
 typedef void (*vqueue_ub_node_print)(void *);
 
 typedef struct vqueue_ub_node_s {
-	void *data;
-	vatomicptr(struct vqueue_ub_node_s *) next;
+    void *data;
+    vatomicptr(struct vqueue_ub_node_s *) next;
 } vqueue_ub_node_t;
 
 typedef struct vqueue_ub_s {
-	queue_lock_t enq_l;
-	queue_lock_t deq_l;
-	vqueue_ub_node_t *head;
-	vqueue_ub_node_t *tail;
-	vqueue_ub_node_t sentinel;
+    queue_lock_t enq_l;
+    queue_lock_t deq_l;
+    vqueue_ub_node_t *head;
+    vqueue_ub_node_t *tail;
+    vqueue_ub_node_t sentinel;
 } vqueue_ub_t;
 
 /**
@@ -52,13 +53,13 @@ typedef struct vqueue_ub_s {
 static inline void vqueue_ub_init(vqueue_ub_t *q);
 
 static inline void vqueue_ub_enq(vqueue_ub_t *q, vqueue_ub_node_t *qnode,
-								 void *);
+                                 void *);
 
 static inline vsize_t vqueue_ub_get_length(vqueue_ub_t *q);
 
 static inline void *vqueue_ub_deq(vqueue_ub_t *q,
-								  vqueue_ub_node_handler_t retire,
-								  void *retire_arg);
+                                  vqueue_ub_node_handler_t retire,
+                                  void *retire_arg);
 
 /**
  *  INTERNAL/PRIVATE FUNCTIONS
@@ -75,13 +76,13 @@ static inline void _vqueue_ub_node_init(vqueue_ub_node_t *qnode, void *data);
 static inline void
 vqueue_ub_init(vqueue_ub_t *q)
 {
-	q->head = &q->sentinel;
-	q->tail = &q->sentinel;
+    q->head = &q->sentinel;
+    q->tail = &q->sentinel;
 
-	_vqueue_ub_node_init(&q->sentinel, NULL);
+    _vqueue_ub_node_init(&q->sentinel, NULL);
 
-	queue_lock_init(&q->enq_l);
-	queue_lock_init(&q->deq_l);
+    queue_lock_init(&q->enq_l);
+    queue_lock_init(&q->deq_l);
 }
 
 /**
@@ -96,20 +97,20 @@ vqueue_ub_init(vqueue_ub_t *q)
  */
 static inline void
 vqueue_ub_destroy(vqueue_ub_t *q, vqueue_ub_node_handler_t retire,
-				  void *retire_arg)
+                  void *retire_arg)
 {
-	vqueue_ub_node_t *curr = NULL;
-	vqueue_ub_node_t *next = NULL;
+    vqueue_ub_node_t *curr = NULL;
+    vqueue_ub_node_t *next = NULL;
 
-	curr = q->head;
+    curr = q->head;
 
-	while (curr) {
-		next = (vqueue_ub_node_t *)vatomicptr_read_rlx(&curr->next);
-		if (curr != &q->sentinel) {
-			retire(curr, retire_arg);
-		}
-		curr = next;
-	}
+    while (curr) {
+        next = (vqueue_ub_node_t *)vatomicptr_read_rlx(&curr->next);
+        if (curr != &q->sentinel) {
+            retire(curr, retire_arg);
+        }
+        curr = next;
+    }
 }
 /**
  * Enqueue the given node `qnode` in the given queue `q`.
@@ -121,15 +122,15 @@ vqueue_ub_destroy(vqueue_ub_t *q, vqueue_ub_node_handler_t retire,
 static inline void
 vqueue_ub_enq(vqueue_ub_t *q, vqueue_ub_node_t *qnode, void *data)
 {
-	queue_lock_acquire(&q->enq_l);
-	// #different here it differs from the original
-	// algo. To prevent bugs on WMM.
-	_vqueue_ub_node_init(qnode, data);
-	// append at the tail
-	vatomicptr_write_rel(&q->tail->next, qnode);
-	// advance the tail
-	q->tail = qnode;
-	queue_lock_release(&q->enq_l);
+    queue_lock_acquire(&q->enq_l);
+    // #different here it differs from the original
+    // algo. To prevent bugs on WMM.
+    _vqueue_ub_node_init(qnode, data);
+    // append at the tail
+    vatomicptr_write_rel(&q->tail->next, qnode);
+    // advance the tail
+    q->tail = qnode;
+    queue_lock_release(&q->enq_l);
 }
 
 /**
@@ -142,15 +143,15 @@ vqueue_ub_enq(vqueue_ub_t *q, vqueue_ub_node_t *qnode, void *data)
 static inline vbool_t
 vqueue_ub_empty(vqueue_ub_t *q)
 {
-	vqueue_ub_node_t *qnode = NULL;
-	vqueue_ub_node_t *head	= NULL;
+    vqueue_ub_node_t *qnode = NULL;
+    vqueue_ub_node_t *head  = NULL;
 
-	queue_lock_acquire(&q->deq_l);
-	head = q->head;
-	// read the next of the head
-	qnode = (vqueue_ub_node_t *)vatomicptr_read_acq(&head->next);
-	queue_lock_release(&q->deq_l);
-	return qnode == NULL;
+    queue_lock_acquire(&q->deq_l);
+    head = q->head;
+    // read the next of the head
+    qnode = (vqueue_ub_node_t *)vatomicptr_read_acq(&head->next);
+    queue_lock_release(&q->deq_l);
+    return qnode == NULL;
 }
 /**
  * Dequeue a node from the given queue `q`.
@@ -165,24 +166,24 @@ vqueue_ub_empty(vqueue_ub_t *q)
 static inline void *
 vqueue_ub_deq(vqueue_ub_t *q, vqueue_ub_node_handler_t retire, void *retire_arg)
 {
-	vqueue_ub_node_t *qnode = NULL;
-	vqueue_ub_node_t *head	= NULL;
-	void *data				= NULL;
+    vqueue_ub_node_t *qnode = NULL;
+    vqueue_ub_node_t *head  = NULL;
+    void *data              = NULL;
 
-	queue_lock_acquire(&q->deq_l);
+    queue_lock_acquire(&q->deq_l);
 
-	head = q->head;
-	// read the next of the head
-	qnode = (vqueue_ub_node_t *)vatomicptr_read_acq(&head->next);
-	if (qnode) {
-		data	= qnode->data;
-		q->head = qnode;
-		if (head != &q->sentinel) {
-			retire(head, retire_arg);
-		}
-	}
-	queue_lock_release(&q->deq_l);
-	return data;
+    head = q->head;
+    // read the next of the head
+    qnode = (vqueue_ub_node_t *)vatomicptr_read_acq(&head->next);
+    if (qnode) {
+        data    = qnode->data;
+        q->head = qnode;
+        if (head != &q->sentinel) {
+            retire(head, retire_arg);
+        }
+    }
+    queue_lock_release(&q->deq_l);
+    return data;
 }
 /**
  * Returns the length of the queue.
@@ -194,21 +195,21 @@ vqueue_ub_deq(vqueue_ub_t *q, vqueue_ub_node_handler_t retire, void *retire_arg)
 static inline vsize_t
 vqueue_ub_get_length(vqueue_ub_t *q)
 {
-	vsize_t count		   = 0;
-	vqueue_ub_node_t *curr = NULL;
+    vsize_t count          = 0;
+    vqueue_ub_node_t *curr = NULL;
 
-	queue_lock_acquire(&q->deq_l);
-	queue_lock_acquire(&q->enq_l);
-	// don't count the sentinel
-	curr = (vqueue_ub_node_t *)vatomicptr_read_rlx(&q->head->next);
-	while (curr) {
-		curr = (vqueue_ub_node_t *)vatomicptr_read_rlx(&curr->next);
-		ASSERT(curr != &q->sentinel);
-		count++;
-	}
-	queue_lock_release(&q->enq_l);
-	queue_lock_release(&q->deq_l);
-	return count;
+    queue_lock_acquire(&q->deq_l);
+    queue_lock_acquire(&q->enq_l);
+    // don't count the sentinel
+    curr = (vqueue_ub_node_t *)vatomicptr_read_rlx(&q->head->next);
+    while (curr) {
+        curr = (vqueue_ub_node_t *)vatomicptr_read_rlx(&curr->next);
+        ASSERT(curr != &q->sentinel);
+        count++;
+    }
+    queue_lock_release(&q->enq_l);
+    queue_lock_release(&q->deq_l);
+    return count;
 }
 /**
  * Initialize node `qnode`.
@@ -218,8 +219,8 @@ vqueue_ub_get_length(vqueue_ub_t *q)
 static inline void
 _vqueue_ub_node_init(vqueue_ub_node_t *qnode, void *data)
 {
-	qnode->data = data;
-	vatomicptr_write_rlx(&qnode->next, NULL);
+    qnode->data = data;
+    vatomicptr_write_rlx(&qnode->next, NULL);
 }
 /**
  * Visits all available nodes in the queue.
@@ -231,19 +232,19 @@ _vqueue_ub_node_init(vqueue_ub_node_t *qnode, void *data)
  */
 static inline void
 _vqueue_ub_visit_nodes(vqueue_ub_t *q, vqueue_ub_node_handler_t visitor,
-					   void *arg)
+                       void *arg)
 {
-	vqueue_ub_node_t *curr = NULL;
-	vqueue_ub_node_t *next = NULL;
+    vqueue_ub_node_t *curr = NULL;
+    vqueue_ub_node_t *next = NULL;
 
-	curr = q->head;
-	// skipping sentinel
-	curr = (vqueue_ub_node_t *)vatomicptr_read_rlx(&curr->next);
+    curr = q->head;
+    // skipping sentinel
+    curr = (vqueue_ub_node_t *)vatomicptr_read_rlx(&curr->next);
 
-	while (curr) {
-		next = (vqueue_ub_node_t *)vatomicptr_read_rlx(&curr->next);
-		visitor(curr, arg);
-		curr = next;
-	}
+    while (curr) {
+        next = (vqueue_ub_node_t *)vatomicptr_read_rlx(&curr->next);
+        visitor(curr, arg);
+        curr = next;
+    }
 }
 #endif

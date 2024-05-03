@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #ifndef VSYNC_BOILERPLATE_READER_WRITER_H
 #define VSYNC_BOILERPLATE_READER_WRITER_H
 /*******************************************************************************
@@ -19,17 +20,17 @@
 #include <vsync/atomic.h>
 
 #ifndef NREADERS
-	#define NREADERS 2
+    #define NREADERS 2
 #endif
 
 #ifndef NWRITERS
-	#define NWRITERS 1
+    #define NWRITERS 1
 #endif
 
 #ifndef NTHREADS
-	#define NTHREADS (NWRITERS + NREADERS)
+    #define NTHREADS (NWRITERS + NREADERS)
 #else
-	#error "NTHREADS should not be defined"
+    #error "NTHREADS should not be defined"
 #endif
 
 /*******************************************************************************
@@ -79,22 +80,22 @@ check(void)
 void
 writer_acquire(vuint32_t tid)
 {
-	V_UNUSED(tid);
+    V_UNUSED(tid);
 }
 void
 writer_release(vuint32_t tid)
 {
-	V_UNUSED(tid);
+    V_UNUSED(tid);
 }
 void
 reader_acquire(vuint32_t tid)
 {
-	V_UNUSED(tid);
+    V_UNUSED(tid);
 }
 void
 reader_release(vuint32_t tid)
 {
-	V_UNUSED(tid);
+    V_UNUSED(tid);
 }
 #else
 void writer_acquire(vuint32_t tid);
@@ -108,22 +109,22 @@ static vuint32_t g_cs_y = 0;
 void
 writer_cs(vuint32_t tid)
 {
-	V_UNUSED(tid);
-	g_cs_x++;
-	g_cs_y++;
+    V_UNUSED(tid);
+    g_cs_x++;
+    g_cs_y++;
 }
 void
 reader_cs(vuint32_t tid)
 {
-	V_UNUSED(tid);
-	unsigned a = (g_cs_x == g_cs_y);
-	ASSERT(a && "g_cs_x and g_cs_y differ");
+    V_UNUSED(tid);
+    unsigned a = (g_cs_x == g_cs_y);
+    ASSERT(a && "g_cs_x and g_cs_y differ");
 }
 void
 check(void)
 {
-	ASSERT(g_cs_x == g_cs_y);
-	ASSERT(g_cs_x == FINAL_COUNT);
+    ASSERT(g_cs_x == g_cs_y);
+    ASSERT(g_cs_x == FINAL_COUNT);
 }
 #endif
 
@@ -131,58 +132,58 @@ check(void)
 static void *
 writer(void *arg)
 {
-	vuint32_t tid = (vuint32_t)(vuintptr_t)arg;
-	writer_acquire(tid);
-	writer_cs(tid);
-	writer_release(tid);
-	return NULL;
+    vuint32_t tid = (vuint32_t)(vuintptr_t)arg;
+    writer_acquire(tid);
+    writer_cs(tid);
+    writer_release(tid);
+    return NULL;
 }
 
 static void *
 reader(void *arg)
 {
-	vuint32_t tid = (vuint32_t)(vuintptr_t)arg;
-	reader_acquire(tid);
-	reader_cs(tid);
-	reader_release(tid);
+    vuint32_t tid = (vuint32_t)(vuintptr_t)arg;
+    reader_acquire(tid);
+    reader_cs(tid);
+    reader_release(tid);
 
-	return NULL;
+    return NULL;
 }
 
 int
 main(void)
 {
-	pthread_t t[NTHREADS];
+    pthread_t t[NTHREADS];
 #ifdef DEBUG
-	printf("TEST %s\n", __FILE__);
-	printf("NWRITERS: %u\n", NWRITERS);
-	printf("NREADERS: %u\n", NREADERS);
+    printf("TEST %s\n", __FILE__);
+    printf("NWRITERS: %u\n", NWRITERS);
+    printf("NREADERS: %u\n", NREADERS);
 #endif
 
-	init();
+    init();
 
-	for (vuintptr_t i = 0; i < NWRITERS; i++) {
-		(void)pthread_create(&t[i], 0, writer, (void *)i);
-	}
+    for (vuintptr_t i = 0; i < NWRITERS; i++) {
+        (void)pthread_create(&t[i], 0, writer, (void *)i);
+    }
 
-	for (vuintptr_t i = NWRITERS; i < NTHREADS; i++) {
-		(void)pthread_create(&t[i], 0, reader, (void *)i);
-	}
+    for (vuintptr_t i = NWRITERS; i < NTHREADS; i++) {
+        (void)pthread_create(&t[i], 0, reader, (void *)i);
+    }
 
-	post();
+    post();
 
-	for (vuintptr_t i = 0; i < NTHREADS; i++) {
-		(void)pthread_join(t[i], NULL);
-	}
+    for (vuintptr_t i = 0; i < NTHREADS; i++) {
+        (void)pthread_join(t[i], NULL);
+    }
 
 #ifdef DEBUG
-	printf("FINAL: g_cs_x = %d  g_cs_y = %d  (expected %d)\n", g_cs_x, g_cs_y,
-		   FINAL_COUNT);
+    printf("FINAL: g_cs_x = %d  g_cs_y = %d  (expected %d)\n", g_cs_x, g_cs_y,
+           FINAL_COUNT);
 #endif
 
-	check();
-	fini();
+    check();
+    fini();
 
-	return 0;
+    return 0;
 }
 #endif

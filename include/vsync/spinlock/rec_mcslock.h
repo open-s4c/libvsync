@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #ifndef VSYNC_REC_MCSLOCK_H
 #define VSYNC_REC_MCSLOCK_H
 /*******************************************************************************
@@ -23,8 +24,8 @@
 
 /** @cond DO_NOT_DOCUMENT */
 DEF_RECURSIVE_LOCK(rec_mcslock, mcslock_t, mcslock_init, mcslock_acquire,
-				   mcslock_release, WITH_TRYACQUIRE(mcslock_tryacquire),
-				   WITH_CONTEXT(mcs_node_t))
+                   mcslock_release, WITH_TRYACQUIRE(mcslock_tryacquire),
+                   WITH_CONTEXT(mcs_node_t))
 /** @endcond */
 
 /** Initializer of `rec_mcslock`. */
@@ -48,7 +49,7 @@ static inline void rec_mcslock_init(rec_mcslock_t *l);
  * thread/core.
  */
 static inline void rec_mcslock_acquire(rec_mcslock_t *l, vuint32_t id,
-									   mcs_node_t *ctx);
+                                       mcs_node_t *ctx);
 /**
  * Releases the recursive MCS lock.
  *
@@ -72,5 +73,5 @@ static inline void rec_mcslock_release(rec_mcslock_t *l, mcs_node_t *ctx);
  * @return false, if failed to acquire the lock.
  */
 static inline vbool_t rec_mcslock_tryacquire(rec_mcslock_t *l, vuint32_t id,
-											 mcs_node_t *ctx);
+                                             mcs_node_t *ctx);
 #endif

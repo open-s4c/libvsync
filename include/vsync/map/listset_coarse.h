@@ -33,19 +33,19 @@
 
 /** wraps the lock in use */
 DEF_ABSTRACT_LOCK(vlistset_lock, ttaslock_t, ttaslock_init, ttaslock_acquire,
-				  ttaslock_release, ttaslock_tryacquire)
+                  ttaslock_release, ttaslock_tryacquire)
 
 typedef struct vlistset_node_s {
-	struct vlistset_node_s *next;
+    struct vlistset_node_s *next;
 } vlistset_node_t;
 
 typedef struct vlistset_s {
-	vlistset_node_t head_sentinel;
-	vlistset_node_t tail_sentinel;
-	vlistset_handle_node_t retire_fun;
-	void *retire_fun_arg;
-	vlistset_cmp_key_t cmp_fun;
-	vlistset_lock_t lock;
+    vlistset_node_t head_sentinel;
+    vlistset_node_t tail_sentinel;
+    vlistset_handle_node_t retire_fun;
+    void *retire_fun_arg;
+    vlistset_cmp_key_t cmp_fun;
+    vlistset_lock_t lock;
 } vlistset_t;
 
 /**
@@ -60,16 +60,16 @@ typedef struct vlistset_s {
  */
 static inline void
 vlistset_init(vlistset_t *lst, vlistset_handle_node_t retire_fun,
-			  void *retire_fun_arg, vlistset_cmp_key_t cmp_fun)
+              void *retire_fun_arg, vlistset_cmp_key_t cmp_fun)
 {
-	ASSERT(lst);
-	ASSERT(cmp_fun);
-	ASSERT(retire_fun);
-	lst->head_sentinel.next = &lst->tail_sentinel;
-	lst->retire_fun			= retire_fun;
-	lst->retire_fun_arg		= retire_fun_arg;
-	lst->cmp_fun			= cmp_fun;
-	vlistset_lock_init(&lst->lock);
+    ASSERT(lst);
+    ASSERT(cmp_fun);
+    ASSERT(retire_fun);
+    lst->head_sentinel.next = &lst->tail_sentinel;
+    lst->retire_fun         = retire_fun;
+    lst->retire_fun_arg     = retire_fun_arg;
+    lst->cmp_fun            = cmp_fun;
+    vlistset_lock_init(&lst->lock);
 }
 /**
  * Destroys all the remaining nodes in the listset.
@@ -81,8 +81,8 @@ vlistset_init(vlistset_t *lst, vlistset_handle_node_t retire_fun,
 static inline void
 vlistset_destroy(vlistset_t *lst)
 {
-	ASSERT(lst);
-	_vlistset_visit(lst, lst->retire_fun, lst->retire_fun_arg, true);
+    ASSERT(lst);
+    _vlistset_visit(lst, lst->retire_fun, lst->retire_fun_arg, true);
 }
 /**
  * Inserts the given node into the listset.
@@ -103,36 +103,36 @@ vlistset_destroy(vlistset_t *lst)
 static inline vbool_t
 vlistset_add(vlistset_t *lst, vlistset_key_t key, vlistset_node_t *node)
 {
-	vlistset_node_t *pred = NULL;
-	vlistset_node_t *curr = NULL;
-	vlistset_node_t *tail = NULL;
-	vbool_t success		  = false;
+    vlistset_node_t *pred = NULL;
+    vlistset_node_t *curr = NULL;
+    vlistset_node_t *tail = NULL;
+    vbool_t success       = false;
 
-	ASSERT(lst);
-	ASSERT(node);
+    ASSERT(lst);
+    ASSERT(node);
 
-	vlistset_lock_acquire(&lst->lock);
+    vlistset_lock_acquire(&lst->lock);
 
-	tail = &lst->tail_sentinel;
-	pred = &lst->head_sentinel;
-	curr = pred->next;
+    tail = &lst->tail_sentinel;
+    pred = &lst->head_sentinel;
+    curr = pred->next;
 
-	while (curr != tail && lst->cmp_fun(curr, key) < 0) {
-		pred = curr;
-		curr = curr->next;
-	}
+    while (curr != tail && lst->cmp_fun(curr, key) < 0) {
+        pred = curr;
+        curr = curr->next;
+    }
 
-	if (curr != tail && lst->cmp_fun(curr, key) == 0) {
-		// there is already an item with such a key added.
-		success = false;
-	} else {
-		node->next = curr;
-		pred->next = node;
-		success	   = true;
-	}
+    if (curr != tail && lst->cmp_fun(curr, key) == 0) {
+        // there is already an item with such a key added.
+        success = false;
+    } else {
+        node->next = curr;
+        pred->next = node;
+        success    = true;
+    }
 
-	vlistset_lock_release(&lst->lock);
-	return success;
+    vlistset_lock_release(&lst->lock);
+    return success;
 }
 /**
  * Removes the node associated with the given key from the listset.
@@ -147,29 +147,29 @@ vlistset_add(vlistset_t *lst, vlistset_key_t key, vlistset_node_t *node)
 static inline vbool_t
 vlistset_remove(vlistset_t *lst, vlistset_key_t key)
 {
-	vlistset_node_t *pred = NULL;
-	vlistset_node_t *curr = NULL;
-	vlistset_node_t *tail = NULL;
-	vbool_t success		  = false;
+    vlistset_node_t *pred = NULL;
+    vlistset_node_t *curr = NULL;
+    vlistset_node_t *tail = NULL;
+    vbool_t success       = false;
 
-	ASSERT(lst);
+    ASSERT(lst);
 
-	vlistset_lock_acquire(&lst->lock);
-	tail = &lst->tail_sentinel;
-	pred = &lst->head_sentinel;
-	curr = pred->next;
+    vlistset_lock_acquire(&lst->lock);
+    tail = &lst->tail_sentinel;
+    pred = &lst->head_sentinel;
+    curr = pred->next;
 
-	while (curr != tail && lst->cmp_fun(curr, key) < 0) {
-		pred = curr;
-		curr = curr->next;
-	}
-	if (curr != tail && lst->cmp_fun(curr, key) == 0) {
-		pred->next = curr->next;
-		lst->retire_fun(curr, lst->retire_fun_arg);
-		success = true;
-	}
-	vlistset_lock_release(&lst->lock);
-	return success;
+    while (curr != tail && lst->cmp_fun(curr, key) < 0) {
+        pred = curr;
+        curr = curr->next;
+    }
+    if (curr != tail && lst->cmp_fun(curr, key) == 0) {
+        pred->next = curr->next;
+        lst->retire_fun(curr, lst->retire_fun_arg);
+        success = true;
+    }
+    vlistset_lock_release(&lst->lock);
+    return success;
 }
 /**
  * Looks for the listset node associated with the given key.
@@ -184,25 +184,25 @@ vlistset_remove(vlistset_t *lst, vlistset_key_t key)
 static inline vlistset_node_t *
 vlistset_get(vlistset_t *lst, vlistset_key_t key)
 {
-	vlistset_node_t *tail = NULL;
-	vlistset_node_t *curr = NULL;
-	vbool_t found		  = false;
+    vlistset_node_t *tail = NULL;
+    vlistset_node_t *curr = NULL;
+    vbool_t found         = false;
 
-	ASSERT(lst);
+    ASSERT(lst);
 
-	vlistset_lock_acquire(&lst->lock);
-	tail = &lst->tail_sentinel;
-	curr = lst->head_sentinel.next;
+    vlistset_lock_acquire(&lst->lock);
+    tail = &lst->tail_sentinel;
+    curr = lst->head_sentinel.next;
 
-	while (curr != tail && lst->cmp_fun(curr, key) < 0) {
-		curr = curr->next;
-	}
+    while (curr != tail && lst->cmp_fun(curr, key) < 0) {
+        curr = curr->next;
+    }
 
-	if (curr != tail && lst->cmp_fun(curr, key) == 0) {
-		found = true;
-	}
-	vlistset_lock_release(&lst->lock);
-	return found ? curr : NULL;
+    if (curr != tail && lst->cmp_fun(curr, key) == 0) {
+        found = true;
+    }
+    vlistset_lock_release(&lst->lock);
+    return found ? curr : NULL;
 }
 /**
  * Visits all nodes in the list and calls `visitor` on them.
@@ -218,21 +218,21 @@ vlistset_get(vlistset_t *lst, vlistset_key_t key)
  */
 static inline void
 _vlistset_visit(vlistset_t *lst, vlistset_handle_node_t visitor, void *arg,
-				vbool_t visitor_destructive)
+                vbool_t visitor_destructive)
 {
-	vlistset_node_t *next = NULL;
-	vlistset_node_t *curr = NULL;
-	V_UNUSED(visitor_destructive);
+    vlistset_node_t *next = NULL;
+    vlistset_node_t *curr = NULL;
+    V_UNUSED(visitor_destructive);
 
-	ASSERT(lst);
-	ASSERT(visitor);
+    ASSERT(lst);
+    ASSERT(visitor);
 
-	curr = lst->head_sentinel.next;
+    curr = lst->head_sentinel.next;
 
-	while (curr != &lst->tail_sentinel) {
-		next = curr->next;
-		visitor(curr, arg);
-		curr = next;
-	}
+    while (curr != &lst->tail_sentinel) {
+        next = curr->next;
+        visitor(curr, arg);
+        curr = next;
+    }
 }
 #endif

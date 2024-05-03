@@ -21,7 +21,7 @@
 #include <vsync/atomic/internal/types.h>
 
 #ifndef VATOMIC_AWAIT_H
-	#error "File included directly. Include <vsync/atomic/await.h> instead!"
+    #error "File included directly. Include <vsync/atomic/await.h> instead!"
 #endif
 #define vatomic64_await_true(_p_)  vatomic64_await_neq((_p_), 0)
 #define vatomic64_await_false(_p_) vatomic64_await_eq((_p_), 0)
@@ -254,7 +254,7 @@ static inline vuint64_t vatomic64_await_eq_rlx(vatomic64_t *a, vuint64_t v);
  * @memord seq_cst
  */
 static inline vuint64_t vatomic64_await_eq_add(vatomic64_t *a, vuint64_t c,
-											   vuint64_t v);
+                                               vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be equal to c, adding v to a once
  * the condition is satisfied.
@@ -266,7 +266,7 @@ static inline vuint64_t vatomic64_await_eq_add(vatomic64_t *a, vuint64_t c,
  * @memord acquire
  */
 static inline vuint64_t vatomic64_await_eq_add_acq(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be equal to c, adding v to a once
  * the condition is satisfied.
@@ -278,7 +278,7 @@ static inline vuint64_t vatomic64_await_eq_add_acq(vatomic64_t *a, vuint64_t c,
  * @memord release
  */
 static inline vuint64_t vatomic64_await_eq_add_rel(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be equal to c, adding v to a once
  * the condition is satisfied.
@@ -290,7 +290,7 @@ static inline vuint64_t vatomic64_await_eq_add_rel(vatomic64_t *a, vuint64_t c,
  * @memord relaxed
  */
 static inline vuint64_t vatomic64_await_eq_add_rlx(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be equal to c, subtracting v to a
  * once the condition is satisfied.
@@ -302,7 +302,7 @@ static inline vuint64_t vatomic64_await_eq_add_rlx(vatomic64_t *a, vuint64_t c,
  * @memord seq_cst
  */
 static inline vuint64_t vatomic64_await_eq_sub(vatomic64_t *a, vuint64_t c,
-											   vuint64_t v);
+                                               vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be equal to c, subtracting v to a
  * once the condition is satisfied.
@@ -314,7 +314,7 @@ static inline vuint64_t vatomic64_await_eq_sub(vatomic64_t *a, vuint64_t c,
  * @memord acquire
  */
 static inline vuint64_t vatomic64_await_eq_sub_acq(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be equal to c, subtracting v to a
  * once the condition is satisfied.
@@ -326,7 +326,7 @@ static inline vuint64_t vatomic64_await_eq_sub_acq(vatomic64_t *a, vuint64_t c,
  * @memord release
  */
 static inline vuint64_t vatomic64_await_eq_sub_rel(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be equal to c, subtracting v to a
  * once the condition is satisfied.
@@ -338,7 +338,7 @@ static inline vuint64_t vatomic64_await_eq_sub_rel(vatomic64_t *a, vuint64_t c,
  * @memord relaxed
  */
 static inline vuint64_t vatomic64_await_eq_sub_rlx(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be equal to c, setting v to a once
  * the condition is satisfied.
@@ -350,7 +350,7 @@ static inline vuint64_t vatomic64_await_eq_sub_rlx(vatomic64_t *a, vuint64_t c,
  * @memord seq_cst
  */
 static inline vuint64_t vatomic64_await_eq_set(vatomic64_t *a, vuint64_t c,
-											   vuint64_t v);
+                                               vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be equal to c, setting v to a once
  * the condition is satisfied.
@@ -362,7 +362,7 @@ static inline vuint64_t vatomic64_await_eq_set(vatomic64_t *a, vuint64_t c,
  * @memord acquire
  */
 static inline vuint64_t vatomic64_await_eq_set_acq(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be equal to c, setting v to a once
  * the condition is satisfied.
@@ -374,7 +374,7 @@ static inline vuint64_t vatomic64_await_eq_set_acq(vatomic64_t *a, vuint64_t c,
  * @memord release
  */
 static inline vuint64_t vatomic64_await_eq_set_rel(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be equal to c, setting v to a once
  * the condition is satisfied.
@@ -386,7 +386,7 @@ static inline vuint64_t vatomic64_await_eq_set_rel(vatomic64_t *a, vuint64_t c,
  * @memord relaxed
  */
 static inline vuint64_t vatomic64_await_eq_set_rlx(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be different than c, adding v to a
  * once the condition is satisfied.
@@ -398,7 +398,7 @@ static inline vuint64_t vatomic64_await_eq_set_rlx(vatomic64_t *a, vuint64_t c,
  * @memord seq_cst
  */
 static inline vuint64_t vatomic64_await_neq_add(vatomic64_t *a, vuint64_t c,
-												vuint64_t v);
+                                                vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be different than c, adding v to a
  * once the condition is satisfied.
@@ -410,7 +410,7 @@ static inline vuint64_t vatomic64_await_neq_add(vatomic64_t *a, vuint64_t c,
  * @memord acquire
  */
 static inline vuint64_t vatomic64_await_neq_add_acq(vatomic64_t *a, vuint64_t c,
-													vuint64_t v);
+                                                    vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be different than c, adding v to a
  * once the condition is satisfied.
@@ -422,7 +422,7 @@ static inline vuint64_t vatomic64_await_neq_add_acq(vatomic64_t *a, vuint64_t c,
  * @memord release
  */
 static inline vuint64_t vatomic64_await_neq_add_rel(vatomic64_t *a, vuint64_t c,
-													vuint64_t v);
+                                                    vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be different than c, adding v to a
  * once the condition is satisfied.
@@ -434,7 +434,7 @@ static inline vuint64_t vatomic64_await_neq_add_rel(vatomic64_t *a, vuint64_t c,
  * @memord relaxed
  */
 static inline vuint64_t vatomic64_await_neq_add_rlx(vatomic64_t *a, vuint64_t c,
-													vuint64_t v);
+                                                    vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be different than c, subtracting v
  * to a once the condition is satisfied.
@@ -446,7 +446,7 @@ static inline vuint64_t vatomic64_await_neq_add_rlx(vatomic64_t *a, vuint64_t c,
  * @memord seq_cst
  */
 static inline vuint64_t vatomic64_await_neq_sub(vatomic64_t *a, vuint64_t c,
-												vuint64_t v);
+                                                vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be different than c, subtracting v
  * to a once the condition is satisfied.
@@ -458,7 +458,7 @@ static inline vuint64_t vatomic64_await_neq_sub(vatomic64_t *a, vuint64_t c,
  * @memord acquire
  */
 static inline vuint64_t vatomic64_await_neq_sub_acq(vatomic64_t *a, vuint64_t c,
-													vuint64_t v);
+                                                    vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be different than c, subtracting v
  * to a once the condition is satisfied.
@@ -470,7 +470,7 @@ static inline vuint64_t vatomic64_await_neq_sub_acq(vatomic64_t *a, vuint64_t c,
  * @memord release
  */
 static inline vuint64_t vatomic64_await_neq_sub_rel(vatomic64_t *a, vuint64_t c,
-													vuint64_t v);
+                                                    vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be different than c, subtracting v
  * to a once the condition is satisfied.
@@ -482,7 +482,7 @@ static inline vuint64_t vatomic64_await_neq_sub_rel(vatomic64_t *a, vuint64_t c,
  * @memord relaxed
  */
 static inline vuint64_t vatomic64_await_neq_sub_rlx(vatomic64_t *a, vuint64_t c,
-													vuint64_t v);
+                                                    vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be different than c, setting v to a
  * once the condition is satisfied.
@@ -494,7 +494,7 @@ static inline vuint64_t vatomic64_await_neq_sub_rlx(vatomic64_t *a, vuint64_t c,
  * @memord seq_cst
  */
 static inline vuint64_t vatomic64_await_neq_set(vatomic64_t *a, vuint64_t c,
-												vuint64_t v);
+                                                vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be different than c, setting v to a
  * once the condition is satisfied.
@@ -506,7 +506,7 @@ static inline vuint64_t vatomic64_await_neq_set(vatomic64_t *a, vuint64_t c,
  * @memord acquire
  */
 static inline vuint64_t vatomic64_await_neq_set_acq(vatomic64_t *a, vuint64_t c,
-													vuint64_t v);
+                                                    vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be different than c, setting v to a
  * once the condition is satisfied.
@@ -518,7 +518,7 @@ static inline vuint64_t vatomic64_await_neq_set_acq(vatomic64_t *a, vuint64_t c,
  * @memord release
  */
 static inline vuint64_t vatomic64_await_neq_set_rel(vatomic64_t *a, vuint64_t c,
-													vuint64_t v);
+                                                    vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be different than c, setting v to a
  * once the condition is satisfied.
@@ -530,7 +530,7 @@ static inline vuint64_t vatomic64_await_neq_set_rel(vatomic64_t *a, vuint64_t c,
  * @memord relaxed
  */
 static inline vuint64_t vatomic64_await_neq_set_rlx(vatomic64_t *a, vuint64_t c,
-													vuint64_t v);
+                                                    vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be less than c, adding v to a once
  * the condition is satisfied.
@@ -542,7 +542,7 @@ static inline vuint64_t vatomic64_await_neq_set_rlx(vatomic64_t *a, vuint64_t c,
  * @memord seq_cst
  */
 static inline vuint64_t vatomic64_await_lt_add(vatomic64_t *a, vuint64_t c,
-											   vuint64_t v);
+                                               vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be less than c, adding v to a once
  * the condition is satisfied.
@@ -554,7 +554,7 @@ static inline vuint64_t vatomic64_await_lt_add(vatomic64_t *a, vuint64_t c,
  * @memord acquire
  */
 static inline vuint64_t vatomic64_await_lt_add_acq(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be less than c, adding v to a once
  * the condition is satisfied.
@@ -566,7 +566,7 @@ static inline vuint64_t vatomic64_await_lt_add_acq(vatomic64_t *a, vuint64_t c,
  * @memord release
  */
 static inline vuint64_t vatomic64_await_lt_add_rel(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be less than c, adding v to a once
  * the condition is satisfied.
@@ -578,7 +578,7 @@ static inline vuint64_t vatomic64_await_lt_add_rel(vatomic64_t *a, vuint64_t c,
  * @memord relaxed
  */
 static inline vuint64_t vatomic64_await_lt_add_rlx(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be less than c, subtracting v to a
  * once the condition is satisfied.
@@ -590,7 +590,7 @@ static inline vuint64_t vatomic64_await_lt_add_rlx(vatomic64_t *a, vuint64_t c,
  * @memord seq_cst
  */
 static inline vuint64_t vatomic64_await_lt_sub(vatomic64_t *a, vuint64_t c,
-											   vuint64_t v);
+                                               vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be less than c, subtracting v to a
  * once the condition is satisfied.
@@ -602,7 +602,7 @@ static inline vuint64_t vatomic64_await_lt_sub(vatomic64_t *a, vuint64_t c,
  * @memord acquire
  */
 static inline vuint64_t vatomic64_await_lt_sub_acq(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be less than c, subtracting v to a
  * once the condition is satisfied.
@@ -614,7 +614,7 @@ static inline vuint64_t vatomic64_await_lt_sub_acq(vatomic64_t *a, vuint64_t c,
  * @memord release
  */
 static inline vuint64_t vatomic64_await_lt_sub_rel(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be less than c, subtracting v to a
  * once the condition is satisfied.
@@ -626,7 +626,7 @@ static inline vuint64_t vatomic64_await_lt_sub_rel(vatomic64_t *a, vuint64_t c,
  * @memord relaxed
  */
 static inline vuint64_t vatomic64_await_lt_sub_rlx(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be less than c, setting v to a once
  * the condition is satisfied.
@@ -638,7 +638,7 @@ static inline vuint64_t vatomic64_await_lt_sub_rlx(vatomic64_t *a, vuint64_t c,
  * @memord seq_cst
  */
 static inline vuint64_t vatomic64_await_lt_set(vatomic64_t *a, vuint64_t c,
-											   vuint64_t v);
+                                               vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be less than c, setting v to a once
  * the condition is satisfied.
@@ -650,7 +650,7 @@ static inline vuint64_t vatomic64_await_lt_set(vatomic64_t *a, vuint64_t c,
  * @memord acquire
  */
 static inline vuint64_t vatomic64_await_lt_set_acq(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be less than c, setting v to a once
  * the condition is satisfied.
@@ -662,7 +662,7 @@ static inline vuint64_t vatomic64_await_lt_set_acq(vatomic64_t *a, vuint64_t c,
  * @memord release
  */
 static inline vuint64_t vatomic64_await_lt_set_rel(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be less than c, setting v to a once
  * the condition is satisfied.
@@ -674,7 +674,7 @@ static inline vuint64_t vatomic64_await_lt_set_rel(vatomic64_t *a, vuint64_t c,
  * @memord relaxed
  */
 static inline vuint64_t vatomic64_await_lt_set_rlx(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be less than or equal to c, adding
  * v to a once the condition is satisfied.
@@ -686,7 +686,7 @@ static inline vuint64_t vatomic64_await_lt_set_rlx(vatomic64_t *a, vuint64_t c,
  * @memord seq_cst
  */
 static inline vuint64_t vatomic64_await_le_add(vatomic64_t *a, vuint64_t c,
-											   vuint64_t v);
+                                               vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be less than or equal to c, adding
  * v to a once the condition is satisfied.
@@ -698,7 +698,7 @@ static inline vuint64_t vatomic64_await_le_add(vatomic64_t *a, vuint64_t c,
  * @memord acquire
  */
 static inline vuint64_t vatomic64_await_le_add_acq(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be less than or equal to c, adding
  * v to a once the condition is satisfied.
@@ -710,7 +710,7 @@ static inline vuint64_t vatomic64_await_le_add_acq(vatomic64_t *a, vuint64_t c,
  * @memord release
  */
 static inline vuint64_t vatomic64_await_le_add_rel(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be less than or equal to c, adding
  * v to a once the condition is satisfied.
@@ -722,7 +722,7 @@ static inline vuint64_t vatomic64_await_le_add_rel(vatomic64_t *a, vuint64_t c,
  * @memord relaxed
  */
 static inline vuint64_t vatomic64_await_le_add_rlx(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be less than or equal to c,
  * subtracting v to a once the condition is satisfied.
@@ -734,7 +734,7 @@ static inline vuint64_t vatomic64_await_le_add_rlx(vatomic64_t *a, vuint64_t c,
  * @memord seq_cst
  */
 static inline vuint64_t vatomic64_await_le_sub(vatomic64_t *a, vuint64_t c,
-											   vuint64_t v);
+                                               vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be less than or equal to c,
  * subtracting v to a once the condition is satisfied.
@@ -746,7 +746,7 @@ static inline vuint64_t vatomic64_await_le_sub(vatomic64_t *a, vuint64_t c,
  * @memord acquire
  */
 static inline vuint64_t vatomic64_await_le_sub_acq(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be less than or equal to c,
  * subtracting v to a once the condition is satisfied.
@@ -758,7 +758,7 @@ static inline vuint64_t vatomic64_await_le_sub_acq(vatomic64_t *a, vuint64_t c,
  * @memord release
  */
 static inline vuint64_t vatomic64_await_le_sub_rel(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be less than or equal to c,
  * subtracting v to a once the condition is satisfied.
@@ -770,7 +770,7 @@ static inline vuint64_t vatomic64_await_le_sub_rel(vatomic64_t *a, vuint64_t c,
  * @memord relaxed
  */
 static inline vuint64_t vatomic64_await_le_sub_rlx(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be less than or equal to c, setting
  * v to a once the condition is satisfied.
@@ -782,7 +782,7 @@ static inline vuint64_t vatomic64_await_le_sub_rlx(vatomic64_t *a, vuint64_t c,
  * @memord seq_cst
  */
 static inline vuint64_t vatomic64_await_le_set(vatomic64_t *a, vuint64_t c,
-											   vuint64_t v);
+                                               vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be less than or equal to c, setting
  * v to a once the condition is satisfied.
@@ -794,7 +794,7 @@ static inline vuint64_t vatomic64_await_le_set(vatomic64_t *a, vuint64_t c,
  * @memord acquire
  */
 static inline vuint64_t vatomic64_await_le_set_acq(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be less than or equal to c, setting
  * v to a once the condition is satisfied.
@@ -806,7 +806,7 @@ static inline vuint64_t vatomic64_await_le_set_acq(vatomic64_t *a, vuint64_t c,
  * @memord release
  */
 static inline vuint64_t vatomic64_await_le_set_rel(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be less than or equal to c, setting
  * v to a once the condition is satisfied.
@@ -818,7 +818,7 @@ static inline vuint64_t vatomic64_await_le_set_rel(vatomic64_t *a, vuint64_t c,
  * @memord relaxed
  */
 static inline vuint64_t vatomic64_await_le_set_rlx(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be greater than c, adding v to a
  * once the condition is satisfied.
@@ -830,7 +830,7 @@ static inline vuint64_t vatomic64_await_le_set_rlx(vatomic64_t *a, vuint64_t c,
  * @memord seq_cst
  */
 static inline vuint64_t vatomic64_await_gt_add(vatomic64_t *a, vuint64_t c,
-											   vuint64_t v);
+                                               vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be greater than c, adding v to a
  * once the condition is satisfied.
@@ -842,7 +842,7 @@ static inline vuint64_t vatomic64_await_gt_add(vatomic64_t *a, vuint64_t c,
  * @memord acquire
  */
 static inline vuint64_t vatomic64_await_gt_add_acq(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be greater than c, adding v to a
  * once the condition is satisfied.
@@ -854,7 +854,7 @@ static inline vuint64_t vatomic64_await_gt_add_acq(vatomic64_t *a, vuint64_t c,
  * @memord release
  */
 static inline vuint64_t vatomic64_await_gt_add_rel(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be greater than c, adding v to a
  * once the condition is satisfied.
@@ -866,7 +866,7 @@ static inline vuint64_t vatomic64_await_gt_add_rel(vatomic64_t *a, vuint64_t c,
  * @memord relaxed
  */
 static inline vuint64_t vatomic64_await_gt_add_rlx(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be greater than c, subtracting v to
  * a once the condition is satisfied.
@@ -878,7 +878,7 @@ static inline vuint64_t vatomic64_await_gt_add_rlx(vatomic64_t *a, vuint64_t c,
  * @memord seq_cst
  */
 static inline vuint64_t vatomic64_await_gt_sub(vatomic64_t *a, vuint64_t c,
-											   vuint64_t v);
+                                               vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be greater than c, subtracting v to
  * a once the condition is satisfied.
@@ -890,7 +890,7 @@ static inline vuint64_t vatomic64_await_gt_sub(vatomic64_t *a, vuint64_t c,
  * @memord acquire
  */
 static inline vuint64_t vatomic64_await_gt_sub_acq(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be greater than c, subtracting v to
  * a once the condition is satisfied.
@@ -902,7 +902,7 @@ static inline vuint64_t vatomic64_await_gt_sub_acq(vatomic64_t *a, vuint64_t c,
  * @memord release
  */
 static inline vuint64_t vatomic64_await_gt_sub_rel(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be greater than c, subtracting v to
  * a once the condition is satisfied.
@@ -914,7 +914,7 @@ static inline vuint64_t vatomic64_await_gt_sub_rel(vatomic64_t *a, vuint64_t c,
  * @memord relaxed
  */
 static inline vuint64_t vatomic64_await_gt_sub_rlx(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be greater than c, setting v to a
  * once the condition is satisfied.
@@ -926,7 +926,7 @@ static inline vuint64_t vatomic64_await_gt_sub_rlx(vatomic64_t *a, vuint64_t c,
  * @memord seq_cst
  */
 static inline vuint64_t vatomic64_await_gt_set(vatomic64_t *a, vuint64_t c,
-											   vuint64_t v);
+                                               vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be greater than c, setting v to a
  * once the condition is satisfied.
@@ -938,7 +938,7 @@ static inline vuint64_t vatomic64_await_gt_set(vatomic64_t *a, vuint64_t c,
  * @memord acquire
  */
 static inline vuint64_t vatomic64_await_gt_set_acq(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be greater than c, setting v to a
  * once the condition is satisfied.
@@ -950,7 +950,7 @@ static inline vuint64_t vatomic64_await_gt_set_acq(vatomic64_t *a, vuint64_t c,
  * @memord release
  */
 static inline vuint64_t vatomic64_await_gt_set_rel(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be greater than c, setting v to a
  * once the condition is satisfied.
@@ -962,7 +962,7 @@ static inline vuint64_t vatomic64_await_gt_set_rel(vatomic64_t *a, vuint64_t c,
  * @memord relaxed
  */
 static inline vuint64_t vatomic64_await_gt_set_rlx(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be greater than or equal to c,
  * adding v to a once the condition is satisfied.
@@ -974,7 +974,7 @@ static inline vuint64_t vatomic64_await_gt_set_rlx(vatomic64_t *a, vuint64_t c,
  * @memord seq_cst
  */
 static inline vuint64_t vatomic64_await_ge_add(vatomic64_t *a, vuint64_t c,
-											   vuint64_t v);
+                                               vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be greater than or equal to c,
  * adding v to a once the condition is satisfied.
@@ -986,7 +986,7 @@ static inline vuint64_t vatomic64_await_ge_add(vatomic64_t *a, vuint64_t c,
  * @memord acquire
  */
 static inline vuint64_t vatomic64_await_ge_add_acq(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be greater than or equal to c,
  * adding v to a once the condition is satisfied.
@@ -998,7 +998,7 @@ static inline vuint64_t vatomic64_await_ge_add_acq(vatomic64_t *a, vuint64_t c,
  * @memord release
  */
 static inline vuint64_t vatomic64_await_ge_add_rel(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be greater than or equal to c,
  * adding v to a once the condition is satisfied.
@@ -1010,7 +1010,7 @@ static inline vuint64_t vatomic64_await_ge_add_rel(vatomic64_t *a, vuint64_t c,
  * @memord relaxed
  */
 static inline vuint64_t vatomic64_await_ge_add_rlx(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be greater than or equal to c,
  * subtracting v to a once the condition is satisfied.
@@ -1022,7 +1022,7 @@ static inline vuint64_t vatomic64_await_ge_add_rlx(vatomic64_t *a, vuint64_t c,
  * @memord seq_cst
  */
 static inline vuint64_t vatomic64_await_ge_sub(vatomic64_t *a, vuint64_t c,
-											   vuint64_t v);
+                                               vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be greater than or equal to c,
  * subtracting v to a once the condition is satisfied.
@@ -1034,7 +1034,7 @@ static inline vuint64_t vatomic64_await_ge_sub(vatomic64_t *a, vuint64_t c,
  * @memord acquire
  */
 static inline vuint64_t vatomic64_await_ge_sub_acq(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be greater than or equal to c,
  * subtracting v to a once the condition is satisfied.
@@ -1046,7 +1046,7 @@ static inline vuint64_t vatomic64_await_ge_sub_acq(vatomic64_t *a, vuint64_t c,
  * @memord release
  */
 static inline vuint64_t vatomic64_await_ge_sub_rel(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be greater than or equal to c,
  * subtracting v to a once the condition is satisfied.
@@ -1058,7 +1058,7 @@ static inline vuint64_t vatomic64_await_ge_sub_rel(vatomic64_t *a, vuint64_t c,
  * @memord relaxed
  */
 static inline vuint64_t vatomic64_await_ge_sub_rlx(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be greater than or equal to c,
  * setting v to a once the condition is satisfied.
@@ -1070,7 +1070,7 @@ static inline vuint64_t vatomic64_await_ge_sub_rlx(vatomic64_t *a, vuint64_t c,
  * @memord seq_cst
  */
 static inline vuint64_t vatomic64_await_ge_set(vatomic64_t *a, vuint64_t c,
-											   vuint64_t v);
+                                               vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be greater than or equal to c,
  * setting v to a once the condition is satisfied.
@@ -1082,7 +1082,7 @@ static inline vuint64_t vatomic64_await_ge_set(vatomic64_t *a, vuint64_t c,
  * @memord acquire
  */
 static inline vuint64_t vatomic64_await_ge_set_acq(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be greater than or equal to c,
  * setting v to a once the condition is satisfied.
@@ -1094,7 +1094,7 @@ static inline vuint64_t vatomic64_await_ge_set_acq(vatomic64_t *a, vuint64_t c,
  * @memord release
  */
 static inline vuint64_t vatomic64_await_ge_set_rel(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 /**
  * Politely awaits the value pointed by a to be greater than or equal to c,
  * setting v to a once the condition is satisfied.
@@ -1106,6 +1106,6 @@ static inline vuint64_t vatomic64_await_ge_set_rel(vatomic64_t *a, vuint64_t c,
  * @memord relaxed
  */
 static inline vuint64_t vatomic64_await_ge_set_rlx(vatomic64_t *a, vuint64_t c,
-												   vuint64_t v);
+                                                   vuint64_t v);
 
 #endif /* VATOMIC_AWAIT_TY_H */

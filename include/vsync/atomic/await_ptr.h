@@ -21,7 +21,7 @@
 #include <vsync/atomic/internal/types.h>
 
 #ifndef VATOMIC_AWAIT_H
-	#error "File included directly. Include <vsync/atomic/await.h> instead!"
+    #error "File included directly. Include <vsync/atomic/await.h> instead!"
 #endif
 
 /**
@@ -119,7 +119,7 @@ static inline void *vatomicptr_await_eq_set(vatomicptr_t *a, void *c, void *v);
  * @memord acquire
  */
 static inline void *vatomicptr_await_eq_set_acq(vatomicptr_t *a, void *c,
-												void *v);
+                                                void *v);
 /**
  * Politely awaits the value pointed by a to be equal to c, setting v to a once
  * the condition is satisfied.
@@ -131,7 +131,7 @@ static inline void *vatomicptr_await_eq_set_acq(vatomicptr_t *a, void *c,
  * @memord release
  */
 static inline void *vatomicptr_await_eq_set_rel(vatomicptr_t *a, void *c,
-												void *v);
+                                                void *v);
 /**
  * Politely awaits the value pointed by a to be equal to c, setting v to a once
  * the condition is satisfied.
@@ -143,7 +143,7 @@ static inline void *vatomicptr_await_eq_set_rel(vatomicptr_t *a, void *c,
  * @memord relaxed
  */
 static inline void *vatomicptr_await_eq_set_rlx(vatomicptr_t *a, void *c,
-												void *v);
+                                                void *v);
 /**
  * Politely awaits the value pointed by a to be different than c, setting v to a
  * once the condition is satisfied.
@@ -166,7 +166,7 @@ static inline void *vatomicptr_await_neq_set(vatomicptr_t *a, void *c, void *v);
  * @memord acquire
  */
 static inline void *vatomicptr_await_neq_set_acq(vatomicptr_t *a, void *c,
-												 void *v);
+                                                 void *v);
 /**
  * Politely awaits the value pointed by a to be different than c, setting v to a
  * once the condition is satisfied.
@@ -178,7 +178,7 @@ static inline void *vatomicptr_await_neq_set_acq(vatomicptr_t *a, void *c,
  * @memord release
  */
 static inline void *vatomicptr_await_neq_set_rel(vatomicptr_t *a, void *c,
-												 void *v);
+                                                 void *v);
 /**
  * Politely awaits the value pointed by a to be different than c, setting v to a
  * once the condition is satisfied.
@@ -190,6 +190,6 @@ static inline void *vatomicptr_await_neq_set_rel(vatomicptr_t *a, void *c,
  * @memord relaxed
  */
 static inline void *vatomicptr_await_neq_set_rlx(vatomicptr_t *a, void *c,
-												 void *v);
+                                                 void *v);
 
 #endif /* VATOMIC_AWAIT_TY_H */

@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #ifndef VSYNC_TTAS_H
 #define VSYNC_TTAS_H
 /*******************************************************************************
@@ -20,14 +21,14 @@
 #include <vsync/vtypes.h>
 
 typedef struct ttaslock_s {
-	vatomic32_t state;
+    vatomic32_t state;
 } ttaslock_t;
 
 /** Initializer of `ttaslock_t`. */
 #define TTASLOCK_INIT()                                                        \
-	{                                                                          \
-		.state = VATOMIC_INIT(0)                                               \
-	}
+    {                                                                          \
+        .state = VATOMIC_INIT(0)                                               \
+    }
 
 /**
  * Initializes the TTAS lock.
@@ -39,7 +40,7 @@ typedef struct ttaslock_s {
 static inline void
 ttaslock_init(ttaslock_t *l)
 {
-	vatomic32_init(&l->state, 0);
+    vatomic32_init(&l->state, 0);
 }
 /**
  * Acquires the TAS lock.
@@ -49,12 +50,12 @@ ttaslock_init(ttaslock_t *l)
 static inline void
 ttaslock_acquire(ttaslock_t *l)
 {
-	while (true) {
-		vatomic32_await_eq_rlx(&l->state, 0);
-		if (!vatomic32_xchg_acq(&l->state, 1)) {
-			return;
-		}
-	}
+    while (true) {
+        vatomic32_await_eq_rlx(&l->state, 0);
+        if (!vatomic32_xchg_acq(&l->state, 1)) {
+            return;
+        }
+    }
 }
 /**
  * Tries to acquire the TTAS lock.
@@ -66,7 +67,7 @@ ttaslock_acquire(ttaslock_t *l)
 static inline vbool_t
 ttaslock_tryacquire(ttaslock_t *l)
 {
-	return vatomic32_xchg_acq(&l->state, 1) == 0;
+    return vatomic32_xchg_acq(&l->state, 1) == 0;
 }
 /**
  * Releases the TTAS lock.
@@ -76,6 +77,6 @@ ttaslock_tryacquire(ttaslock_t *l)
 static inline void
 ttaslock_release(ttaslock_t *l)
 {
-	vatomic32_write_rel(&l->state, 0);
+    vatomic32_write_rel(&l->state, 0);
 }
 #endif

@@ -43,15 +43,15 @@
 typedef int xbo_cb(void);
 
 typedef struct xbo_s {
-	vuint32_t min, max;
-	vuint32_t factor;
-	vuint32_t value;
+    vuint32_t min, max;
+    vuint32_t factor;
+    vuint32_t value;
 } xbo_t;
 
 #define XBO_INIT(min, max, factor)                                             \
-	{                                                                          \
-		.min = (min), .max = (max), .value = (min), .factor = (factor)         \
-	}
+    {                                                                          \
+        .min = (min), .max = (max), .value = (min), .factor = (factor)         \
+    }
 
 /**
  * Initializes the xbo datastructure.
@@ -65,9 +65,9 @@ static inline void
 xbo_init(xbo_t *xbo, vuint32_t min, vuint32_t max, vuint32_t factor)
 {
 #ifndef VSYNC_VERIFICATION
-	xbo->min = xbo->value = min;
-	xbo->max			  = max;
-	xbo->factor			  = factor;
+    xbo->min = xbo->value = min;
+    xbo->max              = max;
+    xbo->factor           = factor;
 #endif
 }
 
@@ -84,16 +84,16 @@ static inline void
 xbo_backoff(xbo_t *xbo, xbo_cb *nop, xbo_cb *cb)
 {
 #ifndef VSYNC_VERIFICATION
-	for (vuint32_t i = 0; i < xbo->max; ++i) {
-		nop();
-	}
+    for (vuint32_t i = 0; i < xbo->max; ++i) {
+        nop();
+    }
 
-	xbo->value = xbo->value == 0 ? 1 : xbo->value * xbo->factor;
+    xbo->value = xbo->value == 0 ? 1 : xbo->value * xbo->factor;
 
-	if (xbo->value > xbo->max) {
-		xbo->value = xbo->max;
-		cb();
-	}
+    if (xbo->value > xbo->max) {
+        xbo->value = xbo->max;
+        cb();
+    }
 #endif
 }
 
@@ -106,7 +106,7 @@ static inline void
 xbo_reset(xbo_t *xbo)
 {
 #ifndef VSYNC_VERIFICATION
-	xbo->value = xbo->min;
+    xbo->value = xbo->min;
 #endif
 }
 
@@ -114,8 +114,8 @@ xbo_reset(xbo_t *xbo)
 static inline int
 xbo_nop(void)
 {
-	volatile int k = 0;
-	return k;
+    volatile int k = 0;
+    return k;
 }
 
 #endif

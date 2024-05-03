@@ -43,7 +43,7 @@ typedef vuint32_t seqvalue_t;
 static inline void
 seqcount_init(seqcount_t *sc)
 {
-	vatomic32_init(sc, 0);
+    vatomic32_init(sc, 0);
 }
 /**
  * Begins writer critical section.
@@ -60,10 +60,10 @@ seqcount_init(seqcount_t *sc)
 static inline seqvalue_t
 seqcount_wbegin(seqcount_t *sc)
 {
-	seqvalue_t s = vatomic32_read_rlx(sc);
-	vatomic32_write_rlx(sc, s + 1U);
-	vatomic_fence_rel();
-	return s;
+    seqvalue_t s = vatomic32_read_rlx(sc);
+    vatomic32_write_rlx(sc, s + 1U);
+    vatomic_fence_rel();
+    return s;
 }
 /**
  * Ends writer critical section.
@@ -74,7 +74,7 @@ seqcount_wbegin(seqcount_t *sc)
 static inline void
 seqcount_wend(seqcount_t *sc, seqvalue_t s)
 {
-	vatomic32_write_rel(sc, s + SEQCOUNT_STEP);
+    vatomic32_write_rel(sc, s + SEQCOUNT_STEP);
 }
 /**
  * Begins reader critical section.
@@ -87,8 +87,8 @@ seqcount_wend(seqcount_t *sc, seqvalue_t s)
 static inline seqvalue_t
 seqcount_rbegin(seqcount_t *sc)
 {
-	seqvalue_t s = vatomic32_read_acq(sc) & ~1U;
-	return s;
+    seqvalue_t s = vatomic32_read_acq(sc) & ~1U;
+    return s;
 }
 /**
  * Tries to end the reader critical section.
@@ -102,8 +102,8 @@ seqcount_rbegin(seqcount_t *sc)
 static inline vbool_t
 seqcount_rend(seqcount_t *sc, seqvalue_t s)
 {
-	vatomic_fence_acq();
-	return vatomic32_read_rlx(sc) == s;
+    vatomic_fence_acq();
+    return vatomic32_read_rlx(sc) == s;
 }
 #undef SEQCOUNT_STEP
 #endif

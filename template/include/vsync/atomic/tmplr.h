@@ -20,7 +20,7 @@ typedef unsigned int TT;
  * These are vatomic{8,16,32,64,ptr}.
  */
 typedef struct {
-	TT _v;
+    TT _v;
 } AA;
 
 /* some further macros to make clangd happy */

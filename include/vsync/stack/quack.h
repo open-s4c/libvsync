@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #ifndef VSYNC_QUACK_H
 #define VSYNC_QUACK_H
 /*******************************************************************************
@@ -45,18 +46,18 @@
 #include <vsync/vtypes.h>
 
 typedef struct quack_node_s {
-	struct quack_node_s *next;
+    struct quack_node_s *next;
 } quack_node_t;
 
 typedef struct {
-	vatomicptr(quack_node_t *) head;
+    vatomicptr(quack_node_t *) head;
 } quack_t;
 
 /** Initializer of quack. */
 #define QUACK_INIT()                                                           \
-	{                                                                          \
-		.head = VATOMIC_INIT(0)                                                \
-	}
+    {                                                                          \
+        .head = VATOMIC_INIT(0)                                                \
+    }
 
 /**
  * Initializes quack.
@@ -66,7 +67,7 @@ typedef struct {
 static inline void
 quack_init(quack_t *s)
 {
-	vatomicptr_init(&s->head, NULL);
+    vatomicptr_init(&s->head, NULL);
 }
 
 /**
@@ -78,11 +79,11 @@ quack_init(quack_t *s)
 static inline void
 quack_push(quack_t *q, quack_node_t *n)
 {
-	quack_node_t *next = NULL;
-	do {
-		next	= (quack_node_t *)vatomicptr_read_rlx(&q->head);
-		n->next = next;
-	} while (vatomicptr_cmpxchg_rel(&q->head, next, n) != next);
+    quack_node_t *next = NULL;
+    do {
+        next    = (quack_node_t *)vatomicptr_read_rlx(&q->head);
+        n->next = next;
+    } while (vatomicptr_cmpxchg_rel(&q->head, next, n) != next);
 }
 
 /**
@@ -94,7 +95,7 @@ quack_push(quack_t *q, quack_node_t *n)
 static inline vbool_t
 quack_is_empty(quack_t *const q)
 {
-	return vatomicptr_read_rlx(&q->head) == NULL;
+    return vatomicptr_read_rlx(&q->head) == NULL;
 }
 
 /**
@@ -107,7 +108,7 @@ quack_is_empty(quack_t *const q)
 static inline quack_node_t *
 quack_popall(quack_t *q)
 {
-	return (quack_node_t *)vatomicptr_xchg_acq(&q->head, NULL);
+    return (quack_node_t *)vatomicptr_xchg_acq(&q->head, NULL);
 }
 
 /**
@@ -120,16 +121,16 @@ quack_popall(quack_t *q)
 static inline quack_node_t *
 quack_reverse(quack_node_t *n)
 {
-	quack_node_t *prev = NULL;
-	quack_node_t *next = NULL;
-	quack_node_t *curr = n;
+    quack_node_t *prev = NULL;
+    quack_node_t *next = NULL;
+    quack_node_t *curr = n;
 
-	while (curr != NULL) {
-		next	   = curr->next;
-		curr->next = prev;
-		prev	   = curr;
-		curr	   = next;
-	}
-	return prev;
+    while (curr != NULL) {
+        next       = curr->next;
+        curr->next = prev;
+        prev       = curr;
+        curr       = next;
+    }
+    return prev;
 }
 #endif

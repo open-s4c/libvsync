@@ -18,16 +18,16 @@
 static inline vuint64_t
 rand_gen_seed(void)
 {
-	return verification_rand();
+    return verification_rand();
 }
 #else
 
-	#include <time.h>
+    #include <time.h>
 
 static inline vuint64_t
 rand_gen_seed(void)
 {
-	return (vuint64_t)time(0);
+    return (vuint64_t)time(0);
 }
 
 #endif
@@ -38,7 +38,7 @@ rand_gen_seed(void)
  * @see random_gen_values
  */
 
-static vbool_t g_rand_initialized		   = false;
+static vbool_t g_rand_initialized          = false;
 static __thread unsigned int g_thread_seed = 0;
 
 /**
@@ -49,11 +49,11 @@ static inline void
 random_init(void)
 {
 #if !defined(VSYNC_VERIFICATION)
-	unsigned int seed = time(0);
-	if (!g_rand_initialized) {
-		srand(seed);
-		g_rand_initialized = true;
-	}
+    unsigned int seed = time(0);
+    if (!g_rand_initialized) {
+        srand(seed);
+        g_rand_initialized = true;
+    }
 #endif
 }
 /**
@@ -64,17 +64,17 @@ static inline int
 random_rand(void)
 {
 #if defined(VSYNC_VERIFICATION)
-	return verification_rand();
+    return verification_rand();
 #else
-	/* instead of using rand(), we use system dependent getrandom because it is
-	 * more secure */
-	char buf[sizeof(int)] = {0};
-	if (getrandom(buf, sizeof(int), GRND_RANDOM) == -1) {
-		ASSERT(0 && "getrandom failed");
-		return 0;
-	} else {
-		return *((int *)buf);
-	}
+    /* instead of using rand(), we use system dependent getrandom because it is
+     * more secure */
+    char buf[sizeof(int)] = {0};
+    if (getrandom(buf, sizeof(int), GRND_RANDOM) == -1) {
+        ASSERT(0 && "getrandom failed");
+        return 0;
+    } else {
+        return *((int *)buf);
+    }
 #endif
 }
 
@@ -88,12 +88,12 @@ static inline int
 random_thread_safe_rand(void)
 {
 #if defined(VSYNC_VERIFICATION)
-	return verification_rand();
+    return verification_rand();
 #else
-	if (g_thread_seed == 0) {
-		g_thread_seed = time(NULL);
-	}
-	return rand_r(&g_thread_seed);
+    if (g_thread_seed == 0) {
+        g_thread_seed = time(NULL);
+    }
+    return rand_r(&g_thread_seed);
 #endif
 }
 
@@ -107,13 +107,13 @@ random_thread_safe_rand(void)
 static inline vuint32_t
 random_thread_safe_get_next(vuint32_t min, vuint32_t max)
 {
-	ASSERT(min <= max);
-	ASSERT(max < VINT32_MAX);
-	int r = random_thread_safe_rand();
-	if (r < 0) {
-		r *= -1;
-	}
-	return (((vuint32_t)r) % (max - min + 1U)) + min;
+    ASSERT(min <= max);
+    ASSERT(max < VINT32_MAX);
+    int r = random_thread_safe_rand();
+    if (r < 0) {
+        r *= -1;
+    }
+    return (((vuint32_t)r) % (max - min + 1U)) + min;
 }
 
 /**
@@ -125,11 +125,11 @@ static inline void
 random_init_seed(unsigned int seed)
 {
 #if defined(VSYNC_VERIFICATION)
-	(void)seed;
+    (void)seed;
 #else
-	ASSERT(!g_rand_initialized && "was initialized before");
-	srand(seed);
-	g_rand_initialized = true;
+    ASSERT(!g_rand_initialized && "was initialized before");
+    srand(seed);
+    g_rand_initialized = true;
 #endif
 }
 /**
@@ -142,24 +142,24 @@ static inline vuint32_t
 _random(vuint32_t range)
 {
 #if defined(VSYNC_VERIFICATION)
-	(void)range;
-	return verification_rand();
+    (void)range;
+    return verification_rand();
 #else
-	vuint32_t r		   = 0;
-	if (!g_rand_initialized) {
-		random_init_seed(0);
-	}
-	ASSERT(g_rand_initialized &&
-		   "the module needs to be initialized first. call "
-		   "random_init_seed/random_init");
+    vuint32_t r        = 0;
+    if (!g_rand_initialized) {
+        random_init_seed(0);
+    }
+    ASSERT(g_rand_initialized &&
+           "the module needs to be initialized first. call "
+           "random_init_seed/random_init");
 
-	ASSERT(range <= 0x0FFFFFFF && "Value is not supported");
+    ASSERT(range <= 0x0FFFFFFF && "Value is not supported");
 
-	do {
-		r = (vuint32_t)random_rand() % v_pow2_round_up(range);
-	} while (r >= range);
+    do {
+        r = (vuint32_t)random_rand() % v_pow2_round_up(range);
+    } while (r >= range);
 
-	return r;
+    return r;
 #endif
 }
 /**
@@ -172,10 +172,10 @@ _random(vuint32_t range)
 static inline vuint32_t
 random_next_int(vuint32_t min, vuint32_t max)
 {
-	vuint32_t random_number = 0;
-	ASSERT(max >= min);
-	random_number = _random(max - min + 1);
-	return random_number + min;
+    vuint32_t random_number = 0;
+    ASSERT(max >= min);
+    random_number = _random(max - min + 1);
+    return random_number + min;
 }
 
 /**
@@ -189,33 +189,33 @@ random_next_int(vuint32_t min, vuint32_t max)
 static inline vuint64_t
 random_next_int64(vuint64_t min, vuint64_t max, vuint16_t alignment)
 {
-	vuint64_t random_number = 0;
+    vuint64_t random_number = 0;
 #if defined(VSYNC_VERIFICATION)
-	random_number = verification_rand();
-	(void)min;
-	(void)max;
-	(void)alignment;
+    random_number = verification_rand();
+    (void)min;
+    (void)max;
+    (void)alignment;
 #else
-	vuint32_t rand_msbits		 = 0;
-	vuint32_t rand_lsbits		 = 0;
-	vuint64_t range				 = (max - min) + 1;
-	const vuint32_t shift_to_msb = 32;
-	ASSERT(max >= min);
+    vuint32_t rand_msbits        = 0;
+    vuint32_t rand_lsbits        = 0;
+    vuint64_t range              = (max - min) + 1;
+    const vuint32_t shift_to_msb = 32;
+    ASSERT(max >= min);
 
-	rand_lsbits = random_rand();
-	rand_msbits = random_rand();
+    rand_lsbits = random_rand();
+    rand_msbits = random_rand();
 
-	random_number = ((vuint64_t)rand_msbits << shift_to_msb) | rand_lsbits;
+    random_number = ((vuint64_t)rand_msbits << shift_to_msb) | rand_lsbits;
 
-	random_number = (random_number) % range + min;
+    random_number = (random_number) % range + min;
 
-	random_number = random_number & ~((1 << alignment) - 1);
+    random_number = random_number & ~((1 << alignment) - 1);
 
-	ASSERT(random_number >= min);
-	ASSERT(random_number <= max);
+    ASSERT(random_number >= min);
+    ASSERT(random_number <= max);
 
 #endif
-	return random_number;
+    return random_number;
 }
 /**
  * random_with_probability
@@ -233,19 +233,19 @@ random_next_int64(vuint64_t min, vuint64_t max, vuint16_t alignment)
 static inline vuint32_t
 random_with_probability(vuint32_t *probabilities, vuint32_t length)
 {
-	vuint32_t r		= random_next_int(1, 100);
-	vuint32_t i		= 0;
-	vuint32_t start = 0;
+    vuint32_t r     = random_next_int(1, 100);
+    vuint32_t i     = 0;
+    vuint32_t start = 0;
 
-	for (i = 0; i < length; i++) {
-		if (r > start && r <= (start + probabilities[i])) {
-			return i;
-		}
-		start += probabilities[i];
-	}
+    for (i = 0; i < length; i++) {
+        if (r > start && r <= (start + probabilities[i])) {
+            return i;
+        }
+        start += probabilities[i];
+    }
 
-	ASSERT(0 && "something is wrong this should not be reachable");
-	return 0;
+    ASSERT(0 && "something is wrong this should not be reachable");
+    return 0;
 }
 /**
  * random_next_string
@@ -256,11 +256,11 @@ random_with_probability(vuint32_t *probabilities, vuint32_t length)
 static inline void
 random_next_string(unsigned char *str, vsize_t len)
 {
-	vsize_t i = 0;
+    vsize_t i = 0;
 
-	for (i = 0; i < len; i++) {
-		str[i] = (unsigned char)random_next_int(0, VUINT8_MAX);
-	}
+    for (i = 0; i < len; i++) {
+        str[i] = (unsigned char)random_next_int(0, VUINT8_MAX);
+    }
 }
 /**
  * random_next_string
@@ -271,17 +271,17 @@ random_next_string(unsigned char *str, vsize_t len)
 static inline void
 random_next_printable_string(unsigned char *str, vsize_t len)
 {
-	vsize_t i				 = 0;
-	const vuint32_t min_char = 33;
-	const vuint32_t max_char = 126;
+    vsize_t i                = 0;
+    const vuint32_t min_char = 33;
+    const vuint32_t max_char = 126;
 
-	for (i = 0; i < len - 1; i++) {
-		// 33 = '!'
-		// 126 = '~'
-		str[i] = (unsigned char)random_next_int(min_char, max_char);
-	}
-	ASSERT(i == len - 1);
-	str[i] = '\0';
+    for (i = 0; i < len - 1; i++) {
+        // 33 = '!'
+        // 126 = '~'
+        str[i] = (unsigned char)random_next_int(min_char, max_char);
+    }
+    ASSERT(i == len - 1);
+    str[i] = '\0';
 }
 
 /**
@@ -295,10 +295,10 @@ random_next_printable_string(unsigned char *str, vsize_t len)
 static inline void
 random_gen_values(vuint32_t arr[], vsize_t len, vuint32_t min, vuint32_t max)
 {
-	vsize_t i = 0;
+    vsize_t i = 0;
 
-	for (i = 0; i < len; i++) {
-		arr[i] = random_next_int(min, max);
-	}
+    for (i = 0; i < len; i++) {
+        arr[i] = random_next_int(min, max);
+    }
 }
 #endif

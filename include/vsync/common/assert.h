@@ -12,12 +12,12 @@
 #include <vsync/vtypes.h>
 
 #ifndef ASSERT
-	#include <assert.h>
-	#define ASSERT(V) assert(V)
+    #include <assert.h>
+    #define ASSERT(V) assert(V)
 #endif
 
 #ifndef BUG_ON
-	#define BUG_ON(V) ASSERT(!(V))
+    #define BUG_ON(V) ASSERT(!(V))
 #endif
 
 #define V_STATIC_ASSERT(_cond_, _str_) _Static_assert((_cond_), _str_)

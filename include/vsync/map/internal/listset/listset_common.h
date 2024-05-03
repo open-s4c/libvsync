@@ -1,7 +1,8 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
 #ifndef VLISTSET_COMMON_H
 #define VLISTSET_COMMON_H
 
@@ -21,7 +22,7 @@ typedef vuintptr_t vlistset_key_t;
  * @param key to compare to
  */
 typedef int (*vlistset_cmp_key_t)(struct vlistset_node_s *node,
-								  vlistset_key_t key);
+                                  vlistset_key_t key);
 /**
  * This function is expected to free or recycle
  * @param node address of `vlistset_node_t` node to recycle/free
@@ -29,10 +30,10 @@ typedef int (*vlistset_cmp_key_t)(struct vlistset_node_s *node,
  * an allocator address
  */
 typedef void (*vlistset_handle_node_t)(struct vlistset_node_s *node,
-									   void *args);
+                                       void *args);
 
 static inline void _vlistset_visit(struct vlistset_s *lst,
-								   vlistset_handle_node_t visitor, void *arg,
-								   vbool_t visitor_destructive);
+                                   vlistset_handle_node_t visitor, void *arg,
+                                   vbool_t visitor_destructive);
 
 #endif
