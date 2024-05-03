@@ -27,7 +27,7 @@
 void
 t1(vsize_t tid)
 {
-	enq(tid, 2, 'A');
+    enq(tid, 2, 'A');
 }
 
 /**
@@ -38,13 +38,13 @@ data_t *deq_1 = NULL;
 void
 t2(vsize_t tid)
 {
-	deq_1 = deq(tid);
-	if (deq_1) {
-		ASSERT(deq_1->key == 2 || deq_1->key == 3);
-		free(deq_1);
-	} else {
-		verification_ignore();
-	}
+    deq_1 = deq(tid);
+    if (deq_1) {
+        ASSERT(deq_1->key == 2 || deq_1->key == 3);
+        free(deq_1);
+    } else {
+        verification_ignore();
+    }
 }
 /**
  * for thread with tid = 2
@@ -53,16 +53,16 @@ t2(vsize_t tid)
 void
 t3(vsize_t tid)
 {
-	enq(tid, 3, 'B');
-	queue_clean(tid);
+    enq(tid, 3, 'B');
+    queue_clean(tid);
 }
 void
 verify(void)
 {
-	if (deq_1) {
-		ASSERT(g_len == 1);
-	} else {
-		ASSERT(g_len == 2);
-	}
-	ASSERT(g_final_state[0] == 2 || g_final_state[0] == 3);
+    if (deq_1) {
+        ASSERT(g_len == 1);
+    } else {
+        ASSERT(g_len == 2);
+    }
+    ASSERT(g_final_state[0] == 2 || g_final_state[0] == 3);
 }

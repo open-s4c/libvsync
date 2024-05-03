@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -13,7 +13,7 @@
 #include <vsync/common/verify.h>
 #include <vsync/atomic.h>
 #ifndef NTHREADS
-	#define NTHREADS 3
+    #define NTHREADS 3
 #endif
 /**
  * prototypes
@@ -32,9 +32,9 @@ void *run(void *args);
 
 // include the test case
 #ifdef TEST_CASE
-	#include TEST_CASE
+    #include TEST_CASE
 #else
-	#error "no test case was defined"
+    #error "no test case was defined"
 #endif
 
 /******************************************************************************
@@ -43,9 +43,9 @@ void *run(void *args);
 int
 main(void)
 {
-	init();
-	launch_threads(NTHREADS, run);
-	destroy();
+    init();
+    launch_threads(NTHREADS, run);
+    destroy();
 }
 /******************************************************************************
  * init
@@ -53,8 +53,8 @@ main(void)
 void
 init(void)
 {
-	lsts_init();
-	pre();
+    lsts_init();
+    pre();
 }
 /******************************************************************************
  * destroy
@@ -62,8 +62,8 @@ init(void)
 void
 destroy(void)
 {
-	post();
-	lsts_destroy();
+    post();
+    lsts_destroy();
 }
 /******************************************************************************
  * run
@@ -71,23 +71,23 @@ destroy(void)
 void *
 run(void *args)
 {
-	vsize_t tid = (vsize_t)(vuintptr_t)args;
-	ASSERT(tid < NTHREADS);
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    ASSERT(tid < NTHREADS);
 
-	lst_reg(tid);
-	switch (tid) {
-		case 0:
-			t0(tid);
-			break;
-		case 1:
-			t1(tid);
-			break;
-		case 2:
-			t2(tid);
-			break;
-		default:
-			break;
-	}
-	lst_dereg(tid);
-	return NULL;
+    lst_reg(tid);
+    switch (tid) {
+        case 0:
+            t0(tid);
+            break;
+        case 1:
+            t1(tid);
+            break;
+        case 2:
+            t2(tid);
+            break;
+        default:
+            break;
+    }
+    lst_dereg(tid);
+    return NULL;
 }

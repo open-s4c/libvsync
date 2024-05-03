@@ -11,40 +11,40 @@
  * message passing contains vs. rem
  * remove from the middle
  */
-int msg					= 0;
+int msg                 = 0;
 const vsize_t g_lst_idx = 0;
 void
 pre(void)
 {
-	vsize_t tid = 0;
-	lst_reg(tid);
-	for (vlistset_key_t k = INIT_K1; k <= INIT_K2; k++) {
-		lst_add(tid, g_lst_idx, k);
-	}
-	lst_dereg(tid);
+    vsize_t tid = 0;
+    lst_reg(tid);
+    for (vlistset_key_t k = INIT_K1; k <= INIT_K2; k++) {
+        lst_add(tid, g_lst_idx, k);
+    }
+    lst_dereg(tid);
 }
 void
 t0(vsize_t tid)
 {
-	if (!lst_con(tid, g_lst_idx, 1)) {
-		ASSERT(msg == 1);
-	} else {
-		verification_ignore();
-	}
+    if (!lst_con(tid, g_lst_idx, 1)) {
+        ASSERT(msg == 1);
+    } else {
+        verification_ignore();
+    }
 }
 void
 t1(vsize_t tid)
 {
-	msg = 1;
-	ASSERT(lst_rem(tid, g_lst_idx, 1));
+    msg = 1;
+    ASSERT(lst_rem(tid, g_lst_idx, 1));
 }
 void
 t2(vsize_t tid)
 {
-	lst_clean(tid);
+    lst_clean(tid);
 }
 void
 post(void)
 {
-	lst_verify_traces(g_lst_idx);
+    lst_verify_traces(g_lst_idx);
 }
