@@ -1,0 +1,7 @@
+file(GLOB SRCS *.c)
+foreach(SRC ${SRCS})
+    get_filename_component(TEST ${SRC} NAME_WE)
+    add_executable(${TEST} ${SRC})
+    target_link_libraries(${TEST} vsync pthread)
+    v_add_bin_test(NAME ${TEST} COMMAND ${TEST})
+endforeach()
