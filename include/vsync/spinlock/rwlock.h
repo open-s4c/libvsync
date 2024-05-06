@@ -181,6 +181,7 @@ rwlock_acquired_by_writer(rwlock_t *l)
 static inline vbool_t
 rwlock_acquired_by_readers(rwlock_t *l)
 {
-    return vatomic32_read(&l->rs.s) > 0;
+    vuint32_t s = vatomic32_read(&l->rs.s);
+    return s > 0 && s != l->n;
 }
 #endif
