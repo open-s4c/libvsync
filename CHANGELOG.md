@@ -11,6 +11,19 @@ is not guaranteed to result in increment of major version.
 Please note that the version correlates to the internal libvsync, which is a superset of
 what exists in open-s4c libvsync.
 
+
+### [3.5.1-unreleased]
+
+### Added
+
+- cnalock, clhlock, arraylock, twalock, hmcslock, hclhlock, rec_seqlock and hemlock
+- bitmap
+- simpleht hashtable
+- elimination and xbo backoff stacks
+- mutex, cond, and once
+- treeset
+
+
 ### [3.5.0]
 
 ### Added
