@@ -66,6 +66,5 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with:
-         name: check-report-*
          path: build/logs
       - run: ls build/logs
