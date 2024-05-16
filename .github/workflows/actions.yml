@@ -67,4 +67,11 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
          path: build/logs
-      - run: ls build/logs
+      - run: find . -type f -name "*.csv" | xargs cat | xargs >> verification_report.csv
+      - run: cat verification_report.csv
+      - name: upload final report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: verification_report.csv
+          path: reports
