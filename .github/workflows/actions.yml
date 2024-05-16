@@ -59,3 +59,12 @@ jobs:
       - name: Check things match expectation
         run: cmake --build build --target diff-check ||
             (echo "Run 'make ${{ matrix.target }}' and commit" && false)
+  ###########################################################################
+  Generate-Report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+         name: check-report-*
+         path: build/logs
+      - run: ls build/logs
