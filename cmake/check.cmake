@@ -114,8 +114,7 @@ function(add_vsyncer_check)
             |
             grep
             -vE
-            "^# clang"
-        )
+            "^# clang")
 
         add_custom_command(
             OUTPUT ${VSYNCER_CHECK_LL}
