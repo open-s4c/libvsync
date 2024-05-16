@@ -33,7 +33,7 @@ typedef enum exchanger_slot_state_s {
 
 /**
  * The following code is used only for debugging purposes and is not part of
- * production code
+ * production code.
  *
  */
 #ifdef VEXCHANGER_DBG
@@ -62,10 +62,10 @@ _exchanger_slot_cmpxchg(exchanger_t *exchanger, void *expected_addr,
                         exchanger_slot_state_t expected_state, void *new_addr,
                         exchanger_slot_state_t new_state);
 /**
- * Resets the given exchanger object to initial state
+ * Resets the given exchanger object to initial state.
  *
- * @note use it to initialize the object
- * @param exchanger address of exchanger_t object
+ * @note use it to initialize the object.
+ * @param exchanger address of exchanger_t object.
  */
 static inline void
 exchanger_reset(exchanger_t *exchanger)
@@ -185,11 +185,11 @@ exchanger_xchg(exchanger_t *exchanger, void *my_item, vuint32_t max_trials,
     }
 }
 /**
- * Returns the object and the state of the given `exchanger`'s slot
+ * Returns the object and the state of the given `exchanger`'s slot.
  *
- * @param exchanger address of exchanger_t object
- * @param out_slot_state output parameter the state of the slot
- * @return void* the object address occupying the slot
+ * @param exchanger address of exchanger_t object.
+ * @param out_slot_state output parameter the state of the slot.
+ * @return void* the object address occupying the slot.
  */
 static inline void *
 _exchanger_slot_get(exchanger_t *exchanger,
@@ -203,15 +203,18 @@ _exchanger_slot_get(exchanger_t *exchanger,
     return V_ATOMICPTR_MARKABLE_GET_ADDRESS(ptr);
 }
 /**
- * Compare exchange of the slot state and object
- * @note this is an atomic operation
- * @param exchanger address of exchanger_t object
- * @param expected_addr expected address of object currently occupying the slot
- * @param expected_state expected slot state
- * @param new_addr address of the new object to place
- * @param new_state the new state of the slot
- * @return true compare exchange succeeded
- * @return false compare exchange failed
+ * Compares and exchanges the slot state and object.
+ *
+ * @note this is an atomic operation.
+ *
+ * @param exchanger address of exchanger_t object.
+ * @param expected_addr expected address of object currently occupying the slot.
+ * @param expected_state expected slot state.
+ * @param new_addr address of the new object to place.
+ * @param new_state the new state of the slot.
+ *
+ * @return true compare exchange succeeded.
+ * @return false compare exchange failed.
  */
 static inline vbool_t
 _exchanger_slot_cmpxchg(exchanger_t *exchanger, void *expected_addr,

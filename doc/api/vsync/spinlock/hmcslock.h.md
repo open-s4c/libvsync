@@ -108,7 +108,12 @@ main(void)
 
 ### References:
 
-[High Performance Locks for Multi-level NUMA Systems](https://dl.acm.org/doi/pdf/10.1145/2858788.2688503) 
+[High Performance Locks for Multi-level NUMA Systems](https://dl.acm.org/doi/pdf/10.1145/2858788.2688503)
+
+
+### References:
+
+[Verifying and Optimizing the HMCS Lock for Arm Servers](https://link.springer.com/chapter/10.1007/978-3-030-91014-3_17) 
 
 ---
 # Functions 
@@ -164,7 +169,7 @@ _Initializes the locks array._
 
 > **Note:** e.g., say you have three levels, the machine, two NUMA nodes, and two caches per NUMA. Then `locks_len = 1(machine) + 2(NUMA) + 4 (2*2 caches) = 7`. `num_levels = 3` (including the machine level) define levels_spec as follows: 
 
-```
+```c
 level_specs[num_levels] = {
   {1, LEVEL_THRESHOLD}, // 1 machine
   {2, LEVEL_THRESHOLD}, // 2 NUMAs per machine

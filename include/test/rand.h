@@ -301,4 +301,44 @@ random_gen_values(vuint32_t arr[], vsize_t len, vuint32_t min, vuint32_t max)
         arr[i] = random_next_int(min, max);
     }
 }
+
+
+/* Deterministic random generator that allows multiple seeding,
+ * to be used in testing.
+ */
+
+static inline void
+deterministic_random_init(unsigned int seed)
+{
+    srand(seed);
+}
+
+static inline vuint32_t
+deterministic_random(vuint32_t range)
+{
+    vuint32_t r = 0;
+    do {
+        r = rand() % v_pow2_round_up(range);
+    } while (r >= range);
+    return r;
+}
+
+static inline vuint32_t
+deterministic_random_next_int(vuint32_t min, vuint32_t max)
+{
+    ASSERT(max >= min);
+    return deterministic_random(max - min + 1) + min;
+}
+
+static inline void
+deterministic_random_shuffle(vsize_t arr[], vsize_t len)
+{
+    for (vsize_t i = 1; i < len; ++i) {
+        vsize_t index = deterministic_random_next_int(0, i - 1);
+        vsize_t temp  = arr[i];
+        arr[i]        = arr[index];
+        arr[index]    = temp;
+    }
+}
+
 #endif

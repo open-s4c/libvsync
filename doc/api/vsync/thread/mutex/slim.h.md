@@ -56,7 +56,67 @@ main(void)
 
 
 
-> **Note:** change `#include <`[`vsync/thread/mutex.h`](../mutex.h.md)`>` into `#include <`[`vsync/thread/mutex/slim.h`](slim.h.md)`>` in the above example. 
+> **Note:** replace `#include <`[`vsync/thread/mutex.h`](../mutex.h.md)`>` with `#include <`[`vsync/thread/mutex/slim.h`](slim.h.md)`>` in the example above. 
+
+---
+# Functions 
+
+| Function | Description |
+|---|---|
+| [vmutex_init](slim.h.md#function-vmutex_init) | Initializes the mutex `m`.  |
+| [vmutex_acquire](slim.h.md#function-vmutex_acquire) | Acquires the mutex `m`.  |
+| [vmutex_release](slim.h.md#function-vmutex_release) | Releases the mutex `m`.  |
+
+##  Function `vmutex_init`
+
+```c
+static void vmutex_init(vmutex_t *m)
+``` 
+_Initializes the mutex_ `m`_._ 
+
+
+
+
+**Parameters:**
+
+- `m`: address of [vmutex_t](structvmutex__t) object. 
+
+
+
+
+##  Function `vmutex_acquire`
+
+```c
+static void vmutex_acquire(vmutex_t *m)
+``` 
+_Acquires the mutex_ `m`_._ 
+
+
+
+
+**Parameters:**
+
+- `m`: address of [vmutex_t](structvmutex__t) object. 
+
+
+
+
+##  Function `vmutex_release`
+
+```c
+static void vmutex_release(vmutex_t *m)
+``` 
+_Releases the mutex_ `m`_._ 
+
+
+
+
+**Parameters:**
+
+- `m`: address of [vmutex_t](structvmutex__t) object. 
+
+
+
 
 
 ---

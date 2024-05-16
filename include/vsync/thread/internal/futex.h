@@ -22,7 +22,7 @@
 static vatomic32_t signal;
 
 static inline void
-vfutex_wait(vatomic32_t *m, unsigned int v)
+vfutex_wait(vatomic32_t *m, vuint32_t v)
 {
     vuint32_t s = vatomic32_read_acq(&signal);
     if (vatomic32_read_rlx(m) != v)
@@ -31,7 +31,7 @@ vfutex_wait(vatomic32_t *m, unsigned int v)
 }
 
 static inline void
-vfutex_wake(vatomic32_t *m, unsigned int v)
+vfutex_wake(vatomic32_t *m, vuint32_t v)
 {
     vatomic32_inc_rel(&signal);
 }
@@ -58,8 +58,8 @@ _vfutex_call(int *uaddr, int futex_op, int val)
 static inline void
 vfutex_wait(vatomic32_t *m, vuint32_t v)
 {
-    long s;
-    s = _vfutex_call((int *)m, FUTEX_WAIT, (int)v);
+    long s = 0;
+    s      = _vfutex_call((int *)m, FUTEX_WAIT, (int)v);
 
     if (s == -1 && errno == EAGAIN) {
         return;
@@ -72,10 +72,10 @@ vfutex_wait(vatomic32_t *m, vuint32_t v)
 }
 
 static inline void
-vfutex_wake(vatomic32_t *m, unsigned int nthreads)
+vfutex_wake(vatomic32_t *m, vuint32_t nthreads)
 {
-    long s;
-    s = _vfutex_call((int *)m, FUTEX_WAKE, (int)nthreads);
+    long s = 0;
+    s      = _vfutex_call((int *)m, FUTEX_WAKE, (int)nthreads);
 
     if (s == -1) {
         perror("futex_wake failed");
@@ -85,8 +85,8 @@ vfutex_wake(vatomic32_t *m, unsigned int nthreads)
 
 #else /* expect user to provide the interface */
 
-void vfutex_wait(vatomic32_t *m, unsigned int v);
-void vfutex_wake(vatomic32_t *m, unsigned int v);
+void vfutex_wait(vatomic32_t *m, vuint32_t v);
+void vfutex_wake(vatomic32_t *m, vuint32_t v);
 
 #endif
 

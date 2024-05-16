@@ -12,7 +12,7 @@ Please note that the version correlates to the internal libvsync, which is a sup
 what exists in open-s4c libvsync.
 
 
-### [3.5.1-unreleased]
+### [3.6.0-unreleased]
 
 ### Added
 
@@ -22,6 +22,10 @@ what exists in open-s4c libvsync.
 - elimination and xbo backoff stacks
 - mutex, cond, and once
 - treeset
+
+### Fixed
+
+- implementation of `rwlock_acquired_by_readers`
 
 
 ### [3.5.0]
