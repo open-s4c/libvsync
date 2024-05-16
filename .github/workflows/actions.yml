@@ -33,7 +33,7 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
       - name: Configure Verification
-        run: cmake -S. -Bbuild -DVSYNCER_CHECK=ON
+        run: cmake -S. -Bbuild -DVSYNCER_CHECK=ON -DVSYNCER_CHECK_FULL=ON
       - name: Build Verification Clients for ${{ matrix.test-dir }}
         run: cmake --build build/${{ matrix.test-dir.p }}/${{ matrix.test-dir.c }}
       - name: Run Verification
