@@ -1,3 +1,5 @@
+option(VSYNCER_CHECK "enable vsyncer checks" off)
+option(VSYNCER_CHECK_FULL "disable quick vsyncer checks" off)
 function(add_vsyncer_check)
     # skip if VSYNCER_CHECK is not defined
     if(NOT VSYNCER_CHECK)
@@ -47,8 +49,10 @@ function(add_vsyncer_check)
         CFLAGS #
         -I${PROJECT_SOURCE_DIR}/include #
         -DVSYNC_VERIFICATION #
-        -DVSYNC_VERIFICATION_QUICK
         -DVSYNC_SMR_NOT_AVAILABLE)
+    if(NOT VSYNCER_CHECK_FULL)
+        list(APPEND CFLAGS -DVSYNC_VERIFICATION_QUICK)
+    endif()
     # ##########################################################################
     # Define mode checker env vars
     # ##########################################################################
