@@ -7,20 +7,16 @@
 #define VTHREAD_MUTEX_3STATE_H
 /*******************************************************************************
  * @file tristate.h
- * @brief 3-state mutex
+ * @brief 3-state mutex.
  *
  * @example
- * ```c
- * 	#include <vsync/thread/mutex/tristate.h>
- *	vmutex_t mutex;
- *	void run(void) {
- *		vmutex_acquire(&mutex);
- *		...
- *		vmutex_release(&mutex);
- *	}
- * ```
+ * @include eg_mutex.c
  *
- * @cite Ulrich Drepper -- Futexes Are Tricky. 2004
+ * @note replace `#include <vsync/thread/mutex.h>` with
+ *   `#include <vsync/thread/mutex/tristate.h>` in the example above.
+ *
+ * @cite [Ulrich Drepper - Futexes Are Tricky]
+ * (https://cis.temple.edu/~ingargio/old/cis307s07/readings/futex.pdf)
  *
  ******************************************************************************/
 
@@ -29,33 +25,46 @@
 
 typedef vatomic32_t vmutex_t;
 
+/**
+ * Initializes the mutex `m`.
+ *
+ * @param m address of vmutex_t object.
+ */
 static inline void
 vmutex_init(vmutex_t *m)
 {
-    vatomic32_init(m, 0);
+    vatomic32_init(m, 0U);
 }
-
+/**
+ * Acquires the mutex `m`.
+ *
+ * @param m address of vmutex_t object.
+ */
 static inline void
 vmutex_acquire(vmutex_t *m)
 {
-    if (vatomic32_cmpxchg_acq(m, 0, 1) == 0) {
+    if (vatomic32_cmpxchg_acq(m, 0, 1U) == 0U) {
         return;
     }
 
     do {
-        vatomic32_cmpxchg_rlx(m, 1, 2);
-        vfutex_wait(m, 2);
-    } while (vatomic32_cmpxchg_acq(m, 0, 2) != 0);
+        vatomic32_cmpxchg_rlx(m, 1U, 2U);
+        vfutex_wait(m, 2U);
+    } while (vatomic32_cmpxchg_acq(m, 0U, 2U) != 0U);
 }
-
+/**
+ * Releases the mutex `m`.
+ *
+ * @param m address of vmutex_t object.
+ */
 static inline void
 vmutex_release(vmutex_t *m)
 {
-    if (vatomic32_cmpxchg_rel(m, 1, 0) == 1) {
+    if (vatomic32_cmpxchg_rel(m, 1U, 0U) == 1U) {
         return;
     }
 
-    vatomic32_write_rel(m, 0);
+    vatomic32_write_rel(m, 0U);
     vfutex_wake(m, FUTEX_WAKE_ONE);
 }
 

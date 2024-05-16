@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
-#ifndef VSYNC_HMCS_H
-#define VSYNC_HMCS_H
+#ifndef VSYNC_HMCSLOCK_H
+#define VSYNC_HMCSLOCK_H
 /******************************************************************************
  * @file hmcslock.h
  * @ingroup fair_lock numa_aware
@@ -16,6 +16,10 @@
  * @cite
  * [High Performance Locks for Multi-level NUMA Systems]
  * (https://dl.acm.org/doi/pdf/10.1145/2858788.2688503)
+ *
+ * @cite
+ * [Verifying and Optimizing the HMCS Lock for Arm Servers]
+ * (https://link.springer.com/chapter/10.1007/978-3-030-91014-3_17)
  *****************************************************************************/
 #include <vsync/vtypes.h>
 #include <vsync/atomic.h>
@@ -149,7 +153,7 @@ hmcslock_which_lock(hmcslock_t *locks, vsize_t locks_len,
  *  per NUMA. Then `locks_len = 1(machine) + 2(NUMA) + 4 (2*2 caches) = 7`.
  *	`num_levels = 3` (including the machine level)
  *  define levels_spec as follows:
- * ```C
+ * ```c
  *	 level_specs[num_levels] = {
  *	 	{1, LEVEL_THRESHOLD}, // 1 machine
  *	 	{2, LEVEL_THRESHOLD}, // 2 NUMAs per machine
@@ -197,11 +201,11 @@ hmcslock_acquire(hmcslock_t *lock, hmcs_node_t *qnode, vsize_t num_levels)
     _hmcslock_acquire_real(lock, qnode, num_levels - 1);
 }
 /**
- *	Releases the given lock.
+ * Releases the given lock.
  *
- *	@param lock address of hmcslock_t object.
- *	@param qnode address of hmcs_node_t object.
- *	@param num_levels number of levels including machine level.
+ * @param lock address of hmcslock_t object.
+ * @param qnode address of hmcs_node_t object.
+ * @param num_levels number of levels including machine level.
  *
  * @note `lock` should be what `hmcslock_which_lock` returned.
  */

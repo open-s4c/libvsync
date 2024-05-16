@@ -17,7 +17,7 @@ _Userspace synchronization primitives._
 
 | Directory|Description|
 | --- | --- |
-| [vsync/thread/mutex](mutex/README.md)||
+| [vsync/thread/mutex](mutex/README.md)|Different implementations of user-space mutex. |
 
 
 ---
