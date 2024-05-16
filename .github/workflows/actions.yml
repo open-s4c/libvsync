@@ -69,11 +69,9 @@ jobs:
           pattern: check-report-*
           path: build/logs
       - run: |
-          CSV_FILES=$(find . -type f -name "*.csv")
-          echo $CSV_FILES
-          for f in ${CSV_FILES}; do
-          cat $f | grep -E --invert '^#' >> verification_report.csv
-          done
+          CSV_FILES=( $(find . -type f -name "*.csv") )
+          cat "${CSV_FILES[0]}" | head -n 1 > verification_report.csv
+          cat "${CSV_FILES[@]}" | grep -E --invert '^#' >> vsyncer_log.csv'
           cat verification_report.csv
       - name: upload final report
         uses: actions/upload-artifact@v4
