@@ -71,7 +71,7 @@ jobs:
       - run: |
           CSV_FILES=( $(find . -type f -name "*.csv") )
           cat "${CSV_FILES[0]}" | head -n 1 > verification_report.csv
-          cat "${CSV_FILES[@]}" | grep -E --invert '^#' >> vsyncer_log.csv
+          cat "${CSV_FILES[@]}" | grep -E --invert '^#' >> verification_report.csv
           cat verification_report.csv
       - name: upload final report
         uses: actions/upload-artifact@v4
