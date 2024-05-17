@@ -1,3 +1,5 @@
+option(VSYNCER_CHECK "enable vsyncer checks" off)
+option(VSYNCER_CHECK_FULL "disable quick vsyncer checks" off)
 function(add_vsyncer_check)
     # skip if VSYNCER_CHECK is not defined
     if(NOT VSYNCER_CHECK)
@@ -47,8 +49,12 @@ function(add_vsyncer_check)
         CFLAGS #
         -I${PROJECT_SOURCE_DIR}/include #
         -DVSYNC_VERIFICATION #
-        -DVSYNC_VERIFICATION_QUICK
         -DVSYNC_SMR_NOT_AVAILABLE)
+    if(VSYNCER_CHECK_FULL)
+        set(TIMEOUT 3600)
+    else()
+        list(APPEND CFLAGS -DVSYNC_VERIFICATION_QUICK)
+    endif()
     # ##########################################################################
     # Define mode checker env vars
     # ##########################################################################
@@ -88,12 +94,44 @@ function(add_vsyncer_check)
     foreach(WMM IN ITEMS ${WMMS})
         set(TEST_NAME ${TARGET}_${WMM})
         string(TOUPPER ${WMM} WMM_UP)
-        list(APPEND CFLAGS -DVSYNC_VERIFICATION_${WMM_UP})
-        string(REPLACE ";" " " CFLAGS "${CFLAGS}")
-        string(REPLACE "\"'\"" "\"" CFLAGS "${CFLAGS}")
+        set(COMPILE_FLAGS ${CFLAGS} -DVSYNC_VERIFICATION_${WMM_UP})
+
+        # ######################################################################
+        # Compile ll file with vsyncer
+        # ######################################################################
+
+        set(VSYNCER_CHECK_LL ${CMAKE_CURRENT_SOURCE_DIR}/${TEST_NAME}.ll)
+
+        set(VSYNCER_COMPILE_CMD
+            env
+            CFLAGS="${COMPILE_FLAGS}"
+            vsyncer
+            compile
+            -d
+            --checker
+            ${CHECKER}
+            -o=${VSYNCER_CHECK_LL}
+            ${CLIENT}
+            |
+            tee
+            ${VSYNCER_CHECK_LL}.log
+            |
+            grep
+            -vE
+            "^# clang")
+
+        add_custom_command(
+            OUTPUT ${VSYNCER_CHECK_LL}
+            COMMAND ${VSYNCER_COMPILE_CMD}
+            DEPENDS ${CLIENT})
+
+        add_custom_target(${TEST_NAME} ALL DEPENDS ${VSYNCER_CHECK_LL})
+
+        # ######################################################################
+        # Run vsyncer check with ctest on the generated ll file
+        # ######################################################################
         set(VSYNCER_CMD #
             env
-            CFLAGS=${CFLAGS} #
             ${CHECKER_ENV} #
             vsyncer
             check
@@ -106,7 +144,9 @@ function(add_vsyncer_check)
             ${WMM} #
             --timeout
             ${TIMEOUT}s)
-        add_test(NAME ${TEST_NAME} COMMAND ${VSYNCER_CMD} ${CLIENT})
+        add_test(NAME ${TEST_NAME} COMMAND ${VSYNCER_CMD} ${VSYNCER_CHECK_LL})
         set_property(TEST ${TEST_NAME} PROPERTY SKIP_RETURN_CODE 1)
+        math(EXPR CTEST_TIMEOUT "${TIMEOUT} + 5")
+        set_tests_properties(${TEST_NAME} PROPERTIES TIMEOUT ${CTEST_TIMEOUT})
     endforeach()
 endfunction()
