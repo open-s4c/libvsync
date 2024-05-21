@@ -12,7 +12,7 @@ Please note that the version correlates to the internal libvsync, which is a sup
 what exists in open-s4c libvsync.
 
 
-### [3.6.0-unreleased]
+### [3.6.0]
 
 ### Added
 
