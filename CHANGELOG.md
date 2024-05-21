@@ -25,7 +25,9 @@ what exists in open-s4c libvsync.
 
 ### Fixed
 
-- implementation of `rwlock_acquired_by_readers`
+- implementation of `rwlock_acquired_by_readers`, which used to return
+true also in the case of neither a writer nor a reader acquired the lock.
+Now it returns true if and only if the lock is acquired by readers, as the name suggests.
 
 
 ### [3.5.0]
