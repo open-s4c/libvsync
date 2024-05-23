@@ -1,0 +1,67 @@
+{
+  "parse": {
+    "additional_commands": {
+      "add_toolchain": {
+        "pargs": {
+          "nargs": 3
+        }
+      },
+      "add_vsyncer_check": {
+        "kwargs": {
+          "CFLAGS": "+",
+          "DEPENDENCIES": "+",
+          "MEMORY_MODELS": "+",
+          "SOURCE": 1,
+          "TARGET": 1,
+          "TIMEOUT": 1
+        },
+        "pargs": {
+          "flags": [],
+          "nargs": "*"
+        }
+      },
+      "get_filename_wext": {
+        "pargs": {
+          "nargs": 2
+        }
+      },
+      "get_git_tag": {
+        "pargs": {
+          "nargs": 1
+        }
+      },
+      "get_includes": {
+        "pargs": {
+          "nargs": 1
+        }
+      },
+      "get_toolkit_qemu": {
+        "pargs": {
+          "nargs": 3
+        }
+      },
+      "project_tag": {
+        "pargs": {
+          "nargs": 0
+        }
+      },
+      "CPMAddPackage": {},
+      "_CPMAddPackage": {},
+      "vsync_install": {
+        "kwargs": {
+          "DIRECTORY": "+",
+          "DESTINATION": "+",
+          "COMPONENTS": "+",
+          "EXTRA_ARGS": "+"
+        },
+        "pargs": {
+          "flags": [],
+          "nargs": "*"
+        }
+      }
+    }
+  },
+  "format": {
+    "tab_size": 4
+  }
+}

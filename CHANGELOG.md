@@ -11,6 +11,25 @@ is not guaranteed to result in increment of major version.
 Please note that the version correlates to the internal libvsync, which is a superset of
 what exists in open-s4c libvsync.
 
+
+### [3.6.0]
+
+### Added
+
+- cnalock, clhlock, arraylock, twalock, hmcslock, hclhlock, rec_seqlock and hemlock
+- bitmap
+- simpleht hashtable
+- elimination and xbo backoff stacks
+- mutex, cond, and once
+- treeset
+
+### Fixed
+
+- implementation of `rwlock_acquired_by_readers`, which used to return
+true also in the case of neither a writer nor a reader acquired the lock.
+Now it returns true if and only if the lock is acquired by readers, as the name suggests.
+
+
 ### [3.5.0]
 
 ### Added

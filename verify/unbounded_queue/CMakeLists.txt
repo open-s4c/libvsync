@@ -19,6 +19,9 @@ endif()
 # verification template file
 set(VERIFY_FILE unbounded_queue_verify.c)
 
+# Enable some tests with VMM and set extra options for Dartagnan
+set(DAT3M_BOUND_VQUEUE_UB_TOTAL 4)
+
 foreach(test_path IN ITEMS ${TEST_CASES})
     # extract test_name with extension
     get_filename_component(test_name ${test_path} NAME)
@@ -59,6 +62,18 @@ foreach(test_path IN ITEMS ${TEST_CASES})
             DEPENDENCIES vsync
             TIMEOUT 1200 #
                     ${CHECK_OPTIONS})
+
+        if(${DAT3M_BOUND_${algo}})
+            add_vsyncer_check(
+                TARGET check_${TEST}
+                SOURCE ${VERIFY_FILE}
+                CFLAGS -D${algo} ${TEST_DEFS} ${tc_check} USE_DAT3M
+                MEMORY_MODELS vmm DARTAGNAN_OPTIONS
+                              --bound=${DAT3M_BOUND_${algo}}
+                DEPENDENCIES vsync
+                TIMEOUT 1200 #
+                        ${CHECK_OPTIONS})
+        endif()
 
     endforeach()
 

@@ -43,11 +43,10 @@
  *
  * The following example waits for the pointer me->next to be equal to pred.
  * Once the condition is met, write NULL in me->next. The variable next contains
- * the value that satisfied the condition. The operation has an release
- * barrier.
+ * the value that satisfied the condition. The operation has a release barrier.
  *
- * ```
- * node_t *next = vatomicptr_await_eq_set_acq(me->next, pred, NULL);
+ * ```c
+ * node_t *next = vatomicptr_await_eq_set_rel(me->next, pred, NULL);
  * ```
  *
  * ### Return value

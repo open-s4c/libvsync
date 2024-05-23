@@ -23,14 +23,17 @@ jobs:
     container: ghcr.io/open-s4c/vsyncer-ci:sha-5f9eab426f2608a9fac2eabf15c7614c73a81736
     strategy:
       matrix:
-        test-dir: [ {p: "test", c: "spinlock"}, {p: "test", c: "quack"},  {p: "test", c: "queue"}, {p: "verify", c: "unbounded_queue"}, {p: "verify", c: "listset"} ]
+        test-dir: [ {p: "test", c: "spinlock"}, {p: "test", c: "quack"},  {p: "test", c: "queue"},
+                    {p: "verify", c: "unbounded_queue"}, {p: "verify", c: "listset"} ,
+                    {p: "verify", c: "stack"}, {p: "verify", c: "thread"}, {p: "verify", c: "simpleht"},
+                    {p: "verify", c: "bitmap"}, {p: "verify", c: "treeset"}]
     steps:
       - name: Print vsyncer version
         run: vsyncer version
       - name: Check out repository code
         uses: actions/checkout@v4
       - name: Configure Verification
-        run: cmake -S. -Bbuild -DVSYNCER_CHECK=ON
+        run: cmake -S. -Bbuild -DVSYNCER_CHECK=ON -DVSYNCER_CHECK_FULL=OFF
       - name: Build Verification Clients for ${{ matrix.test-dir }}
         run: cmake --build build/${{ matrix.test-dir.p }}/${{ matrix.test-dir.c }}
       - name: Run Verification
