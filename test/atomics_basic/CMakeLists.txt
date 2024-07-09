@@ -154,6 +154,10 @@ foreach(TC_VARIANT ${TC_VARIANTS})
                 )
                 configure_file(vatomic_basic.c.in ${TC}.c)
                 add_executable(${TC} ${TC}.c)
+                if(${TC_VARIANT} STREQUAL compat)
+                    target_compile_definitions(
+                        ${TC} PRIVATE VSYNC_DISABLE_DEPRECATED_WARNING)
+                endif()
                 target_link_libraries(${TC} vsync pthread)
 
                 v_add_bin_test(NAME ${TC} COMMAND ${TC})

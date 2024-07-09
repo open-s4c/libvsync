@@ -11,6 +11,11 @@ is not guaranteed to result in increment of major version.
 Please note that the version correlates to the internal libvsync, which is a superset of
 what exists in open-s4c libvsync.
 
+### [4.0.0]
+
+### Removed
+
+- deprecated *atomic*_wait_mask_neq* and *atomic*_wait_mask_eq* APIs
 
 ### [3.6.0]
 
