@@ -8,6 +8,25 @@ set(VERIFY_WITH_GENMC10 #
     hclhlock #
 )
 
+set(LOTTO_LOCK_TYPES
+    arraylock
+    caslock
+    clhlock
+    cnalock
+    hclhlock_2t
+    hclhlock
+    hemlock
+    hmcslock
+    mcslock
+    rec_mcslock
+    rec_spinlock
+    rec_ticketlock
+    rwlock
+    taslock
+    ticketlock
+    ttaslock
+    twalock)
+
 foreach(SRC ${SRCS})
     get_filename_component(TEST ${SRC} NAME_WE)
 
@@ -15,6 +34,14 @@ foreach(SRC ${SRCS})
     target_link_libraries(${TEST} vsync pthread)
     target_include_directories(${TEST} PRIVATE include)
     v_add_bin_test(NAME ${TEST} COMMAND ${TEST})
+
+    if(${TEST} IN_LIST LOTTO_LOCK_TYPES)
+        add_lotto_test(
+            NAME ${TEST} #
+            SOURCE ${SRC} #
+            ROUNDS 10 #
+        )
+    endif()
 
     if(DEFINED MEMORY_MODELS_${TEST})
         set(MEMORY_MODELS "${MEMORY_MODELS_${TEST}}")
@@ -45,26 +72,30 @@ set(CFLAGS_arraylock -DARRAY_LOCK_LEN=${ARRAY_LOCK_LEN})
 set(DAT3M_BOUND_arraylock ${ARRAY_LOCK_BOUND})
 set(DAT3M_BOUND_caslock 1)
 set(DAT3M_BOUND_clhlock 1)
-if(${VSYNC_VERIFICATION_QUICK})
-    set(DAT3M_BOUND_cnalock 5)
-else()
-    set(DAT3M_BOUND_cnalock 6)
-endif()
 set(DAT3M_BOUND_hclhlock_2t 4)
 set(DAT3M_BOUND_hemlock 1)
 set(DAT3M_BOUND_mcslock 1)
 set(DAT3M_BOUND_rec_mcslock 1)
-set(DAT3M_BOUND_rec_seqlock 3)
 set(DAT3M_BOUND_rec_spinlock 1)
 set(DAT3M_BOUND_rec_ticketlock 1)
-set(DAT3M_BOUND_rwlock 3)
-set(DAT3M_BOUND_semaphore 3)
 set(DAT3M_BOUND_seqcount 1)
 set(DAT3M_BOUND_seqlock 3)
 set(DAT3M_BOUND_ticketlock 1)
 set(DAT3M_BOUND_ttaslock 3)
 set(CFLAGS_twalock -DTWA_A=128)
 set(DAT3M_BOUND_twalock 2)
+if(${VSYNCER_CHECK_FULL})
+    set(DAT3M_BOUND_cnalock 6)
+    set(DAT3M_BOUND_rec_seqlock 4)
+    set(DAT3M_BOUND_rwlock 5)
+    set(DAT3M_BOUND_semaphore 5)
+    set(DAT3M_BOUND_hclhlock 5)
+else()
+    set(DAT3M_BOUND_cnalock 5)
+    set(DAT3M_BOUND_rec_seqlock 3)
+    set(DAT3M_BOUND_rwlock 3)
+    set(DAT3M_BOUND_semaphore 3)
+endif()
 
 foreach(SRC ${SRCS})
     get_filename_component(TEST ${SRC} NAME_WE)
