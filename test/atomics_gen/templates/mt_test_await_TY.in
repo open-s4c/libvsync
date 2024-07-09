@@ -470,67 +470,6 @@ mt_atomic_TY_await_COND_set_MS(void)
     V_UNUSED(cur, expected);
 }
 _tmpl_end;
-_tmpl_dl; // -------------------------------------------------------------------
-_tmpl_dl; // await_mask_neq
-_tmpl_dl; // -------------------------------------------------------------------
-_tmpl_map(MAP_MASK_u32, VUINT32_MAX);
-_tmpl_map(MAP_MASK_u64, VUINT64_MAX);
-_tmpl_begin(TY = [[u8; u16; u32; u64]], MO = [[seq]], COND = [[eq]]);
-/*****************************************************************************
- * Multi-thread Test: _vatomic_await_mask_COND_MS
- *****************************************************************************/
-static inline void *
-mt_atomic_TY_await_mask_COND_MS_run(void *args)
-{
-    vsize_t tid = (vsize_t)(vuintptr_t)args;
-    TT mask    = (TT)tid;
-    TT new_val = (TT)(tid + 1);
-
-    TT cur = _vatomic_await_mask_COND_MS(&g_shared, mask, mask);
-    ASSERT(cur == mask);
-    _vatomic_write(&g_shared, new_val);
-    V_UNUSED(cur);
-    return NULL;
-}
-static inline void
-mt_atomic_TY_await_mask_COND_MS(void)
-{
-    _vatomic_init(&g_shared, 0);
-    launch_threads(MAX_THREADS, mt_atomic_TY_await_mask_COND_MS_run);
-    TT cur = _vatomic_read(&g_shared);
-    ASSERT(cur == MAX_THREADS);
-    V_UNUSED(cur);
-}
-_tmpl_end;
-_tmpl_begin(TY = [[u8; u16; u32; u64]], MO = [[seq]], COND = [[neq]]);
-/*****************************************************************************
- * Multi-thread Test: _vatomic_await_mask_COND_MS
- *****************************************************************************/
-static inline void *
-mt_atomic_TY_await_mask_COND_MS_run(void *args)
-{
-    vsize_t tid = (vsize_t)(vuintptr_t)args;
-    TT mask    = (TT)tid;
-
-    if (tid == 0) {
-        _vatomic_write(&g_shared, 0);
-    } else {
-        TT cur = _vatomic_await_mask_COND_MS(&g_shared, mask, mask);
-        ASSERT(cur == 0);
-        V_UNUSED(cur);
-    }
-    return NULL;
-}
-static inline void
-mt_atomic_TY_await_mask_COND_MS(void)
-{
-    _vatomic_init(&g_shared, MAP_MASK_TY);
-    launch_threads(MAX_THREADS, mt_atomic_TY_await_mask_COND_MS_run);
-    TT cur = _vatomic_read(&g_shared);
-    ASSERT(cur == 0);
-    V_UNUSED(cur);
-}
-_tmpl_end;
 /*****************************************************************************
  * Entry point
  *****************************************************************************/
@@ -555,10 +494,6 @@ main(void)
     _tmpl_begin(TY = [[u8; u16; u32; u64]], MO = [[seq]],
                 COND = [[gt; ge; lt; eq; neq]]);
     mt_atomic_TY_await_COND_set_MS();
-    _tmpl_end;
-
-    _tmpl_begin(TY = [[u8; u16; u32; u64]], MO = [[seq]], COND = [[eq; neq]]);
-    mt_atomic_TY_await_mask_COND_MS();
     _tmpl_end;
 
     _tmpl_begin(TY = [[ptr]], MO = [[seq]], COND = [[eq; neq]]);

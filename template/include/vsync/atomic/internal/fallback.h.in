@@ -341,34 +341,6 @@ _vatomic_await_eq_MS(AA *a, TT c)
 _tmpl_end;
 
 /* *****************************************************************************
- * vatomic_await_mask_{neq, eq} functions
- * ****************************************************************************/
-
-_tmpl_begin(TY = [[u32; u64]], MO = [[seq; acq; rlx]], FUNC = await_mask_neq);
-static inline V_DEPRECATED TT
-_vatomic_await_mask_neq_MS(AA *a, TT m, TT v)
-{
-    TT cur = MAP_INIT_TY;
-    await_while ((cur = _vatomic_read_MS(a), (cur & m) == (v & m))) {
-        vatomic_cpu_pause();
-    }
-    return cur;
-}
-_tmpl_end;
-
-_tmpl_begin(TY = [[u32; u64]], MO = [[seq; acq; rlx]], FUNC = await_mask_eq);
-static inline V_DEPRECATED TT
-_vatomic_await_mask_eq_MS(AA *a, TT m, TT v)
-{
-    TT cur = MAP_INIT_TY;
-    await_while ((cur = _vatomic_read_MS(a), (cur & m) != (v & m))) {
-        vatomic_cpu_pause();
-    }
-    return cur;
-}
-_tmpl_end;
-
-/* *****************************************************************************
  * vatomic_await_COND functions
  * ****************************************************************************/
 
