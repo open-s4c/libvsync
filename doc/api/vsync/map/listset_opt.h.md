@@ -99,13 +99,20 @@ retire_cb(vlistset_node_t *node, void *args)
     (void)args;
 }
 
+int
+yield_cb(void *args)
+{
+    (void)args;
+    return sched_yield();
+}
+
 vatomic8_t g_stop = VATOMIC_INIT(0);
 
 void
 reclaim(void)
 {
     while (vatomic8_read(&g_stop) == 0) {
-        vsize_t count = gdump_recycle(&g_gdump, sched_yield, 1);
+        vsize_t count = gdump_recycle(&g_gdump, yield_cb, NULL, 1);
         if (count > 0) {
             printf("%zu node(s) were reclaimed\n", count);
         }
@@ -158,7 +165,7 @@ writer(gdump_thread_t *thread)
     gdump_deregister(&g_gdump, thread);
 
     // writer is done, it can trigger recycle if it wishes
-    vsize_t count = gdump_recycle(&g_gdump, sched_yield, 1);
+    vsize_t count = gdump_recycle(&g_gdump, yield_cb, NULL, 1);
     printf("writer reclaimed %zu nodes\n", count);
 }
 
