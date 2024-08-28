@@ -61,7 +61,7 @@ _tmpl_map(PP, MAP_P_TY);
 _tmpl_map(TT, MAP_T_TY);
 _tmpl_map(ME, MAP_E_MO);
 _tmpl_map(_MS, MAP_M_MO);
-_tmpl_map(_vatomic, PP);
+_tmpl_map(__vatomic, PP);
 _tmpl_dl ***********************************************************************
 _tmpl_dl *** Additional mappings
 _tmpl_dl ***********************************************************************

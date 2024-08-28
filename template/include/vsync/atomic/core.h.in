@@ -105,11 +105,30 @@ _tmpl_begin(TY = [[u8; u16; u32; u64; sz; ptr]], h.in = h);
 _tmpl_end;
 
 /* *****************************************************************************
+ * config
+ * ****************************************************************************/
+#if defined(VATOMIC_ENABLE_ATOMIC_SC)
+_tmpl_begin(TY = [[fnc; u8; u16; u32; u64; sz; ptr]], h.in = h);
+#include <vsync/atomic/internal/config/TY_sc.h>
+_tmpl_end;
+#elif defined(VATOMIC_ENABLE_ATOMIC_RLX)
+_tmpl_begin(TY = [[fnc; u8; u16; u32; u64; sz; ptr]], h.in = h);
+#include <vsync/atomic/internal/config/TY_rlx.h>
+_tmpl_end;
+#endif
+/* *****************************************************************************
  * Select vatomic implementation and include definitions
  * ****************************************************************************/
 
 #if !defined(VATOMIC_BUILTINS) && defined(__arm__)
-    #include <vsync/atomic/internal/arm32.h>
+    #if defined(__ARM_ARCH) && __ARM_ARCH == 8
+        #define VATOMIC_ARM32_V8
+        #include <vsync/atomic/internal/arm32_v8.h>
+    #else
+        /* we don't support ARM archs that are older than v7 */
+        #define VATOMIC_ARM32_V7
+        #include <vsync/atomic/internal/arm32_v7.h>
+    #endif
 #elif !defined(VATOMIC_BUILTINS) && defined(__aarch64__)
     #include <vsync/atomic/internal/arm64.h>
 #elif !defined(VATOMIC_BUILTINS) && defined(__x86_64__)
