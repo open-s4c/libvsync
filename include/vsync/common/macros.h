@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: MIT
  */
 
-
 #ifndef VSYNC_COMMON_MACROS_H
 #define VSYNC_COMMON_MACROS_H
 
