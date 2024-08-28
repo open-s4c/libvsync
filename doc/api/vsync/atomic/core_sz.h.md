@@ -97,17 +97,17 @@ Please do not include this file directly, instead use:
 | [vatomicsz_inc](core_sz.h.md#function-vatomicsz_inc) | Increments the value of a.  |
 | [vatomicsz_inc_rel](core_sz.h.md#function-vatomicsz_inc_rel) | Increments the value of a.  |
 | [vatomicsz_inc_rlx](core_sz.h.md#function-vatomicsz_inc_rlx) | Increments the value of a.  |
-| [vatomicsz_get_sub](core_sz.h.md#function-vatomicsz_get_sub) | Substracts v from a and returns the old value.  |
-| [vatomicsz_get_sub_acq](core_sz.h.md#function-vatomicsz_get_sub_acq) | Substracts v from a and returns the old value.  |
-| [vatomicsz_get_sub_rel](core_sz.h.md#function-vatomicsz_get_sub_rel) | Substracts v from a and returns the old value.  |
-| [vatomicsz_get_sub_rlx](core_sz.h.md#function-vatomicsz_get_sub_rlx) | Substracts v from a and returns the old value.  |
-| [vatomicsz_sub_get](core_sz.h.md#function-vatomicsz_sub_get) | Substracts v from a and returns the new value.  |
-| [vatomicsz_sub_get_acq](core_sz.h.md#function-vatomicsz_sub_get_acq) | Substracts v from a and returns the new value.  |
-| [vatomicsz_sub_get_rel](core_sz.h.md#function-vatomicsz_sub_get_rel) | Substracts v from a and returns the new value.  |
-| [vatomicsz_sub_get_rlx](core_sz.h.md#function-vatomicsz_sub_get_rlx) | Substracts v from a and returns the new value.  |
-| [vatomicsz_sub](core_sz.h.md#function-vatomicsz_sub) | Substracts v from a.  |
-| [vatomicsz_sub_rel](core_sz.h.md#function-vatomicsz_sub_rel) | Substracts v from a.  |
-| [vatomicsz_sub_rlx](core_sz.h.md#function-vatomicsz_sub_rlx) | Substracts v from a.  |
+| [vatomicsz_get_sub](core_sz.h.md#function-vatomicsz_get_sub) | Subtracts v from a and returns the old value.  |
+| [vatomicsz_get_sub_acq](core_sz.h.md#function-vatomicsz_get_sub_acq) | Subtracts v from a and returns the old value.  |
+| [vatomicsz_get_sub_rel](core_sz.h.md#function-vatomicsz_get_sub_rel) | Subtracts v from a and returns the old value.  |
+| [vatomicsz_get_sub_rlx](core_sz.h.md#function-vatomicsz_get_sub_rlx) | Subtracts v from a and returns the old value.  |
+| [vatomicsz_sub_get](core_sz.h.md#function-vatomicsz_sub_get) | Subtracts v from a and returns the new value.  |
+| [vatomicsz_sub_get_acq](core_sz.h.md#function-vatomicsz_sub_get_acq) | Subtracts v from a and returns the new value.  |
+| [vatomicsz_sub_get_rel](core_sz.h.md#function-vatomicsz_sub_get_rel) | Subtracts v from a and returns the new value.  |
+| [vatomicsz_sub_get_rlx](core_sz.h.md#function-vatomicsz_sub_get_rlx) | Subtracts v from a and returns the new value.  |
+| [vatomicsz_sub](core_sz.h.md#function-vatomicsz_sub) | Subtracts v from a.  |
+| [vatomicsz_sub_rel](core_sz.h.md#function-vatomicsz_sub_rel) | Subtracts v from a.  |
+| [vatomicsz_sub_rlx](core_sz.h.md#function-vatomicsz_sub_rlx) | Subtracts v from a.  |
 | [vatomicsz_get_dec](core_sz.h.md#function-vatomicsz_get_dec) | Decrements the value of a and returns the old value.  |
 | [vatomicsz_get_dec_acq](core_sz.h.md#function-vatomicsz_get_dec_acq) | Decrements the value of a and returns the old value.  |
 | [vatomicsz_get_dec_rel](core_sz.h.md#function-vatomicsz_get_dec_rel) | Decrements the value of a and returns the old value.  |
@@ -144,7 +144,7 @@ The initialization is equivalent to an [vatomicsz_write()](core_sz.h.md#function
 ##  Function `vatomicsz_read`
 
 ```c
-static vsize_t vatomicsz_read(vatomicsz_t *a)
+static vsize_t vatomicsz_read(const vatomicsz_t *a)
 ``` 
 _Returns the value of the atomic variable pointed by a._ 
 
@@ -164,7 +164,7 @@ _Returns the value of the atomic variable pointed by a._
 ##  Function `vatomicsz_read_acq`
 
 ```c
-static vsize_t vatomicsz_read_acq(vatomicsz_t *a)
+static vsize_t vatomicsz_read_acq(const vatomicsz_t *a)
 ``` 
 _Returns the value of the atomic variable pointed by a._ 
 
@@ -184,7 +184,7 @@ _Returns the value of the atomic variable pointed by a._
 ##  Function `vatomicsz_read_rlx`
 
 ```c
-static vsize_t vatomicsz_read_rlx(vatomicsz_t *a)
+static vsize_t vatomicsz_read_rlx(const vatomicsz_t *a)
 ``` 
 _Returns the value of the atomic variable pointed by a._ 
 
@@ -1770,7 +1770,7 @@ _Increments the value of a._
 ```c
 static vsize_t vatomicsz_get_sub(vatomicsz_t *a, vsize_t v)
 ``` 
-_Substracts v from a and returns the old value._ 
+_Subtracts v from a and returns the old value._ 
 
 
 
@@ -1791,7 +1791,7 @@ _Substracts v from a and returns the old value._
 ```c
 static vsize_t vatomicsz_get_sub_acq(vatomicsz_t *a, vsize_t v)
 ``` 
-_Substracts v from a and returns the old value._ 
+_Subtracts v from a and returns the old value._ 
 
 
 
@@ -1812,7 +1812,7 @@ _Substracts v from a and returns the old value._
 ```c
 static vsize_t vatomicsz_get_sub_rel(vatomicsz_t *a, vsize_t v)
 ``` 
-_Substracts v from a and returns the old value._ 
+_Subtracts v from a and returns the old value._ 
 
 
 
@@ -1833,7 +1833,7 @@ _Substracts v from a and returns the old value._
 ```c
 static vsize_t vatomicsz_get_sub_rlx(vatomicsz_t *a, vsize_t v)
 ``` 
-_Substracts v from a and returns the old value._ 
+_Subtracts v from a and returns the old value._ 
 
 
 
@@ -1854,7 +1854,7 @@ _Substracts v from a and returns the old value._
 ```c
 static vsize_t vatomicsz_sub_get(vatomicsz_t *a, vsize_t v)
 ``` 
-_Substracts v from a and returns the new value._ 
+_Subtracts v from a and returns the new value._ 
 
 
 
@@ -1875,7 +1875,7 @@ _Substracts v from a and returns the new value._
 ```c
 static vsize_t vatomicsz_sub_get_acq(vatomicsz_t *a, vsize_t v)
 ``` 
-_Substracts v from a and returns the new value._ 
+_Subtracts v from a and returns the new value._ 
 
 
 
@@ -1896,7 +1896,7 @@ _Substracts v from a and returns the new value._
 ```c
 static vsize_t vatomicsz_sub_get_rel(vatomicsz_t *a, vsize_t v)
 ``` 
-_Substracts v from a and returns the new value._ 
+_Subtracts v from a and returns the new value._ 
 
 
 
@@ -1917,7 +1917,7 @@ _Substracts v from a and returns the new value._
 ```c
 static vsize_t vatomicsz_sub_get_rlx(vatomicsz_t *a, vsize_t v)
 ``` 
-_Substracts v from a and returns the new value._ 
+_Subtracts v from a and returns the new value._ 
 
 
 
@@ -1938,7 +1938,7 @@ _Substracts v from a and returns the new value._
 ```c
 static void vatomicsz_sub(vatomicsz_t *a, vsize_t v)
 ``` 
-_Substracts v from a._ 
+_Subtracts v from a._ 
 
 
 
@@ -1957,7 +1957,7 @@ _Substracts v from a._
 ```c
 static void vatomicsz_sub_rel(vatomicsz_t *a, vsize_t v)
 ``` 
-_Substracts v from a._ 
+_Subtracts v from a._ 
 
 
 
@@ -1976,7 +1976,7 @@ _Substracts v from a._
 ```c
 static void vatomicsz_sub_rlx(vatomicsz_t *a, vsize_t v)
 ``` 
-_Substracts v from a._ 
+_Subtracts v from a._ 
 
 
 

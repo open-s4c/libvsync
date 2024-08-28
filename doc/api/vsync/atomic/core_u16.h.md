@@ -97,17 +97,17 @@ Please do not include this file directly, instead use:
 | [vatomic16_inc](core_u16.h.md#function-vatomic16_inc) | Increments the value of a.  |
 | [vatomic16_inc_rel](core_u16.h.md#function-vatomic16_inc_rel) | Increments the value of a.  |
 | [vatomic16_inc_rlx](core_u16.h.md#function-vatomic16_inc_rlx) | Increments the value of a.  |
-| [vatomic16_get_sub](core_u16.h.md#function-vatomic16_get_sub) | Substracts v from a and returns the old value.  |
-| [vatomic16_get_sub_acq](core_u16.h.md#function-vatomic16_get_sub_acq) | Substracts v from a and returns the old value.  |
-| [vatomic16_get_sub_rel](core_u16.h.md#function-vatomic16_get_sub_rel) | Substracts v from a and returns the old value.  |
-| [vatomic16_get_sub_rlx](core_u16.h.md#function-vatomic16_get_sub_rlx) | Substracts v from a and returns the old value.  |
-| [vatomic16_sub_get](core_u16.h.md#function-vatomic16_sub_get) | Substracts v from a and returns the new value.  |
-| [vatomic16_sub_get_acq](core_u16.h.md#function-vatomic16_sub_get_acq) | Substracts v from a and returns the new value.  |
-| [vatomic16_sub_get_rel](core_u16.h.md#function-vatomic16_sub_get_rel) | Substracts v from a and returns the new value.  |
-| [vatomic16_sub_get_rlx](core_u16.h.md#function-vatomic16_sub_get_rlx) | Substracts v from a and returns the new value.  |
-| [vatomic16_sub](core_u16.h.md#function-vatomic16_sub) | Substracts v from a.  |
-| [vatomic16_sub_rel](core_u16.h.md#function-vatomic16_sub_rel) | Substracts v from a.  |
-| [vatomic16_sub_rlx](core_u16.h.md#function-vatomic16_sub_rlx) | Substracts v from a.  |
+| [vatomic16_get_sub](core_u16.h.md#function-vatomic16_get_sub) | Subtracts v from a and returns the old value.  |
+| [vatomic16_get_sub_acq](core_u16.h.md#function-vatomic16_get_sub_acq) | Subtracts v from a and returns the old value.  |
+| [vatomic16_get_sub_rel](core_u16.h.md#function-vatomic16_get_sub_rel) | Subtracts v from a and returns the old value.  |
+| [vatomic16_get_sub_rlx](core_u16.h.md#function-vatomic16_get_sub_rlx) | Subtracts v from a and returns the old value.  |
+| [vatomic16_sub_get](core_u16.h.md#function-vatomic16_sub_get) | Subtracts v from a and returns the new value.  |
+| [vatomic16_sub_get_acq](core_u16.h.md#function-vatomic16_sub_get_acq) | Subtracts v from a and returns the new value.  |
+| [vatomic16_sub_get_rel](core_u16.h.md#function-vatomic16_sub_get_rel) | Subtracts v from a and returns the new value.  |
+| [vatomic16_sub_get_rlx](core_u16.h.md#function-vatomic16_sub_get_rlx) | Subtracts v from a and returns the new value.  |
+| [vatomic16_sub](core_u16.h.md#function-vatomic16_sub) | Subtracts v from a.  |
+| [vatomic16_sub_rel](core_u16.h.md#function-vatomic16_sub_rel) | Subtracts v from a.  |
+| [vatomic16_sub_rlx](core_u16.h.md#function-vatomic16_sub_rlx) | Subtracts v from a.  |
 | [vatomic16_get_dec](core_u16.h.md#function-vatomic16_get_dec) | Decrements the value of a and returns the old value.  |
 | [vatomic16_get_dec_acq](core_u16.h.md#function-vatomic16_get_dec_acq) | Decrements the value of a and returns the old value.  |
 | [vatomic16_get_dec_rel](core_u16.h.md#function-vatomic16_get_dec_rel) | Decrements the value of a and returns the old value.  |
@@ -144,7 +144,7 @@ The initialization is equivalent to an [vatomic16_write()](core_u16.h.md#functio
 ##  Function `vatomic16_read`
 
 ```c
-static vuint16_t vatomic16_read(vatomic16_t *a)
+static vuint16_t vatomic16_read(const vatomic16_t *a)
 ``` 
 _Returns the value of the atomic variable pointed by a._ 
 
@@ -164,7 +164,7 @@ _Returns the value of the atomic variable pointed by a._
 ##  Function `vatomic16_read_acq`
 
 ```c
-static vuint16_t vatomic16_read_acq(vatomic16_t *a)
+static vuint16_t vatomic16_read_acq(const vatomic16_t *a)
 ``` 
 _Returns the value of the atomic variable pointed by a._ 
 
@@ -184,7 +184,7 @@ _Returns the value of the atomic variable pointed by a._
 ##  Function `vatomic16_read_rlx`
 
 ```c
-static vuint16_t vatomic16_read_rlx(vatomic16_t *a)
+static vuint16_t vatomic16_read_rlx(const vatomic16_t *a)
 ``` 
 _Returns the value of the atomic variable pointed by a._ 
 
@@ -1770,7 +1770,7 @@ _Increments the value of a._
 ```c
 static vuint16_t vatomic16_get_sub(vatomic16_t *a, vuint16_t v)
 ``` 
-_Substracts v from a and returns the old value._ 
+_Subtracts v from a and returns the old value._ 
 
 
 
@@ -1791,7 +1791,7 @@ _Substracts v from a and returns the old value._
 ```c
 static vuint16_t vatomic16_get_sub_acq(vatomic16_t *a, vuint16_t v)
 ``` 
-_Substracts v from a and returns the old value._ 
+_Subtracts v from a and returns the old value._ 
 
 
 
@@ -1812,7 +1812,7 @@ _Substracts v from a and returns the old value._
 ```c
 static vuint16_t vatomic16_get_sub_rel(vatomic16_t *a, vuint16_t v)
 ``` 
-_Substracts v from a and returns the old value._ 
+_Subtracts v from a and returns the old value._ 
 
 
 
@@ -1833,7 +1833,7 @@ _Substracts v from a and returns the old value._
 ```c
 static vuint16_t vatomic16_get_sub_rlx(vatomic16_t *a, vuint16_t v)
 ``` 
-_Substracts v from a and returns the old value._ 
+_Subtracts v from a and returns the old value._ 
 
 
 
@@ -1854,7 +1854,7 @@ _Substracts v from a and returns the old value._
 ```c
 static vuint16_t vatomic16_sub_get(vatomic16_t *a, vuint16_t v)
 ``` 
-_Substracts v from a and returns the new value._ 
+_Subtracts v from a and returns the new value._ 
 
 
 
@@ -1875,7 +1875,7 @@ _Substracts v from a and returns the new value._
 ```c
 static vuint16_t vatomic16_sub_get_acq(vatomic16_t *a, vuint16_t v)
 ``` 
-_Substracts v from a and returns the new value._ 
+_Subtracts v from a and returns the new value._ 
 
 
 
@@ -1896,7 +1896,7 @@ _Substracts v from a and returns the new value._
 ```c
 static vuint16_t vatomic16_sub_get_rel(vatomic16_t *a, vuint16_t v)
 ``` 
-_Substracts v from a and returns the new value._ 
+_Subtracts v from a and returns the new value._ 
 
 
 
@@ -1917,7 +1917,7 @@ _Substracts v from a and returns the new value._
 ```c
 static vuint16_t vatomic16_sub_get_rlx(vatomic16_t *a, vuint16_t v)
 ``` 
-_Substracts v from a and returns the new value._ 
+_Subtracts v from a and returns the new value._ 
 
 
 
@@ -1938,7 +1938,7 @@ _Substracts v from a and returns the new value._
 ```c
 static void vatomic16_sub(vatomic16_t *a, vuint16_t v)
 ``` 
-_Substracts v from a._ 
+_Subtracts v from a._ 
 
 
 
@@ -1957,7 +1957,7 @@ _Substracts v from a._
 ```c
 static void vatomic16_sub_rel(vatomic16_t *a, vuint16_t v)
 ``` 
-_Substracts v from a._ 
+_Subtracts v from a._ 
 
 
 
@@ -1976,7 +1976,7 @@ _Substracts v from a._
 ```c
 static void vatomic16_sub_rlx(vatomic16_t *a, vuint16_t v)
 ``` 
-_Substracts v from a._ 
+_Subtracts v from a._ 
 
 
 

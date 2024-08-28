@@ -97,17 +97,17 @@ Please do not include this file directly, instead use:
 | [vatomic64_inc](core_u64.h.md#function-vatomic64_inc) | Increments the value of a.  |
 | [vatomic64_inc_rel](core_u64.h.md#function-vatomic64_inc_rel) | Increments the value of a.  |
 | [vatomic64_inc_rlx](core_u64.h.md#function-vatomic64_inc_rlx) | Increments the value of a.  |
-| [vatomic64_get_sub](core_u64.h.md#function-vatomic64_get_sub) | Substracts v from a and returns the old value.  |
-| [vatomic64_get_sub_acq](core_u64.h.md#function-vatomic64_get_sub_acq) | Substracts v from a and returns the old value.  |
-| [vatomic64_get_sub_rel](core_u64.h.md#function-vatomic64_get_sub_rel) | Substracts v from a and returns the old value.  |
-| [vatomic64_get_sub_rlx](core_u64.h.md#function-vatomic64_get_sub_rlx) | Substracts v from a and returns the old value.  |
-| [vatomic64_sub_get](core_u64.h.md#function-vatomic64_sub_get) | Substracts v from a and returns the new value.  |
-| [vatomic64_sub_get_acq](core_u64.h.md#function-vatomic64_sub_get_acq) | Substracts v from a and returns the new value.  |
-| [vatomic64_sub_get_rel](core_u64.h.md#function-vatomic64_sub_get_rel) | Substracts v from a and returns the new value.  |
-| [vatomic64_sub_get_rlx](core_u64.h.md#function-vatomic64_sub_get_rlx) | Substracts v from a and returns the new value.  |
-| [vatomic64_sub](core_u64.h.md#function-vatomic64_sub) | Substracts v from a.  |
-| [vatomic64_sub_rel](core_u64.h.md#function-vatomic64_sub_rel) | Substracts v from a.  |
-| [vatomic64_sub_rlx](core_u64.h.md#function-vatomic64_sub_rlx) | Substracts v from a.  |
+| [vatomic64_get_sub](core_u64.h.md#function-vatomic64_get_sub) | Subtracts v from a and returns the old value.  |
+| [vatomic64_get_sub_acq](core_u64.h.md#function-vatomic64_get_sub_acq) | Subtracts v from a and returns the old value.  |
+| [vatomic64_get_sub_rel](core_u64.h.md#function-vatomic64_get_sub_rel) | Subtracts v from a and returns the old value.  |
+| [vatomic64_get_sub_rlx](core_u64.h.md#function-vatomic64_get_sub_rlx) | Subtracts v from a and returns the old value.  |
+| [vatomic64_sub_get](core_u64.h.md#function-vatomic64_sub_get) | Subtracts v from a and returns the new value.  |
+| [vatomic64_sub_get_acq](core_u64.h.md#function-vatomic64_sub_get_acq) | Subtracts v from a and returns the new value.  |
+| [vatomic64_sub_get_rel](core_u64.h.md#function-vatomic64_sub_get_rel) | Subtracts v from a and returns the new value.  |
+| [vatomic64_sub_get_rlx](core_u64.h.md#function-vatomic64_sub_get_rlx) | Subtracts v from a and returns the new value.  |
+| [vatomic64_sub](core_u64.h.md#function-vatomic64_sub) | Subtracts v from a.  |
+| [vatomic64_sub_rel](core_u64.h.md#function-vatomic64_sub_rel) | Subtracts v from a.  |
+| [vatomic64_sub_rlx](core_u64.h.md#function-vatomic64_sub_rlx) | Subtracts v from a.  |
 | [vatomic64_get_dec](core_u64.h.md#function-vatomic64_get_dec) | Decrements the value of a and returns the old value.  |
 | [vatomic64_get_dec_acq](core_u64.h.md#function-vatomic64_get_dec_acq) | Decrements the value of a and returns the old value.  |
 | [vatomic64_get_dec_rel](core_u64.h.md#function-vatomic64_get_dec_rel) | Decrements the value of a and returns the old value.  |
@@ -144,7 +144,7 @@ The initialization is equivalent to an [vatomic64_write()](core_u64.h.md#functio
 ##  Function `vatomic64_read`
 
 ```c
-static vuint64_t vatomic64_read(vatomic64_t *a)
+static vuint64_t vatomic64_read(const vatomic64_t *a)
 ``` 
 _Returns the value of the atomic variable pointed by a._ 
 
@@ -164,7 +164,7 @@ _Returns the value of the atomic variable pointed by a._
 ##  Function `vatomic64_read_acq`
 
 ```c
-static vuint64_t vatomic64_read_acq(vatomic64_t *a)
+static vuint64_t vatomic64_read_acq(const vatomic64_t *a)
 ``` 
 _Returns the value of the atomic variable pointed by a._ 
 
@@ -184,7 +184,7 @@ _Returns the value of the atomic variable pointed by a._
 ##  Function `vatomic64_read_rlx`
 
 ```c
-static vuint64_t vatomic64_read_rlx(vatomic64_t *a)
+static vuint64_t vatomic64_read_rlx(const vatomic64_t *a)
 ``` 
 _Returns the value of the atomic variable pointed by a._ 
 
@@ -1770,7 +1770,7 @@ _Increments the value of a._
 ```c
 static vuint64_t vatomic64_get_sub(vatomic64_t *a, vuint64_t v)
 ``` 
-_Substracts v from a and returns the old value._ 
+_Subtracts v from a and returns the old value._ 
 
 
 
@@ -1791,7 +1791,7 @@ _Substracts v from a and returns the old value._
 ```c
 static vuint64_t vatomic64_get_sub_acq(vatomic64_t *a, vuint64_t v)
 ``` 
-_Substracts v from a and returns the old value._ 
+_Subtracts v from a and returns the old value._ 
 
 
 
@@ -1812,7 +1812,7 @@ _Substracts v from a and returns the old value._
 ```c
 static vuint64_t vatomic64_get_sub_rel(vatomic64_t *a, vuint64_t v)
 ``` 
-_Substracts v from a and returns the old value._ 
+_Subtracts v from a and returns the old value._ 
 
 
 
@@ -1833,7 +1833,7 @@ _Substracts v from a and returns the old value._
 ```c
 static vuint64_t vatomic64_get_sub_rlx(vatomic64_t *a, vuint64_t v)
 ``` 
-_Substracts v from a and returns the old value._ 
+_Subtracts v from a and returns the old value._ 
 
 
 
@@ -1854,7 +1854,7 @@ _Substracts v from a and returns the old value._
 ```c
 static vuint64_t vatomic64_sub_get(vatomic64_t *a, vuint64_t v)
 ``` 
-_Substracts v from a and returns the new value._ 
+_Subtracts v from a and returns the new value._ 
 
 
 
@@ -1875,7 +1875,7 @@ _Substracts v from a and returns the new value._
 ```c
 static vuint64_t vatomic64_sub_get_acq(vatomic64_t *a, vuint64_t v)
 ``` 
-_Substracts v from a and returns the new value._ 
+_Subtracts v from a and returns the new value._ 
 
 
 
@@ -1896,7 +1896,7 @@ _Substracts v from a and returns the new value._
 ```c
 static vuint64_t vatomic64_sub_get_rel(vatomic64_t *a, vuint64_t v)
 ``` 
-_Substracts v from a and returns the new value._ 
+_Subtracts v from a and returns the new value._ 
 
 
 
@@ -1917,7 +1917,7 @@ _Substracts v from a and returns the new value._
 ```c
 static vuint64_t vatomic64_sub_get_rlx(vatomic64_t *a, vuint64_t v)
 ``` 
-_Substracts v from a and returns the new value._ 
+_Subtracts v from a and returns the new value._ 
 
 
 
@@ -1938,7 +1938,7 @@ _Substracts v from a and returns the new value._
 ```c
 static void vatomic64_sub(vatomic64_t *a, vuint64_t v)
 ``` 
-_Substracts v from a._ 
+_Subtracts v from a._ 
 
 
 
@@ -1957,7 +1957,7 @@ _Substracts v from a._
 ```c
 static void vatomic64_sub_rel(vatomic64_t *a, vuint64_t v)
 ``` 
-_Substracts v from a._ 
+_Subtracts v from a._ 
 
 
 
@@ -1976,7 +1976,7 @@ _Substracts v from a._
 ```c
 static void vatomic64_sub_rlx(vatomic64_t *a, vuint64_t v)
 ``` 
-_Substracts v from a._ 
+_Subtracts v from a._ 
 
 
 
