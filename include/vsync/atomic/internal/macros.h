@@ -20,25 +20,6 @@
 #define V_SUFFIX_mo_rel _rel
 #define V_SUFFIX_mo_rlx _rlx
 
-/* mo remap */
-#define V_REMAP(mo) V_CONCAT(V_REMAP_, mo)
-#if defined(VATOMIC_ENABLE_ATOMIC_SC)
-    #define V_REMAP_mo_seq mo_seq
-    #define V_REMAP_mo_acq mo_seq
-    #define V_REMAP_mo_rel mo_seq
-    #define V_REMAP_mo_rlx mo_seq
-#elif defined(VATOMIC_ENABLE_ATOMIC_RLX)
-    #define V_REMAP_mo_seq mo_rlx
-    #define V_REMAP_mo_acq mo_rlx
-    #define V_REMAP_mo_rel mo_rlx
-    #define V_REMAP_mo_rlx mo_rlx
-#else
-    #define V_REMAP_mo_seq mo_seq
-    #define V_REMAP_mo_acq mo_acq
-    #define V_REMAP_mo_rel mo_rel
-    #define V_REMAP_mo_rlx mo_rlx
-#endif
-
 /* V_MAP_A(pfx): maps a prefix P to atomic type A, eg, vatomic32 to vatomic32_t
  */
 #define V_MAP_A(P)         V_CONCAT(V_MAP_A_, P)
@@ -58,12 +39,6 @@
 #define V_MAP_T_vatomic64  vuint64_t
 #define V_MAP_T_vatomicptr void *
 #define V_MAP_T_vatomicsz  vsize_t
-
-#define V_MAP_await(mo)    V_CONCAT(V_MAP_await_, mo)
-#define V_MAP_await_mo_seq mo_seq
-#define V_MAP_await_mo_acq mo_rlx
-#define V_MAP_await_mo_rel mo_rlx
-#define V_MAP_await_mo_rlx mo_rlx
 
 /*******************************************************************************
  * function name generators

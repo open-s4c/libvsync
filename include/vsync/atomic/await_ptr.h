@@ -35,7 +35,7 @@
  * @return value satisfying conditon
  * @memord seq_cst
  */
-static inline void *vatomicptr_await_neq(vatomicptr_t *a, void *v);
+static inline void *vatomicptr_await_neq(const vatomicptr_t *a, void *v);
 /**
  * Politely awaits the value pointed by a to be different than v.
  *
@@ -47,7 +47,7 @@ static inline void *vatomicptr_await_neq(vatomicptr_t *a, void *v);
  * @return value satisfying conditon
  * @memord acquire
  */
-static inline void *vatomicptr_await_neq_acq(vatomicptr_t *a, void *v);
+static inline void *vatomicptr_await_neq_acq(const vatomicptr_t *a, void *v);
 /**
  * Politely awaits the value pointed by a to be different than v.
  *
@@ -59,7 +59,7 @@ static inline void *vatomicptr_await_neq_acq(vatomicptr_t *a, void *v);
  * @return value satisfying conditon
  * @memord relaxed
  */
-static inline void *vatomicptr_await_neq_rlx(vatomicptr_t *a, void *v);
+static inline void *vatomicptr_await_neq_rlx(const vatomicptr_t *a, void *v);
 /**
  * Politely awaits the value pointed by a to be equal to v.
  *
@@ -71,7 +71,7 @@ static inline void *vatomicptr_await_neq_rlx(vatomicptr_t *a, void *v);
  * @return last value before satisfying condition
  * @memord seq_cst
  */
-static inline void *vatomicptr_await_eq(vatomicptr_t *a, void *v);
+static inline void *vatomicptr_await_eq(const vatomicptr_t *a, void *v);
 /**
  * Politely awaits the value pointed by a to be equal to v.
  *
@@ -83,7 +83,7 @@ static inline void *vatomicptr_await_eq(vatomicptr_t *a, void *v);
  * @return last value before satisfying condition
  * @memord acquire
  */
-static inline void *vatomicptr_await_eq_acq(vatomicptr_t *a, void *v);
+static inline void *vatomicptr_await_eq_acq(const vatomicptr_t *a, void *v);
 /**
  * Politely awaits the value pointed by a to be equal to v.
  *
@@ -95,7 +95,7 @@ static inline void *vatomicptr_await_eq_acq(vatomicptr_t *a, void *v);
  * @return last value before satisfying condition
  * @memord relaxed
  */
-static inline void *vatomicptr_await_eq_rlx(vatomicptr_t *a, void *v);
+static inline void *vatomicptr_await_eq_rlx(const vatomicptr_t *a, void *v);
 
 /**
  * Politely awaits the value pointed by a to be equal to c, setting v to a once
