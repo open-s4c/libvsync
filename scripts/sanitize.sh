@@ -22,7 +22,7 @@ set -e
 
 echo "Running sanatize on $(pwd)"
 
-FILES=$(git ls-files '*.h' '*.c' | grep -v "/build/" | grep -v "tmplr/")
+FILES=$(git ls-files '*.h' '*.c' | grep -v "/build/" | grep -v "tmplr/" | grep -vE "^$(git ls-files -d | paste -sd "|" -)$")
 
 #YEAR=$(date +%Y)
 
