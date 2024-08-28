@@ -8,25 +8,6 @@ set(VERIFY_WITH_GENMC10 #
     hclhlock #
 )
 
-set(LOTTO_LOCK_TYPES
-    arraylock
-    caslock
-    clhlock
-    cnalock
-    hclhlock_2t
-    hclhlock
-    hemlock
-    hmcslock
-    mcslock
-    rec_mcslock
-    rec_spinlock
-    rec_ticketlock
-    rwlock
-    taslock
-    ticketlock
-    ttaslock
-    twalock)
-
 foreach(SRC ${SRCS})
     get_filename_component(TEST ${SRC} NAME_WE)
 
@@ -35,13 +16,11 @@ foreach(SRC ${SRCS})
     target_include_directories(${TEST} PRIVATE include)
     v_add_bin_test(NAME ${TEST} COMMAND ${TEST})
 
-    if(${TEST} IN_LIST LOTTO_LOCK_TYPES)
-        add_lotto_test(
-            NAME ${TEST} #
-            SOURCE ${SRC} #
-            ROUNDS 10 #
-        )
-    endif()
+    add_lotto_test(
+        NAME ${TEST} #
+        SOURCE ${SRC} #
+        ROUNDS 20 #
+    )
 
     if(DEFINED MEMORY_MODELS_${TEST})
         set(MEMORY_MODELS "${MEMORY_MODELS_${TEST}}")

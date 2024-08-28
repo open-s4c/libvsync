@@ -11,7 +11,7 @@
 #include <test/boilerplate/lock.h>
 
 #ifndef ARRAY_LOCK_LEN
-    #define ARRAY_LOCK_LEN 4U
+    #define ARRAY_LOCK_LEN (NTHREADS + 1U)
 #endif
 arraylock_flag_t flags[ARRAY_LOCK_LEN];
 arraylock_t lock;

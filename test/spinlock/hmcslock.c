@@ -5,14 +5,16 @@
 
 #define REACQUIRE 1
 #define WITH_INIT
-#define MAX_THREADS 4
+
+
+#include <vsync/spinlock/hmcslock.h>
+#include <test/boilerplate/lock.h>
+
+#define MAX_THREADS (NTHREADS + 1U)
 
 #if NTHREADS > MAX_THREADS
     #error NTHREADS > MAX_THREADS
 #endif
-
-#include <vsync/spinlock/hmcslock.h>
-#include <test/boilerplate/lock.h>
 
 #define NUM_LEVELS 3
 #define LEVEL_1    1

@@ -6,6 +6,8 @@
 #define WITH_CS
 
 #include <vsync/spinlock/seqcount.h>
+// this impl works only with single writer
+#define NWRITERS 1U
 #include <test/boilerplate/reader_writer.h>
 
 seqcount_t g_seq_cnt;
