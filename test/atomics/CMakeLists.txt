@@ -16,6 +16,37 @@ target_link_libraries(vatomic_pause vsync)
 v_add_bin_test(NAME vatomic-pause COMMAND vatomic_pause)
 
 # ##############################################################################
+# Check - Configs
+# ##############################################################################
+set(AVAILABLE_CONFIG VATOMIC_ENABLE_ATOMIC_SC VATOMIC_ENABLE_ATOMIC_RLX DEFAULT)
+set(AVAILABLE_ARCHS __arm__ __aarch64__ __x86_64__)
+set(__arm__VARIANTS VATOMIC_ARMV8 VATOMIC_ARMV7)
+set(__aarch64__VARIANTS __ARM_FEATURE_ATOMICS VATOMIC_ENABLE_ARM64_LLSC)
+set(__x86_64__VARIANTS BUILTIN)
+
+add_custom_target(vatomic-expand)
+
+foreach(CONFIG IN ITEMS ${AVAILABLE_CONFIG})
+    foreach(ARCH IN ITEMS ${AVAILABLE_ARCHS})
+        foreach(VARIANT IN ITEMS ${${ARCH}VARIANTS})
+            string(TOLOWER "expanded_${CONFIG}_${ARCH}_${VARIANT}.c"
+                           OUTPUT_FILE)
+            add_custom_command(
+                TARGET vatomic-expand
+                POST_BUILD
+                COMMAND
+                    ${CMAKE_C_COMPILER} -I${PROJECT_SOURCE_DIR}/include
+                    -I${PROJECT_SOURCE_DIR}/atomics/include -D${CONFIG}
+                    -D${ARCH} -D${VARIANT} -E
+                    ${CMAKE_CURRENT_SOURCE_DIR}/vatomic_empty.c -o
+                    ${OUTPUT_FILE}
+                BYPRODUCTS ${PROJECT_BINARY_DIR}/${OUTPUT_FILE}
+                WORKING_DIRECTORY ${PROJECT_BINARY_DIR})
+        endforeach(VARIANT)
+    endforeach(ARCH)
+endforeach(CONFIG)
+
+# ##############################################################################
 # compilation with C
 # ##############################################################################
 

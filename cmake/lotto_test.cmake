@@ -36,14 +36,14 @@ function(add_lotto_test)
     # ##########################################################################
     set(TARGET "lotto_${LTEST_NAME}")
     add_executable(${TARGET} "${LTEST_SOURCE}")
-    target_link_libraries(${TARGET} PRIVATE vsync pthread tsano)
+    target_link_libraries(${TARGET} PRIVATE vsync pthread tsan)
     target_compile_definitions(
         ${TARGET} PRIVATE VSYNC_LOTTO VSYNC_THREAD_SANITIZER "${LTEST_CDEFS}")
     target_compile_options(${TARGET} PRIVATE -fsanitize=thread "${LTEST_COPTS}")
     # ##########################################################################
     # Add ctest with lotto stress
     # ##########################################################################
-    set(TEST_NAME "lotto_stress_${TARGET}")
+    set(TEST_NAME "lotto_stress_${LTEST_NAME}")
     add_test(NAME ${TEST_NAME} COMMAND lotto stress -r ${LTEST_ROUNDS}
                                        ${CMAKE_CURRENT_BINARY_DIR}/${TARGET})
 

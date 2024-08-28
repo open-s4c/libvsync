@@ -117,7 +117,4 @@ typedef bool vbool_t;
     #define VUINT64_FORMAT  "lu"
     #define VUINT32_FORMAT  "u"
 #endif
-
-#undef V_UNSIGNED_INT_MAX
-#undef V_SIGNED_INT_MAX
 #endif

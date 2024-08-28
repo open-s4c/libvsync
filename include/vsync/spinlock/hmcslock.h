@@ -167,6 +167,10 @@ hmcslock_init(hmcslock_t *locks, vsize_t locks_len,
 {
     vsize_t level = 0;
 
+    HMCSLOCK_ASSERT(locks);
+    HMCSLOCK_ASSERT(locks_len > 0);
+    HMCSLOCK_ASSERT(num_levels > 0);
+
 #if defined(HMCS_ENABLE_DEBUG)
     vuint32_t total_nodes = 0;
 
@@ -198,6 +202,9 @@ hmcslock_init(hmcslock_t *locks, vsize_t locks_len,
 static inline void
 hmcslock_acquire(hmcslock_t *lock, hmcs_node_t *qnode, vsize_t num_levels)
 {
+    HMCSLOCK_ASSERT(lock);
+    HMCSLOCK_ASSERT(qnode);
+    HMCSLOCK_ASSERT(num_levels > 0);
     _hmcslock_acquire_real(lock, qnode, num_levels - 1);
 }
 /**
@@ -212,6 +219,9 @@ hmcslock_acquire(hmcslock_t *lock, hmcs_node_t *qnode, vsize_t num_levels)
 static inline void
 hmcslock_release(hmcslock_t *lock, hmcs_node_t *qnode, vsize_t num_levels)
 {
+    HMCSLOCK_ASSERT(lock);
+    HMCSLOCK_ASSERT(qnode);
+    HMCSLOCK_ASSERT(num_levels > 0);
     _hmcslock_release_real(lock, qnode, num_levels - 1);
 }
 /**

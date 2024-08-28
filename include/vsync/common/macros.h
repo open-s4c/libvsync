@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: MIT
  */
 
+
 #ifndef VSYNC_COMMON_MACROS_H
 #define VSYNC_COMMON_MACROS_H
 
@@ -133,21 +134,5 @@
  *
  */
 #define V_COMPILER_BARRIER() __asm__ __volatile__("" ::: "memory")
-
-/**
- * Renders the given barrier to sequentially consistent on
- * VATOMIC_ENABLE_ATOMIC_SC and to relaxed on VATOMIC_ENABLE_ATOMIC_RLX.
- *
- * @note check VATOMIC_ENABLE_ATOMIC_SC and VATOMIC_ENABLE_ATOMIC_RLX in
- * vsync/atomic/config.h
- *
- */
-#if defined(VATOMIC_ENABLE_ATOMIC_SC)
-    #define V_ACTIVATE_BUILTIN_BARRIER(_b_) __ATOMIC_SEQ_CST
-#elif defined(VATOMIC_ENABLE_ATOMIC_RLX)
-    #define V_ACTIVATE_BUILTIN_BARRIER(_b_) __ATOMIC_RELAXED
-#else
-    #define V_ACTIVATE_BUILTIN_BARRIER(_b_) _b_
-#endif
 
 #endif
