@@ -25,6 +25,10 @@
         #undef REACQUIRE
     #endif
     #define REACQUIRE 2048
+    #ifdef NTHREADS
+        #undef NTHREADS
+    #endif
+    #define NTHREADS 7
 #endif
 
 void acquire(vuint32_t tid);

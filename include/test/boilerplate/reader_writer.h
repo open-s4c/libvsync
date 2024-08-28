@@ -20,11 +20,19 @@
 #include <vsync/atomic.h>
 
 #ifndef NREADERS
-    #define NREADERS 2
+    #ifdef VSYNC_LOTTO
+        #define NREADERS 8U
+    #else
+        #define NREADERS 2U
+    #endif
 #endif
 
 #ifndef NWRITERS
-    #define NWRITERS 1
+    #ifdef VSYNC_LOTTO
+        #define NWRITERS 4U
+    #else
+        #define NWRITERS 1U
+    #endif
 #endif
 
 #ifndef NTHREADS
