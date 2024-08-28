@@ -40,7 +40,7 @@ static inline void vatomicsz_init(vatomicsz_t *a, vsize_t v);
  * @return current value
  * @memord seq_cst
  */
-static inline vsize_t vatomicsz_read(vatomicsz_t *a);
+static inline vsize_t vatomicsz_read(const vatomicsz_t *a);
 /**
  * Returns the value of the atomic variable pointed by a.
  *
@@ -48,7 +48,7 @@ static inline vsize_t vatomicsz_read(vatomicsz_t *a);
  * @return current value
  * @memord acquire
  */
-static inline vsize_t vatomicsz_read_acq(vatomicsz_t *a);
+static inline vsize_t vatomicsz_read_acq(const vatomicsz_t *a);
 /**
  * Returns the value of the atomic variable pointed by a.
  *
@@ -56,7 +56,7 @@ static inline vsize_t vatomicsz_read_acq(vatomicsz_t *a);
  * @return current value
  * @memord relaxed
  */
-static inline vsize_t vatomicsz_read_rlx(vatomicsz_t *a);
+static inline vsize_t vatomicsz_read_rlx(const vatomicsz_t *a);
 
 /**
  * Writes value v in the atomic variable pointed by a.
@@ -764,7 +764,7 @@ static inline void vatomicsz_inc_rel(vatomicsz_t *a);
 static inline void vatomicsz_inc_rlx(vatomicsz_t *a);
 
 /**
- * Substracts v from a and returns the old value.
+ * Subtracts v from a and returns the old value.
  *
  * @param a atomic variable
  * @param v subtrahend value
@@ -773,7 +773,7 @@ static inline void vatomicsz_inc_rlx(vatomicsz_t *a);
  */
 static inline vsize_t vatomicsz_get_sub(vatomicsz_t *a, vsize_t v);
 /**
- * Substracts v from a and returns the old value.
+ * Subtracts v from a and returns the old value.
  *
  * @param a atomic variable
  * @param v subtrahend value
@@ -782,7 +782,7 @@ static inline vsize_t vatomicsz_get_sub(vatomicsz_t *a, vsize_t v);
  */
 static inline vsize_t vatomicsz_get_sub_acq(vatomicsz_t *a, vsize_t v);
 /**
- * Substracts v from a and returns the old value.
+ * Subtracts v from a and returns the old value.
  *
  * @param a atomic variable
  * @param v subtrahend value
@@ -791,7 +791,7 @@ static inline vsize_t vatomicsz_get_sub_acq(vatomicsz_t *a, vsize_t v);
  */
 static inline vsize_t vatomicsz_get_sub_rel(vatomicsz_t *a, vsize_t v);
 /**
- * Substracts v from a and returns the old value.
+ * Subtracts v from a and returns the old value.
  *
  * @param a atomic variable
  * @param v subtrahend value
@@ -801,7 +801,7 @@ static inline vsize_t vatomicsz_get_sub_rel(vatomicsz_t *a, vsize_t v);
 static inline vsize_t vatomicsz_get_sub_rlx(vatomicsz_t *a, vsize_t v);
 
 /**
- * Substracts v from a and returns the new value.
+ * Subtracts v from a and returns the new value.
  *
  * @param a atomic variable
  * @param v subtrahend value
@@ -810,7 +810,7 @@ static inline vsize_t vatomicsz_get_sub_rlx(vatomicsz_t *a, vsize_t v);
  */
 static inline vsize_t vatomicsz_sub_get(vatomicsz_t *a, vsize_t v);
 /**
- * Substracts v from a and returns the new value.
+ * Subtracts v from a and returns the new value.
  *
  * @param a atomic variable
  * @param v subtrahend value
@@ -819,7 +819,7 @@ static inline vsize_t vatomicsz_sub_get(vatomicsz_t *a, vsize_t v);
  */
 static inline vsize_t vatomicsz_sub_get_acq(vatomicsz_t *a, vsize_t v);
 /**
- * Substracts v from a and returns the new value.
+ * Subtracts v from a and returns the new value.
  *
  * @param a atomic variable
  * @param v subtrahend value
@@ -828,7 +828,7 @@ static inline vsize_t vatomicsz_sub_get_acq(vatomicsz_t *a, vsize_t v);
  */
 static inline vsize_t vatomicsz_sub_get_rel(vatomicsz_t *a, vsize_t v);
 /**
- * Substracts v from a and returns the new value.
+ * Subtracts v from a and returns the new value.
  *
  * @param a atomic variable
  * @param v subtrahend value
@@ -838,7 +838,7 @@ static inline vsize_t vatomicsz_sub_get_rel(vatomicsz_t *a, vsize_t v);
 static inline vsize_t vatomicsz_sub_get_rlx(vatomicsz_t *a, vsize_t v);
 
 /**
- * Substracts v from a.
+ * Subtracts v from a.
  *
  * @param a atomic variable
  * @param v subtrahend value
@@ -846,7 +846,7 @@ static inline vsize_t vatomicsz_sub_get_rlx(vatomicsz_t *a, vsize_t v);
  */
 static inline void vatomicsz_sub(vatomicsz_t *a, vsize_t v);
 /**
- * Substracts v from a.
+ * Subtracts v from a.
  *
  * @param a atomic variable
  * @param v subtrahend value
@@ -854,7 +854,7 @@ static inline void vatomicsz_sub(vatomicsz_t *a, vsize_t v);
  */
 static inline void vatomicsz_sub_rel(vatomicsz_t *a, vsize_t v);
 /**
- * Substracts v from a.
+ * Subtracts v from a.
  *
  * @param a atomic variable
  * @param v subtrahend value

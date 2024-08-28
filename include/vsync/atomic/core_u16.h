@@ -40,7 +40,7 @@ static inline void vatomic16_init(vatomic16_t *a, vuint16_t v);
  * @return current value
  * @memord seq_cst
  */
-static inline vuint16_t vatomic16_read(vatomic16_t *a);
+static inline vuint16_t vatomic16_read(const vatomic16_t *a);
 /**
  * Returns the value of the atomic variable pointed by a.
  *
@@ -48,7 +48,7 @@ static inline vuint16_t vatomic16_read(vatomic16_t *a);
  * @return current value
  * @memord acquire
  */
-static inline vuint16_t vatomic16_read_acq(vatomic16_t *a);
+static inline vuint16_t vatomic16_read_acq(const vatomic16_t *a);
 /**
  * Returns the value of the atomic variable pointed by a.
  *
@@ -56,7 +56,7 @@ static inline vuint16_t vatomic16_read_acq(vatomic16_t *a);
  * @return current value
  * @memord relaxed
  */
-static inline vuint16_t vatomic16_read_rlx(vatomic16_t *a);
+static inline vuint16_t vatomic16_read_rlx(const vatomic16_t *a);
 
 /**
  * Writes value v in the atomic variable pointed by a.
@@ -765,7 +765,7 @@ static inline void vatomic16_inc_rel(vatomic16_t *a);
 static inline void vatomic16_inc_rlx(vatomic16_t *a);
 
 /**
- * Substracts v from a and returns the old value.
+ * Subtracts v from a and returns the old value.
  *
  * @param a atomic variable
  * @param v subtrahend value
@@ -774,7 +774,7 @@ static inline void vatomic16_inc_rlx(vatomic16_t *a);
  */
 static inline vuint16_t vatomic16_get_sub(vatomic16_t *a, vuint16_t v);
 /**
- * Substracts v from a and returns the old value.
+ * Subtracts v from a and returns the old value.
  *
  * @param a atomic variable
  * @param v subtrahend value
@@ -783,7 +783,7 @@ static inline vuint16_t vatomic16_get_sub(vatomic16_t *a, vuint16_t v);
  */
 static inline vuint16_t vatomic16_get_sub_acq(vatomic16_t *a, vuint16_t v);
 /**
- * Substracts v from a and returns the old value.
+ * Subtracts v from a and returns the old value.
  *
  * @param a atomic variable
  * @param v subtrahend value
@@ -792,7 +792,7 @@ static inline vuint16_t vatomic16_get_sub_acq(vatomic16_t *a, vuint16_t v);
  */
 static inline vuint16_t vatomic16_get_sub_rel(vatomic16_t *a, vuint16_t v);
 /**
- * Substracts v from a and returns the old value.
+ * Subtracts v from a and returns the old value.
  *
  * @param a atomic variable
  * @param v subtrahend value
@@ -802,7 +802,7 @@ static inline vuint16_t vatomic16_get_sub_rel(vatomic16_t *a, vuint16_t v);
 static inline vuint16_t vatomic16_get_sub_rlx(vatomic16_t *a, vuint16_t v);
 
 /**
- * Substracts v from a and returns the new value.
+ * Subtracts v from a and returns the new value.
  *
  * @param a atomic variable
  * @param v subtrahend value
@@ -811,7 +811,7 @@ static inline vuint16_t vatomic16_get_sub_rlx(vatomic16_t *a, vuint16_t v);
  */
 static inline vuint16_t vatomic16_sub_get(vatomic16_t *a, vuint16_t v);
 /**
- * Substracts v from a and returns the new value.
+ * Subtracts v from a and returns the new value.
  *
  * @param a atomic variable
  * @param v subtrahend value
@@ -820,7 +820,7 @@ static inline vuint16_t vatomic16_sub_get(vatomic16_t *a, vuint16_t v);
  */
 static inline vuint16_t vatomic16_sub_get_acq(vatomic16_t *a, vuint16_t v);
 /**
- * Substracts v from a and returns the new value.
+ * Subtracts v from a and returns the new value.
  *
  * @param a atomic variable
  * @param v subtrahend value
@@ -829,7 +829,7 @@ static inline vuint16_t vatomic16_sub_get_acq(vatomic16_t *a, vuint16_t v);
  */
 static inline vuint16_t vatomic16_sub_get_rel(vatomic16_t *a, vuint16_t v);
 /**
- * Substracts v from a and returns the new value.
+ * Subtracts v from a and returns the new value.
  *
  * @param a atomic variable
  * @param v subtrahend value
@@ -839,7 +839,7 @@ static inline vuint16_t vatomic16_sub_get_rel(vatomic16_t *a, vuint16_t v);
 static inline vuint16_t vatomic16_sub_get_rlx(vatomic16_t *a, vuint16_t v);
 
 /**
- * Substracts v from a.
+ * Subtracts v from a.
  *
  * @param a atomic variable
  * @param v subtrahend value
@@ -847,7 +847,7 @@ static inline vuint16_t vatomic16_sub_get_rlx(vatomic16_t *a, vuint16_t v);
  */
 static inline void vatomic16_sub(vatomic16_t *a, vuint16_t v);
 /**
- * Substracts v from a.
+ * Subtracts v from a.
  *
  * @param a atomic variable
  * @param v subtrahend value
@@ -855,7 +855,7 @@ static inline void vatomic16_sub(vatomic16_t *a, vuint16_t v);
  */
 static inline void vatomic16_sub_rel(vatomic16_t *a, vuint16_t v);
 /**
- * Substracts v from a.
+ * Subtracts v from a.
  *
  * @param a atomic variable
  * @param v subtrahend value

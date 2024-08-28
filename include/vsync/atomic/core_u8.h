@@ -40,7 +40,7 @@ static inline void vatomic8_init(vatomic8_t *a, vuint8_t v);
  * @return current value
  * @memord seq_cst
  */
-static inline vuint8_t vatomic8_read(vatomic8_t *a);
+static inline vuint8_t vatomic8_read(const vatomic8_t *a);
 /**
  * Returns the value of the atomic variable pointed by a.
  *
@@ -48,7 +48,7 @@ static inline vuint8_t vatomic8_read(vatomic8_t *a);
  * @return current value
  * @memord acquire
  */
-static inline vuint8_t vatomic8_read_acq(vatomic8_t *a);
+static inline vuint8_t vatomic8_read_acq(const vatomic8_t *a);
 /**
  * Returns the value of the atomic variable pointed by a.
  *
@@ -56,7 +56,7 @@ static inline vuint8_t vatomic8_read_acq(vatomic8_t *a);
  * @return current value
  * @memord relaxed
  */
-static inline vuint8_t vatomic8_read_rlx(vatomic8_t *a);
+static inline vuint8_t vatomic8_read_rlx(const vatomic8_t *a);
 
 /**
  * Writes value v in the atomic variable pointed by a.
@@ -764,7 +764,7 @@ static inline void vatomic8_inc_rel(vatomic8_t *a);
 static inline void vatomic8_inc_rlx(vatomic8_t *a);
 
 /**
- * Substracts v from a and returns the old value.
+ * Subtracts v from a and returns the old value.
  *
  * @param a atomic variable
  * @param v subtrahend value
@@ -773,7 +773,7 @@ static inline void vatomic8_inc_rlx(vatomic8_t *a);
  */
 static inline vuint8_t vatomic8_get_sub(vatomic8_t *a, vuint8_t v);
 /**
- * Substracts v from a and returns the old value.
+ * Subtracts v from a and returns the old value.
  *
  * @param a atomic variable
  * @param v subtrahend value
@@ -782,7 +782,7 @@ static inline vuint8_t vatomic8_get_sub(vatomic8_t *a, vuint8_t v);
  */
 static inline vuint8_t vatomic8_get_sub_acq(vatomic8_t *a, vuint8_t v);
 /**
- * Substracts v from a and returns the old value.
+ * Subtracts v from a and returns the old value.
  *
  * @param a atomic variable
  * @param v subtrahend value
@@ -791,7 +791,7 @@ static inline vuint8_t vatomic8_get_sub_acq(vatomic8_t *a, vuint8_t v);
  */
 static inline vuint8_t vatomic8_get_sub_rel(vatomic8_t *a, vuint8_t v);
 /**
- * Substracts v from a and returns the old value.
+ * Subtracts v from a and returns the old value.
  *
  * @param a atomic variable
  * @param v subtrahend value
@@ -801,7 +801,7 @@ static inline vuint8_t vatomic8_get_sub_rel(vatomic8_t *a, vuint8_t v);
 static inline vuint8_t vatomic8_get_sub_rlx(vatomic8_t *a, vuint8_t v);
 
 /**
- * Substracts v from a and returns the new value.
+ * Subtracts v from a and returns the new value.
  *
  * @param a atomic variable
  * @param v subtrahend value
@@ -810,7 +810,7 @@ static inline vuint8_t vatomic8_get_sub_rlx(vatomic8_t *a, vuint8_t v);
  */
 static inline vuint8_t vatomic8_sub_get(vatomic8_t *a, vuint8_t v);
 /**
- * Substracts v from a and returns the new value.
+ * Subtracts v from a and returns the new value.
  *
  * @param a atomic variable
  * @param v subtrahend value
@@ -819,7 +819,7 @@ static inline vuint8_t vatomic8_sub_get(vatomic8_t *a, vuint8_t v);
  */
 static inline vuint8_t vatomic8_sub_get_acq(vatomic8_t *a, vuint8_t v);
 /**
- * Substracts v from a and returns the new value.
+ * Subtracts v from a and returns the new value.
  *
  * @param a atomic variable
  * @param v subtrahend value
@@ -828,7 +828,7 @@ static inline vuint8_t vatomic8_sub_get_acq(vatomic8_t *a, vuint8_t v);
  */
 static inline vuint8_t vatomic8_sub_get_rel(vatomic8_t *a, vuint8_t v);
 /**
- * Substracts v from a and returns the new value.
+ * Subtracts v from a and returns the new value.
  *
  * @param a atomic variable
  * @param v subtrahend value
@@ -838,7 +838,7 @@ static inline vuint8_t vatomic8_sub_get_rel(vatomic8_t *a, vuint8_t v);
 static inline vuint8_t vatomic8_sub_get_rlx(vatomic8_t *a, vuint8_t v);
 
 /**
- * Substracts v from a.
+ * Subtracts v from a.
  *
  * @param a atomic variable
  * @param v subtrahend value
@@ -846,7 +846,7 @@ static inline vuint8_t vatomic8_sub_get_rlx(vatomic8_t *a, vuint8_t v);
  */
 static inline void vatomic8_sub(vatomic8_t *a, vuint8_t v);
 /**
- * Substracts v from a.
+ * Subtracts v from a.
  *
  * @param a atomic variable
  * @param v subtrahend value
@@ -854,7 +854,7 @@ static inline void vatomic8_sub(vatomic8_t *a, vuint8_t v);
  */
 static inline void vatomic8_sub_rel(vatomic8_t *a, vuint8_t v);
 /**
- * Substracts v from a.
+ * Subtracts v from a.
  *
  * @param a atomic variable
  * @param v subtrahend value
