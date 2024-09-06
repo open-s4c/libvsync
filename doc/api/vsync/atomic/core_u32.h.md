@@ -97,17 +97,17 @@ Please do not include this file directly, instead use:
 | [vatomic32_inc](core_u32.h.md#function-vatomic32_inc) | Increments the value of a.  |
 | [vatomic32_inc_rel](core_u32.h.md#function-vatomic32_inc_rel) | Increments the value of a.  |
 | [vatomic32_inc_rlx](core_u32.h.md#function-vatomic32_inc_rlx) | Increments the value of a.  |
-| [vatomic32_get_sub](core_u32.h.md#function-vatomic32_get_sub) | Substracts v from a and returns the old value.  |
-| [vatomic32_get_sub_acq](core_u32.h.md#function-vatomic32_get_sub_acq) | Substracts v from a and returns the old value.  |
-| [vatomic32_get_sub_rel](core_u32.h.md#function-vatomic32_get_sub_rel) | Substracts v from a and returns the old value.  |
-| [vatomic32_get_sub_rlx](core_u32.h.md#function-vatomic32_get_sub_rlx) | Substracts v from a and returns the old value.  |
-| [vatomic32_sub_get](core_u32.h.md#function-vatomic32_sub_get) | Substracts v from a and returns the new value.  |
-| [vatomic32_sub_get_acq](core_u32.h.md#function-vatomic32_sub_get_acq) | Substracts v from a and returns the new value.  |
-| [vatomic32_sub_get_rel](core_u32.h.md#function-vatomic32_sub_get_rel) | Substracts v from a and returns the new value.  |
-| [vatomic32_sub_get_rlx](core_u32.h.md#function-vatomic32_sub_get_rlx) | Substracts v from a and returns the new value.  |
-| [vatomic32_sub](core_u32.h.md#function-vatomic32_sub) | Substracts v from a.  |
-| [vatomic32_sub_rel](core_u32.h.md#function-vatomic32_sub_rel) | Substracts v from a.  |
-| [vatomic32_sub_rlx](core_u32.h.md#function-vatomic32_sub_rlx) | Substracts v from a.  |
+| [vatomic32_get_sub](core_u32.h.md#function-vatomic32_get_sub) | Subtracts v from a and returns the old value.  |
+| [vatomic32_get_sub_acq](core_u32.h.md#function-vatomic32_get_sub_acq) | Subtracts v from a and returns the old value.  |
+| [vatomic32_get_sub_rel](core_u32.h.md#function-vatomic32_get_sub_rel) | Subtracts v from a and returns the old value.  |
+| [vatomic32_get_sub_rlx](core_u32.h.md#function-vatomic32_get_sub_rlx) | Subtracts v from a and returns the old value.  |
+| [vatomic32_sub_get](core_u32.h.md#function-vatomic32_sub_get) | Subtracts v from a and returns the new value.  |
+| [vatomic32_sub_get_acq](core_u32.h.md#function-vatomic32_sub_get_acq) | Subtracts v from a and returns the new value.  |
+| [vatomic32_sub_get_rel](core_u32.h.md#function-vatomic32_sub_get_rel) | Subtracts v from a and returns the new value.  |
+| [vatomic32_sub_get_rlx](core_u32.h.md#function-vatomic32_sub_get_rlx) | Subtracts v from a and returns the new value.  |
+| [vatomic32_sub](core_u32.h.md#function-vatomic32_sub) | Subtracts v from a.  |
+| [vatomic32_sub_rel](core_u32.h.md#function-vatomic32_sub_rel) | Subtracts v from a.  |
+| [vatomic32_sub_rlx](core_u32.h.md#function-vatomic32_sub_rlx) | Subtracts v from a.  |
 | [vatomic32_get_dec](core_u32.h.md#function-vatomic32_get_dec) | Decrements the value of a and returns the old value.  |
 | [vatomic32_get_dec_acq](core_u32.h.md#function-vatomic32_get_dec_acq) | Decrements the value of a and returns the old value.  |
 | [vatomic32_get_dec_rel](core_u32.h.md#function-vatomic32_get_dec_rel) | Decrements the value of a and returns the old value.  |
@@ -144,7 +144,7 @@ The initialization is equivalent to an [vatomic32_write()](core_u32.h.md#functio
 ##  Function `vatomic32_read`
 
 ```c
-static vuint32_t vatomic32_read(vatomic32_t *a)
+static vuint32_t vatomic32_read(const vatomic32_t *a)
 ``` 
 _Returns the value of the atomic variable pointed by a._ 
 
@@ -164,7 +164,7 @@ _Returns the value of the atomic variable pointed by a._
 ##  Function `vatomic32_read_acq`
 
 ```c
-static vuint32_t vatomic32_read_acq(vatomic32_t *a)
+static vuint32_t vatomic32_read_acq(const vatomic32_t *a)
 ``` 
 _Returns the value of the atomic variable pointed by a._ 
 
@@ -184,7 +184,7 @@ _Returns the value of the atomic variable pointed by a._
 ##  Function `vatomic32_read_rlx`
 
 ```c
-static vuint32_t vatomic32_read_rlx(vatomic32_t *a)
+static vuint32_t vatomic32_read_rlx(const vatomic32_t *a)
 ``` 
 _Returns the value of the atomic variable pointed by a._ 
 
@@ -1770,7 +1770,7 @@ _Increments the value of a._
 ```c
 static vuint32_t vatomic32_get_sub(vatomic32_t *a, vuint32_t v)
 ``` 
-_Substracts v from a and returns the old value._ 
+_Subtracts v from a and returns the old value._ 
 
 
 
@@ -1791,7 +1791,7 @@ _Substracts v from a and returns the old value._
 ```c
 static vuint32_t vatomic32_get_sub_acq(vatomic32_t *a, vuint32_t v)
 ``` 
-_Substracts v from a and returns the old value._ 
+_Subtracts v from a and returns the old value._ 
 
 
 
@@ -1812,7 +1812,7 @@ _Substracts v from a and returns the old value._
 ```c
 static vuint32_t vatomic32_get_sub_rel(vatomic32_t *a, vuint32_t v)
 ``` 
-_Substracts v from a and returns the old value._ 
+_Subtracts v from a and returns the old value._ 
 
 
 
@@ -1833,7 +1833,7 @@ _Substracts v from a and returns the old value._
 ```c
 static vuint32_t vatomic32_get_sub_rlx(vatomic32_t *a, vuint32_t v)
 ``` 
-_Substracts v from a and returns the old value._ 
+_Subtracts v from a and returns the old value._ 
 
 
 
@@ -1854,7 +1854,7 @@ _Substracts v from a and returns the old value._
 ```c
 static vuint32_t vatomic32_sub_get(vatomic32_t *a, vuint32_t v)
 ``` 
-_Substracts v from a and returns the new value._ 
+_Subtracts v from a and returns the new value._ 
 
 
 
@@ -1875,7 +1875,7 @@ _Substracts v from a and returns the new value._
 ```c
 static vuint32_t vatomic32_sub_get_acq(vatomic32_t *a, vuint32_t v)
 ``` 
-_Substracts v from a and returns the new value._ 
+_Subtracts v from a and returns the new value._ 
 
 
 
@@ -1896,7 +1896,7 @@ _Substracts v from a and returns the new value._
 ```c
 static vuint32_t vatomic32_sub_get_rel(vatomic32_t *a, vuint32_t v)
 ``` 
-_Substracts v from a and returns the new value._ 
+_Subtracts v from a and returns the new value._ 
 
 
 
@@ -1917,7 +1917,7 @@ _Substracts v from a and returns the new value._
 ```c
 static vuint32_t vatomic32_sub_get_rlx(vatomic32_t *a, vuint32_t v)
 ``` 
-_Substracts v from a and returns the new value._ 
+_Subtracts v from a and returns the new value._ 
 
 
 
@@ -1938,7 +1938,7 @@ _Substracts v from a and returns the new value._
 ```c
 static void vatomic32_sub(vatomic32_t *a, vuint32_t v)
 ``` 
-_Substracts v from a._ 
+_Subtracts v from a._ 
 
 
 
@@ -1957,7 +1957,7 @@ _Substracts v from a._
 ```c
 static void vatomic32_sub_rel(vatomic32_t *a, vuint32_t v)
 ``` 
-_Substracts v from a._ 
+_Subtracts v from a._ 
 
 
 
@@ -1976,7 +1976,7 @@ _Substracts v from a._
 ```c
 static void vatomic32_sub_rlx(vatomic32_t *a, vuint32_t v)
 ``` 
-_Substracts v from a._ 
+_Subtracts v from a._ 
 
 
 

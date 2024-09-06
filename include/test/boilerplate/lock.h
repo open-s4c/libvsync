@@ -20,6 +20,17 @@
 #include <vsync/atomic.h>
 #include <vsync/common/verify.h>
 
+#ifdef VSYNC_LOTTO
+    #ifdef REACQUIRE
+        #undef REACQUIRE
+    #endif
+    #define REACQUIRE 2048
+    #ifdef NTHREADS
+        #undef NTHREADS
+    #endif
+    #define NTHREADS 7
+#endif
+
 void acquire(vuint32_t tid);
 void release(vuint32_t tid);
 
@@ -46,8 +57,14 @@ void release(vuint32_t tid);
 #include <pthread.h>
 #include <vsync/common/assert.h>
 
-#define FINAL_COUNT     (NTHREADS + REACQUIRE + REENTRANT)
-#define SELECT(k, t, C) ((k) == 1 && ((t) + 1 < (C) + 1))
+#ifdef VSYNC_LOTTO
+    #define FINAL_COUNT                                                        \
+        (NTHREADS * (REACQUIRE + 1) + REENTRANT * (REACQUIRE + 1))
+    #define SELECT(k, t, C) ((k) < C || ((k) == C && ((t) + 1 < (C) + 1)))
+#else
+    #define FINAL_COUNT     (NTHREADS + REACQUIRE + REENTRANT)
+    #define SELECT(k, t, C) ((k) == 1 && ((t) + 1 < (C) + 1))
+#endif
 
 #ifdef WITH_INIT
 void init(void);
@@ -143,7 +160,6 @@ main(void)
     printf("REACQUIRE: %u\n", REACQUIRE);
     printf("REENTRANT: %u\n", REENTRANT);
 #endif
-
     init();
 
     verification_loop_bound(NTHREADS + 1);

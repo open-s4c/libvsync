@@ -28,10 +28,10 @@ _tmpl_dl;
 _tmpl_dl; // -------------------------------------------------------------------
 _tmpl_dl; // memory order mappings
 _tmpl_dl; // -------------------------------------------------------------------
-_tmpl_map(_MAP_seq, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
-_tmpl_map(_MAP_acq, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
-_tmpl_map(_MAP_rel, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE));
-_tmpl_map(_MAP_rlx, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+_tmpl_map(_MAP_seq, __ATOMIC_SEQ_CST);
+_tmpl_map(_MAP_acq, __ATOMIC_ACQUIRE);
+_tmpl_map(_MAP_rel, __ATOMIC_RELEASE);
+_tmpl_map(_MAP_rlx, __ATOMIC_RELAXED);
 _tmpl_dl;
 _tmpl_dl; // -------------------------------------------------------------------
 _tmpl_dl; // guards for function declarations
@@ -67,7 +67,7 @@ _tmpl_dl; // -------------------------------------------------------------------
  * ****************************************************************************/
 _tmpl_begin(TY = [[va]], MO = [[seq; acq; rel; rlx]], FUNC = fence);
 static inline void
-_vatomic_fence_MS(void)
+__vatomic_fence_MS(void)
 {
     FENCE_BARRIER();
 #if !defined(VSYNC_THREAD_SANITIZER)
@@ -83,7 +83,7 @@ _tmpl_end;
 _tmpl_begin(TY = [[u8; u16; u32; u64; sz; ptr]], MO = [[seq; acq; rlx]],
             FUNC = read);
 static inline TT
-_vatomic_read_MS(AA *a)
+__vatomic_read_MS(const AA *a)
 {
     V_COMPILER_BARRIER();
     TT tmp = (TT)__atomic_load_n(&a->_v, MB);
@@ -98,7 +98,7 @@ _tmpl_end;
 _tmpl_begin(TY = [[u8; u16; u32; u64; sz; ptr]], MO = [[seq; rel; rlx]],
             FUNC = write);
 static inline void
-_vatomic_write_MS(AA *a, TT v)
+__vatomic_write_MS(AA *a, TT v)
 {
     V_COMPILER_BARRIER();
     __atomic_store_n(&a->_v, v, MB);
@@ -112,7 +112,7 @@ _tmpl_end;
 _tmpl_begin(TY = [[u8; u16; u32; u64; sz; ptr]], MO = [[seq; acq; rel; rlx]],
             FUNC = xchg);
 static inline TT
-_vatomic_xchg_MS(AA *a, TT v)
+__vatomic_xchg_MS(AA *a, TT v)
 {
     V_COMPILER_BARRIER();
     TT tmp = (TT)__atomic_exchange_n(&a->_v, (TT)v, MB);
@@ -127,7 +127,7 @@ _tmpl_end;
 _tmpl_begin(TY = [[u8; u16; u32; u64; sz; ptr]], MO = [[seq; acq; rel; rlx]],
             FUNC = cmpxchg);
 static inline TT
-_vatomic_cmpxchg_MS(AA *a, TT e, TT v)
+__vatomic_cmpxchg_MS(AA *a, TT e, TT v)
 {
     TT exp = (TT)e;
     V_COMPILER_BARRIER();
@@ -143,7 +143,7 @@ _tmpl_end;
 _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]],
             FUNC = get_and);
 static inline TT
-_vatomic_get_and_MS(AA *a, TT v)
+__vatomic_get_and_MS(AA *a, TT v)
 {
     V_COMPILER_BARRIER();
     TT tmp = (TT)__atomic_fetch_and(&a->_v, (TT)v, MB);
@@ -158,7 +158,7 @@ _tmpl_end;
 _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]],
             FUNC = get_or);
 static inline TT
-_vatomic_get_or_MS(AA *a, TT v)
+__vatomic_get_or_MS(AA *a, TT v)
 {
     V_COMPILER_BARRIER();
     TT tmp = (TT)__atomic_fetch_or(&a->_v, (TT)v, MB);
@@ -173,7 +173,7 @@ _tmpl_end;
 _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]],
             FUNC = get_xor);
 static inline TT
-_vatomic_get_xor_MS(AA *a, TT v)
+__vatomic_get_xor_MS(AA *a, TT v)
 {
     V_COMPILER_BARRIER();
     TT tmp = (TT)__atomic_fetch_xor(&a->_v, (TT)v, MB);
@@ -188,7 +188,7 @@ _tmpl_end;
 _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]],
             FUNC = get_add);
 static inline TT
-_vatomic_get_add_MS(AA *a, TT v)
+__vatomic_get_add_MS(AA *a, TT v)
 {
     V_COMPILER_BARRIER();
     TT tmp = (TT)__atomic_fetch_add(&a->_v, v, MB);
@@ -203,7 +203,7 @@ _tmpl_end;
 _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]],
             FUNC = get_sub);
 static inline TT
-_vatomic_get_sub_MS(AA *a, TT v)
+__vatomic_get_sub_MS(AA *a, TT v)
 {
     V_COMPILER_BARRIER();
     TT tmp = __atomic_fetch_sub(&a->_v, v, MB);

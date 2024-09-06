@@ -4235,7 +4235,7 @@ vatomicptr_init(vatomicptr_t *a, void *v)
     #define VATOMIC32_AWAIT_NEQ
 
 static inline vuint32_t
-vatomic32_await_neq(vatomic32_t *a, vuint32_t c)
+vatomic32_await_neq(const vatomic32_t *a, vuint32_t c)
 {
     vuint32_t cur = 0;
     await_while ((cur = vatomic32_read(a), cur == c)) {
@@ -4250,7 +4250,7 @@ vatomic32_await_neq(vatomic32_t *a, vuint32_t c)
     #define VATOMIC32_AWAIT_NEQ_ACQ
 
 static inline vuint32_t
-vatomic32_await_neq_acq(vatomic32_t *a, vuint32_t c)
+vatomic32_await_neq_acq(const vatomic32_t *a, vuint32_t c)
 {
     vuint32_t cur = 0;
     await_while ((cur = vatomic32_read_acq(a), cur == c)) {
@@ -4265,7 +4265,7 @@ vatomic32_await_neq_acq(vatomic32_t *a, vuint32_t c)
     #define VATOMIC32_AWAIT_NEQ_RLX
 
 static inline vuint32_t
-vatomic32_await_neq_rlx(vatomic32_t *a, vuint32_t c)
+vatomic32_await_neq_rlx(const vatomic32_t *a, vuint32_t c)
 {
     vuint32_t cur = 0;
     await_while ((cur = vatomic32_read_rlx(a), cur == c)) {
@@ -4280,7 +4280,7 @@ vatomic32_await_neq_rlx(vatomic32_t *a, vuint32_t c)
     #define VATOMIC64_AWAIT_NEQ
 
 static inline vuint64_t
-vatomic64_await_neq(vatomic64_t *a, vuint64_t c)
+vatomic64_await_neq(const vatomic64_t *a, vuint64_t c)
 {
     vuint64_t cur = 0;
     await_while ((cur = vatomic64_read(a), cur == c)) {
@@ -4295,7 +4295,7 @@ vatomic64_await_neq(vatomic64_t *a, vuint64_t c)
     #define VATOMIC64_AWAIT_NEQ_ACQ
 
 static inline vuint64_t
-vatomic64_await_neq_acq(vatomic64_t *a, vuint64_t c)
+vatomic64_await_neq_acq(const vatomic64_t *a, vuint64_t c)
 {
     vuint64_t cur = 0;
     await_while ((cur = vatomic64_read_acq(a), cur == c)) {
@@ -4310,7 +4310,7 @@ vatomic64_await_neq_acq(vatomic64_t *a, vuint64_t c)
     #define VATOMIC64_AWAIT_NEQ_RLX
 
 static inline vuint64_t
-vatomic64_await_neq_rlx(vatomic64_t *a, vuint64_t c)
+vatomic64_await_neq_rlx(const vatomic64_t *a, vuint64_t c)
 {
     vuint64_t cur = 0;
     await_while ((cur = vatomic64_read_rlx(a), cur == c)) {
@@ -4325,7 +4325,7 @@ vatomic64_await_neq_rlx(vatomic64_t *a, vuint64_t c)
     #define VATOMICPTR_AWAIT_NEQ
 
 static inline void *
-vatomicptr_await_neq(vatomicptr_t *a, void *c)
+vatomicptr_await_neq(const vatomicptr_t *a, void *c)
 {
     void *cur = NULL;
     await_while ((cur = vatomicptr_read(a), cur == c)) {
@@ -4340,7 +4340,7 @@ vatomicptr_await_neq(vatomicptr_t *a, void *c)
     #define VATOMICPTR_AWAIT_NEQ_ACQ
 
 static inline void *
-vatomicptr_await_neq_acq(vatomicptr_t *a, void *c)
+vatomicptr_await_neq_acq(const vatomicptr_t *a, void *c)
 {
     void *cur = NULL;
     await_while ((cur = vatomicptr_read_acq(a), cur == c)) {
@@ -4355,7 +4355,7 @@ vatomicptr_await_neq_acq(vatomicptr_t *a, void *c)
     #define VATOMICPTR_AWAIT_NEQ_RLX
 
 static inline void *
-vatomicptr_await_neq_rlx(vatomicptr_t *a, void *c)
+vatomicptr_await_neq_rlx(const vatomicptr_t *a, void *c)
 {
     void *cur = NULL;
     await_while ((cur = vatomicptr_read_rlx(a), cur == c)) {
@@ -4370,7 +4370,7 @@ vatomicptr_await_neq_rlx(vatomicptr_t *a, void *c)
     #define VATOMIC32_AWAIT_EQ
 
 static inline vuint32_t
-vatomic32_await_eq(vatomic32_t *a, vuint32_t c)
+vatomic32_await_eq(const vatomic32_t *a, vuint32_t c)
 {
     vuint32_t ret = c;
     vuint32_t o   = 0;
@@ -4387,7 +4387,7 @@ vatomic32_await_eq(vatomic32_t *a, vuint32_t c)
     #define VATOMIC32_AWAIT_EQ_ACQ
 
 static inline vuint32_t
-vatomic32_await_eq_acq(vatomic32_t *a, vuint32_t c)
+vatomic32_await_eq_acq(const vatomic32_t *a, vuint32_t c)
 {
     vuint32_t ret = c;
     vuint32_t o   = 0;
@@ -4404,7 +4404,7 @@ vatomic32_await_eq_acq(vatomic32_t *a, vuint32_t c)
     #define VATOMIC32_AWAIT_EQ_RLX
 
 static inline vuint32_t
-vatomic32_await_eq_rlx(vatomic32_t *a, vuint32_t c)
+vatomic32_await_eq_rlx(const vatomic32_t *a, vuint32_t c)
 {
     vuint32_t ret = c;
     vuint32_t o   = 0;
@@ -4421,7 +4421,7 @@ vatomic32_await_eq_rlx(vatomic32_t *a, vuint32_t c)
     #define VATOMIC64_AWAIT_EQ
 
 static inline vuint64_t
-vatomic64_await_eq(vatomic64_t *a, vuint64_t c)
+vatomic64_await_eq(const vatomic64_t *a, vuint64_t c)
 {
     vuint64_t ret = c;
     vuint64_t o   = 0;
@@ -4438,7 +4438,7 @@ vatomic64_await_eq(vatomic64_t *a, vuint64_t c)
     #define VATOMIC64_AWAIT_EQ_ACQ
 
 static inline vuint64_t
-vatomic64_await_eq_acq(vatomic64_t *a, vuint64_t c)
+vatomic64_await_eq_acq(const vatomic64_t *a, vuint64_t c)
 {
     vuint64_t ret = c;
     vuint64_t o   = 0;
@@ -4455,7 +4455,7 @@ vatomic64_await_eq_acq(vatomic64_t *a, vuint64_t c)
     #define VATOMIC64_AWAIT_EQ_RLX
 
 static inline vuint64_t
-vatomic64_await_eq_rlx(vatomic64_t *a, vuint64_t c)
+vatomic64_await_eq_rlx(const vatomic64_t *a, vuint64_t c)
 {
     vuint64_t ret = c;
     vuint64_t o   = 0;
@@ -4472,7 +4472,7 @@ vatomic64_await_eq_rlx(vatomic64_t *a, vuint64_t c)
     #define VATOMICPTR_AWAIT_EQ
 
 static inline void *
-vatomicptr_await_eq(vatomicptr_t *a, void *c)
+vatomicptr_await_eq(const vatomicptr_t *a, void *c)
 {
     void *ret = c;
     void *o   = NULL;
@@ -4489,7 +4489,7 @@ vatomicptr_await_eq(vatomicptr_t *a, void *c)
     #define VATOMICPTR_AWAIT_EQ_ACQ
 
 static inline void *
-vatomicptr_await_eq_acq(vatomicptr_t *a, void *c)
+vatomicptr_await_eq_acq(const vatomicptr_t *a, void *c)
 {
     void *ret = c;
     void *o   = NULL;
@@ -4506,7 +4506,7 @@ vatomicptr_await_eq_acq(vatomicptr_t *a, void *c)
     #define VATOMICPTR_AWAIT_EQ_RLX
 
 static inline void *
-vatomicptr_await_eq_rlx(vatomicptr_t *a, void *c)
+vatomicptr_await_eq_rlx(const vatomicptr_t *a, void *c)
 {
     void *ret = c;
     void *o   = NULL;
@@ -4520,190 +4520,6 @@ vatomicptr_await_eq_rlx(vatomicptr_t *a, void *c)
 #endif /* VATOMICPTR_AWAIT_EQ_RLX */
 
 /* *****************************************************************************
- * vatomic_await_mask_{neq, eq} functions
- * ****************************************************************************/
-
-#ifndef VATOMIC32_AWAIT_MASK_NEQ
-    #define VATOMIC32_AWAIT_MASK_NEQ
-
-static inline V_DEPRECATED vuint32_t
-vatomic32_await_mask_neq(vatomic32_t *a, vuint32_t m, vuint32_t v)
-{
-    vuint32_t cur = 0;
-    await_while ((cur = vatomic32_read(a), (cur & m) == (v & m))) {
-        vatomic_cpu_pause();
-    }
-    return cur;
-}
-
-#endif /* VATOMIC32_AWAIT_MASK_NEQ */
-
-#ifndef VATOMIC32_AWAIT_MASK_NEQ_ACQ
-    #define VATOMIC32_AWAIT_MASK_NEQ_ACQ
-
-static inline V_DEPRECATED vuint32_t
-vatomic32_await_mask_neq_acq(vatomic32_t *a, vuint32_t m, vuint32_t v)
-{
-    vuint32_t cur = 0;
-    await_while ((cur = vatomic32_read_acq(a), (cur & m) == (v & m))) {
-        vatomic_cpu_pause();
-    }
-    return cur;
-}
-
-#endif /* VATOMIC32_AWAIT_MASK_NEQ_ACQ */
-
-#ifndef VATOMIC32_AWAIT_MASK_NEQ_RLX
-    #define VATOMIC32_AWAIT_MASK_NEQ_RLX
-
-static inline V_DEPRECATED vuint32_t
-vatomic32_await_mask_neq_rlx(vatomic32_t *a, vuint32_t m, vuint32_t v)
-{
-    vuint32_t cur = 0;
-    await_while ((cur = vatomic32_read_rlx(a), (cur & m) == (v & m))) {
-        vatomic_cpu_pause();
-    }
-    return cur;
-}
-
-#endif /* VATOMIC32_AWAIT_MASK_NEQ_RLX */
-
-#ifndef VATOMIC64_AWAIT_MASK_NEQ
-    #define VATOMIC64_AWAIT_MASK_NEQ
-
-static inline V_DEPRECATED vuint64_t
-vatomic64_await_mask_neq(vatomic64_t *a, vuint64_t m, vuint64_t v)
-{
-    vuint64_t cur = 0;
-    await_while ((cur = vatomic64_read(a), (cur & m) == (v & m))) {
-        vatomic_cpu_pause();
-    }
-    return cur;
-}
-
-#endif /* VATOMIC64_AWAIT_MASK_NEQ */
-
-#ifndef VATOMIC64_AWAIT_MASK_NEQ_ACQ
-    #define VATOMIC64_AWAIT_MASK_NEQ_ACQ
-
-static inline V_DEPRECATED vuint64_t
-vatomic64_await_mask_neq_acq(vatomic64_t *a, vuint64_t m, vuint64_t v)
-{
-    vuint64_t cur = 0;
-    await_while ((cur = vatomic64_read_acq(a), (cur & m) == (v & m))) {
-        vatomic_cpu_pause();
-    }
-    return cur;
-}
-
-#endif /* VATOMIC64_AWAIT_MASK_NEQ_ACQ */
-
-#ifndef VATOMIC64_AWAIT_MASK_NEQ_RLX
-    #define VATOMIC64_AWAIT_MASK_NEQ_RLX
-
-static inline V_DEPRECATED vuint64_t
-vatomic64_await_mask_neq_rlx(vatomic64_t *a, vuint64_t m, vuint64_t v)
-{
-    vuint64_t cur = 0;
-    await_while ((cur = vatomic64_read_rlx(a), (cur & m) == (v & m))) {
-        vatomic_cpu_pause();
-    }
-    return cur;
-}
-
-#endif /* VATOMIC64_AWAIT_MASK_NEQ_RLX */
-
-#ifndef VATOMIC32_AWAIT_MASK_EQ
-    #define VATOMIC32_AWAIT_MASK_EQ
-
-static inline V_DEPRECATED vuint32_t
-vatomic32_await_mask_eq(vatomic32_t *a, vuint32_t m, vuint32_t v)
-{
-    vuint32_t cur = 0;
-    await_while ((cur = vatomic32_read(a), (cur & m) != (v & m))) {
-        vatomic_cpu_pause();
-    }
-    return cur;
-}
-
-#endif /* VATOMIC32_AWAIT_MASK_EQ */
-
-#ifndef VATOMIC32_AWAIT_MASK_EQ_ACQ
-    #define VATOMIC32_AWAIT_MASK_EQ_ACQ
-
-static inline V_DEPRECATED vuint32_t
-vatomic32_await_mask_eq_acq(vatomic32_t *a, vuint32_t m, vuint32_t v)
-{
-    vuint32_t cur = 0;
-    await_while ((cur = vatomic32_read_acq(a), (cur & m) != (v & m))) {
-        vatomic_cpu_pause();
-    }
-    return cur;
-}
-
-#endif /* VATOMIC32_AWAIT_MASK_EQ_ACQ */
-
-#ifndef VATOMIC32_AWAIT_MASK_EQ_RLX
-    #define VATOMIC32_AWAIT_MASK_EQ_RLX
-
-static inline V_DEPRECATED vuint32_t
-vatomic32_await_mask_eq_rlx(vatomic32_t *a, vuint32_t m, vuint32_t v)
-{
-    vuint32_t cur = 0;
-    await_while ((cur = vatomic32_read_rlx(a), (cur & m) != (v & m))) {
-        vatomic_cpu_pause();
-    }
-    return cur;
-}
-
-#endif /* VATOMIC32_AWAIT_MASK_EQ_RLX */
-
-#ifndef VATOMIC64_AWAIT_MASK_EQ
-    #define VATOMIC64_AWAIT_MASK_EQ
-
-static inline V_DEPRECATED vuint64_t
-vatomic64_await_mask_eq(vatomic64_t *a, vuint64_t m, vuint64_t v)
-{
-    vuint64_t cur = 0;
-    await_while ((cur = vatomic64_read(a), (cur & m) != (v & m))) {
-        vatomic_cpu_pause();
-    }
-    return cur;
-}
-
-#endif /* VATOMIC64_AWAIT_MASK_EQ */
-
-#ifndef VATOMIC64_AWAIT_MASK_EQ_ACQ
-    #define VATOMIC64_AWAIT_MASK_EQ_ACQ
-
-static inline V_DEPRECATED vuint64_t
-vatomic64_await_mask_eq_acq(vatomic64_t *a, vuint64_t m, vuint64_t v)
-{
-    vuint64_t cur = 0;
-    await_while ((cur = vatomic64_read_acq(a), (cur & m) != (v & m))) {
-        vatomic_cpu_pause();
-    }
-    return cur;
-}
-
-#endif /* VATOMIC64_AWAIT_MASK_EQ_ACQ */
-
-#ifndef VATOMIC64_AWAIT_MASK_EQ_RLX
-    #define VATOMIC64_AWAIT_MASK_EQ_RLX
-
-static inline V_DEPRECATED vuint64_t
-vatomic64_await_mask_eq_rlx(vatomic64_t *a, vuint64_t m, vuint64_t v)
-{
-    vuint64_t cur = 0;
-    await_while ((cur = vatomic64_read_rlx(a), (cur & m) != (v & m))) {
-        vatomic_cpu_pause();
-    }
-    return cur;
-}
-
-#endif /* VATOMIC64_AWAIT_MASK_EQ_RLX */
-
-/* *****************************************************************************
  * vatomic_await_COND functions
  * ****************************************************************************/
 
@@ -4711,7 +4527,7 @@ vatomic64_await_mask_eq_rlx(vatomic64_t *a, vuint64_t m, vuint64_t v)
     #define VATOMIC32_AWAIT_LE
 
 static inline vuint32_t
-vatomic32_await_le(vatomic32_t *a, vuint32_t c)
+vatomic32_await_le(const vatomic32_t *a, vuint32_t c)
 {
     vuint32_t old = vatomic32_read(a);
     while (!(old <= c)) {
@@ -4726,7 +4542,7 @@ vatomic32_await_le(vatomic32_t *a, vuint32_t c)
     #define VATOMIC32_AWAIT_LE_ACQ
 
 static inline vuint32_t
-vatomic32_await_le_acq(vatomic32_t *a, vuint32_t c)
+vatomic32_await_le_acq(const vatomic32_t *a, vuint32_t c)
 {
     vuint32_t old = vatomic32_read_acq(a);
     while (!(old <= c)) {
@@ -4741,7 +4557,7 @@ vatomic32_await_le_acq(vatomic32_t *a, vuint32_t c)
     #define VATOMIC32_AWAIT_LE_RLX
 
 static inline vuint32_t
-vatomic32_await_le_rlx(vatomic32_t *a, vuint32_t c)
+vatomic32_await_le_rlx(const vatomic32_t *a, vuint32_t c)
 {
     vuint32_t old = vatomic32_read_rlx(a);
     while (!(old <= c)) {
@@ -4756,7 +4572,7 @@ vatomic32_await_le_rlx(vatomic32_t *a, vuint32_t c)
     #define VATOMIC32_AWAIT_LT
 
 static inline vuint32_t
-vatomic32_await_lt(vatomic32_t *a, vuint32_t c)
+vatomic32_await_lt(const vatomic32_t *a, vuint32_t c)
 {
     vuint32_t old = vatomic32_read(a);
     while (!(old < c)) {
@@ -4771,7 +4587,7 @@ vatomic32_await_lt(vatomic32_t *a, vuint32_t c)
     #define VATOMIC32_AWAIT_LT_ACQ
 
 static inline vuint32_t
-vatomic32_await_lt_acq(vatomic32_t *a, vuint32_t c)
+vatomic32_await_lt_acq(const vatomic32_t *a, vuint32_t c)
 {
     vuint32_t old = vatomic32_read_acq(a);
     while (!(old < c)) {
@@ -4786,7 +4602,7 @@ vatomic32_await_lt_acq(vatomic32_t *a, vuint32_t c)
     #define VATOMIC32_AWAIT_LT_RLX
 
 static inline vuint32_t
-vatomic32_await_lt_rlx(vatomic32_t *a, vuint32_t c)
+vatomic32_await_lt_rlx(const vatomic32_t *a, vuint32_t c)
 {
     vuint32_t old = vatomic32_read_rlx(a);
     while (!(old < c)) {
@@ -4801,7 +4617,7 @@ vatomic32_await_lt_rlx(vatomic32_t *a, vuint32_t c)
     #define VATOMIC32_AWAIT_GE
 
 static inline vuint32_t
-vatomic32_await_ge(vatomic32_t *a, vuint32_t c)
+vatomic32_await_ge(const vatomic32_t *a, vuint32_t c)
 {
     vuint32_t old = vatomic32_read(a);
     while (!(old >= c)) {
@@ -4816,7 +4632,7 @@ vatomic32_await_ge(vatomic32_t *a, vuint32_t c)
     #define VATOMIC32_AWAIT_GE_ACQ
 
 static inline vuint32_t
-vatomic32_await_ge_acq(vatomic32_t *a, vuint32_t c)
+vatomic32_await_ge_acq(const vatomic32_t *a, vuint32_t c)
 {
     vuint32_t old = vatomic32_read_acq(a);
     while (!(old >= c)) {
@@ -4831,7 +4647,7 @@ vatomic32_await_ge_acq(vatomic32_t *a, vuint32_t c)
     #define VATOMIC32_AWAIT_GE_RLX
 
 static inline vuint32_t
-vatomic32_await_ge_rlx(vatomic32_t *a, vuint32_t c)
+vatomic32_await_ge_rlx(const vatomic32_t *a, vuint32_t c)
 {
     vuint32_t old = vatomic32_read_rlx(a);
     while (!(old >= c)) {
@@ -4846,7 +4662,7 @@ vatomic32_await_ge_rlx(vatomic32_t *a, vuint32_t c)
     #define VATOMIC32_AWAIT_GT
 
 static inline vuint32_t
-vatomic32_await_gt(vatomic32_t *a, vuint32_t c)
+vatomic32_await_gt(const vatomic32_t *a, vuint32_t c)
 {
     vuint32_t old = vatomic32_read(a);
     while (!(old > c)) {
@@ -4861,7 +4677,7 @@ vatomic32_await_gt(vatomic32_t *a, vuint32_t c)
     #define VATOMIC32_AWAIT_GT_ACQ
 
 static inline vuint32_t
-vatomic32_await_gt_acq(vatomic32_t *a, vuint32_t c)
+vatomic32_await_gt_acq(const vatomic32_t *a, vuint32_t c)
 {
     vuint32_t old = vatomic32_read_acq(a);
     while (!(old > c)) {
@@ -4876,7 +4692,7 @@ vatomic32_await_gt_acq(vatomic32_t *a, vuint32_t c)
     #define VATOMIC32_AWAIT_GT_RLX
 
 static inline vuint32_t
-vatomic32_await_gt_rlx(vatomic32_t *a, vuint32_t c)
+vatomic32_await_gt_rlx(const vatomic32_t *a, vuint32_t c)
 {
     vuint32_t old = vatomic32_read_rlx(a);
     while (!(old > c)) {
@@ -4891,7 +4707,7 @@ vatomic32_await_gt_rlx(vatomic32_t *a, vuint32_t c)
     #define VATOMIC64_AWAIT_LE
 
 static inline vuint64_t
-vatomic64_await_le(vatomic64_t *a, vuint64_t c)
+vatomic64_await_le(const vatomic64_t *a, vuint64_t c)
 {
     vuint64_t old = vatomic64_read(a);
     while (!(old <= c)) {
@@ -4906,7 +4722,7 @@ vatomic64_await_le(vatomic64_t *a, vuint64_t c)
     #define VATOMIC64_AWAIT_LE_ACQ
 
 static inline vuint64_t
-vatomic64_await_le_acq(vatomic64_t *a, vuint64_t c)
+vatomic64_await_le_acq(const vatomic64_t *a, vuint64_t c)
 {
     vuint64_t old = vatomic64_read_acq(a);
     while (!(old <= c)) {
@@ -4921,7 +4737,7 @@ vatomic64_await_le_acq(vatomic64_t *a, vuint64_t c)
     #define VATOMIC64_AWAIT_LE_RLX
 
 static inline vuint64_t
-vatomic64_await_le_rlx(vatomic64_t *a, vuint64_t c)
+vatomic64_await_le_rlx(const vatomic64_t *a, vuint64_t c)
 {
     vuint64_t old = vatomic64_read_rlx(a);
     while (!(old <= c)) {
@@ -4936,7 +4752,7 @@ vatomic64_await_le_rlx(vatomic64_t *a, vuint64_t c)
     #define VATOMIC64_AWAIT_LT
 
 static inline vuint64_t
-vatomic64_await_lt(vatomic64_t *a, vuint64_t c)
+vatomic64_await_lt(const vatomic64_t *a, vuint64_t c)
 {
     vuint64_t old = vatomic64_read(a);
     while (!(old < c)) {
@@ -4951,7 +4767,7 @@ vatomic64_await_lt(vatomic64_t *a, vuint64_t c)
     #define VATOMIC64_AWAIT_LT_ACQ
 
 static inline vuint64_t
-vatomic64_await_lt_acq(vatomic64_t *a, vuint64_t c)
+vatomic64_await_lt_acq(const vatomic64_t *a, vuint64_t c)
 {
     vuint64_t old = vatomic64_read_acq(a);
     while (!(old < c)) {
@@ -4966,7 +4782,7 @@ vatomic64_await_lt_acq(vatomic64_t *a, vuint64_t c)
     #define VATOMIC64_AWAIT_LT_RLX
 
 static inline vuint64_t
-vatomic64_await_lt_rlx(vatomic64_t *a, vuint64_t c)
+vatomic64_await_lt_rlx(const vatomic64_t *a, vuint64_t c)
 {
     vuint64_t old = vatomic64_read_rlx(a);
     while (!(old < c)) {
@@ -4981,7 +4797,7 @@ vatomic64_await_lt_rlx(vatomic64_t *a, vuint64_t c)
     #define VATOMIC64_AWAIT_GE
 
 static inline vuint64_t
-vatomic64_await_ge(vatomic64_t *a, vuint64_t c)
+vatomic64_await_ge(const vatomic64_t *a, vuint64_t c)
 {
     vuint64_t old = vatomic64_read(a);
     while (!(old >= c)) {
@@ -4996,7 +4812,7 @@ vatomic64_await_ge(vatomic64_t *a, vuint64_t c)
     #define VATOMIC64_AWAIT_GE_ACQ
 
 static inline vuint64_t
-vatomic64_await_ge_acq(vatomic64_t *a, vuint64_t c)
+vatomic64_await_ge_acq(const vatomic64_t *a, vuint64_t c)
 {
     vuint64_t old = vatomic64_read_acq(a);
     while (!(old >= c)) {
@@ -5011,7 +4827,7 @@ vatomic64_await_ge_acq(vatomic64_t *a, vuint64_t c)
     #define VATOMIC64_AWAIT_GE_RLX
 
 static inline vuint64_t
-vatomic64_await_ge_rlx(vatomic64_t *a, vuint64_t c)
+vatomic64_await_ge_rlx(const vatomic64_t *a, vuint64_t c)
 {
     vuint64_t old = vatomic64_read_rlx(a);
     while (!(old >= c)) {
@@ -5026,7 +4842,7 @@ vatomic64_await_ge_rlx(vatomic64_t *a, vuint64_t c)
     #define VATOMIC64_AWAIT_GT
 
 static inline vuint64_t
-vatomic64_await_gt(vatomic64_t *a, vuint64_t c)
+vatomic64_await_gt(const vatomic64_t *a, vuint64_t c)
 {
     vuint64_t old = vatomic64_read(a);
     while (!(old > c)) {
@@ -5041,7 +4857,7 @@ vatomic64_await_gt(vatomic64_t *a, vuint64_t c)
     #define VATOMIC64_AWAIT_GT_ACQ
 
 static inline vuint64_t
-vatomic64_await_gt_acq(vatomic64_t *a, vuint64_t c)
+vatomic64_await_gt_acq(const vatomic64_t *a, vuint64_t c)
 {
     vuint64_t old = vatomic64_read_acq(a);
     while (!(old > c)) {
@@ -5056,7 +4872,7 @@ vatomic64_await_gt_acq(vatomic64_t *a, vuint64_t c)
     #define VATOMIC64_AWAIT_GT_RLX
 
 static inline vuint64_t
-vatomic64_await_gt_rlx(vatomic64_t *a, vuint64_t c)
+vatomic64_await_gt_rlx(const vatomic64_t *a, vuint64_t c)
 {
     vuint64_t old = vatomic64_read_rlx(a);
     while (!(old > c)) {

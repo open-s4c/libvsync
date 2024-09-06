@@ -63,13 +63,13 @@ _tmpl_dl; // -------------------------------------------------------------------
 _tmpl_begin(TY = [[u8; u16; u32; u64; ptr]], MO = [[seq; acq; rlx]],
             OP = [[eq; neq]]);
 /*****************************************************************************
- * UnitTest: _vatomic_await_OP_MS
+ * UnitTest: __vatomic_await_OP_MS
  *****************************************************************************/
 static inline void
 ut_atomic_TY_await_OP_MS(void)
 {
     AA obj = {MAP_CUR_VAL_OP};
-    TT val = _vatomic_await_OP_MS(&obj, MAP_WAIT_VAL_OP);
+    TT val = __vatomic_await_OP_MS(&obj, MAP_WAIT_VAL_OP);
     ASSERT(val == MAP_CUR_VAL_OP);
     V_UNUSED(val);
 }
@@ -78,16 +78,16 @@ _tmpl_end;
 _tmpl_begin(TY = [[u8; u16; u32; u64; ptr]], MO = [[seq; rel; acq; rlx]],
             OP = [[eq; neq]]);
 /*****************************************************************************
- * UnitTest: _vatomic_await_OP_set_MS
+ * UnitTest: __vatomic_await_OP_set_MS
  *****************************************************************************/
 static inline void
 ut_atomic_TY_await_OP_set_MS(void)
 {
     AA obj   = {MAP_CUR_VAL_OP};
     TT n_val = (TT)0xFF;
-    TT val   = _vatomic_await_OP_set_MS(&obj, MAP_WAIT_VAL_OP, n_val);
+    TT val   = __vatomic_await_OP_set_MS(&obj, MAP_WAIT_VAL_OP, n_val);
     ASSERT(val == MAP_CUR_VAL_OP);
-    val = _vatomic_read(&obj);
+    val = __vatomic_read(&obj);
     ASSERT(val == n_val);
     V_UNUSED(val);
 }
@@ -96,13 +96,13 @@ _tmpl_end;
 _tmpl_begin(TY = [[u8; u16; u32; u64]], MO = [[seq; acq; rlx]],
             OP = [[le; gt; ge]]);
 /*****************************************************************************
- * UnitTest: _vatomic_await_OP_MS
+ * UnitTest: __vatomic_await_OP_MS
  *****************************************************************************/
 static inline void
 ut_atomic_TY_await_OP_MS(void)
 {
     AA obj = {MAP_CUR_VAL_OP};
-    TT val = _vatomic_await_OP_MS(&obj, MAP_WAIT_VAL_OP);
+    TT val = __vatomic_await_OP_MS(&obj, MAP_WAIT_VAL_OP);
     ASSERT(val == MAP_CUR_VAL_OP);
     V_UNUSED(val);
 }
@@ -111,16 +111,16 @@ _tmpl_end;
 _tmpl_begin(TY = [[u8; u16; u32; u64]], MO = [[seq; rel; acq; rlx]],
             OP = [[le; gt; ge]]);
 /*****************************************************************************
- * UnitTest: _vatomic_await_OP_set_MS
+ * UnitTest: __vatomic_await_OP_set_MS
  *****************************************************************************/
 static inline void
 ut_atomic_TY_await_OP_set_MS(void)
 {
     AA obj   = {MAP_CUR_VAL_OP};
     TT n_val = (TT)0xFF;
-    TT val   = _vatomic_await_OP_set_MS(&obj, MAP_WAIT_VAL_OP, n_val);
+    TT val   = __vatomic_await_OP_set_MS(&obj, MAP_WAIT_VAL_OP, n_val);
     ASSERT(val == MAP_CUR_VAL_OP);
-    val = _vatomic_read(&obj);
+    val = __vatomic_read(&obj);
     ASSERT(val == n_val);
     V_UNUSED(val);
 }
@@ -129,17 +129,17 @@ _tmpl_end;
 _tmpl_begin(TY = [[u8; u16; u32; u64]], MO = [[seq; rel; acq; rlx]],
             CON = [[neq; eq; le; gt; ge]], OP = [[add; sub]]);
 /*****************************************************************************
- * UnitTest: _vatomic_await_CON_OP_MS
+ * UnitTest: __vatomic_await_CON_OP_MS
  *****************************************************************************/
 static inline void
 ut_atomic_TY_await_CON_OP_MS(void)
 {
     AA obj = {MAP_CUR_VAL_CON};
     TT ref = MAP_CUR_VAL_CON;
-    TT val = _vatomic_await_CON_OP_MS(&obj, MAP_WAIT_VAL_CON, 0x1U);
+    TT val = __vatomic_await_CON_OP_MS(&obj, MAP_WAIT_VAL_CON, 0x1U);
     ASSERT(val == MAP_CUR_VAL_CON);
     ref = ref MAP_OP 0x1U;
-    val = _vatomic_read(&obj);
+    val = __vatomic_read(&obj);
     ASSERT(val == ref);
     V_UNUSED(val, ref);
 }

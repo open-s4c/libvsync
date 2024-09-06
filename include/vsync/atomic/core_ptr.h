@@ -40,7 +40,7 @@ static inline void vatomicptr_init(vatomicptr_t *a, void *v);
  * @return current value
  * @memord seq_cst
  */
-static inline void *vatomicptr_read(vatomicptr_t *a);
+static inline void *vatomicptr_read(const vatomicptr_t *a);
 /**
  * Returns the value of the atomic variable pointed by a.
  *
@@ -48,7 +48,7 @@ static inline void *vatomicptr_read(vatomicptr_t *a);
  * @return current value
  * @memord acquire
  */
-static inline void *vatomicptr_read_acq(vatomicptr_t *a);
+static inline void *vatomicptr_read_acq(const vatomicptr_t *a);
 /**
  * Returns the value of the atomic variable pointed by a.
  *
@@ -56,7 +56,7 @@ static inline void *vatomicptr_read_acq(vatomicptr_t *a);
  * @return current value
  * @memord relaxed
  */
-static inline void *vatomicptr_read_rlx(vatomicptr_t *a);
+static inline void *vatomicptr_read_rlx(const vatomicptr_t *a);
 
 /**
  * Writes value v in the atomic variable pointed by a.

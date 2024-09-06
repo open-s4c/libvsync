@@ -1,3 +1,5 @@
+add_subdirectory(config)
+
 # grep templates for each .in .h will be generated
 file(GLOB TARGETS *.in)
 

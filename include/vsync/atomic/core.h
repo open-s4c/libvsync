@@ -114,11 +114,38 @@ static inline void vatomic_fence_rlx(void);
 #include <vsync/atomic/core_ptr.h>
 
 /* *****************************************************************************
+ * config
+ * ****************************************************************************/
+#if defined(VATOMIC_ENABLE_ATOMIC_SC)
+    #include <vsync/atomic/internal/config/fnc_sc.h>
+    #include <vsync/atomic/internal/config/u8_sc.h>
+    #include <vsync/atomic/internal/config/u16_sc.h>
+    #include <vsync/atomic/internal/config/u32_sc.h>
+    #include <vsync/atomic/internal/config/u64_sc.h>
+    #include <vsync/atomic/internal/config/sz_sc.h>
+    #include <vsync/atomic/internal/config/ptr_sc.h>
+#elif defined(VATOMIC_ENABLE_ATOMIC_RLX)
+    #include <vsync/atomic/internal/config/fnc_rlx.h>
+    #include <vsync/atomic/internal/config/u8_rlx.h>
+    #include <vsync/atomic/internal/config/u16_rlx.h>
+    #include <vsync/atomic/internal/config/u32_rlx.h>
+    #include <vsync/atomic/internal/config/u64_rlx.h>
+    #include <vsync/atomic/internal/config/sz_rlx.h>
+    #include <vsync/atomic/internal/config/ptr_rlx.h>
+#endif
+/* *****************************************************************************
  * Select vatomic implementation and include definitions
  * ****************************************************************************/
 
 #if !defined(VATOMIC_BUILTINS) && defined(__arm__)
-    #include <vsync/atomic/internal/arm32.h>
+    #if defined(__ARM_ARCH) && __ARM_ARCH == 8
+        #define VATOMIC_ARM32_V8
+        #include <vsync/atomic/internal/arm32_v8.h>
+    #else
+        /* we don't support ARM archs that are older than v7 */
+        #define VATOMIC_ARM32_V7
+        #include <vsync/atomic/internal/arm32_v7.h>
+    #endif
 #elif !defined(VATOMIC_BUILTINS) && defined(__aarch64__)
     #include <vsync/atomic/internal/arm64.h>
 #elif !defined(VATOMIC_BUILTINS) && defined(__x86_64__)

@@ -8,6 +8,8 @@
 
 #if defined(VSYNC_VERIFICATION) && !defined(VSYNC_DISABLE_SPIN_ANNOTATION)
     #include <vsync/common/internal/await_while.h>
+#elif defined(VSYNC_LOTTO) && !defined(LOTTO_DISABLE_SPIN_ANNOTATION)
+    #include <lotto/await_while.h>
 #else
     #define await_while(cond) while (cond)
     #define await_do          do

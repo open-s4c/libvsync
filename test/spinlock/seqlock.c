@@ -15,11 +15,6 @@
 
 seqlock_t lock = SEQ_LOCK_INIT();
 
-/**
- * g_cs_x and g_cs_y are defined as atomics for data-race prevention when
- * verifying with rc11.
- *
- */
 vuint32_t g_cs_x;
 vuint32_t g_cs_y;
 

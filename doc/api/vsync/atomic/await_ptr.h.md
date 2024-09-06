@@ -34,7 +34,7 @@ Please do not include this file directly, instead use:
 ##  Function `vatomicptr_await_neq`
 
 ```c
-static void* vatomicptr_await_neq(vatomicptr_t *a, void *v)
+static void* vatomicptr_await_neq(const vatomicptr_t *a, void *v)
 ``` 
 _Politely awaits the value pointed by a to be different than v._ 
 
@@ -57,7 +57,7 @@ The return value is the first read value that satisfies the condition, as if rea
 ##  Function `vatomicptr_await_neq_acq`
 
 ```c
-static void* vatomicptr_await_neq_acq(vatomicptr_t *a, void *v)
+static void* vatomicptr_await_neq_acq(const vatomicptr_t *a, void *v)
 ``` 
 _Politely awaits the value pointed by a to be different than v._ 
 
@@ -80,7 +80,7 @@ The return value is the first read value that satisfies the condition, as if rea
 ##  Function `vatomicptr_await_neq_rlx`
 
 ```c
-static void* vatomicptr_await_neq_rlx(vatomicptr_t *a, void *v)
+static void* vatomicptr_await_neq_rlx(const vatomicptr_t *a, void *v)
 ``` 
 _Politely awaits the value pointed by a to be different than v._ 
 
@@ -103,7 +103,7 @@ The return value is the first read value that satisfies the condition, as if rea
 ##  Function `vatomicptr_await_eq`
 
 ```c
-static void* vatomicptr_await_eq(vatomicptr_t *a, void *v)
+static void* vatomicptr_await_eq(const vatomicptr_t *a, void *v)
 ``` 
 _Politely awaits the value pointed by a to be equal to v._ 
 
@@ -126,7 +126,7 @@ The return value is the first read value that satisfies the condition, as if rea
 ##  Function `vatomicptr_await_eq_acq`
 
 ```c
-static void* vatomicptr_await_eq_acq(vatomicptr_t *a, void *v)
+static void* vatomicptr_await_eq_acq(const vatomicptr_t *a, void *v)
 ``` 
 _Politely awaits the value pointed by a to be equal to v._ 
 
@@ -149,7 +149,7 @@ The return value is the first read value that satisfies the condition, as if rea
 ##  Function `vatomicptr_await_eq_rlx`
 
 ```c
-static void* vatomicptr_await_eq_rlx(vatomicptr_t *a, void *v)
+static void* vatomicptr_await_eq_rlx(const vatomicptr_t *a, void *v)
 ``` 
 _Politely awaits the value pointed by a to be equal to v._ 
 

@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.16)
 project(
     libvsync
     LANGUAGES C
-    VERSION 3.6.0
+    VERSION 4.0.1
     DESCRIPTION
         "Verified library of atomics, synchronization primitives and concurrent data structures"
 )
@@ -78,6 +78,7 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     include(ProcessorCount)
     include(${CMAKE_SOURCE_DIR}/cmake/v_add_test.cmake)
     include(${CMAKE_SOURCE_DIR}/cmake/check.cmake)
+    include(${CMAKE_SOURCE_DIR}/cmake/lotto_test.cmake)
     add_subdirectory(template)
     add_subdirectory(test)
     add_subdirectory(verify)

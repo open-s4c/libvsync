@@ -20,7 +20,7 @@ vatomic_fence(void)
 {
     V_COMPILER_BARRIER();
     #if !defined(VSYNC_THREAD_SANITIZER)
-    __atomic_thread_fence(V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    __atomic_thread_fence(__ATOMIC_SEQ_CST);
     #endif
     V_COMPILER_BARRIER();
 }
@@ -35,7 +35,7 @@ vatomic_fence_acq(void)
 {
     V_COMPILER_BARRIER();
     #if !defined(VSYNC_THREAD_SANITIZER)
-    __atomic_thread_fence(V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    __atomic_thread_fence(__ATOMIC_ACQUIRE);
     #endif
     V_COMPILER_BARRIER();
 }
@@ -50,7 +50,7 @@ vatomic_fence_rel(void)
 {
     V_COMPILER_BARRIER();
     #if !defined(VSYNC_THREAD_SANITIZER)
-    __atomic_thread_fence(V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE));
+    __atomic_thread_fence(__ATOMIC_RELEASE);
     #endif
     V_COMPILER_BARRIER();
 }
@@ -64,7 +64,7 @@ static inline void
 vatomic_fence_rlx(void)
 {
     #if !defined(VSYNC_THREAD_SANITIZER)
-    __atomic_thread_fence(V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    __atomic_thread_fence(__ATOMIC_RELAXED);
     #endif
 }
 
@@ -78,11 +78,10 @@ vatomic_fence_rlx(void)
     #define VATOMIC8_READ
 
 static inline vuint8_t
-vatomic8_read(vatomic8_t *a)
+vatomic8_read(const vatomic8_t *a)
 {
     V_COMPILER_BARRIER();
-    vuint8_t tmp = (vuint8_t)__atomic_load_n(
-        &a->_v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    vuint8_t tmp = (vuint8_t)__atomic_load_n(&a->_v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -93,11 +92,10 @@ vatomic8_read(vatomic8_t *a)
     #define VATOMIC8_READ_ACQ
 
 static inline vuint8_t
-vatomic8_read_acq(vatomic8_t *a)
+vatomic8_read_acq(const vatomic8_t *a)
 {
     V_COMPILER_BARRIER();
-    vuint8_t tmp = (vuint8_t)__atomic_load_n(
-        &a->_v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    vuint8_t tmp = (vuint8_t)__atomic_load_n(&a->_v, __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -108,11 +106,10 @@ vatomic8_read_acq(vatomic8_t *a)
     #define VATOMIC8_READ_RLX
 
 static inline vuint8_t
-vatomic8_read_rlx(vatomic8_t *a)
+vatomic8_read_rlx(const vatomic8_t *a)
 {
     V_COMPILER_BARRIER();
-    vuint8_t tmp = (vuint8_t)__atomic_load_n(
-        &a->_v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    vuint8_t tmp = (vuint8_t)__atomic_load_n(&a->_v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -123,11 +120,10 @@ vatomic8_read_rlx(vatomic8_t *a)
     #define VATOMIC16_READ
 
 static inline vuint16_t
-vatomic16_read(vatomic16_t *a)
+vatomic16_read(const vatomic16_t *a)
 {
     V_COMPILER_BARRIER();
-    vuint16_t tmp = (vuint16_t)__atomic_load_n(
-        &a->_v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    vuint16_t tmp = (vuint16_t)__atomic_load_n(&a->_v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -138,11 +134,10 @@ vatomic16_read(vatomic16_t *a)
     #define VATOMIC16_READ_ACQ
 
 static inline vuint16_t
-vatomic16_read_acq(vatomic16_t *a)
+vatomic16_read_acq(const vatomic16_t *a)
 {
     V_COMPILER_BARRIER();
-    vuint16_t tmp = (vuint16_t)__atomic_load_n(
-        &a->_v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    vuint16_t tmp = (vuint16_t)__atomic_load_n(&a->_v, __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -153,11 +148,10 @@ vatomic16_read_acq(vatomic16_t *a)
     #define VATOMIC16_READ_RLX
 
 static inline vuint16_t
-vatomic16_read_rlx(vatomic16_t *a)
+vatomic16_read_rlx(const vatomic16_t *a)
 {
     V_COMPILER_BARRIER();
-    vuint16_t tmp = (vuint16_t)__atomic_load_n(
-        &a->_v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    vuint16_t tmp = (vuint16_t)__atomic_load_n(&a->_v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -168,11 +162,10 @@ vatomic16_read_rlx(vatomic16_t *a)
     #define VATOMIC32_READ
 
 static inline vuint32_t
-vatomic32_read(vatomic32_t *a)
+vatomic32_read(const vatomic32_t *a)
 {
     V_COMPILER_BARRIER();
-    vuint32_t tmp = (vuint32_t)__atomic_load_n(
-        &a->_v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    vuint32_t tmp = (vuint32_t)__atomic_load_n(&a->_v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -183,11 +176,10 @@ vatomic32_read(vatomic32_t *a)
     #define VATOMIC32_READ_ACQ
 
 static inline vuint32_t
-vatomic32_read_acq(vatomic32_t *a)
+vatomic32_read_acq(const vatomic32_t *a)
 {
     V_COMPILER_BARRIER();
-    vuint32_t tmp = (vuint32_t)__atomic_load_n(
-        &a->_v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    vuint32_t tmp = (vuint32_t)__atomic_load_n(&a->_v, __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -198,11 +190,10 @@ vatomic32_read_acq(vatomic32_t *a)
     #define VATOMIC32_READ_RLX
 
 static inline vuint32_t
-vatomic32_read_rlx(vatomic32_t *a)
+vatomic32_read_rlx(const vatomic32_t *a)
 {
     V_COMPILER_BARRIER();
-    vuint32_t tmp = (vuint32_t)__atomic_load_n(
-        &a->_v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    vuint32_t tmp = (vuint32_t)__atomic_load_n(&a->_v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -213,11 +204,10 @@ vatomic32_read_rlx(vatomic32_t *a)
     #define VATOMIC64_READ
 
 static inline vuint64_t
-vatomic64_read(vatomic64_t *a)
+vatomic64_read(const vatomic64_t *a)
 {
     V_COMPILER_BARRIER();
-    vuint64_t tmp = (vuint64_t)__atomic_load_n(
-        &a->_v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    vuint64_t tmp = (vuint64_t)__atomic_load_n(&a->_v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -228,11 +218,10 @@ vatomic64_read(vatomic64_t *a)
     #define VATOMIC64_READ_ACQ
 
 static inline vuint64_t
-vatomic64_read_acq(vatomic64_t *a)
+vatomic64_read_acq(const vatomic64_t *a)
 {
     V_COMPILER_BARRIER();
-    vuint64_t tmp = (vuint64_t)__atomic_load_n(
-        &a->_v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    vuint64_t tmp = (vuint64_t)__atomic_load_n(&a->_v, __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -243,11 +232,10 @@ vatomic64_read_acq(vatomic64_t *a)
     #define VATOMIC64_READ_RLX
 
 static inline vuint64_t
-vatomic64_read_rlx(vatomic64_t *a)
+vatomic64_read_rlx(const vatomic64_t *a)
 {
     V_COMPILER_BARRIER();
-    vuint64_t tmp = (vuint64_t)__atomic_load_n(
-        &a->_v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    vuint64_t tmp = (vuint64_t)__atomic_load_n(&a->_v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -258,11 +246,10 @@ vatomic64_read_rlx(vatomic64_t *a)
     #define VATOMICSZ_READ
 
 static inline vsize_t
-vatomicsz_read(vatomicsz_t *a)
+vatomicsz_read(const vatomicsz_t *a)
 {
     V_COMPILER_BARRIER();
-    vsize_t tmp = (vsize_t)__atomic_load_n(
-        &a->_v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    vsize_t tmp = (vsize_t)__atomic_load_n(&a->_v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -273,11 +260,10 @@ vatomicsz_read(vatomicsz_t *a)
     #define VATOMICSZ_READ_ACQ
 
 static inline vsize_t
-vatomicsz_read_acq(vatomicsz_t *a)
+vatomicsz_read_acq(const vatomicsz_t *a)
 {
     V_COMPILER_BARRIER();
-    vsize_t tmp = (vsize_t)__atomic_load_n(
-        &a->_v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    vsize_t tmp = (vsize_t)__atomic_load_n(&a->_v, __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -288,11 +274,10 @@ vatomicsz_read_acq(vatomicsz_t *a)
     #define VATOMICSZ_READ_RLX
 
 static inline vsize_t
-vatomicsz_read_rlx(vatomicsz_t *a)
+vatomicsz_read_rlx(const vatomicsz_t *a)
 {
     V_COMPILER_BARRIER();
-    vsize_t tmp = (vsize_t)__atomic_load_n(
-        &a->_v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    vsize_t tmp = (vsize_t)__atomic_load_n(&a->_v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -303,11 +288,10 @@ vatomicsz_read_rlx(vatomicsz_t *a)
     #define VATOMICPTR_READ
 
 static inline void *
-vatomicptr_read(vatomicptr_t *a)
+vatomicptr_read(const vatomicptr_t *a)
 {
     V_COMPILER_BARRIER();
-    void *tmp = (void *)__atomic_load_n(
-        &a->_v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    void *tmp = (void *)__atomic_load_n(&a->_v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -318,11 +302,10 @@ vatomicptr_read(vatomicptr_t *a)
     #define VATOMICPTR_READ_ACQ
 
 static inline void *
-vatomicptr_read_acq(vatomicptr_t *a)
+vatomicptr_read_acq(const vatomicptr_t *a)
 {
     V_COMPILER_BARRIER();
-    void *tmp = (void *)__atomic_load_n(
-        &a->_v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    void *tmp = (void *)__atomic_load_n(&a->_v, __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -333,11 +316,10 @@ vatomicptr_read_acq(vatomicptr_t *a)
     #define VATOMICPTR_READ_RLX
 
 static inline void *
-vatomicptr_read_rlx(vatomicptr_t *a)
+vatomicptr_read_rlx(const vatomicptr_t *a)
 {
     V_COMPILER_BARRIER();
-    void *tmp = (void *)__atomic_load_n(
-        &a->_v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    void *tmp = (void *)__atomic_load_n(&a->_v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -355,7 +337,7 @@ static inline void
 vatomic8_write(vatomic8_t *a, vuint8_t v)
 {
     V_COMPILER_BARRIER();
-    __atomic_store_n(&a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    __atomic_store_n(&a->_v, v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
 }
 
@@ -368,7 +350,7 @@ static inline void
 vatomic8_write_rel(vatomic8_t *a, vuint8_t v)
 {
     V_COMPILER_BARRIER();
-    __atomic_store_n(&a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE));
+    __atomic_store_n(&a->_v, v, __ATOMIC_RELEASE);
     V_COMPILER_BARRIER();
 }
 
@@ -381,7 +363,7 @@ static inline void
 vatomic8_write_rlx(vatomic8_t *a, vuint8_t v)
 {
     V_COMPILER_BARRIER();
-    __atomic_store_n(&a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    __atomic_store_n(&a->_v, v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
 }
 
@@ -394,7 +376,7 @@ static inline void
 vatomic16_write(vatomic16_t *a, vuint16_t v)
 {
     V_COMPILER_BARRIER();
-    __atomic_store_n(&a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    __atomic_store_n(&a->_v, v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
 }
 
@@ -407,7 +389,7 @@ static inline void
 vatomic16_write_rel(vatomic16_t *a, vuint16_t v)
 {
     V_COMPILER_BARRIER();
-    __atomic_store_n(&a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE));
+    __atomic_store_n(&a->_v, v, __ATOMIC_RELEASE);
     V_COMPILER_BARRIER();
 }
 
@@ -420,7 +402,7 @@ static inline void
 vatomic16_write_rlx(vatomic16_t *a, vuint16_t v)
 {
     V_COMPILER_BARRIER();
-    __atomic_store_n(&a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    __atomic_store_n(&a->_v, v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
 }
 
@@ -433,7 +415,7 @@ static inline void
 vatomic32_write(vatomic32_t *a, vuint32_t v)
 {
     V_COMPILER_BARRIER();
-    __atomic_store_n(&a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    __atomic_store_n(&a->_v, v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
 }
 
@@ -446,7 +428,7 @@ static inline void
 vatomic32_write_rel(vatomic32_t *a, vuint32_t v)
 {
     V_COMPILER_BARRIER();
-    __atomic_store_n(&a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE));
+    __atomic_store_n(&a->_v, v, __ATOMIC_RELEASE);
     V_COMPILER_BARRIER();
 }
 
@@ -459,7 +441,7 @@ static inline void
 vatomic32_write_rlx(vatomic32_t *a, vuint32_t v)
 {
     V_COMPILER_BARRIER();
-    __atomic_store_n(&a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    __atomic_store_n(&a->_v, v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
 }
 
@@ -472,7 +454,7 @@ static inline void
 vatomic64_write(vatomic64_t *a, vuint64_t v)
 {
     V_COMPILER_BARRIER();
-    __atomic_store_n(&a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    __atomic_store_n(&a->_v, v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
 }
 
@@ -485,7 +467,7 @@ static inline void
 vatomic64_write_rel(vatomic64_t *a, vuint64_t v)
 {
     V_COMPILER_BARRIER();
-    __atomic_store_n(&a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE));
+    __atomic_store_n(&a->_v, v, __ATOMIC_RELEASE);
     V_COMPILER_BARRIER();
 }
 
@@ -498,7 +480,7 @@ static inline void
 vatomic64_write_rlx(vatomic64_t *a, vuint64_t v)
 {
     V_COMPILER_BARRIER();
-    __atomic_store_n(&a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    __atomic_store_n(&a->_v, v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
 }
 
@@ -511,7 +493,7 @@ static inline void
 vatomicsz_write(vatomicsz_t *a, vsize_t v)
 {
     V_COMPILER_BARRIER();
-    __atomic_store_n(&a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    __atomic_store_n(&a->_v, v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
 }
 
@@ -524,7 +506,7 @@ static inline void
 vatomicsz_write_rel(vatomicsz_t *a, vsize_t v)
 {
     V_COMPILER_BARRIER();
-    __atomic_store_n(&a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE));
+    __atomic_store_n(&a->_v, v, __ATOMIC_RELEASE);
     V_COMPILER_BARRIER();
 }
 
@@ -537,7 +519,7 @@ static inline void
 vatomicsz_write_rlx(vatomicsz_t *a, vsize_t v)
 {
     V_COMPILER_BARRIER();
-    __atomic_store_n(&a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    __atomic_store_n(&a->_v, v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
 }
 
@@ -550,7 +532,7 @@ static inline void
 vatomicptr_write(vatomicptr_t *a, void *v)
 {
     V_COMPILER_BARRIER();
-    __atomic_store_n(&a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    __atomic_store_n(&a->_v, v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
 }
 
@@ -563,7 +545,7 @@ static inline void
 vatomicptr_write_rel(vatomicptr_t *a, void *v)
 {
     V_COMPILER_BARRIER();
-    __atomic_store_n(&a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE));
+    __atomic_store_n(&a->_v, v, __ATOMIC_RELEASE);
     V_COMPILER_BARRIER();
 }
 
@@ -576,7 +558,7 @@ static inline void
 vatomicptr_write_rlx(vatomicptr_t *a, void *v)
 {
     V_COMPILER_BARRIER();
-    __atomic_store_n(&a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    __atomic_store_n(&a->_v, v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
 }
 
@@ -593,8 +575,8 @@ static inline vuint8_t
 vatomic8_xchg(vatomic8_t *a, vuint8_t v)
 {
     V_COMPILER_BARRIER();
-    vuint8_t tmp = (vuint8_t)__atomic_exchange_n(
-        &a->_v, (vuint8_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    vuint8_t tmp =
+        (vuint8_t)__atomic_exchange_n(&a->_v, (vuint8_t)v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -608,8 +590,8 @@ static inline vuint8_t
 vatomic8_xchg_acq(vatomic8_t *a, vuint8_t v)
 {
     V_COMPILER_BARRIER();
-    vuint8_t tmp = (vuint8_t)__atomic_exchange_n(
-        &a->_v, (vuint8_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    vuint8_t tmp =
+        (vuint8_t)__atomic_exchange_n(&a->_v, (vuint8_t)v, __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -623,8 +605,8 @@ static inline vuint8_t
 vatomic8_xchg_rel(vatomic8_t *a, vuint8_t v)
 {
     V_COMPILER_BARRIER();
-    vuint8_t tmp = (vuint8_t)__atomic_exchange_n(
-        &a->_v, (vuint8_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE));
+    vuint8_t tmp =
+        (vuint8_t)__atomic_exchange_n(&a->_v, (vuint8_t)v, __ATOMIC_RELEASE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -638,8 +620,8 @@ static inline vuint8_t
 vatomic8_xchg_rlx(vatomic8_t *a, vuint8_t v)
 {
     V_COMPILER_BARRIER();
-    vuint8_t tmp = (vuint8_t)__atomic_exchange_n(
-        &a->_v, (vuint8_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    vuint8_t tmp =
+        (vuint8_t)__atomic_exchange_n(&a->_v, (vuint8_t)v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -653,8 +635,8 @@ static inline vuint16_t
 vatomic16_xchg(vatomic16_t *a, vuint16_t v)
 {
     V_COMPILER_BARRIER();
-    vuint16_t tmp = (vuint16_t)__atomic_exchange_n(
-        &a->_v, (vuint16_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    vuint16_t tmp =
+        (vuint16_t)__atomic_exchange_n(&a->_v, (vuint16_t)v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -668,8 +650,8 @@ static inline vuint16_t
 vatomic16_xchg_acq(vatomic16_t *a, vuint16_t v)
 {
     V_COMPILER_BARRIER();
-    vuint16_t tmp = (vuint16_t)__atomic_exchange_n(
-        &a->_v, (vuint16_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    vuint16_t tmp =
+        (vuint16_t)__atomic_exchange_n(&a->_v, (vuint16_t)v, __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -683,8 +665,8 @@ static inline vuint16_t
 vatomic16_xchg_rel(vatomic16_t *a, vuint16_t v)
 {
     V_COMPILER_BARRIER();
-    vuint16_t tmp = (vuint16_t)__atomic_exchange_n(
-        &a->_v, (vuint16_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE));
+    vuint16_t tmp =
+        (vuint16_t)__atomic_exchange_n(&a->_v, (vuint16_t)v, __ATOMIC_RELEASE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -698,8 +680,8 @@ static inline vuint16_t
 vatomic16_xchg_rlx(vatomic16_t *a, vuint16_t v)
 {
     V_COMPILER_BARRIER();
-    vuint16_t tmp = (vuint16_t)__atomic_exchange_n(
-        &a->_v, (vuint16_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    vuint16_t tmp =
+        (vuint16_t)__atomic_exchange_n(&a->_v, (vuint16_t)v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -713,8 +695,8 @@ static inline vuint32_t
 vatomic32_xchg(vatomic32_t *a, vuint32_t v)
 {
     V_COMPILER_BARRIER();
-    vuint32_t tmp = (vuint32_t)__atomic_exchange_n(
-        &a->_v, (vuint32_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    vuint32_t tmp =
+        (vuint32_t)__atomic_exchange_n(&a->_v, (vuint32_t)v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -728,8 +710,8 @@ static inline vuint32_t
 vatomic32_xchg_acq(vatomic32_t *a, vuint32_t v)
 {
     V_COMPILER_BARRIER();
-    vuint32_t tmp = (vuint32_t)__atomic_exchange_n(
-        &a->_v, (vuint32_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    vuint32_t tmp =
+        (vuint32_t)__atomic_exchange_n(&a->_v, (vuint32_t)v, __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -743,8 +725,8 @@ static inline vuint32_t
 vatomic32_xchg_rel(vatomic32_t *a, vuint32_t v)
 {
     V_COMPILER_BARRIER();
-    vuint32_t tmp = (vuint32_t)__atomic_exchange_n(
-        &a->_v, (vuint32_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE));
+    vuint32_t tmp =
+        (vuint32_t)__atomic_exchange_n(&a->_v, (vuint32_t)v, __ATOMIC_RELEASE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -758,8 +740,8 @@ static inline vuint32_t
 vatomic32_xchg_rlx(vatomic32_t *a, vuint32_t v)
 {
     V_COMPILER_BARRIER();
-    vuint32_t tmp = (vuint32_t)__atomic_exchange_n(
-        &a->_v, (vuint32_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    vuint32_t tmp =
+        (vuint32_t)__atomic_exchange_n(&a->_v, (vuint32_t)v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -773,8 +755,8 @@ static inline vuint64_t
 vatomic64_xchg(vatomic64_t *a, vuint64_t v)
 {
     V_COMPILER_BARRIER();
-    vuint64_t tmp = (vuint64_t)__atomic_exchange_n(
-        &a->_v, (vuint64_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    vuint64_t tmp =
+        (vuint64_t)__atomic_exchange_n(&a->_v, (vuint64_t)v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -788,8 +770,8 @@ static inline vuint64_t
 vatomic64_xchg_acq(vatomic64_t *a, vuint64_t v)
 {
     V_COMPILER_BARRIER();
-    vuint64_t tmp = (vuint64_t)__atomic_exchange_n(
-        &a->_v, (vuint64_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    vuint64_t tmp =
+        (vuint64_t)__atomic_exchange_n(&a->_v, (vuint64_t)v, __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -803,8 +785,8 @@ static inline vuint64_t
 vatomic64_xchg_rel(vatomic64_t *a, vuint64_t v)
 {
     V_COMPILER_BARRIER();
-    vuint64_t tmp = (vuint64_t)__atomic_exchange_n(
-        &a->_v, (vuint64_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE));
+    vuint64_t tmp =
+        (vuint64_t)__atomic_exchange_n(&a->_v, (vuint64_t)v, __ATOMIC_RELEASE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -818,8 +800,8 @@ static inline vuint64_t
 vatomic64_xchg_rlx(vatomic64_t *a, vuint64_t v)
 {
     V_COMPILER_BARRIER();
-    vuint64_t tmp = (vuint64_t)__atomic_exchange_n(
-        &a->_v, (vuint64_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    vuint64_t tmp =
+        (vuint64_t)__atomic_exchange_n(&a->_v, (vuint64_t)v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -833,8 +815,8 @@ static inline vsize_t
 vatomicsz_xchg(vatomicsz_t *a, vsize_t v)
 {
     V_COMPILER_BARRIER();
-    vsize_t tmp = (vsize_t)__atomic_exchange_n(
-        &a->_v, (vsize_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    vsize_t tmp =
+        (vsize_t)__atomic_exchange_n(&a->_v, (vsize_t)v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -848,8 +830,8 @@ static inline vsize_t
 vatomicsz_xchg_acq(vatomicsz_t *a, vsize_t v)
 {
     V_COMPILER_BARRIER();
-    vsize_t tmp = (vsize_t)__atomic_exchange_n(
-        &a->_v, (vsize_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    vsize_t tmp =
+        (vsize_t)__atomic_exchange_n(&a->_v, (vsize_t)v, __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -863,8 +845,8 @@ static inline vsize_t
 vatomicsz_xchg_rel(vatomicsz_t *a, vsize_t v)
 {
     V_COMPILER_BARRIER();
-    vsize_t tmp = (vsize_t)__atomic_exchange_n(
-        &a->_v, (vsize_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE));
+    vsize_t tmp =
+        (vsize_t)__atomic_exchange_n(&a->_v, (vsize_t)v, __ATOMIC_RELEASE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -878,8 +860,8 @@ static inline vsize_t
 vatomicsz_xchg_rlx(vatomicsz_t *a, vsize_t v)
 {
     V_COMPILER_BARRIER();
-    vsize_t tmp = (vsize_t)__atomic_exchange_n(
-        &a->_v, (vsize_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    vsize_t tmp =
+        (vsize_t)__atomic_exchange_n(&a->_v, (vsize_t)v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -893,8 +875,8 @@ static inline void *
 vatomicptr_xchg(vatomicptr_t *a, void *v)
 {
     V_COMPILER_BARRIER();
-    void *tmp = (void *)__atomic_exchange_n(
-        &a->_v, (void *)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    void *tmp =
+        (void *)__atomic_exchange_n(&a->_v, (void *)v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -908,8 +890,8 @@ static inline void *
 vatomicptr_xchg_acq(vatomicptr_t *a, void *v)
 {
     V_COMPILER_BARRIER();
-    void *tmp = (void *)__atomic_exchange_n(
-        &a->_v, (void *)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    void *tmp =
+        (void *)__atomic_exchange_n(&a->_v, (void *)v, __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -923,8 +905,8 @@ static inline void *
 vatomicptr_xchg_rel(vatomicptr_t *a, void *v)
 {
     V_COMPILER_BARRIER();
-    void *tmp = (void *)__atomic_exchange_n(
-        &a->_v, (void *)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE));
+    void *tmp =
+        (void *)__atomic_exchange_n(&a->_v, (void *)v, __ATOMIC_RELEASE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -938,8 +920,8 @@ static inline void *
 vatomicptr_xchg_rlx(vatomicptr_t *a, void *v)
 {
     V_COMPILER_BARRIER();
-    void *tmp = (void *)__atomic_exchange_n(
-        &a->_v, (void *)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    void *tmp =
+        (void *)__atomic_exchange_n(&a->_v, (void *)v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -958,9 +940,8 @@ vatomic8_cmpxchg(vatomic8_t *a, vuint8_t e, vuint8_t v)
 {
     vuint8_t exp = (vuint8_t)e;
     V_COMPILER_BARRIER();
-    __atomic_compare_exchange_n(&a->_v, &exp, (vuint8_t)v, 0,
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST),
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    __atomic_compare_exchange_n(&a->_v, &exp, (vuint8_t)v, 0, __ATOMIC_SEQ_CST,
+                                __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return exp;
 }
@@ -975,9 +956,8 @@ vatomic8_cmpxchg_acq(vatomic8_t *a, vuint8_t e, vuint8_t v)
 {
     vuint8_t exp = (vuint8_t)e;
     V_COMPILER_BARRIER();
-    __atomic_compare_exchange_n(&a->_v, &exp, (vuint8_t)v, 0,
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE),
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    __atomic_compare_exchange_n(&a->_v, &exp, (vuint8_t)v, 0, __ATOMIC_ACQUIRE,
+                                __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return exp;
 }
@@ -992,9 +972,8 @@ vatomic8_cmpxchg_rel(vatomic8_t *a, vuint8_t e, vuint8_t v)
 {
     vuint8_t exp = (vuint8_t)e;
     V_COMPILER_BARRIER();
-    __atomic_compare_exchange_n(&a->_v, &exp, (vuint8_t)v, 0,
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE),
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    __atomic_compare_exchange_n(&a->_v, &exp, (vuint8_t)v, 0, __ATOMIC_RELEASE,
+                                __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return exp;
 }
@@ -1009,9 +988,8 @@ vatomic8_cmpxchg_rlx(vatomic8_t *a, vuint8_t e, vuint8_t v)
 {
     vuint8_t exp = (vuint8_t)e;
     V_COMPILER_BARRIER();
-    __atomic_compare_exchange_n(&a->_v, &exp, (vuint8_t)v, 0,
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED),
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    __atomic_compare_exchange_n(&a->_v, &exp, (vuint8_t)v, 0, __ATOMIC_RELAXED,
+                                __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return exp;
 }
@@ -1026,9 +1004,8 @@ vatomic16_cmpxchg(vatomic16_t *a, vuint16_t e, vuint16_t v)
 {
     vuint16_t exp = (vuint16_t)e;
     V_COMPILER_BARRIER();
-    __atomic_compare_exchange_n(&a->_v, &exp, (vuint16_t)v, 0,
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST),
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    __atomic_compare_exchange_n(&a->_v, &exp, (vuint16_t)v, 0, __ATOMIC_SEQ_CST,
+                                __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return exp;
 }
@@ -1043,9 +1020,8 @@ vatomic16_cmpxchg_acq(vatomic16_t *a, vuint16_t e, vuint16_t v)
 {
     vuint16_t exp = (vuint16_t)e;
     V_COMPILER_BARRIER();
-    __atomic_compare_exchange_n(&a->_v, &exp, (vuint16_t)v, 0,
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE),
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    __atomic_compare_exchange_n(&a->_v, &exp, (vuint16_t)v, 0, __ATOMIC_ACQUIRE,
+                                __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return exp;
 }
@@ -1060,9 +1036,8 @@ vatomic16_cmpxchg_rel(vatomic16_t *a, vuint16_t e, vuint16_t v)
 {
     vuint16_t exp = (vuint16_t)e;
     V_COMPILER_BARRIER();
-    __atomic_compare_exchange_n(&a->_v, &exp, (vuint16_t)v, 0,
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE),
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    __atomic_compare_exchange_n(&a->_v, &exp, (vuint16_t)v, 0, __ATOMIC_RELEASE,
+                                __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return exp;
 }
@@ -1077,9 +1052,8 @@ vatomic16_cmpxchg_rlx(vatomic16_t *a, vuint16_t e, vuint16_t v)
 {
     vuint16_t exp = (vuint16_t)e;
     V_COMPILER_BARRIER();
-    __atomic_compare_exchange_n(&a->_v, &exp, (vuint16_t)v, 0,
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED),
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    __atomic_compare_exchange_n(&a->_v, &exp, (vuint16_t)v, 0, __ATOMIC_RELAXED,
+                                __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return exp;
 }
@@ -1094,9 +1068,8 @@ vatomic32_cmpxchg(vatomic32_t *a, vuint32_t e, vuint32_t v)
 {
     vuint32_t exp = (vuint32_t)e;
     V_COMPILER_BARRIER();
-    __atomic_compare_exchange_n(&a->_v, &exp, (vuint32_t)v, 0,
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST),
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    __atomic_compare_exchange_n(&a->_v, &exp, (vuint32_t)v, 0, __ATOMIC_SEQ_CST,
+                                __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return exp;
 }
@@ -1111,9 +1084,8 @@ vatomic32_cmpxchg_acq(vatomic32_t *a, vuint32_t e, vuint32_t v)
 {
     vuint32_t exp = (vuint32_t)e;
     V_COMPILER_BARRIER();
-    __atomic_compare_exchange_n(&a->_v, &exp, (vuint32_t)v, 0,
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE),
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    __atomic_compare_exchange_n(&a->_v, &exp, (vuint32_t)v, 0, __ATOMIC_ACQUIRE,
+                                __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return exp;
 }
@@ -1128,9 +1100,8 @@ vatomic32_cmpxchg_rel(vatomic32_t *a, vuint32_t e, vuint32_t v)
 {
     vuint32_t exp = (vuint32_t)e;
     V_COMPILER_BARRIER();
-    __atomic_compare_exchange_n(&a->_v, &exp, (vuint32_t)v, 0,
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE),
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    __atomic_compare_exchange_n(&a->_v, &exp, (vuint32_t)v, 0, __ATOMIC_RELEASE,
+                                __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return exp;
 }
@@ -1145,9 +1116,8 @@ vatomic32_cmpxchg_rlx(vatomic32_t *a, vuint32_t e, vuint32_t v)
 {
     vuint32_t exp = (vuint32_t)e;
     V_COMPILER_BARRIER();
-    __atomic_compare_exchange_n(&a->_v, &exp, (vuint32_t)v, 0,
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED),
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    __atomic_compare_exchange_n(&a->_v, &exp, (vuint32_t)v, 0, __ATOMIC_RELAXED,
+                                __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return exp;
 }
@@ -1162,9 +1132,8 @@ vatomic64_cmpxchg(vatomic64_t *a, vuint64_t e, vuint64_t v)
 {
     vuint64_t exp = (vuint64_t)e;
     V_COMPILER_BARRIER();
-    __atomic_compare_exchange_n(&a->_v, &exp, (vuint64_t)v, 0,
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST),
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    __atomic_compare_exchange_n(&a->_v, &exp, (vuint64_t)v, 0, __ATOMIC_SEQ_CST,
+                                __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return exp;
 }
@@ -1179,9 +1148,8 @@ vatomic64_cmpxchg_acq(vatomic64_t *a, vuint64_t e, vuint64_t v)
 {
     vuint64_t exp = (vuint64_t)e;
     V_COMPILER_BARRIER();
-    __atomic_compare_exchange_n(&a->_v, &exp, (vuint64_t)v, 0,
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE),
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    __atomic_compare_exchange_n(&a->_v, &exp, (vuint64_t)v, 0, __ATOMIC_ACQUIRE,
+                                __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return exp;
 }
@@ -1196,9 +1164,8 @@ vatomic64_cmpxchg_rel(vatomic64_t *a, vuint64_t e, vuint64_t v)
 {
     vuint64_t exp = (vuint64_t)e;
     V_COMPILER_BARRIER();
-    __atomic_compare_exchange_n(&a->_v, &exp, (vuint64_t)v, 0,
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE),
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    __atomic_compare_exchange_n(&a->_v, &exp, (vuint64_t)v, 0, __ATOMIC_RELEASE,
+                                __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return exp;
 }
@@ -1213,9 +1180,8 @@ vatomic64_cmpxchg_rlx(vatomic64_t *a, vuint64_t e, vuint64_t v)
 {
     vuint64_t exp = (vuint64_t)e;
     V_COMPILER_BARRIER();
-    __atomic_compare_exchange_n(&a->_v, &exp, (vuint64_t)v, 0,
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED),
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    __atomic_compare_exchange_n(&a->_v, &exp, (vuint64_t)v, 0, __ATOMIC_RELAXED,
+                                __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return exp;
 }
@@ -1230,9 +1196,8 @@ vatomicsz_cmpxchg(vatomicsz_t *a, vsize_t e, vsize_t v)
 {
     vsize_t exp = (vsize_t)e;
     V_COMPILER_BARRIER();
-    __atomic_compare_exchange_n(&a->_v, &exp, (vsize_t)v, 0,
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST),
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    __atomic_compare_exchange_n(&a->_v, &exp, (vsize_t)v, 0, __ATOMIC_SEQ_CST,
+                                __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return exp;
 }
@@ -1247,9 +1212,8 @@ vatomicsz_cmpxchg_acq(vatomicsz_t *a, vsize_t e, vsize_t v)
 {
     vsize_t exp = (vsize_t)e;
     V_COMPILER_BARRIER();
-    __atomic_compare_exchange_n(&a->_v, &exp, (vsize_t)v, 0,
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE),
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    __atomic_compare_exchange_n(&a->_v, &exp, (vsize_t)v, 0, __ATOMIC_ACQUIRE,
+                                __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return exp;
 }
@@ -1264,9 +1228,8 @@ vatomicsz_cmpxchg_rel(vatomicsz_t *a, vsize_t e, vsize_t v)
 {
     vsize_t exp = (vsize_t)e;
     V_COMPILER_BARRIER();
-    __atomic_compare_exchange_n(&a->_v, &exp, (vsize_t)v, 0,
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE),
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    __atomic_compare_exchange_n(&a->_v, &exp, (vsize_t)v, 0, __ATOMIC_RELEASE,
+                                __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return exp;
 }
@@ -1281,9 +1244,8 @@ vatomicsz_cmpxchg_rlx(vatomicsz_t *a, vsize_t e, vsize_t v)
 {
     vsize_t exp = (vsize_t)e;
     V_COMPILER_BARRIER();
-    __atomic_compare_exchange_n(&a->_v, &exp, (vsize_t)v, 0,
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED),
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    __atomic_compare_exchange_n(&a->_v, &exp, (vsize_t)v, 0, __ATOMIC_RELAXED,
+                                __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return exp;
 }
@@ -1298,9 +1260,8 @@ vatomicptr_cmpxchg(vatomicptr_t *a, void *e, void *v)
 {
     void *exp = (void *)e;
     V_COMPILER_BARRIER();
-    __atomic_compare_exchange_n(&a->_v, &exp, (void *)v, 0,
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST),
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    __atomic_compare_exchange_n(&a->_v, &exp, (void *)v, 0, __ATOMIC_SEQ_CST,
+                                __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return exp;
 }
@@ -1315,9 +1276,8 @@ vatomicptr_cmpxchg_acq(vatomicptr_t *a, void *e, void *v)
 {
     void *exp = (void *)e;
     V_COMPILER_BARRIER();
-    __atomic_compare_exchange_n(&a->_v, &exp, (void *)v, 0,
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE),
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    __atomic_compare_exchange_n(&a->_v, &exp, (void *)v, 0, __ATOMIC_ACQUIRE,
+                                __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return exp;
 }
@@ -1332,9 +1292,8 @@ vatomicptr_cmpxchg_rel(vatomicptr_t *a, void *e, void *v)
 {
     void *exp = (void *)e;
     V_COMPILER_BARRIER();
-    __atomic_compare_exchange_n(&a->_v, &exp, (void *)v, 0,
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE),
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    __atomic_compare_exchange_n(&a->_v, &exp, (void *)v, 0, __ATOMIC_RELEASE,
+                                __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return exp;
 }
@@ -1349,9 +1308,8 @@ vatomicptr_cmpxchg_rlx(vatomicptr_t *a, void *e, void *v)
 {
     void *exp = (void *)e;
     V_COMPILER_BARRIER();
-    __atomic_compare_exchange_n(&a->_v, &exp, (void *)v, 0,
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED),
-                                V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    __atomic_compare_exchange_n(&a->_v, &exp, (void *)v, 0, __ATOMIC_RELAXED,
+                                __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return exp;
 }
@@ -1369,8 +1327,8 @@ static inline vuint8_t
 vatomic8_get_and(vatomic8_t *a, vuint8_t v)
 {
     V_COMPILER_BARRIER();
-    vuint8_t tmp = (vuint8_t)__atomic_fetch_and(
-        &a->_v, (vuint8_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    vuint8_t tmp =
+        (vuint8_t)__atomic_fetch_and(&a->_v, (vuint8_t)v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1384,8 +1342,8 @@ static inline vuint8_t
 vatomic8_get_and_acq(vatomic8_t *a, vuint8_t v)
 {
     V_COMPILER_BARRIER();
-    vuint8_t tmp = (vuint8_t)__atomic_fetch_and(
-        &a->_v, (vuint8_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    vuint8_t tmp =
+        (vuint8_t)__atomic_fetch_and(&a->_v, (vuint8_t)v, __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1399,8 +1357,8 @@ static inline vuint8_t
 vatomic8_get_and_rel(vatomic8_t *a, vuint8_t v)
 {
     V_COMPILER_BARRIER();
-    vuint8_t tmp = (vuint8_t)__atomic_fetch_and(
-        &a->_v, (vuint8_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE));
+    vuint8_t tmp =
+        (vuint8_t)__atomic_fetch_and(&a->_v, (vuint8_t)v, __ATOMIC_RELEASE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1414,8 +1372,8 @@ static inline vuint8_t
 vatomic8_get_and_rlx(vatomic8_t *a, vuint8_t v)
 {
     V_COMPILER_BARRIER();
-    vuint8_t tmp = (vuint8_t)__atomic_fetch_and(
-        &a->_v, (vuint8_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    vuint8_t tmp =
+        (vuint8_t)__atomic_fetch_and(&a->_v, (vuint8_t)v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1429,8 +1387,8 @@ static inline vuint16_t
 vatomic16_get_and(vatomic16_t *a, vuint16_t v)
 {
     V_COMPILER_BARRIER();
-    vuint16_t tmp = (vuint16_t)__atomic_fetch_and(
-        &a->_v, (vuint16_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    vuint16_t tmp =
+        (vuint16_t)__atomic_fetch_and(&a->_v, (vuint16_t)v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1444,8 +1402,8 @@ static inline vuint16_t
 vatomic16_get_and_acq(vatomic16_t *a, vuint16_t v)
 {
     V_COMPILER_BARRIER();
-    vuint16_t tmp = (vuint16_t)__atomic_fetch_and(
-        &a->_v, (vuint16_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    vuint16_t tmp =
+        (vuint16_t)__atomic_fetch_and(&a->_v, (vuint16_t)v, __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1459,8 +1417,8 @@ static inline vuint16_t
 vatomic16_get_and_rel(vatomic16_t *a, vuint16_t v)
 {
     V_COMPILER_BARRIER();
-    vuint16_t tmp = (vuint16_t)__atomic_fetch_and(
-        &a->_v, (vuint16_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE));
+    vuint16_t tmp =
+        (vuint16_t)__atomic_fetch_and(&a->_v, (vuint16_t)v, __ATOMIC_RELEASE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1474,8 +1432,8 @@ static inline vuint16_t
 vatomic16_get_and_rlx(vatomic16_t *a, vuint16_t v)
 {
     V_COMPILER_BARRIER();
-    vuint16_t tmp = (vuint16_t)__atomic_fetch_and(
-        &a->_v, (vuint16_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    vuint16_t tmp =
+        (vuint16_t)__atomic_fetch_and(&a->_v, (vuint16_t)v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1489,8 +1447,8 @@ static inline vuint32_t
 vatomic32_get_and(vatomic32_t *a, vuint32_t v)
 {
     V_COMPILER_BARRIER();
-    vuint32_t tmp = (vuint32_t)__atomic_fetch_and(
-        &a->_v, (vuint32_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    vuint32_t tmp =
+        (vuint32_t)__atomic_fetch_and(&a->_v, (vuint32_t)v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1504,8 +1462,8 @@ static inline vuint32_t
 vatomic32_get_and_acq(vatomic32_t *a, vuint32_t v)
 {
     V_COMPILER_BARRIER();
-    vuint32_t tmp = (vuint32_t)__atomic_fetch_and(
-        &a->_v, (vuint32_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    vuint32_t tmp =
+        (vuint32_t)__atomic_fetch_and(&a->_v, (vuint32_t)v, __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1519,8 +1477,8 @@ static inline vuint32_t
 vatomic32_get_and_rel(vatomic32_t *a, vuint32_t v)
 {
     V_COMPILER_BARRIER();
-    vuint32_t tmp = (vuint32_t)__atomic_fetch_and(
-        &a->_v, (vuint32_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE));
+    vuint32_t tmp =
+        (vuint32_t)__atomic_fetch_and(&a->_v, (vuint32_t)v, __ATOMIC_RELEASE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1534,8 +1492,8 @@ static inline vuint32_t
 vatomic32_get_and_rlx(vatomic32_t *a, vuint32_t v)
 {
     V_COMPILER_BARRIER();
-    vuint32_t tmp = (vuint32_t)__atomic_fetch_and(
-        &a->_v, (vuint32_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    vuint32_t tmp =
+        (vuint32_t)__atomic_fetch_and(&a->_v, (vuint32_t)v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1549,8 +1507,8 @@ static inline vuint64_t
 vatomic64_get_and(vatomic64_t *a, vuint64_t v)
 {
     V_COMPILER_BARRIER();
-    vuint64_t tmp = (vuint64_t)__atomic_fetch_and(
-        &a->_v, (vuint64_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    vuint64_t tmp =
+        (vuint64_t)__atomic_fetch_and(&a->_v, (vuint64_t)v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1564,8 +1522,8 @@ static inline vuint64_t
 vatomic64_get_and_acq(vatomic64_t *a, vuint64_t v)
 {
     V_COMPILER_BARRIER();
-    vuint64_t tmp = (vuint64_t)__atomic_fetch_and(
-        &a->_v, (vuint64_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    vuint64_t tmp =
+        (vuint64_t)__atomic_fetch_and(&a->_v, (vuint64_t)v, __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1579,8 +1537,8 @@ static inline vuint64_t
 vatomic64_get_and_rel(vatomic64_t *a, vuint64_t v)
 {
     V_COMPILER_BARRIER();
-    vuint64_t tmp = (vuint64_t)__atomic_fetch_and(
-        &a->_v, (vuint64_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE));
+    vuint64_t tmp =
+        (vuint64_t)__atomic_fetch_and(&a->_v, (vuint64_t)v, __ATOMIC_RELEASE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1594,8 +1552,8 @@ static inline vuint64_t
 vatomic64_get_and_rlx(vatomic64_t *a, vuint64_t v)
 {
     V_COMPILER_BARRIER();
-    vuint64_t tmp = (vuint64_t)__atomic_fetch_and(
-        &a->_v, (vuint64_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    vuint64_t tmp =
+        (vuint64_t)__atomic_fetch_and(&a->_v, (vuint64_t)v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1609,8 +1567,8 @@ static inline vsize_t
 vatomicsz_get_and(vatomicsz_t *a, vsize_t v)
 {
     V_COMPILER_BARRIER();
-    vsize_t tmp = (vsize_t)__atomic_fetch_and(
-        &a->_v, (vsize_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    vsize_t tmp =
+        (vsize_t)__atomic_fetch_and(&a->_v, (vsize_t)v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1624,8 +1582,8 @@ static inline vsize_t
 vatomicsz_get_and_acq(vatomicsz_t *a, vsize_t v)
 {
     V_COMPILER_BARRIER();
-    vsize_t tmp = (vsize_t)__atomic_fetch_and(
-        &a->_v, (vsize_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    vsize_t tmp =
+        (vsize_t)__atomic_fetch_and(&a->_v, (vsize_t)v, __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1639,8 +1597,8 @@ static inline vsize_t
 vatomicsz_get_and_rel(vatomicsz_t *a, vsize_t v)
 {
     V_COMPILER_BARRIER();
-    vsize_t tmp = (vsize_t)__atomic_fetch_and(
-        &a->_v, (vsize_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE));
+    vsize_t tmp =
+        (vsize_t)__atomic_fetch_and(&a->_v, (vsize_t)v, __ATOMIC_RELEASE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1654,8 +1612,8 @@ static inline vsize_t
 vatomicsz_get_and_rlx(vatomicsz_t *a, vsize_t v)
 {
     V_COMPILER_BARRIER();
-    vsize_t tmp = (vsize_t)__atomic_fetch_and(
-        &a->_v, (vsize_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    vsize_t tmp =
+        (vsize_t)__atomic_fetch_and(&a->_v, (vsize_t)v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1673,8 +1631,8 @@ static inline vuint8_t
 vatomic8_get_or(vatomic8_t *a, vuint8_t v)
 {
     V_COMPILER_BARRIER();
-    vuint8_t tmp = (vuint8_t)__atomic_fetch_or(
-        &a->_v, (vuint8_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    vuint8_t tmp =
+        (vuint8_t)__atomic_fetch_or(&a->_v, (vuint8_t)v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1688,8 +1646,8 @@ static inline vuint8_t
 vatomic8_get_or_acq(vatomic8_t *a, vuint8_t v)
 {
     V_COMPILER_BARRIER();
-    vuint8_t tmp = (vuint8_t)__atomic_fetch_or(
-        &a->_v, (vuint8_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    vuint8_t tmp =
+        (vuint8_t)__atomic_fetch_or(&a->_v, (vuint8_t)v, __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1703,8 +1661,8 @@ static inline vuint8_t
 vatomic8_get_or_rel(vatomic8_t *a, vuint8_t v)
 {
     V_COMPILER_BARRIER();
-    vuint8_t tmp = (vuint8_t)__atomic_fetch_or(
-        &a->_v, (vuint8_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE));
+    vuint8_t tmp =
+        (vuint8_t)__atomic_fetch_or(&a->_v, (vuint8_t)v, __ATOMIC_RELEASE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1718,8 +1676,8 @@ static inline vuint8_t
 vatomic8_get_or_rlx(vatomic8_t *a, vuint8_t v)
 {
     V_COMPILER_BARRIER();
-    vuint8_t tmp = (vuint8_t)__atomic_fetch_or(
-        &a->_v, (vuint8_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    vuint8_t tmp =
+        (vuint8_t)__atomic_fetch_or(&a->_v, (vuint8_t)v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1733,8 +1691,8 @@ static inline vuint16_t
 vatomic16_get_or(vatomic16_t *a, vuint16_t v)
 {
     V_COMPILER_BARRIER();
-    vuint16_t tmp = (vuint16_t)__atomic_fetch_or(
-        &a->_v, (vuint16_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    vuint16_t tmp =
+        (vuint16_t)__atomic_fetch_or(&a->_v, (vuint16_t)v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1748,8 +1706,8 @@ static inline vuint16_t
 vatomic16_get_or_acq(vatomic16_t *a, vuint16_t v)
 {
     V_COMPILER_BARRIER();
-    vuint16_t tmp = (vuint16_t)__atomic_fetch_or(
-        &a->_v, (vuint16_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    vuint16_t tmp =
+        (vuint16_t)__atomic_fetch_or(&a->_v, (vuint16_t)v, __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1763,8 +1721,8 @@ static inline vuint16_t
 vatomic16_get_or_rel(vatomic16_t *a, vuint16_t v)
 {
     V_COMPILER_BARRIER();
-    vuint16_t tmp = (vuint16_t)__atomic_fetch_or(
-        &a->_v, (vuint16_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE));
+    vuint16_t tmp =
+        (vuint16_t)__atomic_fetch_or(&a->_v, (vuint16_t)v, __ATOMIC_RELEASE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1778,8 +1736,8 @@ static inline vuint16_t
 vatomic16_get_or_rlx(vatomic16_t *a, vuint16_t v)
 {
     V_COMPILER_BARRIER();
-    vuint16_t tmp = (vuint16_t)__atomic_fetch_or(
-        &a->_v, (vuint16_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    vuint16_t tmp =
+        (vuint16_t)__atomic_fetch_or(&a->_v, (vuint16_t)v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1793,8 +1751,8 @@ static inline vuint32_t
 vatomic32_get_or(vatomic32_t *a, vuint32_t v)
 {
     V_COMPILER_BARRIER();
-    vuint32_t tmp = (vuint32_t)__atomic_fetch_or(
-        &a->_v, (vuint32_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    vuint32_t tmp =
+        (vuint32_t)__atomic_fetch_or(&a->_v, (vuint32_t)v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1808,8 +1766,8 @@ static inline vuint32_t
 vatomic32_get_or_acq(vatomic32_t *a, vuint32_t v)
 {
     V_COMPILER_BARRIER();
-    vuint32_t tmp = (vuint32_t)__atomic_fetch_or(
-        &a->_v, (vuint32_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    vuint32_t tmp =
+        (vuint32_t)__atomic_fetch_or(&a->_v, (vuint32_t)v, __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1823,8 +1781,8 @@ static inline vuint32_t
 vatomic32_get_or_rel(vatomic32_t *a, vuint32_t v)
 {
     V_COMPILER_BARRIER();
-    vuint32_t tmp = (vuint32_t)__atomic_fetch_or(
-        &a->_v, (vuint32_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE));
+    vuint32_t tmp =
+        (vuint32_t)__atomic_fetch_or(&a->_v, (vuint32_t)v, __ATOMIC_RELEASE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1838,8 +1796,8 @@ static inline vuint32_t
 vatomic32_get_or_rlx(vatomic32_t *a, vuint32_t v)
 {
     V_COMPILER_BARRIER();
-    vuint32_t tmp = (vuint32_t)__atomic_fetch_or(
-        &a->_v, (vuint32_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    vuint32_t tmp =
+        (vuint32_t)__atomic_fetch_or(&a->_v, (vuint32_t)v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1853,8 +1811,8 @@ static inline vuint64_t
 vatomic64_get_or(vatomic64_t *a, vuint64_t v)
 {
     V_COMPILER_BARRIER();
-    vuint64_t tmp = (vuint64_t)__atomic_fetch_or(
-        &a->_v, (vuint64_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    vuint64_t tmp =
+        (vuint64_t)__atomic_fetch_or(&a->_v, (vuint64_t)v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1868,8 +1826,8 @@ static inline vuint64_t
 vatomic64_get_or_acq(vatomic64_t *a, vuint64_t v)
 {
     V_COMPILER_BARRIER();
-    vuint64_t tmp = (vuint64_t)__atomic_fetch_or(
-        &a->_v, (vuint64_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    vuint64_t tmp =
+        (vuint64_t)__atomic_fetch_or(&a->_v, (vuint64_t)v, __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1883,8 +1841,8 @@ static inline vuint64_t
 vatomic64_get_or_rel(vatomic64_t *a, vuint64_t v)
 {
     V_COMPILER_BARRIER();
-    vuint64_t tmp = (vuint64_t)__atomic_fetch_or(
-        &a->_v, (vuint64_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE));
+    vuint64_t tmp =
+        (vuint64_t)__atomic_fetch_or(&a->_v, (vuint64_t)v, __ATOMIC_RELEASE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1898,8 +1856,8 @@ static inline vuint64_t
 vatomic64_get_or_rlx(vatomic64_t *a, vuint64_t v)
 {
     V_COMPILER_BARRIER();
-    vuint64_t tmp = (vuint64_t)__atomic_fetch_or(
-        &a->_v, (vuint64_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    vuint64_t tmp =
+        (vuint64_t)__atomic_fetch_or(&a->_v, (vuint64_t)v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1913,8 +1871,8 @@ static inline vsize_t
 vatomicsz_get_or(vatomicsz_t *a, vsize_t v)
 {
     V_COMPILER_BARRIER();
-    vsize_t tmp = (vsize_t)__atomic_fetch_or(
-        &a->_v, (vsize_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    vsize_t tmp =
+        (vsize_t)__atomic_fetch_or(&a->_v, (vsize_t)v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1928,8 +1886,8 @@ static inline vsize_t
 vatomicsz_get_or_acq(vatomicsz_t *a, vsize_t v)
 {
     V_COMPILER_BARRIER();
-    vsize_t tmp = (vsize_t)__atomic_fetch_or(
-        &a->_v, (vsize_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    vsize_t tmp =
+        (vsize_t)__atomic_fetch_or(&a->_v, (vsize_t)v, __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1943,8 +1901,8 @@ static inline vsize_t
 vatomicsz_get_or_rel(vatomicsz_t *a, vsize_t v)
 {
     V_COMPILER_BARRIER();
-    vsize_t tmp = (vsize_t)__atomic_fetch_or(
-        &a->_v, (vsize_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE));
+    vsize_t tmp =
+        (vsize_t)__atomic_fetch_or(&a->_v, (vsize_t)v, __ATOMIC_RELEASE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1958,8 +1916,8 @@ static inline vsize_t
 vatomicsz_get_or_rlx(vatomicsz_t *a, vsize_t v)
 {
     V_COMPILER_BARRIER();
-    vsize_t tmp = (vsize_t)__atomic_fetch_or(
-        &a->_v, (vsize_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    vsize_t tmp =
+        (vsize_t)__atomic_fetch_or(&a->_v, (vsize_t)v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1977,8 +1935,8 @@ static inline vuint8_t
 vatomic8_get_xor(vatomic8_t *a, vuint8_t v)
 {
     V_COMPILER_BARRIER();
-    vuint8_t tmp = (vuint8_t)__atomic_fetch_xor(
-        &a->_v, (vuint8_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    vuint8_t tmp =
+        (vuint8_t)__atomic_fetch_xor(&a->_v, (vuint8_t)v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -1992,8 +1950,8 @@ static inline vuint8_t
 vatomic8_get_xor_acq(vatomic8_t *a, vuint8_t v)
 {
     V_COMPILER_BARRIER();
-    vuint8_t tmp = (vuint8_t)__atomic_fetch_xor(
-        &a->_v, (vuint8_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    vuint8_t tmp =
+        (vuint8_t)__atomic_fetch_xor(&a->_v, (vuint8_t)v, __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2007,8 +1965,8 @@ static inline vuint8_t
 vatomic8_get_xor_rel(vatomic8_t *a, vuint8_t v)
 {
     V_COMPILER_BARRIER();
-    vuint8_t tmp = (vuint8_t)__atomic_fetch_xor(
-        &a->_v, (vuint8_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE));
+    vuint8_t tmp =
+        (vuint8_t)__atomic_fetch_xor(&a->_v, (vuint8_t)v, __ATOMIC_RELEASE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2022,8 +1980,8 @@ static inline vuint8_t
 vatomic8_get_xor_rlx(vatomic8_t *a, vuint8_t v)
 {
     V_COMPILER_BARRIER();
-    vuint8_t tmp = (vuint8_t)__atomic_fetch_xor(
-        &a->_v, (vuint8_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    vuint8_t tmp =
+        (vuint8_t)__atomic_fetch_xor(&a->_v, (vuint8_t)v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2037,8 +1995,8 @@ static inline vuint16_t
 vatomic16_get_xor(vatomic16_t *a, vuint16_t v)
 {
     V_COMPILER_BARRIER();
-    vuint16_t tmp = (vuint16_t)__atomic_fetch_xor(
-        &a->_v, (vuint16_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    vuint16_t tmp =
+        (vuint16_t)__atomic_fetch_xor(&a->_v, (vuint16_t)v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2052,8 +2010,8 @@ static inline vuint16_t
 vatomic16_get_xor_acq(vatomic16_t *a, vuint16_t v)
 {
     V_COMPILER_BARRIER();
-    vuint16_t tmp = (vuint16_t)__atomic_fetch_xor(
-        &a->_v, (vuint16_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    vuint16_t tmp =
+        (vuint16_t)__atomic_fetch_xor(&a->_v, (vuint16_t)v, __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2067,8 +2025,8 @@ static inline vuint16_t
 vatomic16_get_xor_rel(vatomic16_t *a, vuint16_t v)
 {
     V_COMPILER_BARRIER();
-    vuint16_t tmp = (vuint16_t)__atomic_fetch_xor(
-        &a->_v, (vuint16_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE));
+    vuint16_t tmp =
+        (vuint16_t)__atomic_fetch_xor(&a->_v, (vuint16_t)v, __ATOMIC_RELEASE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2082,8 +2040,8 @@ static inline vuint16_t
 vatomic16_get_xor_rlx(vatomic16_t *a, vuint16_t v)
 {
     V_COMPILER_BARRIER();
-    vuint16_t tmp = (vuint16_t)__atomic_fetch_xor(
-        &a->_v, (vuint16_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    vuint16_t tmp =
+        (vuint16_t)__atomic_fetch_xor(&a->_v, (vuint16_t)v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2097,8 +2055,8 @@ static inline vuint32_t
 vatomic32_get_xor(vatomic32_t *a, vuint32_t v)
 {
     V_COMPILER_BARRIER();
-    vuint32_t tmp = (vuint32_t)__atomic_fetch_xor(
-        &a->_v, (vuint32_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    vuint32_t tmp =
+        (vuint32_t)__atomic_fetch_xor(&a->_v, (vuint32_t)v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2112,8 +2070,8 @@ static inline vuint32_t
 vatomic32_get_xor_acq(vatomic32_t *a, vuint32_t v)
 {
     V_COMPILER_BARRIER();
-    vuint32_t tmp = (vuint32_t)__atomic_fetch_xor(
-        &a->_v, (vuint32_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    vuint32_t tmp =
+        (vuint32_t)__atomic_fetch_xor(&a->_v, (vuint32_t)v, __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2127,8 +2085,8 @@ static inline vuint32_t
 vatomic32_get_xor_rel(vatomic32_t *a, vuint32_t v)
 {
     V_COMPILER_BARRIER();
-    vuint32_t tmp = (vuint32_t)__atomic_fetch_xor(
-        &a->_v, (vuint32_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE));
+    vuint32_t tmp =
+        (vuint32_t)__atomic_fetch_xor(&a->_v, (vuint32_t)v, __ATOMIC_RELEASE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2142,8 +2100,8 @@ static inline vuint32_t
 vatomic32_get_xor_rlx(vatomic32_t *a, vuint32_t v)
 {
     V_COMPILER_BARRIER();
-    vuint32_t tmp = (vuint32_t)__atomic_fetch_xor(
-        &a->_v, (vuint32_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    vuint32_t tmp =
+        (vuint32_t)__atomic_fetch_xor(&a->_v, (vuint32_t)v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2157,8 +2115,8 @@ static inline vuint64_t
 vatomic64_get_xor(vatomic64_t *a, vuint64_t v)
 {
     V_COMPILER_BARRIER();
-    vuint64_t tmp = (vuint64_t)__atomic_fetch_xor(
-        &a->_v, (vuint64_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    vuint64_t tmp =
+        (vuint64_t)__atomic_fetch_xor(&a->_v, (vuint64_t)v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2172,8 +2130,8 @@ static inline vuint64_t
 vatomic64_get_xor_acq(vatomic64_t *a, vuint64_t v)
 {
     V_COMPILER_BARRIER();
-    vuint64_t tmp = (vuint64_t)__atomic_fetch_xor(
-        &a->_v, (vuint64_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    vuint64_t tmp =
+        (vuint64_t)__atomic_fetch_xor(&a->_v, (vuint64_t)v, __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2187,8 +2145,8 @@ static inline vuint64_t
 vatomic64_get_xor_rel(vatomic64_t *a, vuint64_t v)
 {
     V_COMPILER_BARRIER();
-    vuint64_t tmp = (vuint64_t)__atomic_fetch_xor(
-        &a->_v, (vuint64_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE));
+    vuint64_t tmp =
+        (vuint64_t)__atomic_fetch_xor(&a->_v, (vuint64_t)v, __ATOMIC_RELEASE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2202,8 +2160,8 @@ static inline vuint64_t
 vatomic64_get_xor_rlx(vatomic64_t *a, vuint64_t v)
 {
     V_COMPILER_BARRIER();
-    vuint64_t tmp = (vuint64_t)__atomic_fetch_xor(
-        &a->_v, (vuint64_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    vuint64_t tmp =
+        (vuint64_t)__atomic_fetch_xor(&a->_v, (vuint64_t)v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2217,8 +2175,8 @@ static inline vsize_t
 vatomicsz_get_xor(vatomicsz_t *a, vsize_t v)
 {
     V_COMPILER_BARRIER();
-    vsize_t tmp = (vsize_t)__atomic_fetch_xor(
-        &a->_v, (vsize_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    vsize_t tmp =
+        (vsize_t)__atomic_fetch_xor(&a->_v, (vsize_t)v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2232,8 +2190,8 @@ static inline vsize_t
 vatomicsz_get_xor_acq(vatomicsz_t *a, vsize_t v)
 {
     V_COMPILER_BARRIER();
-    vsize_t tmp = (vsize_t)__atomic_fetch_xor(
-        &a->_v, (vsize_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    vsize_t tmp =
+        (vsize_t)__atomic_fetch_xor(&a->_v, (vsize_t)v, __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2247,8 +2205,8 @@ static inline vsize_t
 vatomicsz_get_xor_rel(vatomicsz_t *a, vsize_t v)
 {
     V_COMPILER_BARRIER();
-    vsize_t tmp = (vsize_t)__atomic_fetch_xor(
-        &a->_v, (vsize_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE));
+    vsize_t tmp =
+        (vsize_t)__atomic_fetch_xor(&a->_v, (vsize_t)v, __ATOMIC_RELEASE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2262,8 +2220,8 @@ static inline vsize_t
 vatomicsz_get_xor_rlx(vatomicsz_t *a, vsize_t v)
 {
     V_COMPILER_BARRIER();
-    vsize_t tmp = (vsize_t)__atomic_fetch_xor(
-        &a->_v, (vsize_t)v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    vsize_t tmp =
+        (vsize_t)__atomic_fetch_xor(&a->_v, (vsize_t)v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2281,8 +2239,7 @@ static inline vuint8_t
 vatomic8_get_add(vatomic8_t *a, vuint8_t v)
 {
     V_COMPILER_BARRIER();
-    vuint8_t tmp = (vuint8_t)__atomic_fetch_add(
-        &a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    vuint8_t tmp = (vuint8_t)__atomic_fetch_add(&a->_v, v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2296,8 +2253,7 @@ static inline vuint8_t
 vatomic8_get_add_acq(vatomic8_t *a, vuint8_t v)
 {
     V_COMPILER_BARRIER();
-    vuint8_t tmp = (vuint8_t)__atomic_fetch_add(
-        &a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    vuint8_t tmp = (vuint8_t)__atomic_fetch_add(&a->_v, v, __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2311,8 +2267,7 @@ static inline vuint8_t
 vatomic8_get_add_rel(vatomic8_t *a, vuint8_t v)
 {
     V_COMPILER_BARRIER();
-    vuint8_t tmp = (vuint8_t)__atomic_fetch_add(
-        &a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE));
+    vuint8_t tmp = (vuint8_t)__atomic_fetch_add(&a->_v, v, __ATOMIC_RELEASE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2326,8 +2281,7 @@ static inline vuint8_t
 vatomic8_get_add_rlx(vatomic8_t *a, vuint8_t v)
 {
     V_COMPILER_BARRIER();
-    vuint8_t tmp = (vuint8_t)__atomic_fetch_add(
-        &a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    vuint8_t tmp = (vuint8_t)__atomic_fetch_add(&a->_v, v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2341,8 +2295,7 @@ static inline vuint16_t
 vatomic16_get_add(vatomic16_t *a, vuint16_t v)
 {
     V_COMPILER_BARRIER();
-    vuint16_t tmp = (vuint16_t)__atomic_fetch_add(
-        &a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    vuint16_t tmp = (vuint16_t)__atomic_fetch_add(&a->_v, v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2356,8 +2309,7 @@ static inline vuint16_t
 vatomic16_get_add_acq(vatomic16_t *a, vuint16_t v)
 {
     V_COMPILER_BARRIER();
-    vuint16_t tmp = (vuint16_t)__atomic_fetch_add(
-        &a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    vuint16_t tmp = (vuint16_t)__atomic_fetch_add(&a->_v, v, __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2371,8 +2323,7 @@ static inline vuint16_t
 vatomic16_get_add_rel(vatomic16_t *a, vuint16_t v)
 {
     V_COMPILER_BARRIER();
-    vuint16_t tmp = (vuint16_t)__atomic_fetch_add(
-        &a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE));
+    vuint16_t tmp = (vuint16_t)__atomic_fetch_add(&a->_v, v, __ATOMIC_RELEASE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2386,8 +2337,7 @@ static inline vuint16_t
 vatomic16_get_add_rlx(vatomic16_t *a, vuint16_t v)
 {
     V_COMPILER_BARRIER();
-    vuint16_t tmp = (vuint16_t)__atomic_fetch_add(
-        &a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    vuint16_t tmp = (vuint16_t)__atomic_fetch_add(&a->_v, v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2401,8 +2351,7 @@ static inline vuint32_t
 vatomic32_get_add(vatomic32_t *a, vuint32_t v)
 {
     V_COMPILER_BARRIER();
-    vuint32_t tmp = (vuint32_t)__atomic_fetch_add(
-        &a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    vuint32_t tmp = (vuint32_t)__atomic_fetch_add(&a->_v, v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2416,8 +2365,7 @@ static inline vuint32_t
 vatomic32_get_add_acq(vatomic32_t *a, vuint32_t v)
 {
     V_COMPILER_BARRIER();
-    vuint32_t tmp = (vuint32_t)__atomic_fetch_add(
-        &a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    vuint32_t tmp = (vuint32_t)__atomic_fetch_add(&a->_v, v, __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2431,8 +2379,7 @@ static inline vuint32_t
 vatomic32_get_add_rel(vatomic32_t *a, vuint32_t v)
 {
     V_COMPILER_BARRIER();
-    vuint32_t tmp = (vuint32_t)__atomic_fetch_add(
-        &a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE));
+    vuint32_t tmp = (vuint32_t)__atomic_fetch_add(&a->_v, v, __ATOMIC_RELEASE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2446,8 +2393,7 @@ static inline vuint32_t
 vatomic32_get_add_rlx(vatomic32_t *a, vuint32_t v)
 {
     V_COMPILER_BARRIER();
-    vuint32_t tmp = (vuint32_t)__atomic_fetch_add(
-        &a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    vuint32_t tmp = (vuint32_t)__atomic_fetch_add(&a->_v, v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2461,8 +2407,7 @@ static inline vuint64_t
 vatomic64_get_add(vatomic64_t *a, vuint64_t v)
 {
     V_COMPILER_BARRIER();
-    vuint64_t tmp = (vuint64_t)__atomic_fetch_add(
-        &a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    vuint64_t tmp = (vuint64_t)__atomic_fetch_add(&a->_v, v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2476,8 +2421,7 @@ static inline vuint64_t
 vatomic64_get_add_acq(vatomic64_t *a, vuint64_t v)
 {
     V_COMPILER_BARRIER();
-    vuint64_t tmp = (vuint64_t)__atomic_fetch_add(
-        &a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    vuint64_t tmp = (vuint64_t)__atomic_fetch_add(&a->_v, v, __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2491,8 +2435,7 @@ static inline vuint64_t
 vatomic64_get_add_rel(vatomic64_t *a, vuint64_t v)
 {
     V_COMPILER_BARRIER();
-    vuint64_t tmp = (vuint64_t)__atomic_fetch_add(
-        &a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE));
+    vuint64_t tmp = (vuint64_t)__atomic_fetch_add(&a->_v, v, __ATOMIC_RELEASE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2506,8 +2449,7 @@ static inline vuint64_t
 vatomic64_get_add_rlx(vatomic64_t *a, vuint64_t v)
 {
     V_COMPILER_BARRIER();
-    vuint64_t tmp = (vuint64_t)__atomic_fetch_add(
-        &a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    vuint64_t tmp = (vuint64_t)__atomic_fetch_add(&a->_v, v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2521,8 +2463,7 @@ static inline vsize_t
 vatomicsz_get_add(vatomicsz_t *a, vsize_t v)
 {
     V_COMPILER_BARRIER();
-    vsize_t tmp = (vsize_t)__atomic_fetch_add(
-        &a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    vsize_t tmp = (vsize_t)__atomic_fetch_add(&a->_v, v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2536,8 +2477,7 @@ static inline vsize_t
 vatomicsz_get_add_acq(vatomicsz_t *a, vsize_t v)
 {
     V_COMPILER_BARRIER();
-    vsize_t tmp = (vsize_t)__atomic_fetch_add(
-        &a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    vsize_t tmp = (vsize_t)__atomic_fetch_add(&a->_v, v, __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2551,8 +2491,7 @@ static inline vsize_t
 vatomicsz_get_add_rel(vatomicsz_t *a, vsize_t v)
 {
     V_COMPILER_BARRIER();
-    vsize_t tmp = (vsize_t)__atomic_fetch_add(
-        &a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE));
+    vsize_t tmp = (vsize_t)__atomic_fetch_add(&a->_v, v, __ATOMIC_RELEASE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2566,8 +2505,7 @@ static inline vsize_t
 vatomicsz_get_add_rlx(vatomicsz_t *a, vsize_t v)
 {
     V_COMPILER_BARRIER();
-    vsize_t tmp = (vsize_t)__atomic_fetch_add(
-        &a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    vsize_t tmp = (vsize_t)__atomic_fetch_add(&a->_v, v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2585,8 +2523,7 @@ static inline vuint8_t
 vatomic8_get_sub(vatomic8_t *a, vuint8_t v)
 {
     V_COMPILER_BARRIER();
-    vuint8_t tmp = __atomic_fetch_sub(
-        &a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    vuint8_t tmp = __atomic_fetch_sub(&a->_v, v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2600,8 +2537,7 @@ static inline vuint8_t
 vatomic8_get_sub_acq(vatomic8_t *a, vuint8_t v)
 {
     V_COMPILER_BARRIER();
-    vuint8_t tmp = __atomic_fetch_sub(
-        &a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    vuint8_t tmp = __atomic_fetch_sub(&a->_v, v, __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2615,8 +2551,7 @@ static inline vuint8_t
 vatomic8_get_sub_rel(vatomic8_t *a, vuint8_t v)
 {
     V_COMPILER_BARRIER();
-    vuint8_t tmp = __atomic_fetch_sub(
-        &a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE));
+    vuint8_t tmp = __atomic_fetch_sub(&a->_v, v, __ATOMIC_RELEASE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2630,8 +2565,7 @@ static inline vuint8_t
 vatomic8_get_sub_rlx(vatomic8_t *a, vuint8_t v)
 {
     V_COMPILER_BARRIER();
-    vuint8_t tmp = __atomic_fetch_sub(
-        &a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    vuint8_t tmp = __atomic_fetch_sub(&a->_v, v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2645,8 +2579,7 @@ static inline vuint16_t
 vatomic16_get_sub(vatomic16_t *a, vuint16_t v)
 {
     V_COMPILER_BARRIER();
-    vuint16_t tmp = __atomic_fetch_sub(
-        &a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    vuint16_t tmp = __atomic_fetch_sub(&a->_v, v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2660,8 +2593,7 @@ static inline vuint16_t
 vatomic16_get_sub_acq(vatomic16_t *a, vuint16_t v)
 {
     V_COMPILER_BARRIER();
-    vuint16_t tmp = __atomic_fetch_sub(
-        &a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    vuint16_t tmp = __atomic_fetch_sub(&a->_v, v, __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2675,8 +2607,7 @@ static inline vuint16_t
 vatomic16_get_sub_rel(vatomic16_t *a, vuint16_t v)
 {
     V_COMPILER_BARRIER();
-    vuint16_t tmp = __atomic_fetch_sub(
-        &a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE));
+    vuint16_t tmp = __atomic_fetch_sub(&a->_v, v, __ATOMIC_RELEASE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2690,8 +2621,7 @@ static inline vuint16_t
 vatomic16_get_sub_rlx(vatomic16_t *a, vuint16_t v)
 {
     V_COMPILER_BARRIER();
-    vuint16_t tmp = __atomic_fetch_sub(
-        &a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    vuint16_t tmp = __atomic_fetch_sub(&a->_v, v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2705,8 +2635,7 @@ static inline vuint32_t
 vatomic32_get_sub(vatomic32_t *a, vuint32_t v)
 {
     V_COMPILER_BARRIER();
-    vuint32_t tmp = __atomic_fetch_sub(
-        &a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    vuint32_t tmp = __atomic_fetch_sub(&a->_v, v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2720,8 +2649,7 @@ static inline vuint32_t
 vatomic32_get_sub_acq(vatomic32_t *a, vuint32_t v)
 {
     V_COMPILER_BARRIER();
-    vuint32_t tmp = __atomic_fetch_sub(
-        &a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    vuint32_t tmp = __atomic_fetch_sub(&a->_v, v, __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2735,8 +2663,7 @@ static inline vuint32_t
 vatomic32_get_sub_rel(vatomic32_t *a, vuint32_t v)
 {
     V_COMPILER_BARRIER();
-    vuint32_t tmp = __atomic_fetch_sub(
-        &a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE));
+    vuint32_t tmp = __atomic_fetch_sub(&a->_v, v, __ATOMIC_RELEASE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2750,8 +2677,7 @@ static inline vuint32_t
 vatomic32_get_sub_rlx(vatomic32_t *a, vuint32_t v)
 {
     V_COMPILER_BARRIER();
-    vuint32_t tmp = __atomic_fetch_sub(
-        &a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    vuint32_t tmp = __atomic_fetch_sub(&a->_v, v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2765,8 +2691,7 @@ static inline vuint64_t
 vatomic64_get_sub(vatomic64_t *a, vuint64_t v)
 {
     V_COMPILER_BARRIER();
-    vuint64_t tmp = __atomic_fetch_sub(
-        &a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    vuint64_t tmp = __atomic_fetch_sub(&a->_v, v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2780,8 +2705,7 @@ static inline vuint64_t
 vatomic64_get_sub_acq(vatomic64_t *a, vuint64_t v)
 {
     V_COMPILER_BARRIER();
-    vuint64_t tmp = __atomic_fetch_sub(
-        &a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    vuint64_t tmp = __atomic_fetch_sub(&a->_v, v, __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2795,8 +2719,7 @@ static inline vuint64_t
 vatomic64_get_sub_rel(vatomic64_t *a, vuint64_t v)
 {
     V_COMPILER_BARRIER();
-    vuint64_t tmp = __atomic_fetch_sub(
-        &a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE));
+    vuint64_t tmp = __atomic_fetch_sub(&a->_v, v, __ATOMIC_RELEASE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2810,8 +2733,7 @@ static inline vuint64_t
 vatomic64_get_sub_rlx(vatomic64_t *a, vuint64_t v)
 {
     V_COMPILER_BARRIER();
-    vuint64_t tmp = __atomic_fetch_sub(
-        &a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    vuint64_t tmp = __atomic_fetch_sub(&a->_v, v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2825,8 +2747,7 @@ static inline vsize_t
 vatomicsz_get_sub(vatomicsz_t *a, vsize_t v)
 {
     V_COMPILER_BARRIER();
-    vsize_t tmp = __atomic_fetch_sub(
-        &a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_SEQ_CST));
+    vsize_t tmp = __atomic_fetch_sub(&a->_v, v, __ATOMIC_SEQ_CST);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2840,8 +2761,7 @@ static inline vsize_t
 vatomicsz_get_sub_acq(vatomicsz_t *a, vsize_t v)
 {
     V_COMPILER_BARRIER();
-    vsize_t tmp = __atomic_fetch_sub(
-        &a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_ACQUIRE));
+    vsize_t tmp = __atomic_fetch_sub(&a->_v, v, __ATOMIC_ACQUIRE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2855,8 +2775,7 @@ static inline vsize_t
 vatomicsz_get_sub_rel(vatomicsz_t *a, vsize_t v)
 {
     V_COMPILER_BARRIER();
-    vsize_t tmp = __atomic_fetch_sub(
-        &a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELEASE));
+    vsize_t tmp = __atomic_fetch_sub(&a->_v, v, __ATOMIC_RELEASE);
     V_COMPILER_BARRIER();
     return tmp;
 }
@@ -2870,8 +2789,7 @@ static inline vsize_t
 vatomicsz_get_sub_rlx(vatomicsz_t *a, vsize_t v)
 {
     V_COMPILER_BARRIER();
-    vsize_t tmp = __atomic_fetch_sub(
-        &a->_v, v, V_ACTIVATE_BUILTIN_BARRIER(__ATOMIC_RELAXED));
+    vsize_t tmp = __atomic_fetch_sub(&a->_v, v, __ATOMIC_RELAXED);
     V_COMPILER_BARRIER();
     return tmp;
 }

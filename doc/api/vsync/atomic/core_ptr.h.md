@@ -56,7 +56,7 @@ The initialization is equivalent to an [vatomicptr_write()](core_ptr.h.md#functi
 ##  Function `vatomicptr_read`
 
 ```c
-static void* vatomicptr_read(vatomicptr_t *a)
+static void* vatomicptr_read(const vatomicptr_t *a)
 ``` 
 _Returns the value of the atomic variable pointed by a._ 
 
@@ -76,7 +76,7 @@ _Returns the value of the atomic variable pointed by a._
 ##  Function `vatomicptr_read_acq`
 
 ```c
-static void* vatomicptr_read_acq(vatomicptr_t *a)
+static void* vatomicptr_read_acq(const vatomicptr_t *a)
 ``` 
 _Returns the value of the atomic variable pointed by a._ 
 
@@ -96,7 +96,7 @@ _Returns the value of the atomic variable pointed by a._
 ##  Function `vatomicptr_read_rlx`
 
 ```c
-static void* vatomicptr_read_rlx(vatomicptr_t *a)
+static void* vatomicptr_read_rlx(const vatomicptr_t *a)
 ``` 
 _Returns the value of the atomic variable pointed by a._ 
 

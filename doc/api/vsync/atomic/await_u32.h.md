@@ -110,7 +110,7 @@ Please do not include this file directly, instead use:
 ##  Function `vatomic32_await_lt`
 
 ```c
-static vuint32_t vatomic32_await_lt(vatomic32_t *a, vuint32_t v)
+static vuint32_t vatomic32_await_lt(const vatomic32_t *a, vuint32_t v)
 ``` 
 _Politely awaits the value pointed by a to be less than v._ 
 
@@ -133,7 +133,7 @@ The return value is the first read value that satisfies the condition, as if rea
 ##  Function `vatomic32_await_lt_acq`
 
 ```c
-static vuint32_t vatomic32_await_lt_acq(vatomic32_t *a, vuint32_t v)
+static vuint32_t vatomic32_await_lt_acq(const vatomic32_t *a, vuint32_t v)
 ``` 
 _Politely awaits the value pointed by a to be less than v._ 
 
@@ -156,7 +156,7 @@ The return value is the first read value that satisfies the condition, as if rea
 ##  Function `vatomic32_await_lt_rlx`
 
 ```c
-static vuint32_t vatomic32_await_lt_rlx(vatomic32_t *a, vuint32_t v)
+static vuint32_t vatomic32_await_lt_rlx(const vatomic32_t *a, vuint32_t v)
 ``` 
 _Politely awaits the value pointed by a to be less than v._ 
 
@@ -179,7 +179,7 @@ The return value is the first read value that satisfies the condition, as if rea
 ##  Function `vatomic32_await_le`
 
 ```c
-static vuint32_t vatomic32_await_le(vatomic32_t *a, vuint32_t v)
+static vuint32_t vatomic32_await_le(const vatomic32_t *a, vuint32_t v)
 ``` 
 _Politely awaits the value pointed by a to be less than or equal to v._ 
 
@@ -202,7 +202,7 @@ The return value is the first read value that satisfies the condition, as if rea
 ##  Function `vatomic32_await_le_acq`
 
 ```c
-static vuint32_t vatomic32_await_le_acq(vatomic32_t *a, vuint32_t v)
+static vuint32_t vatomic32_await_le_acq(const vatomic32_t *a, vuint32_t v)
 ``` 
 _Politely awaits the value pointed by a to be less than or equal to v._ 
 
@@ -225,7 +225,7 @@ The return value is the first read value that satisfies the condition, as if rea
 ##  Function `vatomic32_await_le_rlx`
 
 ```c
-static vuint32_t vatomic32_await_le_rlx(vatomic32_t *a, vuint32_t v)
+static vuint32_t vatomic32_await_le_rlx(const vatomic32_t *a, vuint32_t v)
 ``` 
 _Politely awaits the value pointed by a to be less than or equal to v._ 
 
@@ -248,7 +248,7 @@ The return value is the first read value that satisfies the condition, as if rea
 ##  Function `vatomic32_await_gt`
 
 ```c
-static vuint32_t vatomic32_await_gt(vatomic32_t *a, vuint32_t v)
+static vuint32_t vatomic32_await_gt(const vatomic32_t *a, vuint32_t v)
 ``` 
 _Politely awaits the value pointed by a to be greater than v._ 
 
@@ -271,7 +271,7 @@ The return value is the first read value that satisfies the condition, as if rea
 ##  Function `vatomic32_await_gt_acq`
 
 ```c
-static vuint32_t vatomic32_await_gt_acq(vatomic32_t *a, vuint32_t v)
+static vuint32_t vatomic32_await_gt_acq(const vatomic32_t *a, vuint32_t v)
 ``` 
 _Politely awaits the value pointed by a to be greater than v._ 
 
@@ -294,7 +294,7 @@ The return value is the first read value that satisfies the condition, as if rea
 ##  Function `vatomic32_await_gt_rlx`
 
 ```c
-static vuint32_t vatomic32_await_gt_rlx(vatomic32_t *a, vuint32_t v)
+static vuint32_t vatomic32_await_gt_rlx(const vatomic32_t *a, vuint32_t v)
 ``` 
 _Politely awaits the value pointed by a to be greater than v._ 
 
@@ -317,7 +317,7 @@ The return value is the first read value that satisfies the condition, as if rea
 ##  Function `vatomic32_await_ge`
 
 ```c
-static vuint32_t vatomic32_await_ge(vatomic32_t *a, vuint32_t v)
+static vuint32_t vatomic32_await_ge(const vatomic32_t *a, vuint32_t v)
 ``` 
 _Politely awaits the value pointed by a to be greater than or equal to v._ 
 
@@ -340,7 +340,7 @@ The return value is the first read value that satisfies the condition, as if rea
 ##  Function `vatomic32_await_ge_acq`
 
 ```c
-static vuint32_t vatomic32_await_ge_acq(vatomic32_t *a, vuint32_t v)
+static vuint32_t vatomic32_await_ge_acq(const vatomic32_t *a, vuint32_t v)
 ``` 
 _Politely awaits the value pointed by a to be greater than or equal to v._ 
 
@@ -363,7 +363,7 @@ The return value is the first read value that satisfies the condition, as if rea
 ##  Function `vatomic32_await_ge_rlx`
 
 ```c
-static vuint32_t vatomic32_await_ge_rlx(vatomic32_t *a, vuint32_t v)
+static vuint32_t vatomic32_await_ge_rlx(const vatomic32_t *a, vuint32_t v)
 ``` 
 _Politely awaits the value pointed by a to be greater than or equal to v._ 
 
@@ -386,7 +386,7 @@ The return value is the first read value that satisfies the condition, as if rea
 ##  Function `vatomic32_await_neq`
 
 ```c
-static vuint32_t vatomic32_await_neq(vatomic32_t *a, vuint32_t v)
+static vuint32_t vatomic32_await_neq(const vatomic32_t *a, vuint32_t v)
 ``` 
 _Politely awaits the value pointed by a to be different than v._ 
 
@@ -409,7 +409,7 @@ The return value is the first read value that satisfies the condition, as if rea
 ##  Function `vatomic32_await_neq_acq`
 
 ```c
-static vuint32_t vatomic32_await_neq_acq(vatomic32_t *a, vuint32_t v)
+static vuint32_t vatomic32_await_neq_acq(const vatomic32_t *a, vuint32_t v)
 ``` 
 _Politely awaits the value pointed by a to be different than v._ 
 
@@ -432,7 +432,7 @@ The return value is the first read value that satisfies the condition, as if rea
 ##  Function `vatomic32_await_neq_rlx`
 
 ```c
-static vuint32_t vatomic32_await_neq_rlx(vatomic32_t *a, vuint32_t v)
+static vuint32_t vatomic32_await_neq_rlx(const vatomic32_t *a, vuint32_t v)
 ``` 
 _Politely awaits the value pointed by a to be different than v._ 
 
@@ -455,7 +455,7 @@ The return value is the first read value that satisfies the condition, as if rea
 ##  Function `vatomic32_await_eq`
 
 ```c
-static vuint32_t vatomic32_await_eq(vatomic32_t *a, vuint32_t v)
+static vuint32_t vatomic32_await_eq(const vatomic32_t *a, vuint32_t v)
 ``` 
 _Politely awaits the value pointed by a to be equal to v._ 
 
@@ -478,7 +478,7 @@ The return value is the first read value that satisfies the condition, as if rea
 ##  Function `vatomic32_await_eq_acq`
 
 ```c
-static vuint32_t vatomic32_await_eq_acq(vatomic32_t *a, vuint32_t v)
+static vuint32_t vatomic32_await_eq_acq(const vatomic32_t *a, vuint32_t v)
 ``` 
 _Politely awaits the value pointed by a to be equal to v._ 
 
@@ -501,7 +501,7 @@ The return value is the first read value that satisfies the condition, as if rea
 ##  Function `vatomic32_await_eq_rlx`
 
 ```c
-static vuint32_t vatomic32_await_eq_rlx(vatomic32_t *a, vuint32_t v)
+static vuint32_t vatomic32_await_eq_rlx(const vatomic32_t *a, vuint32_t v)
 ``` 
 _Politely awaits the value pointed by a to be equal to v._ 
 

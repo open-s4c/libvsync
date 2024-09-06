@@ -1,10 +1,10 @@
 #define _tmpl_mute
 #include <vsync/atomic/tmplr.h>
 #include <vsync/atomic/core.h.in>
-TT _vatomic_get_OP_MS(AA *, TT);
-TT _vatomic_OP_get_MS(AA *, TT);
-TT _vatomic_get_SOP_MS(AA *);
-TT _vatomic_SOP_get_MS(AA *);
+TT __vatomic_get_OP_MS(AA *, TT);
+TT __vatomic_OP_get_MS(AA *, TT);
+TT __vatomic_get_SOP_MS(AA *);
+TT __vatomic_SOP_get_MS(AA *);
 #define static
 #define inline
 #define VATOMIC_AWAIT_H
@@ -76,14 +76,14 @@ $F_TY_COND;
  * Politely awaits the value pointed by a to be TXT_COND v.
  *
  * The return value is the first read value that satisfies the condition, as if
- * read with _vatomic_read(a).
+ * read with __vatomic_read(a).
  *
  * @param a atomic variable
  * @param v value to compare
  * @return TXT_RET_COND
  * @memord ME
  */
-static inline TT _vatomic_await_COND_MS(AA *a, TT v);
+static inline TT __vatomic_await_COND_MS(const AA *a, TT v);
 _tmpl_end;
 
 _tmpl_begin(TY = [[u32; u64; ptr]], COND = [[eq; neq; lt; le; gt; ge]],
@@ -102,7 +102,7 @@ $F_TY_OP;
  * @return old value
  * @memord ME
  */
-static inline TT _vatomic_await_COND_OP_MS(AA *a, TT c, TT v);
+static inline TT __vatomic_await_COND_OP_MS(AA *a, TT c, TT v);
 _tmpl_end;
 
 #endif /* VATOMIC_AWAIT_TY_H */

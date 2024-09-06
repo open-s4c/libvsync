@@ -40,13 +40,13 @@ _tmpl_begin(TY = [[u8; u16; u32; u64; sz; ptr]], MO = [[seq]]);
 /**
  * Initializes the atomic variable a with value v.
  *
- * The initialization is equivalent to an _vatomic_write().
+ * The initialization is equivalent to an __vatomic_write().
  *
  * @param a atomic variable
  * @param v initial value
  * @memord ME
  */
-static inline void _vatomic_init(AA *a, TT v);
+static inline void __vatomic_init(AA *a, TT v);
 _tmpl_end;
 
 _tmpl_begin(TY = [[u8; u16; u32; u64; sz; ptr]], MO = [[seq; acq; rlx]]);
@@ -57,7 +57,7 @@ _tmpl_begin(TY = [[u8; u16; u32; u64; sz; ptr]], MO = [[seq; acq; rlx]]);
  * @return current value
  * @memord ME
  */
-static inline TT _vatomic_read_MS(AA *a);
+static inline TT __vatomic_read_MS(const AA *a);
 _tmpl_end;
 
 _tmpl_begin(TY = [[u8; u16; u32; u64; sz; ptr]], MO = [[seq; rel; rlx]]);
@@ -68,7 +68,7 @@ _tmpl_begin(TY = [[u8; u16; u32; u64; sz; ptr]], MO = [[seq; rel; rlx]]);
  * @param v new value
  * @memord ME
  */
-static inline void _vatomic_write_MS(AA *a, TT v);
+static inline void __vatomic_write_MS(AA *a, TT v);
 _tmpl_end;
 
 _tmpl_begin(TY = [[u8; u16; u32; u64; sz; ptr]], MO = [[seq; acq; rel; rlx]]);
@@ -80,7 +80,7 @@ _tmpl_begin(TY = [[u8; u16; u32; u64; sz; ptr]], MO = [[seq; acq; rel; rlx]]);
  * @return old value
  * @memord ME
  */
-static inline TT _vatomic_xchg_MS(AA *a, TT v);
+static inline TT __vatomic_xchg_MS(AA *a, TT v);
 _tmpl_end;
 
 _tmpl_begin(TY = [[u8; u16; u32; u64; sz; ptr]], MO = [[seq; acq; rel; rlx]]);
@@ -92,7 +92,7 @@ _tmpl_begin(TY = [[u8; u16; u32; u64; sz; ptr]], MO = [[seq; acq; rel; rlx]]);
  * @param v new value
  * @return old value
  */
-static inline TT _vatomic_cmpxchg_MS(AA *a, TT e, TT v);
+static inline TT __vatomic_cmpxchg_MS(AA *a, TT e, TT v);
 _tmpl_end;
 
 _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
@@ -104,7 +104,7 @@ _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
  * @return old max value
  * @memord ME
  */
-static inline TT _vatomic_get_max_MS(AA *a, TT v);
+static inline TT __vatomic_get_max_MS(AA *a, TT v);
 _tmpl_end;
 
 _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
@@ -116,7 +116,7 @@ _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
  * @return new max value
  * @memord ME
  */
-static inline TT _vatomic_max_get_MS(AA *a, TT v);
+static inline TT __vatomic_max_get_MS(AA *a, TT v);
 _tmpl_end;
 
 _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]]);
@@ -127,7 +127,7 @@ _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]]);
  * @param v potential max value
  * @memord ME
  */
-static inline void _vatomic_max_MS(AA *a, TT v);
+static inline void __vatomic_max_MS(AA *a, TT v);
 _tmpl_end;
 
 _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
@@ -139,7 +139,7 @@ _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
  * @return old value
  * @memord ME
  */
-static inline TT _vatomic_get_and_MS(AA *a, TT v);
+static inline TT __vatomic_get_and_MS(AA *a, TT v);
 _tmpl_end;
 
 _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
@@ -152,7 +152,7 @@ _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
  * @return new value
  * @memord ME
  */
-static inline TT _vatomic_and_get_MS(AA *a, TT v);
+static inline TT __vatomic_and_get_MS(AA *a, TT v);
 _tmpl_end;
 
 _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]]);
@@ -163,7 +163,7 @@ _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]]);
  * @param v mask value
  * @memord ME
  */
-static inline void _vatomic_and_MS(AA *a, TT v);
+static inline void __vatomic_and_MS(AA *a, TT v);
 _tmpl_end;
 
 _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
@@ -176,7 +176,7 @@ _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
  * @return old value
  * @memord ME
  */
-static inline TT _vatomic_get_or_MS(AA *a, TT v);
+static inline TT __vatomic_get_or_MS(AA *a, TT v);
 _tmpl_end;
 
 _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
@@ -189,7 +189,7 @@ _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
  * @return new value
  * @memord ME
  */
-static inline TT _vatomic_or_get_MS(AA *a, TT v);
+static inline TT __vatomic_or_get_MS(AA *a, TT v);
 _tmpl_end;
 
 _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]]);
@@ -200,7 +200,7 @@ _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]]);
  * @param v mask value
  * @memord ME
  */
-static inline void _vatomic_or_MS(AA *a, TT v);
+static inline void __vatomic_or_MS(AA *a, TT v);
 _tmpl_end;
 
 _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
@@ -213,7 +213,7 @@ _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
  * @return old value
  * @memord ME
  */
-static inline TT _vatomic_get_xor_MS(AA *a, TT v);
+static inline TT __vatomic_get_xor_MS(AA *a, TT v);
 _tmpl_end;
 
 _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
@@ -226,7 +226,7 @@ _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
  * @return new value
  * @memord ME
  */
-static inline TT _vatomic_xor_get_MS(AA *a, TT v);
+static inline TT __vatomic_xor_get_MS(AA *a, TT v);
 _tmpl_end;
 
 _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]]);
@@ -237,7 +237,7 @@ _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]]);
  * @param v mask value
  * @memord ME
  */
-static inline void _vatomic_xor_MS(AA *a, TT v);
+static inline void __vatomic_xor_MS(AA *a, TT v);
 _tmpl_end;
 
 _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
@@ -249,7 +249,7 @@ _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
  * @return old value
  * @memord ME
  */
-static inline TT _vatomic_get_add_MS(AA *a, TT v);
+static inline TT __vatomic_get_add_MS(AA *a, TT v);
 _tmpl_end;
 
 _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
@@ -261,7 +261,7 @@ _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
  * @return new value
  * @memord ME
  */
-static inline TT _vatomic_add_get_MS(AA *a, TT v);
+static inline TT __vatomic_add_get_MS(AA *a, TT v);
 _tmpl_end;
 
 _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]]);
@@ -272,7 +272,7 @@ _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]]);
  * @param v addend value
  * @memord ME
  */
-static inline void _vatomic_add_MS(AA *a, TT v);
+static inline void __vatomic_add_MS(AA *a, TT v);
 _tmpl_end;
 
 _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
@@ -283,7 +283,7 @@ _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
  * @return old value
  * @memord ME
  */
-static inline TT _vatomic_get_inc_MS(AA *a);
+static inline TT __vatomic_get_inc_MS(AA *a);
 _tmpl_end;
 
 _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
@@ -294,7 +294,7 @@ _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
  * @return  new value
  * @memord ME
  */
-static inline TT _vatomic_inc_get_MS(AA *a);
+static inline TT __vatomic_inc_get_MS(AA *a);
 _tmpl_end;
 
 _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]]);
@@ -304,42 +304,42 @@ _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]]);
  * @param a atomic variable
  * @memord ME
  */
-static inline void _vatomic_inc_MS(AA *a);
+static inline void __vatomic_inc_MS(AA *a);
 _tmpl_end;
 
 _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
 /**
- * Substracts v from a and returns the old value.
+ * Subtracts v from a and returns the old value.
  *
  * @param a atomic variable
  * @param v subtrahend value
  * @return old value
  * @memord ME
  */
-static inline TT _vatomic_get_sub_MS(AA *a, TT v);
+static inline TT __vatomic_get_sub_MS(AA *a, TT v);
 _tmpl_end;
 
 _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
 /**
- * Substracts v from a and returns the new value.
+ * Subtracts v from a and returns the new value.
  *
  * @param a atomic variable
  * @param v subtrahend value
  * @return new value
  * @memord ME
  */
-static inline TT _vatomic_sub_get_MS(AA *a, TT v);
+static inline TT __vatomic_sub_get_MS(AA *a, TT v);
 _tmpl_end;
 
 _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]]);
 /**
- * Substracts v from a.
+ * Subtracts v from a.
  *
  * @param a atomic variable
  * @param v subtrahend value
  * @memord ME
  */
-static inline void _vatomic_sub_MS(AA *a, TT v);
+static inline void __vatomic_sub_MS(AA *a, TT v);
 _tmpl_end;
 
 _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
@@ -350,7 +350,7 @@ _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
  * @return old value
  * @memord ME
  */
-static inline TT _vatomic_get_dec_MS(AA *a);
+static inline TT __vatomic_get_dec_MS(AA *a);
 _tmpl_end;
 
 _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
@@ -361,7 +361,7 @@ _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
  * @return new value
  * @memord ME
  */
-static inline TT _vatomic_dec_get_MS(AA *a);
+static inline TT __vatomic_dec_get_MS(AA *a);
 _tmpl_end;
 
 _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]]);
@@ -371,7 +371,7 @@ _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]]);
  * @param a atomic variable
  * @memord ME
  */
-static inline void _vatomic_dec_MS(AA *a);
+static inline void __vatomic_dec_MS(AA *a);
 _tmpl_end;
 
 #endif

@@ -97,17 +97,17 @@ Please do not include this file directly, instead use:
 | [vatomic8_inc](core_u8.h.md#function-vatomic8_inc) | Increments the value of a.  |
 | [vatomic8_inc_rel](core_u8.h.md#function-vatomic8_inc_rel) | Increments the value of a.  |
 | [vatomic8_inc_rlx](core_u8.h.md#function-vatomic8_inc_rlx) | Increments the value of a.  |
-| [vatomic8_get_sub](core_u8.h.md#function-vatomic8_get_sub) | Substracts v from a and returns the old value.  |
-| [vatomic8_get_sub_acq](core_u8.h.md#function-vatomic8_get_sub_acq) | Substracts v from a and returns the old value.  |
-| [vatomic8_get_sub_rel](core_u8.h.md#function-vatomic8_get_sub_rel) | Substracts v from a and returns the old value.  |
-| [vatomic8_get_sub_rlx](core_u8.h.md#function-vatomic8_get_sub_rlx) | Substracts v from a and returns the old value.  |
-| [vatomic8_sub_get](core_u8.h.md#function-vatomic8_sub_get) | Substracts v from a and returns the new value.  |
-| [vatomic8_sub_get_acq](core_u8.h.md#function-vatomic8_sub_get_acq) | Substracts v from a and returns the new value.  |
-| [vatomic8_sub_get_rel](core_u8.h.md#function-vatomic8_sub_get_rel) | Substracts v from a and returns the new value.  |
-| [vatomic8_sub_get_rlx](core_u8.h.md#function-vatomic8_sub_get_rlx) | Substracts v from a and returns the new value.  |
-| [vatomic8_sub](core_u8.h.md#function-vatomic8_sub) | Substracts v from a.  |
-| [vatomic8_sub_rel](core_u8.h.md#function-vatomic8_sub_rel) | Substracts v from a.  |
-| [vatomic8_sub_rlx](core_u8.h.md#function-vatomic8_sub_rlx) | Substracts v from a.  |
+| [vatomic8_get_sub](core_u8.h.md#function-vatomic8_get_sub) | Subtracts v from a and returns the old value.  |
+| [vatomic8_get_sub_acq](core_u8.h.md#function-vatomic8_get_sub_acq) | Subtracts v from a and returns the old value.  |
+| [vatomic8_get_sub_rel](core_u8.h.md#function-vatomic8_get_sub_rel) | Subtracts v from a and returns the old value.  |
+| [vatomic8_get_sub_rlx](core_u8.h.md#function-vatomic8_get_sub_rlx) | Subtracts v from a and returns the old value.  |
+| [vatomic8_sub_get](core_u8.h.md#function-vatomic8_sub_get) | Subtracts v from a and returns the new value.  |
+| [vatomic8_sub_get_acq](core_u8.h.md#function-vatomic8_sub_get_acq) | Subtracts v from a and returns the new value.  |
+| [vatomic8_sub_get_rel](core_u8.h.md#function-vatomic8_sub_get_rel) | Subtracts v from a and returns the new value.  |
+| [vatomic8_sub_get_rlx](core_u8.h.md#function-vatomic8_sub_get_rlx) | Subtracts v from a and returns the new value.  |
+| [vatomic8_sub](core_u8.h.md#function-vatomic8_sub) | Subtracts v from a.  |
+| [vatomic8_sub_rel](core_u8.h.md#function-vatomic8_sub_rel) | Subtracts v from a.  |
+| [vatomic8_sub_rlx](core_u8.h.md#function-vatomic8_sub_rlx) | Subtracts v from a.  |
 | [vatomic8_get_dec](core_u8.h.md#function-vatomic8_get_dec) | Decrements the value of a and returns the old value.  |
 | [vatomic8_get_dec_acq](core_u8.h.md#function-vatomic8_get_dec_acq) | Decrements the value of a and returns the old value.  |
 | [vatomic8_get_dec_rel](core_u8.h.md#function-vatomic8_get_dec_rel) | Decrements the value of a and returns the old value.  |
@@ -144,7 +144,7 @@ The initialization is equivalent to an [vatomic8_write()](core_u8.h.md#function-
 ##  Function `vatomic8_read`
 
 ```c
-static vuint8_t vatomic8_read(vatomic8_t *a)
+static vuint8_t vatomic8_read(const vatomic8_t *a)
 ``` 
 _Returns the value of the atomic variable pointed by a._ 
 
@@ -164,7 +164,7 @@ _Returns the value of the atomic variable pointed by a._
 ##  Function `vatomic8_read_acq`
 
 ```c
-static vuint8_t vatomic8_read_acq(vatomic8_t *a)
+static vuint8_t vatomic8_read_acq(const vatomic8_t *a)
 ``` 
 _Returns the value of the atomic variable pointed by a._ 
 
@@ -184,7 +184,7 @@ _Returns the value of the atomic variable pointed by a._
 ##  Function `vatomic8_read_rlx`
 
 ```c
-static vuint8_t vatomic8_read_rlx(vatomic8_t *a)
+static vuint8_t vatomic8_read_rlx(const vatomic8_t *a)
 ``` 
 _Returns the value of the atomic variable pointed by a._ 
 
@@ -1770,7 +1770,7 @@ _Increments the value of a._
 ```c
 static vuint8_t vatomic8_get_sub(vatomic8_t *a, vuint8_t v)
 ``` 
-_Substracts v from a and returns the old value._ 
+_Subtracts v from a and returns the old value._ 
 
 
 
@@ -1791,7 +1791,7 @@ _Substracts v from a and returns the old value._
 ```c
 static vuint8_t vatomic8_get_sub_acq(vatomic8_t *a, vuint8_t v)
 ``` 
-_Substracts v from a and returns the old value._ 
+_Subtracts v from a and returns the old value._ 
 
 
 
@@ -1812,7 +1812,7 @@ _Substracts v from a and returns the old value._
 ```c
 static vuint8_t vatomic8_get_sub_rel(vatomic8_t *a, vuint8_t v)
 ``` 
-_Substracts v from a and returns the old value._ 
+_Subtracts v from a and returns the old value._ 
 
 
 
@@ -1833,7 +1833,7 @@ _Substracts v from a and returns the old value._
 ```c
 static vuint8_t vatomic8_get_sub_rlx(vatomic8_t *a, vuint8_t v)
 ``` 
-_Substracts v from a and returns the old value._ 
+_Subtracts v from a and returns the old value._ 
 
 
 
@@ -1854,7 +1854,7 @@ _Substracts v from a and returns the old value._
 ```c
 static vuint8_t vatomic8_sub_get(vatomic8_t *a, vuint8_t v)
 ``` 
-_Substracts v from a and returns the new value._ 
+_Subtracts v from a and returns the new value._ 
 
 
 
@@ -1875,7 +1875,7 @@ _Substracts v from a and returns the new value._
 ```c
 static vuint8_t vatomic8_sub_get_acq(vatomic8_t *a, vuint8_t v)
 ``` 
-_Substracts v from a and returns the new value._ 
+_Subtracts v from a and returns the new value._ 
 
 
 
@@ -1896,7 +1896,7 @@ _Substracts v from a and returns the new value._
 ```c
 static vuint8_t vatomic8_sub_get_rel(vatomic8_t *a, vuint8_t v)
 ``` 
-_Substracts v from a and returns the new value._ 
+_Subtracts v from a and returns the new value._ 
 
 
 
@@ -1917,7 +1917,7 @@ _Substracts v from a and returns the new value._
 ```c
 static vuint8_t vatomic8_sub_get_rlx(vatomic8_t *a, vuint8_t v)
 ``` 
-_Substracts v from a and returns the new value._ 
+_Subtracts v from a and returns the new value._ 
 
 
 
@@ -1938,7 +1938,7 @@ _Substracts v from a and returns the new value._
 ```c
 static void vatomic8_sub(vatomic8_t *a, vuint8_t v)
 ``` 
-_Substracts v from a._ 
+_Subtracts v from a._ 
 
 
 
@@ -1957,7 +1957,7 @@ _Substracts v from a._
 ```c
 static void vatomic8_sub_rel(vatomic8_t *a, vuint8_t v)
 ``` 
-_Substracts v from a._ 
+_Subtracts v from a._ 
 
 
 
@@ -1976,7 +1976,7 @@ _Substracts v from a._
 ```c
 static void vatomic8_sub_rlx(vatomic8_t *a, vuint8_t v)
 ``` 
-_Substracts v from a._ 
+_Subtracts v from a._ 
 
 
 

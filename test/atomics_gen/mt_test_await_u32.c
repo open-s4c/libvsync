@@ -662,58 +662,6 @@ mt_atomic_u32_await_neq_set(void)
     V_UNUSED(cur, expected);
 }
 /*****************************************************************************
- * Multi-thread Test: vatomic32_await_mask_eq
- *****************************************************************************/
-static inline void *
-mt_atomic_u32_await_mask_eq_run(void *args)
-{
-    vsize_t tid       = (vsize_t)(vuintptr_t)args;
-    vuint32_t mask    = (vuint32_t)tid;
-    vuint32_t new_val = (vuint32_t)(tid + 1);
-
-    vuint32_t cur = vatomic32_await_mask_eq(&g_shared, mask, mask);
-    ASSERT(cur == mask);
-    vatomic32_write(&g_shared, new_val);
-    V_UNUSED(cur);
-    return NULL;
-}
-static inline void
-mt_atomic_u32_await_mask_eq(void)
-{
-    vatomic32_init(&g_shared, 0);
-    launch_threads(MAX_THREADS, mt_atomic_u32_await_mask_eq_run);
-    vuint32_t cur = vatomic32_read(&g_shared);
-    ASSERT(cur == MAX_THREADS);
-    V_UNUSED(cur);
-}
-/*****************************************************************************
- * Multi-thread Test: vatomic32_await_mask_neq
- *****************************************************************************/
-static inline void *
-mt_atomic_u32_await_mask_neq_run(void *args)
-{
-    vsize_t tid    = (vsize_t)(vuintptr_t)args;
-    vuint32_t mask = (vuint32_t)tid;
-
-    if (tid == 0) {
-        vatomic32_write(&g_shared, 0);
-    } else {
-        vuint32_t cur = vatomic32_await_mask_neq(&g_shared, mask, mask);
-        ASSERT(cur == 0);
-        V_UNUSED(cur);
-    }
-    return NULL;
-}
-static inline void
-mt_atomic_u32_await_mask_neq(void)
-{
-    vatomic32_init(&g_shared, VUINT32_MAX);
-    launch_threads(MAX_THREADS, mt_atomic_u32_await_mask_neq_run);
-    vuint32_t cur = vatomic32_read(&g_shared);
-    ASSERT(cur == 0);
-    V_UNUSED(cur);
-}
-/*****************************************************************************
  * Entry point
  *****************************************************************************/
 int
@@ -742,9 +690,6 @@ main(void)
     mt_atomic_u32_await_lt_set();
     mt_atomic_u32_await_eq_set();
     mt_atomic_u32_await_neq_set();
-
-    mt_atomic_u32_await_mask_eq();
-    mt_atomic_u32_await_mask_neq();
 
     return 0;
 }

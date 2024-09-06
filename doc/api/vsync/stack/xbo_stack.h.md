@@ -107,11 +107,18 @@ rand_cb(vuint32_t min, vuint32_t max)
     return (((vuint32_t)r) % (max - min + 1)) + min;
 }
 
+int
+yield_cb(void *args)
+{
+    (void)args;
+    return sched_yield();
+}
+
 void
 reclaim(void)
 {
     while (vatomic8_read(&g_stop) == 0) {
-        vsize_t count = gdump_recycle(&g_gdump, sched_yield, 1);
+        vsize_t count = gdump_recycle(&g_gdump, yield_cb, NULL, 1);
         if (count > 0) {
             printf("%zu node(s) were reclaimed\n", count);
         }
