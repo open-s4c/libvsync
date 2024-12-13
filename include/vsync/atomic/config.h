@@ -17,28 +17,7 @@
     #error "File included directly. Include <vsync/atomic/core.h> instead!"
 #endif
 
-/*******************************************************************************
- * @def VSYNC_VERIFICATION
- * @brief enables vsyncer verification.
- *
- * Define VSYNC_VERIFICATION to enable verification with vsyncer, GenMC and
- * Dartagnan. This uses compiler builtins for the implementation of atomic
- * operations.
- ******************************************************************************/
-#ifdef DOC
-    // Note: We need to define this, for the macro to be documented in our
-    // documentation. However, we actually don't want to document anything
-    // in our library which is hidden behind `VSYNC_VERIFICATION`, since
-    // those would be internal implementation details. Thus we undefine
-    // the macro again immediately.
-    #define VSYNC_VERIFICATION
-    #undef VSYNC_VERIFICATION
-#elif defined(VSYNC_VERIFICATION)
-    #define VATOMIC_BUILTINS
-    #define VATOMIC_DISABLE_POLITE_AWAIT
-#endif
-
-#include <vsync/common/await_while.h>
+#include <vsync/common/verify.h>
 
 /*******************************************************************************
  * @def VATOMIC_ENABLE_FENCE_RLX_NOP

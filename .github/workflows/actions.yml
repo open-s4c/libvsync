@@ -20,7 +20,7 @@ jobs:
   ###########################################################################
   Run-Checks:
     runs-on: ubuntu-latest
-    container: ghcr.io/open-s4c/vsyncer-ci:sha-2a040dc00d03a806aeb07aeb2489b89eb33d59ff
+    container: ghcr.io/open-s4c/vsyncer-ci:sha-0782d73f3e8c530d635e8e957fab9bedfaf02485
     strategy:
       matrix:
         test-dir: [ {p: "test", c: "spinlock"}, {p: "test", c: "quack"},  {p: "test", c: "queue"},

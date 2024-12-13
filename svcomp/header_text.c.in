@@ -1,0 +1,27 @@
+// This file is part of the SV-Benchmarks collection of verification tasks:
+// https://gitlab.com/sosy-lab/benchmarking/sv-benchmarks
+//
+// SPDX-FileCopyrightText: @RANGE@ Huawei Technologies Co., Ltd.
+// SPDX-License-Identifier: MIT
+//
+// This file is extracted from libvsync, a verified library of synchronization
+// primitives and concurrent data structures. For the full library, access:
+//
+//     https://github.com/open-s4c/libvsync
+//
+// This file was automatically generated from
+//
+//     @SOURCE_FILE@
+//
+// by expanding the preprocessor macros with the following compiler flags:
+//
+//     @EXPAND_FLAGS@
+//
+// This file may contain manually injected bugs. Please see accompanying
+// `bugs.patch` file for details.
+//
+// Version:
+//
+// - libvsync @LIBVSYNC_VERSION@
+// - compiler @COMPILER_VERSION_LINE@
+//

@@ -120,11 +120,6 @@ check(void)
 #endif
 
 
-/*
- * TODO: Lilith ask Diogo why `__VERIFIER_loop_bound` is needed? it seems to
- * trigger bugs in genmc! e.g. imm and hclh crashes when this is active!
- */
-
 static void *
 run(void *arg)
 {
@@ -132,17 +127,14 @@ run(void *arg)
 
     // By default thread 0 runs the following loop twice othread threads
     // run it only once.
-    verification_loop_bound(REACQUIRE_LOOP_BOUND);
     for (int i = 0; i == 0 || SELECT(i, tid, REACQUIRE); i++) {
         // By default NRECURSION == 1 and the loop executes only
         // once. If REENTRANT is defined, thread 0 will reenter the
         // critial section.
-        verification_loop_bound(REENTRANT_LOOP_BOUND);
         for (int j = 0; j == 0 || SELECT(j, tid, REENTRANT); j++) {
             acquire(tid);
             cs();
         }
-        verification_loop_bound(REENTRANT_LOOP_BOUND);
         for (int j = 0; j == 0 || SELECT(j, tid, REENTRANT); j++) {
             release(tid);
         }
@@ -162,14 +154,12 @@ main(void)
 #endif
     init();
 
-    verification_loop_bound(NTHREADS + 1);
     for (vuintptr_t i = 0; i < NTHREADS; i++) {
         (void)pthread_create(&t[i], 0, run, (void *)i);
     }
 
     post();
 
-    verification_loop_bound(NTHREADS + 1);
     for (vuintptr_t i = 0; i < NTHREADS; i++) {
         (void)pthread_join(t[i], NULL);
     }

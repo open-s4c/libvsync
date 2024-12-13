@@ -156,7 +156,7 @@ _tmpl_begin(TY = [[u32; u64]], MO = [[seq; acq; rel; rlx]],
 static inline TT
 __vatomic_get_OP_MS(AA *a, TT v)
 {
-    vuint64_t oldv;
+    TT oldv;
     __asm__ volatile(
         "<LSE_OP_PRE>\n"
         "<LSE_OP_INST><RMW_MO> %<TY_REG>[v], %<TY_REG>[oldv], %[a]\n"

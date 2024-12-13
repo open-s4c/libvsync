@@ -6,6 +6,7 @@
 #ifndef VSYNC_VFREESTANDING_H
 #define VSYNC_VFREESTANDING_H
 
+#define vbool_t   _Bool
 #define vuint8_t  unsigned char
 #define vuint16_t unsigned short int
 #define vuint32_t unsigned int

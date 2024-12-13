@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.16)
 project(
     libvsync
     LANGUAGES C
-    VERSION 4.0.1
+    VERSION 4.0.2
     DESCRIPTION
         "Verified library of atomics, synchronization primitives and concurrent data structures"
 )
@@ -83,6 +83,7 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     add_subdirectory(test)
     add_subdirectory(verify)
     add_subdirectory(tmplr)
+    add_subdirectory(svcomp)
     if(LIBVSYNC_ADDRESS_SANITIZER)
         target_compile_options(vsync INTERFACE -fsanitize=address)
         target_compile_definitions(vsync INTERFACE VSYNC_ADDRESS_SANITIZER)

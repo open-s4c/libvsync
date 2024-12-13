@@ -14,7 +14,12 @@ void
 acquire(vuint32_t tid)
 {
     if (tid == NTHREADS - 1) {
+#if defined(VSYNC_VERIFICATION_DAT3M) || defined(VSYNC_VERIFICATION_GENERIC)
+        vbool_t acquired = caslock_tryacquire(&lock);
+        verification_assume(acquired);
+#else
         await_while (!caslock_tryacquire(&lock)) {}
+#endif
     } else {
         caslock_acquire(&lock);
     }

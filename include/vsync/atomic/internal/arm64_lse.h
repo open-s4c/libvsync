@@ -651,7 +651,7 @@ vatomic64_max_rlx(vatomic64_t *a, vuint64_t v)
 static inline vuint32_t
 vatomic32_get_and(vatomic32_t *a, vuint32_t v)
 {
-    vuint64_t oldv;
+    vuint32_t oldv;
     __asm__ volatile(
         "mvn %w[v], %w[v]\n"
         "ldclral %w[v], %w[oldv], %[a]\n"
@@ -670,7 +670,7 @@ vatomic32_get_and(vatomic32_t *a, vuint32_t v)
 static inline vuint32_t
 vatomic32_get_or(vatomic32_t *a, vuint32_t v)
 {
-    vuint64_t oldv;
+    vuint32_t oldv;
     __asm__ volatile(
         "\n"
         "ldsetal %w[v], %w[oldv], %[a]\n"
@@ -689,7 +689,7 @@ vatomic32_get_or(vatomic32_t *a, vuint32_t v)
 static inline vuint32_t
 vatomic32_get_xor(vatomic32_t *a, vuint32_t v)
 {
-    vuint64_t oldv;
+    vuint32_t oldv;
     __asm__ volatile(
         "\n"
         "ldeoral %w[v], %w[oldv], %[a]\n"
@@ -708,7 +708,7 @@ vatomic32_get_xor(vatomic32_t *a, vuint32_t v)
 static inline vuint32_t
 vatomic32_get_add(vatomic32_t *a, vuint32_t v)
 {
-    vuint64_t oldv;
+    vuint32_t oldv;
     __asm__ volatile(
         "\n"
         "ldaddal %w[v], %w[oldv], %[a]\n"
@@ -727,7 +727,7 @@ vatomic32_get_add(vatomic32_t *a, vuint32_t v)
 static inline vuint32_t
 vatomic32_get_sub(vatomic32_t *a, vuint32_t v)
 {
-    vuint64_t oldv;
+    vuint32_t oldv;
     __asm__ volatile(
         "neg %w[v], %w[v]\n"
         "ldaddal %w[v], %w[oldv], %[a]\n"
@@ -746,7 +746,7 @@ vatomic32_get_sub(vatomic32_t *a, vuint32_t v)
 static inline vuint32_t
 vatomic32_get_and_acq(vatomic32_t *a, vuint32_t v)
 {
-    vuint64_t oldv;
+    vuint32_t oldv;
     __asm__ volatile(
         "mvn %w[v], %w[v]\n"
         "ldclra %w[v], %w[oldv], %[a]\n"
@@ -765,7 +765,7 @@ vatomic32_get_and_acq(vatomic32_t *a, vuint32_t v)
 static inline vuint32_t
 vatomic32_get_or_acq(vatomic32_t *a, vuint32_t v)
 {
-    vuint64_t oldv;
+    vuint32_t oldv;
     __asm__ volatile(
         "\n"
         "ldseta %w[v], %w[oldv], %[a]\n"
@@ -784,7 +784,7 @@ vatomic32_get_or_acq(vatomic32_t *a, vuint32_t v)
 static inline vuint32_t
 vatomic32_get_xor_acq(vatomic32_t *a, vuint32_t v)
 {
-    vuint64_t oldv;
+    vuint32_t oldv;
     __asm__ volatile(
         "\n"
         "ldeora %w[v], %w[oldv], %[a]\n"
@@ -803,7 +803,7 @@ vatomic32_get_xor_acq(vatomic32_t *a, vuint32_t v)
 static inline vuint32_t
 vatomic32_get_add_acq(vatomic32_t *a, vuint32_t v)
 {
-    vuint64_t oldv;
+    vuint32_t oldv;
     __asm__ volatile(
         "\n"
         "ldadda %w[v], %w[oldv], %[a]\n"
@@ -822,7 +822,7 @@ vatomic32_get_add_acq(vatomic32_t *a, vuint32_t v)
 static inline vuint32_t
 vatomic32_get_sub_acq(vatomic32_t *a, vuint32_t v)
 {
-    vuint64_t oldv;
+    vuint32_t oldv;
     __asm__ volatile(
         "neg %w[v], %w[v]\n"
         "ldadda %w[v], %w[oldv], %[a]\n"
@@ -841,7 +841,7 @@ vatomic32_get_sub_acq(vatomic32_t *a, vuint32_t v)
 static inline vuint32_t
 vatomic32_get_and_rel(vatomic32_t *a, vuint32_t v)
 {
-    vuint64_t oldv;
+    vuint32_t oldv;
     __asm__ volatile(
         "mvn %w[v], %w[v]\n"
         "ldclrl %w[v], %w[oldv], %[a]\n"
@@ -860,7 +860,7 @@ vatomic32_get_and_rel(vatomic32_t *a, vuint32_t v)
 static inline vuint32_t
 vatomic32_get_or_rel(vatomic32_t *a, vuint32_t v)
 {
-    vuint64_t oldv;
+    vuint32_t oldv;
     __asm__ volatile(
         "\n"
         "ldsetl %w[v], %w[oldv], %[a]\n"
@@ -879,7 +879,7 @@ vatomic32_get_or_rel(vatomic32_t *a, vuint32_t v)
 static inline vuint32_t
 vatomic32_get_xor_rel(vatomic32_t *a, vuint32_t v)
 {
-    vuint64_t oldv;
+    vuint32_t oldv;
     __asm__ volatile(
         "\n"
         "ldeorl %w[v], %w[oldv], %[a]\n"
@@ -898,7 +898,7 @@ vatomic32_get_xor_rel(vatomic32_t *a, vuint32_t v)
 static inline vuint32_t
 vatomic32_get_add_rel(vatomic32_t *a, vuint32_t v)
 {
-    vuint64_t oldv;
+    vuint32_t oldv;
     __asm__ volatile(
         "\n"
         "ldaddl %w[v], %w[oldv], %[a]\n"
@@ -917,7 +917,7 @@ vatomic32_get_add_rel(vatomic32_t *a, vuint32_t v)
 static inline vuint32_t
 vatomic32_get_sub_rel(vatomic32_t *a, vuint32_t v)
 {
-    vuint64_t oldv;
+    vuint32_t oldv;
     __asm__ volatile(
         "neg %w[v], %w[v]\n"
         "ldaddl %w[v], %w[oldv], %[a]\n"
@@ -936,7 +936,7 @@ vatomic32_get_sub_rel(vatomic32_t *a, vuint32_t v)
 static inline vuint32_t
 vatomic32_get_and_rlx(vatomic32_t *a, vuint32_t v)
 {
-    vuint64_t oldv;
+    vuint32_t oldv;
     __asm__ volatile(
         "mvn %w[v], %w[v]\n"
         "ldclr %w[v], %w[oldv], %[a]\n"
@@ -955,7 +955,7 @@ vatomic32_get_and_rlx(vatomic32_t *a, vuint32_t v)
 static inline vuint32_t
 vatomic32_get_or_rlx(vatomic32_t *a, vuint32_t v)
 {
-    vuint64_t oldv;
+    vuint32_t oldv;
     __asm__ volatile(
         "\n"
         "ldset %w[v], %w[oldv], %[a]\n"
@@ -974,7 +974,7 @@ vatomic32_get_or_rlx(vatomic32_t *a, vuint32_t v)
 static inline vuint32_t
 vatomic32_get_xor_rlx(vatomic32_t *a, vuint32_t v)
 {
-    vuint64_t oldv;
+    vuint32_t oldv;
     __asm__ volatile(
         "\n"
         "ldeor %w[v], %w[oldv], %[a]\n"
@@ -993,7 +993,7 @@ vatomic32_get_xor_rlx(vatomic32_t *a, vuint32_t v)
 static inline vuint32_t
 vatomic32_get_add_rlx(vatomic32_t *a, vuint32_t v)
 {
-    vuint64_t oldv;
+    vuint32_t oldv;
     __asm__ volatile(
         "\n"
         "ldadd %w[v], %w[oldv], %[a]\n"
@@ -1012,7 +1012,7 @@ vatomic32_get_add_rlx(vatomic32_t *a, vuint32_t v)
 static inline vuint32_t
 vatomic32_get_sub_rlx(vatomic32_t *a, vuint32_t v)
 {
-    vuint64_t oldv;
+    vuint32_t oldv;
     __asm__ volatile(
         "neg %w[v], %w[v]\n"
         "ldadd %w[v], %w[oldv], %[a]\n"

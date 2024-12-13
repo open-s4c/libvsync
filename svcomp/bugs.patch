@@ -1,0 +1,278 @@
+diff --git a/include/vsync/common/assert.h b/include/vsync/common/assert.h
+index fc89075..8444dca 100644
+--- a/include/vsync/common/assert.h
++++ b/include/vsync/common/assert.h
+@@ -12,7 +12,18 @@
+ 
+ #ifndef ASSERT
+     #include <assert.h>
+-    #define ASSERT(V) assert(V)
++    #define ASSERT(V)                                                          \
++        do {                                                                   \
++            if (!(V))                                                          \
++                reach_error();                                                 \
++        } while (0)
++
++static inline void
++reach_error(void)
++{
++    assert(0);
++}
++
+ #endif
+ 
+ #ifndef BUG_ON
+diff --git a/include/vsync/queue/bounded_mpmc.h b/include/vsync/queue/bounded_mpmc.h
+index e97fda4..ad655f0 100644
+--- a/include/vsync/queue/bounded_mpmc.h
++++ b/include/vsync/queue/bounded_mpmc.h
+@@ -87,8 +87,18 @@ bounded_mpmc_enq(bounded_mpmc_t *q, void *v)
+     /* push value into buffer */
+     q->buf[curr % q->size] = v;
+ 
++
++    /* BUG: the following line has been removed.
++     *
++     *   vatomic32_await_eq_acq(&q->ptail, curr);
++     *
++     * It ensures that multiple producers wait for each other and commit their
++     * entries in order. Without this wait loop data corruption may occur. For
++     * example, a faster producer may accidentaly commit the entry of a slow
++     * producer, allowing consumers to read garbage.
++     */
++
+     /* mode producer tail */
+-    vatomic32_await_eq_acq(&q->ptail, curr);
+     vatomic32_write_rel(&q->ptail, next);
+ 
+     return QUEUE_BOUNDED_OK;
+diff --git a/include/vsync/queue/bounded_spsc.h b/include/vsync/queue/bounded_spsc.h
+index 8886204..f9bd899 100644
+--- a/include/vsync/queue/bounded_spsc.h
++++ b/include/vsync/queue/bounded_spsc.h
+@@ -100,8 +100,14 @@ bounded_spsc_deq(bounded_spsc_t *q, void **v)
+         return QUEUE_BOUNDED_EMPTY;
+     }
+ 
+-    *v = q->buf[head % q->size];
++    /* BUG: the following two lines have been reversed. In a single-threaded
++     * queue, that shouldn't be a problem. However, in a SPSC queue, when
++     * the consumer moves the head counter, it "releases" the entry to the
++     * producer. If the producer overwrites the entry before the consumer reads
++     * it, there is a lost entry in the queue.
++     */
+     vatomic32_write_rel(&q->head, head + 1);
++    *v = q->buf[head % q->size];
+ 
+     return QUEUE_BOUNDED_OK;
+ }
+diff --git a/include/vsync/spinlock/caslock.h b/include/vsync/spinlock/caslock.h
+index 42c1bd3..d95d8ee 100644
+--- a/include/vsync/spinlock/caslock.h
++++ b/include/vsync/spinlock/caslock.h
+@@ -57,7 +57,14 @@ caslock_acquire(caslock_t *l)
+ static inline vbool_t
+ caslock_tryacquire(caslock_t *l)
+ {
+-    return vatomic32_cmpxchg_acq(&l->lock, 0, 1) == 0;
++    /* BUG: often developers get confused with the interface of cmpxchg. In some
++     * cmpxchg implementations, the function returns a success boolean. In other
++     * implementations, such as vatomic, the function returns the old value. The
++     * following line should actually be:
++     *
++     *     return vatomic32_cmpxchg_acq(&l->lock, 0, 1) == 0;
++     */
++    return vatomic32_cmpxchg_acq(&l->lock, 0, 1);
+ }
+ /**
+  * Releases the CAS lock.
+diff --git a/include/vsync/spinlock/clhlock.h b/include/vsync/spinlock/clhlock.h
+index 2e7bb95..808c511 100644
+--- a/include/vsync/spinlock/clhlock.h
++++ b/include/vsync/spinlock/clhlock.h
+@@ -47,9 +47,16 @@ typedef struct clhlock_s {
+ static inline void
+ clhlock_node_init(clh_node_t *node)
+ {
+-    vatomic32_init(&node->_qnode.locked, 0);
+-    node->qnode = &node->_qnode;
+-    node->pred  = NULL;
++    /* BUG: this CLH lock implementation has the pecuriality that nodes have to
++     * be initialized before calling clhlock_acquire. That contrast with MCS
++     * lock, where nodes can be initialized in the acquire function itself. We
++     * comment the following lines to represent the case where the developer has
++     * forgotten to initialize the nodes.
++     *
++     *     vatomic32_init(&node->_qnode.locked, 0);
++     *     node->qnode = &node->_qnode;
++     *     node->pred  = NULL;
++     */
+ }
+ /**
+  * Initializes the given lock.
+diff --git a/include/vsync/spinlock/hemlock.h b/include/vsync/spinlock/hemlock.h
+index d8718d5..1b3154a 100644
+--- a/include/vsync/spinlock/hemlock.h
++++ b/include/vsync/spinlock/hemlock.h
+@@ -82,7 +82,19 @@ hemlock_acquire(hemlock_t *l, hem_node_t *node)
+     }
+ 
+ #if !defined(HEMLOCK_USE_CTR)
+-    vatomicptr_await_eq_acq(&pred->grant, l);
++    /* BUG: one major difference between hemlock and MCS lock is that the
++     * "grant" field isn't binary. It actually contains the address of the
++     * current lock being acquired/released. We changed the following line
++     *
++     *     vatomicptr_await_eq_acq(&pred->grant, l);
++     *
++     * to represent a developer adapting an MCS lock implementation to follow
++     * the hemlock algorithm and mistakenly missing to fix the await loop.
++     *
++     * This bug breaks the feature of hemlock that allows multiple locks to be
++     * acquired with the same node. See hemlock.c test case.
++     */
++    vatomicptr_await_neq_acq(&pred->grant, NULL);
+     vatomicptr_write_rlx(&pred->grant, NULL);
+ #else
+     await_while (vatomicptr_cmpxchg_acq(&pred->grant, l, NULL) != l)
+diff --git a/include/vsync/spinlock/twalock.h b/include/vsync/spinlock/twalock.h
+index 923462e..c5603da 100644
+--- a/include/vsync/spinlock/twalock.h
++++ b/include/vsync/spinlock/twalock.h
+@@ -91,8 +91,12 @@ twalock_acquire(twalock_t *l)
+ 
+     if (dx > TWA_L) {
+         _twalock_acquire_slowpath(l, tx);
+-    }
+-    vatomic32_await_eq_acq(&l->grant, tx);
++    } else
++        vatomic32_await_eq_acq(&l->grant, tx);
++    /* BUG: the final check for the grant has to occur even if the thread was in
++     * the slowpath. Here we added the "else" branch to only wait for the grant
++     * in the fast path.
++     */
+ }
+ /**
+  * Releases the given TWA lock.
+diff --git a/test/queue/bounded_mpmc_check_full.c b/test/queue/bounded_mpmc_check_full.c
+index 1d567df..00e09b3 100644
+--- a/test/queue/bounded_mpmc_check_full.c
++++ b/test/queue/bounded_mpmc_check_full.c
+@@ -12,7 +12,6 @@
+ #include <vsync/atomic.h>
+ #include <vsync/common/verify.h>
+ #include <vsync/common/assert.h>
+-#include <test/thread_launcher.h>
+ 
+ #ifdef VSYNC_VERIFICATION
+     #define NWRITERS 2
+@@ -65,7 +64,13 @@ main(void)
+ 
+     bounded_mpmc_init(&g_queue, g_buf, QUEUE_SIZE);
+ 
+-    launch_threads(NWRITERS, writer);
++    pthread_t t[NWRITERS];
++    for (vuintptr_t i = 0; i < NWRITERS; i++) {
++        (void)pthread_create(&t[i], 0, writer, (void *)i);
++    }
++    for (vuintptr_t i = 0; i < NWRITERS; i++) {
++        (void)pthread_join(t[i], NULL);
++    }
+ 
+     void *r = NULL;
+     // dequeue last value
+diff --git a/test/queue/bounded_spsc.c b/test/queue/bounded_spsc.c
+index 6613835..ae527fd 100644
+--- a/test/queue/bounded_spsc.c
++++ b/test/queue/bounded_spsc.c
+@@ -8,7 +8,6 @@
+ #include <stdlib.h>
+ #include <vsync/queue/bounded_spsc.h>
+ #include <vsync/atomic.h>
+-#include <test/thread_launcher.h>
+ 
+ #define NTHREADS   2
+ #define QUEUE_SIZE 2
+@@ -66,6 +65,13 @@ main(void)
+             ASSERT(0 && "allocation failed");
+         }
+     }
+-    launch_threads(NTHREADS, run);
++
++    pthread_t t[NTHREADS];
++    for (vuintptr_t i = 0; i < NTHREADS; i++) {
++        (void)pthread_create(&t[i], 0, run, (void *)i);
++    }
++    for (vuintptr_t i = 0; i < NTHREADS; i++) {
++        (void)pthread_join(t[i], NULL);
++    }
+     return 0;
+ }
+diff --git a/test/spinlock/hemlock.c b/test/spinlock/hemlock.c
+index fc88b30..4abdef2 100644
+--- a/test/spinlock/hemlock.c
++++ b/test/spinlock/hemlock.c
+@@ -2,37 +2,45 @@
+  * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+  * SPDX-License-Identifier: MIT
+  */
+-#ifdef VSYNC_VERIFICATION_QUICK
+-    #define REACQUIRE 1
+-    #define NTHREADS  3
+-#else
+-    #define REACQUIRE 1
+-    #define NTHREADS  4
+-#endif
++#define NTHREADS 3
+ 
+ #include <vsync/spinlock/hemlock.h>
+ #include <test/boilerplate/lock.h>
+ 
+-hemlock_t lock = HEMLOCK_INIT();
++hemlock_t lock1 = HEMLOCK_INIT();
++hemlock_t lock2 = HEMLOCK_INIT();
+ struct hem_node_s nodes[NTHREADS];
+ 
++
++/* This test case is fine with the correct implementation of hemlock, but it
++ * fails when we inject the bug (see hemlock.h). Example:
++ *
++ * - Thread 1 acquires lock2 and acquires lock1
++ * - Thread 0 blocks at lock1
++ * - Thread 2 blocks at lock2
++ * - Thread 1 releases lock1.
++ *
++ * In the last step, due to the injected bug, thread 2 also thinks lock2 was
++ * released and enters the critical section together with thread 1.
++ */
+ void
+ acquire(vuint32_t tid)
+ {
+-    if (tid == NTHREADS - 1) {
+-#if defined(VSYNC_VERIFICATION_DAT3M)
+-        vbool_t acquired = hemlock_tryacquire(&lock, &nodes[tid]);
+-        verification_assume(acquired);
+-#else
+-        await_while (!hemlock_tryacquire(&lock, &nodes[tid])) {}
+-#endif
+-    } else {
+-        hemlock_acquire(&lock, &nodes[tid]);
++    if (tid == 0) {
++        hemlock_acquire(&lock1, &nodes[tid]);
++        hemlock_release(&lock1, &nodes[tid]);
++    }
++
++    hemlock_acquire(&lock2, &nodes[tid]);
++
++    if (tid == 1) {
++        hemlock_acquire(&lock1, &nodes[tid]);
++        hemlock_release(&lock1, &nodes[tid]);
+     }
+ }
+ 
+ void
+ release(vuint32_t tid)
+ {
+-    hemlock_release(&lock, &nodes[tid]);
++    hemlock_release(&lock2, &nodes[tid]);
+ }
