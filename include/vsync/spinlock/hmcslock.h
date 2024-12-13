@@ -78,20 +78,21 @@ static inline void _hmcslock_release_real(hmcslock_t *lock, hmcs_node_t *qnode,
 static inline void _hmcslock_acquire_real(hmcslock_t *lock, hmcs_node_t *qnode,
                                           vsize_t depth);
 
-static void _hmcslock_release_helper(hmcslock_t *lock, hmcs_node_t *qnode,
-                                     vuint64_t val);
+static inline void _hmcslock_release_helper(hmcslock_t *lock,
+                                            hmcs_node_t *qnode, vuint64_t val);
 
 static inline void _hmcslock_one_acquire_real(hmcslock_t *lock,
                                               hmcs_node_t *qnode);
 
-static void _hmcslock_init_level(hmcslock_t *cur_parent, hmcslock_t *locks,
-                                 vsize_t *i, vsize_t cur_level,
-                                 hmcslock_level_spec_t *level_specs,
-                                 vsize_t num_levels);
+static inline void _hmcslock_init_level(hmcslock_t *cur_parent,
+                                        hmcslock_t *locks, vsize_t *i,
+                                        vsize_t cur_level,
+                                        hmcslock_level_spec_t *level_specs,
+                                        vsize_t num_levels);
 
 #if defined(HMCS_ENABLE_DEBUG)
-static vuint32_t _hmcslock_count_nodes(hmcslock_level_spec_t *level_specs,
-                                       vsize_t num_levels);
+static inline vsize_t _hmcslock_count_nodes(hmcslock_level_spec_t *level_specs,
+                                            vsize_t num_levels);
 #endif
 /**
  * Returns the address of the lock associated with the core id.
@@ -172,7 +173,7 @@ hmcslock_init(hmcslock_t *locks, vsize_t locks_len,
     HMCSLOCK_ASSERT(num_levels > 0);
 
 #if defined(HMCS_ENABLE_DEBUG)
-    vuint32_t total_nodes = 0;
+    vsize_t total_nodes = 0;
 
     HMCSLOCK_ASSERT(level_specs[0].num_nodes_per_parent == 1 &&
                     "top level should have one node");
@@ -401,11 +402,11 @@ _hmcslock_init_level(hmcslock_t *cur_parent, hmcslock_t *locks, vsize_t *idx,
  *
  * @note recursive function
  */
-static vuint32_t
+static inline vsize_t
 _hmcslock_count_nodes(hmcslock_level_spec_t *level_specs, vsize_t num_levels)
 {
-    vsize_t i       = 0;
-    vuint32_t nodes = 1;
+    vsize_t i     = 0;
+    vsize_t nodes = 1;
 
     if (num_levels == 0) {
         return 0;
