@@ -34,14 +34,12 @@ writer_cs(vuint32_t tid)
 {
     vsize_t i = 0;
 
-    verification_loop_bound(REENTRY_COUNT + 1);
     for (i = 0; i < REENTRY_COUNT; i++) {
         rec_seqlock_acquire(&lock, tid);
     }
     g_cs_x++;
     g_cs_y++;
 
-    verification_loop_bound(REENTRY_COUNT + 1);
     for (i = 0; i < REENTRY_COUNT; i++) {
         rec_seqlock_release(&lock);
     }

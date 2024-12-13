@@ -19,7 +19,6 @@ init(void)
 {
     clhlock_init(&lock);
 
-    verification_loop_bound(NTHREADS + 1);
     for (int i = 0; i < NTHREADS; i++) {
         clhlock_node_init(&node[i]);
     }

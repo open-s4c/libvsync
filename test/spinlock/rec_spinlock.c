@@ -14,7 +14,12 @@ void
 acquire(vuint32_t tid)
 {
     if (tid == NTHREADS - 1) {
+#if defined(VSYNC_VERIFICATION_DAT3M) || defined(VSYNC_VERIFICATION_GENERIC)
+        vbool_t acquired = rec_spinlock_tryacquire(&lock, tid);
+        verification_assume(acquired);
+#else
         await_while (!rec_spinlock_tryacquire(&lock, tid)) {}
+#endif
     } else {
         rec_spinlock_acquire(&lock, tid);
     }

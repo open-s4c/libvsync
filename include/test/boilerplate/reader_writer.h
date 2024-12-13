@@ -171,19 +171,16 @@ main(void)
 
     init();
 
-    verification_loop_bound(NWRITERS + 1);
     for (vuintptr_t i = 0; i < NWRITERS; i++) {
         (void)pthread_create(&t[i], 0, writer, (void *)i);
     }
 
-    verification_loop_bound(NTHREADS + 1);
     for (vuintptr_t i = NWRITERS; i < NTHREADS; i++) {
         (void)pthread_create(&t[i], 0, reader, (void *)i);
     }
 
     post();
 
-    verification_loop_bound(NTHREADS + 1);
     for (vuintptr_t i = 0; i < NTHREADS; i++) {
         (void)pthread_join(t[i], NULL);
     }
