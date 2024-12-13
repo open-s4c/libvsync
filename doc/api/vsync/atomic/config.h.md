@@ -8,7 +8,6 @@ The configuration defined in this file is typically applied to the whole project
 
 | Macro | Description |
 |---|---|
-| [VSYNC_VERIFICATION](config.h.md#macro-vsync_verification) | enables vsyncer verification.  |
 | [VATOMIC_ENABLE_FENCE_RLX_NOP](config.h.md#macro-vatomic_enable_fence_rlx_nop) | maps `vatomic_fence_rlx` to a NOP instruction, otherwise to nothing.  |
 | [VATOMIC_DISABLE_POLITE_AWAIT](config.h.md#macro-vatomic_disable_polite_await) | disables polite await in x86_64 and aarch64.  |
 | [VATOMIC_BUILTINS](config.h.md#macro-vatomic_builtins) | uses `__atomic` compiler builtins to implement atomic operations.  |
@@ -16,15 +15,6 @@ The configuration defined in this file is typically applied to the whole project
 | [VATOMIC_ENABLE_ATOMIC_RLX](config.h.md#macro-vatomic_enable_atomic_rlx) | turns barrier mode of all atomic operations and fences to relaxed.  |
 | [VATOMIC_DISABLE_ARM64_LSE](config.h.md#macro-vatomic_disable_arm64_lse) | Do not use ARM64 LSE instructions for atomic operations.  |
 | [VATOMIC_ENABLE_ARM64_LXE](config.h.md#macro-vatomic_enable_arm64_lxe) | use ARM64 LSE instructions in slow path of LXSX for atomic operations.  |
-
-##  Macro `VSYNC_VERIFICATION`
-
- 
-_enables vsyncer verification._ 
-
-
-Define VSYNC_VERIFICATION to enable verification with vsyncer, GenMC and Dartagnan. This uses compiler builtins for the implementation of atomic operations. 
-
 
 ##  Macro `VATOMIC_ENABLE_FENCE_RLX_NOP`
 
