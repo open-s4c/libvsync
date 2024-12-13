@@ -4,10 +4,13 @@ project(
     libvsync
     LANGUAGES C
     VERSION 0.0.0
-    DESCRIPTION "Verified library of atomics, synchronization primitives and concurrent data structures")
+    DESCRIPTION
+        "Verified library of atomics, synchronization primitives and concurrent data structures"
+)
 
 option(LIBVSYNC_ADDRESS_SANITIZER "Compile with -fsanitize=address" "off")
-option(LIBVSYNC_CODECHECK_BINSCOPE "Compile with necessary flags for binscope" "off")
+option(LIBVSYNC_CODECHECK_BINSCOPE "Compile with necessary flags for binscope"
+       "off")
 
 include(GNUInstallDirs)
 include(cmake/export.cmake)
@@ -23,9 +26,9 @@ install(DIRECTORY include/vsync DESTINATION include)
 install(FILES vmm/vmm.cat DESTINATION share/vsync)
 install(TARGETS vsync EXPORT ${PROJECT_TARGETS})
 
-##############################################################
-#   Check for memset_s memcpy_s existence
-##############################################################
+# ##############################################################################
+# Check for memset_s memcpy_s existence
+# ##############################################################################
 check_symbol_exists(memset_s "string.h" VSYNC_MEMSET_S_EXISTS)
 if(VSYNC_MEMSET_S_EXISTS)
     target_compile_definitions(vsync INTERFACE "VSYNC_MEMSET_S_EXISTS")
@@ -36,29 +39,29 @@ if(VSYNC_MEMCPY_S_EXISTS)
 endif()
 
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
-    ##############################################################
-    #   Important Config must be set
-    ##############################################################
+    # ##########################################################################
+    # Important Config must be set
+    # ##########################################################################
     set(ATOMICS_DIR ${PROJECT_SOURCE_DIR})
 
-    ##############################################################
-    #   Commands
-    ##############################################################
+    # ##########################################################################
+    # Commands
+    # ##########################################################################
     set(CMAKE_FMT_CMD ${PROJECT_SOURCE_DIR}/scripts/cmake-format.sh
-                ${CMAKE_SOURCE_DIR})
+                      ${CMAKE_SOURCE_DIR})
 
     set(CMAKE_STYLE_FILE ${PROJECT_SOURCE_DIR}/.cmake-format)
 
-    add_custom_target(cmake-format-apply
-        COMMAND env STYLE=${CMAKE_STYLE_FILE} SILENT=true ${CMAKE_FMT_CMD})
+    add_custom_target(cmake-format-apply COMMAND env STYLE=${CMAKE_STYLE_FILE}
+                                                 SILENT=true ${CMAKE_FMT_CMD})
 
     set(CLANG_FMT_CMD ${PROJECT_SOURCE_DIR}/scripts/clang-format.sh
-                ${CMAKE_SOURCE_DIR})
+                      ${CMAKE_SOURCE_DIR})
 
     set(CLANG_STYLE_FILE ${PROJECT_SOURCE_DIR}/.clang-format)
 
-    add_custom_target(clang-format-apply
-        COMMAND env STYLE=${CLANG_STYLE_FILE} SILENT=true ${CLANG_FMT_CMD})
+    add_custom_target(clang-format-apply COMMAND env STYLE=${CLANG_STYLE_FILE}
+                                                 SILENT=true ${CLANG_FMT_CMD})
 
     add_custom_target(
         sanitize-vsync
@@ -88,8 +91,9 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     endif()
     if(LIBVSYNC_CODECHECK_BINSCOPE)
         target_compile_definitions(vsync INTERFACE _FORTIFY_SOURCE=2)
-        target_compile_options(vsync INTERFACE -fstack-protector-strong -fstack-protector-all -fPIE -fPIC -O2)
+        target_compile_options(
+            vsync INTERFACE -fstack-protector-strong -fstack-protector-all
+                            -fPIE -fPIC -O2)
         target_link_options(vsync INTERFACE -s -pie -Wl,-z,relro,-z,now)
     endif()
 endif()
-
