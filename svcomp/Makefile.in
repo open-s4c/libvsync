@@ -1,0 +1,5 @@
+IGNORE_DIRS := ./src/
+
+LEVEL := ../
+
+include $(LEVEL)/Makefile.config
