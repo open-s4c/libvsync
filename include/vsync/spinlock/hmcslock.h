@@ -100,7 +100,7 @@ static inline vsize_t _hmcslock_count_nodes(hmcslock_level_spec_t *level_specs,
  * @param locks array of hmcslock_t objects.
  * @param locks_len `locks` array length.
  * @param level_specs array of hmcslock_level_spec_t objects.
- * @param num_levels number of the levels in heirarchy, same as the length of
+ * @param num_levels number of the levels in hierarchy, same as the length of
  * `level_specs`.
  * @param cores_per_node number of cores per leaf lock node.
  * @param core_id core id of the calling thread.

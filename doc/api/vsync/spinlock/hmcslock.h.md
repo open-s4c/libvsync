@@ -140,7 +140,7 @@ _Returns the address of the lock associated with the core id._
 - `locks`: array of hmcslock_t objects. 
 - `locks_len`: `locks` array length. 
 - `level_specs`: array of hmcslock_level_spec_t objects. 
-- `num_levels`: number of the levels in heirarchy, same as the length of `level_specs`. 
+- `num_levels`: number of the levels in hierarchy, same as the length of `level_specs`. 
 - `cores_per_node`: number of cores per leaf lock node. 
 - `core_id`: core id of the calling thread.
 
