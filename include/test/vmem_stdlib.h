@@ -12,7 +12,7 @@
 #include <vsync/common/assert.h>
 #include <vsync/utils/alloc.h>
 #include <vsync/vtypes.h>
-#include <malloc.h>
+//#include <malloc.h>
 
 
 #if !defined(VMEM_LIB_ALLOC_TRACKING_OFF)
@@ -45,7 +45,7 @@ vmem_malloc_cb(vsize_t sz, void *arg)
 static inline void *
 vmem_aligned_malloc(vsize_t alignment, vsize_t sz)
 {
-    void *ptr = memalign(alignment, sz);
+    void *ptr = malloc(sz); //memalign(alignment, sz);
     ASSERT(ptr);
 #if !defined(VMEM_LIB_ALLOC_TRACKING_OFF)
     vatomic64_inc_rlx(&_g_vmem_alloc_count);

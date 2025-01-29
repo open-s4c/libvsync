@@ -25,7 +25,7 @@
         #error add "-D_GNU_SOURCE" to your compile command
     #endif
     #include <sched.h>
-    #include <sys/sysinfo.h>
+//    #include <sys/sysinfo.h>
 static vatomic32_t g_go = VATOMIC_INIT(0);
     #define GIVE_START_SIGNAL()  vatomic32_write(&g_go, 1)
     #define RESET_START_SIGNAL() vatomic32_write(&g_go, 0)
@@ -65,7 +65,7 @@ common_run(void *args)
 static inline void
 set_cpu_affinity(vsize_t target_cpu)
 {
-#if !defined(VSYNC_VERIFICATION)
+#if 0 && !defined(VSYNC_VERIFICATION)
     int number_of_cores = get_nprocs();
 
     cpu_set_t set;

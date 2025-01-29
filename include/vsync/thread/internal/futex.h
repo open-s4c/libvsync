@@ -19,21 +19,21 @@
 
 #if defined(VSYNC_VERIFICATION) || defined(FUTEX_USERSPACE)
 
-static vatomic32_t signal;
+static vatomic32_t _signal;
 
 static inline void
 vfutex_wait(vatomic32_t *m, vuint32_t v)
 {
-    vuint32_t s = vatomic32_read_acq(&signal);
+    vuint32_t s = vatomic32_read_acq(&_signal);
     if (vatomic32_read_rlx(m) != v)
         return;
-    vatomic32_await_neq_rlx(&signal, s);
+    vatomic32_await_neq_rlx(&_signal, s);
 }
 
 static inline void
 vfutex_wake(vatomic32_t *m, vuint32_t v)
 {
-    vatomic32_inc_rel(&signal);
+    vatomic32_inc_rel(&_signal);
 }
 
 #elif defined(__linux__)

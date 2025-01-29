@@ -68,13 +68,14 @@ random_rand(void)
 #else
     /* instead of using rand(), we use system dependent getrandom because it is
      * more secure */
-    char buf[sizeof(int)] = {0};
-    if (getrandom(buf, sizeof(int), GRND_RANDOM) == -1) {
-        ASSERT(0 && "getrandom failed");
-        return 0;
-    } else {
-        return *((int *)buf);
-    }
+//    char buf[sizeof(int)] = {0};
+//    if (getrandom(buf, sizeof(int), GRND_RANDOM) == -1) {
+//        ASSERT(0 && "getrandom failed");
+//        return 0;
+//    } else {
+//        return *((int *)buf);
+//    }
+	return rand();
 #endif
 }
 
