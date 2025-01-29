@@ -3,11 +3,12 @@ on: [push, pull_request]
 jobs:
   ###########################################################################
   Run-Tests:
-    runs-on: ubuntu-22.04
     strategy:
       matrix:
         config: ["-DLIBVSYNC_ADDRESS_SANITIZER=on", "-DLIBVSYNC_ADDRESS_SANITIZER=off"]
         dir: ["test", "verify"]
+        os: [ubuntu-22.04, macos-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4

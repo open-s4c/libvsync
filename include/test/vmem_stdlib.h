@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -12,8 +12,6 @@
 #include <vsync/common/assert.h>
 #include <vsync/utils/alloc.h>
 #include <vsync/vtypes.h>
-#include <malloc.h>
-
 
 #if !defined(VMEM_LIB_ALLOC_TRACKING_OFF)
 vatomic64_t _g_vmem_alloc_count = VATOMIC_INIT(0);
@@ -45,8 +43,10 @@ vmem_malloc_cb(vsize_t sz, void *arg)
 static inline void *
 vmem_aligned_malloc(vsize_t alignment, vsize_t sz)
 {
-    void *ptr = memalign(alignment, sz);
-    ASSERT(ptr);
+    void *ptr = NULL;
+    if (posix_memalign(&ptr, alignment, sz) != 0) {
+        abort();
+    }
 #if !defined(VMEM_LIB_ALLOC_TRACKING_OFF)
     vatomic64_inc_rlx(&_g_vmem_alloc_count);
 #endif

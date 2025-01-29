@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -17,23 +17,28 @@
 #define FUTEX_WAKE_ALL INT_MAX
 #define FUTEX_WAKE_ONE 1
 
+/* at the moment we do not support macos futex (__ulock) */
+#if defined(__APPLE__) && !defined(FUTEX_USERSPACE)
+    #define FUTEX_USERSPACE
+#endif
+
 #if defined(VSYNC_VERIFICATION) || defined(FUTEX_USERSPACE)
 
-static vatomic32_t signal;
+static vatomic32_t g_signal;
 
 static inline void
 vfutex_wait(vatomic32_t *m, vuint32_t v)
 {
-    vuint32_t s = vatomic32_read_acq(&signal);
+    vuint32_t s = vatomic32_read_acq(&g_signal);
     if (vatomic32_read_rlx(m) != v)
         return;
-    vatomic32_await_neq_rlx(&signal, s);
+    vatomic32_await_neq_rlx(&g_signal, s);
 }
 
 static inline void
 vfutex_wake(vatomic32_t *m, vuint32_t v)
 {
-    vatomic32_inc_rel(&signal);
+    vatomic32_inc_rel(&g_signal);
 }
 
 #elif defined(__linux__)
