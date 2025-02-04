@@ -58,6 +58,8 @@ function(add_vsyncer_check)
     # ##########################################################################
     # Define mode checker env vars
     # ##########################################################################
+    # force using gemc10 with all clients for testing
+    set(VSYNCER_CHECK_USE_GENMC10 TRUE)
     if(${VSYNCER_CHECK_USE_DAT3M})
         set(CHECKER dartagnan)
         set(CHECKER_ENV DARTAGNAN_OPTIONS=${VSYNCER_CHECK_DARTAGNAN_OPTIONS}
