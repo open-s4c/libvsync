@@ -74,12 +74,8 @@ function(add_vsyncer_check)
             --disable-spin-assume #
         )
         # ${VSYNCER_CHECK_GENMC10_EXTRA_OPTIONS}
-        string(REPLACE ";" " " GENMC10_OPTIONS "${GENMC10_OPTIONS}")
-        set(CHECKER_ENV #
-            GENMC_SET_OPTIONS=${GENMC10_OPTIONS} #
-        )
-        # GENMC_CMD=/usr/share/genmc10/bin/genmc #
-        # endif()
+
+        # GENMC_CMD=/usr/share/genmc10/bin/genmc # endif()
     endif()
     # ##########################################################################
     # Define memory models
@@ -96,6 +92,15 @@ function(add_vsyncer_check)
         set(TEST_NAME ${TARGET}_${WMM})
         string(TOUPPER ${WMM} WMM_UP)
         set(COMPILE_FLAGS ${CFLAGS} -DVSYNC_VERIFICATION_${WMM_UP})
+
+        if("${WMM}" STREQUAL "imm")
+            set(GENMC10_OPTIONS "${GENMC10_OPTIONS} -disable-race-detection")
+        endif()
+
+        string(REPLACE ";" " " GENMC10_OPTIONS "${GENMC10_OPTIONS}")
+        set(CHECKER_ENV #
+            GENMC_SET_OPTIONS=${GENMC10_OPTIONS} #
+        )
 
         # ######################################################################
         # Compile ll file with vsyncer
