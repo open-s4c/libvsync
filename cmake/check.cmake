@@ -58,8 +58,6 @@ function(add_vsyncer_check)
     # ##########################################################################
     # Define mode checker env vars
     # ##########################################################################
-    # force using gemc10 with all clients for testing
-    set(VSYNCER_CHECK_USE_GENMC10 TRUE)
     if(${VSYNCER_CHECK_USE_DAT3M})
         set(CHECKER dartagnan)
         set(CHECKER_ENV DARTAGNAN_OPTIONS=${VSYNCER_CHECK_DARTAGNAN_OPTIONS}
@@ -69,18 +67,19 @@ function(add_vsyncer_check)
     else()
         set(CHECKER genmc)
         list(APPEND CFLAGS -DVSYNC_VERIFICATION_GENMC)
-        if(${VSYNCER_CHECK_USE_GENMC10})
+        # if(${VSYNCER_CHECK_USE_GENMC10})
             set(GENMC10_OPTIONS #
                 --disable-estimation #
                 --check-liveness #
                 --disable-spin-assume #
-                ${VSYNCER_CHECK_GENMC10_EXTRA_OPTIONS})
+                )
+            # ${VSYNCER_CHECK_GENMC10_EXTRA_OPTIONS}
             string(REPLACE ";" " " GENMC10_OPTIONS "${GENMC10_OPTIONS}")
             set(CHECKER_ENV #
                 GENMC_SET_OPTIONS=${GENMC10_OPTIONS} #
-                GENMC_CMD=/usr/share/genmc10/bin/genmc #
             )
-        endif()
+            # GENMC_CMD=/usr/share/genmc10/bin/genmc #
+        # endif()
     endif()
     # ##########################################################################
     # Define memory models
