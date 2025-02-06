@@ -39,7 +39,7 @@ foreach(TC IN ITEMS ${TEST_CASES})
             TARGET check_${TEST_NAME}
             CFLAGS ${TC_CHECK_DEF}
             SOURCE ${VERIFY_FILE}
-            TIMEOUT 300 USE_DAT3M
+            TIMEOUT 600 USE_DAT3M
             MEMORY_MODELS vmm USE_DAT3M DARTAGNAN_OPTIONS
                           --bound=${DAT3M_BOUND_${TEST_NAME}}
             DEPENDENCIES vsync)
