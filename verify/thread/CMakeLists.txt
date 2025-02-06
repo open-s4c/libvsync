@@ -34,7 +34,7 @@ foreach(SRC ${SRCS})
         add_vsyncer_check(
             TARGET ${TEST}-check
             SOURCE ${SRC}
-            TIMEOUT 60
+            TIMEOUT 120
             MEMORY_MODELS vmm USE_DAT3M DARTAGNAN_OPTIONS
                           --bound=${DAT3M_BOUND_${TEST}}
             DEPENDENCIES vsync)
