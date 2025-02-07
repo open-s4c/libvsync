@@ -57,17 +57,6 @@ foreach(test_path IN ITEMS ${TEST_CASES})
             set(CHECK_NAME_PREFIX check_${TEST})
             set(CHECK_NAME ${CHECK_NAME_PREFIX}_${WMM})
 
-            if(${CHECK_NAME} IN_LIST VERIFY_WITH_GENMC10)
-                set(CHECK_OPTIONS USE_GENMC10)
-                if("${CHECK_NAME}" IN_LIST DISABLE_IPR_SR)
-                    set(CHECK_EXTRA_OPTIONS "-disable-sr -disable-ipr")
-                else()
-                    unset(CHECK_EXTRA_OPTIONS)
-                endif()
-            else()
-                unset(CHECK_OPTIONS)
-            endif()
-
             add_vsyncer_check(
                 TARGET ${CHECK_NAME_PREFIX}
                 SOURCE ${VERIFY_FILE}
@@ -75,8 +64,6 @@ foreach(test_path IN ITEMS ${TEST_CASES})
                 TIMEOUT 1200
                 MEMORY_MODELS
                     ${WMM} #
-                    ${CHECK_OPTIONS} #
-                    GENMC10_EXTRA_OPTIONS ${CHECK_EXTRA_OPTIONS} #
                 DEPENDENCIES vsync)
         endforeach()
     endforeach()

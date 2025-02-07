@@ -95,14 +95,8 @@ foreach(test_path IN ITEMS ${TEST_CASES})
             set(CHECK_NAME_PREFIX check_${TEST})
             set(CHECK_NAME ${CHECK_NAME_PREFIX}_${WMM})
 
-            if(${CHECK_NAME} IN_LIST VERIFY_WITH_GENMC10)
-                set(CHECK_OPTIONS USE_GENMC10)
-            else()
-                unset(CHECK_OPTIONS)
-            endif()
 
-            if((NOT ${VSYNCER_CHECK_FULL}) AND ("${CHECK_NAME}" IN_LIST
-                                                VERIFIY_WITHOUT_SMR_ON_QUICK))
+            if((NOT ${VSYNCER_CHECK_FULL}))
                 set(SMR_FLAG -DSMR_NONE)
             else()
                 unset(SMR_FLAG)

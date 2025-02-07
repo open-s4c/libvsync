@@ -28,12 +28,6 @@ foreach(SRC ${SRCS})
         set(MEMORY_MODELS "imm" "rc11")
     endif()
 
-    if("${TEST}" IN_LIST VERIFY_WITH_GENMC10)
-        set(CHECK_OPTIONS USE_GENMC10)
-    else()
-        unset(CHECK_OPTIONS)
-    endif()
-
     add_vsyncer_check(
         TARGET check_${TEST}
         SOURCE ${SRC}

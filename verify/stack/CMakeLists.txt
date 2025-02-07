@@ -89,11 +89,7 @@ foreach(test_path IN ITEMS ${TEST_CASES})
         foreach(WMM IN ITEMS ${MEMORY_MODELS})
             set(CHECK_NAME_PREFIX check_${TEST})
             set(CHECK_NAME ${CHECK_NAME_PREFIX}_${WMM})
-            if("${CHECK_NAME}" IN_LIST VERIFY_WITH_GENMC10)
-                set(CHECK_OPTIONS USE_GENMC10)
-            else()
-                unset(CHECK_OPTIONS)
-            endif()
+
             if((NOT ${VSYNCER_CHECK_FULL}) AND ("${CHECK_NAME}" IN_LIST
                                                 VERIFIY_WITHOUT_SMR_ON_QUICK))
                 set(SMR_FLAG -DSMR_NONE)
@@ -106,7 +102,6 @@ foreach(test_path IN ITEMS ${TEST_CASES})
                 CFLAGS -D${algo} ${tc_check} ${CHECK_FLAGS} ${SMR_FLAG}
                 MEMORY_MODELS ${WMM}
                 TIMEOUT 600 #
-                        ${CHECK_OPTIONS} #
                 DEPENDENCIES vsync)
         endforeach()
     endforeach()
