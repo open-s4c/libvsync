@@ -3,7 +3,7 @@ on: [push, pull_request]
 jobs:
   ###########################################################################
   Run-Tests:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
         config: ["-DLIBVSYNC_ADDRESS_SANITIZER=on", "-DLIBVSYNC_ADDRESS_SANITIZER=off"]
@@ -19,7 +19,7 @@ jobs:
         run: ctest --test-dir build/${{ matrix.dir }}
   ###########################################################################
   Run-Checks:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     container: ghcr.io/open-s4c/vsyncer-ci:sha-0782d73f3e8c530d635e8e957fab9bedfaf02485
     strategy:
       matrix:
@@ -46,7 +46,7 @@ jobs:
           path: build/logs
   ###########################################################################
   Run-Format-Checks:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
         target: ["clang-format-apply", "vatomic-generate", "vatomic-test-generate"]
@@ -64,7 +64,7 @@ jobs:
             (echo "Run 'make ${{ matrix.target }}' and commit" && false)
   ###########################################################################
   Generate-Report:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs: Run-Checks
     steps:
       - uses: actions/download-artifact@v4
