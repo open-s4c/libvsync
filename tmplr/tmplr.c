@@ -1,14 +1,15 @@
+//'usr/bin/env' cc -xc -DSCRIPT -o tmplr.bin "$0" && exec ./tmplr.bin "$@"
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
+#include <assert.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdbool.h>
 #include <unistd.h>
-#include <assert.h>
 
 /*******************************************************************************
  * tmplr - a template replacement tool
@@ -35,7 +36,11 @@
  * Iteration mappings may take a single value as in keyA = value1 or multiple
  * values as in keyA = [[value1; value2]]. The list of values is separated by
  * semicolumn and optionally sorrounded by [[ ]]. The list of template mappings
- * is separated by commas.
+ * is separated by commas, for example:
+ *
+ *     TMPL_BEGIN(keyA=[[val1;val2]], keyB=[[val3;val4]])
+ *     ...
+ *     TMPL_END
  *
  * ## Block iterations
  *
@@ -83,7 +88,7 @@
  * - nor any tmplr commands
  *
  * Values cannot contain parenthesis, commas nor semicolon.
-
+ *
  * Disclaimer:
  * We are aware of similar, more powerful tools such as Jinja, Mustache and M4.
  * tmplr follows three design principles:
@@ -484,7 +489,7 @@ process_begin()
  * content of hte buffer with mappings applied for each value of the mapping
  * iterators.
  ******************************************************************************/
-char save_block[MAX_SLEN][MAX_BLEN];
+char save_block[MAX_BLEN][MAX_SLEN];
 int save_k;
 
 const char *
@@ -749,5 +754,12 @@ main(int argc, char *argv[])
     }
     for (int i = optind; i < argc; i++)
         process_file(argv[i]);
+
+
+// if started as script, remove tmplr file
+#ifdef SCRIPT
+    return remove(argv[0]);
+#else
     return 0;
+#endif
 }
