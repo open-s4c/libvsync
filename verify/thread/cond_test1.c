@@ -19,7 +19,7 @@
 
 vcond_t g_cond;
 vmutex_t g_mutex;
-uint32_t g_cs_x, g_cs_y;
+vuint32_t g_cs_x, g_cs_y;
 
 void *
 run(void *arg)
