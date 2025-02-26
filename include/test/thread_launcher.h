@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -21,11 +21,15 @@
     #define GIVE_START_SIGNAL()
     #define RESET_START_SIGNAL()
 #else
-    #if !defined(_GNU_SOURCE)
-        #error add "-D_GNU_SOURCE" to your compile command
+    #ifdef __linux__
+        #if !defined(_GNU_SOURCE)
+            #error add "-D_GNU_SOURCE" to your compile command
+        #endif
+        #include <sched.h>
+        #include <sys/sysinfo.h>
+    #else
+        #define DISABLE_LAUCHER_AFFINITY
     #endif
-    #include <sched.h>
-    #include <sys/sysinfo.h>
 static vatomic32_t g_go = VATOMIC_INIT(0);
     #define GIVE_START_SIGNAL()  vatomic32_write(&g_go, 1)
     #define RESET_START_SIGNAL() vatomic32_write(&g_go, 0)
@@ -65,7 +69,7 @@ common_run(void *args)
 static inline void
 set_cpu_affinity(vsize_t target_cpu)
 {
-#if !defined(VSYNC_VERIFICATION)
+#if !defined(VSYNC_VERIFICATION) && !defined(DISABLE_LAUCHER_AFFINITY)
     int number_of_cores = get_nprocs();
 
     cpu_set_t set;

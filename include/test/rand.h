@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -65,9 +65,15 @@ random_rand(void)
 {
 #if defined(VSYNC_VERIFICATION)
     return verification_rand();
+#elif __APPLE__
+    char buf[sizeof(int)] = {0};
+    if (getentropy(buf, sizeof(int)) == -1) {
+        ASSERT(0 && "getentropy failed");
+        return 0;
+    } else {
+        return *((int *)buf);
+    }
 #else
-    /* instead of using rand(), we use system dependent getrandom because it is
-     * more secure */
     char buf[sizeof(int)] = {0};
     if (getrandom(buf, sizeof(int), GRND_RANDOM) == -1) {
         ASSERT(0 && "getrandom failed");

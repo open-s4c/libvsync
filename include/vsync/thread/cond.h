@@ -1,10 +1,10 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
-#ifndef VTHREAD_CND_H
-#define VTHREAD_CND_H
+#ifndef VTHREAD_COND_H
+#define VTHREAD_COND_H
 /*******************************************************************************
  * @file cond.h
  * @brief Condition variable

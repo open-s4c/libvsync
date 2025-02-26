@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -12,14 +12,14 @@
 #include <test/thread_launcher.h>
 
 #ifdef VSYNC_VERIFICATION_QUICK
-    #define NTHREADS 2
+    #define NTHREADS 2U
 #else
-    #define NTHREADS 3
+    #define NTHREADS 3U
 #endif
 
 vcond_t g_cond;
 vmutex_t g_mutex;
-int g_cs_x, g_cs_y;
+vuint32_t g_cs_x, g_cs_y;
 
 void *
 run(void *arg)
@@ -31,7 +31,7 @@ run(void *arg)
         }
         g_cs_y++;
     } else {
-        g_cs_y -= NTHREADS;
+        g_cs_y++;
     }
     vmutex_release(&g_mutex);
     vcond_signal(&g_cond);
@@ -45,6 +45,6 @@ main(void)
 {
     launch_threads(NTHREADS, run);
     ASSERT(g_cs_x == NTHREADS);
-    ASSERT(g_cs_y == -1);
+    ASSERT(g_cs_y == NTHREADS);
     return 0;
 }

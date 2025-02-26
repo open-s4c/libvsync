@@ -1,3 +1,4 @@
 doc.h
 build/
 *.ll
+.kakrc
