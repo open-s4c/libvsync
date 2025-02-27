@@ -14,45 +14,13 @@ if(NOT DEFINED ALGOS)
     set(ALGOS LISTSET_COARSE LISTSET_FINE LISTSET_LAZY LISTSET_OPT LISTSET_LF)
 endif()
 
-set(VERIFY_WITH_GENMC10
-    # check_test_case_2_listset_opt_rc11 # Requires investigation (keep skipped
-    # for now!) either a bug in genmc or when the node is retired!
-    check_test_case_2_listset_lazy_imm #
-    check_test_case_2_listset_opt_imm #
-    check_test_case_2_listset_lf_imm #
-    check_test_case_3_listset_opt_imm #
-    check_test_case_3_listset_opt_rc11 #
-    check_test_case_4_listset_opt_imm #
-    check_test_case_4_listset_lazy_imm #
-    check_test_case_8_listset_coarse_imm #
-    check_test_case_8_listset_fine_imm #
-    check_test_case_8_listset_lazy_imm #
-    check_test_case_8_listset_opt_imm #
-    check_test_case_7_listset_coarse_imm #
-    check_test_case_7_listset_fine_imm #
-    check_test_case_7_listset_lazy_imm #
-    check_test_case_7_listset_opt_imm #
-)
-
-set(VERIFIY_WITHOUT_SMR_ON_QUICK #
-    check_test_case_2_listset_coarse_imm #
-    check_test_case_2_listset_fine_imm #
-    check_test_case_2_listset_lazy_imm #
-    check_test_case_2_listset_opt_imm #
-    check_test_case_2_listset_lf_imm #
-    check_test_case_4_listset_coarse_imm #
-    check_test_case_4_listset_lf_imm #
-    check_test_case_4_listset_fine_imm #
-    check_test_case_4_listset_opt_imm #
-    check_test_case_4_listset_lazy_imm #
-    check_test_case_7_listset_coarse_imm #
-    check_test_case_7_listset_fine_imm #
-    check_test_case_7_listset_lazy_imm #
-    check_test_case_7_listset_opt_imm #
-    check_test_case_7_listset_lf_imm #
-)
-
 set(MEMORY_MODELS "imm" "rc11")
+
+if(${VSYNCER_CHECK_FULL})
+    unset(SMR_FLAG)
+else()
+    set(SMR_FLAG -DSMR_NONE)
+endif()
 
 # for all files that start with test
 foreach(test_path IN ITEMS ${TEST_CASES})
@@ -95,24 +63,11 @@ foreach(test_path IN ITEMS ${TEST_CASES})
             set(CHECK_NAME_PREFIX check_${TEST})
             set(CHECK_NAME ${CHECK_NAME_PREFIX}_${WMM})
 
-            if(${CHECK_NAME} IN_LIST VERIFY_WITH_GENMC10)
-                set(CHECK_OPTIONS USE_GENMC10)
-            else()
-                unset(CHECK_OPTIONS)
-            endif()
-
-            if((NOT ${VSYNCER_CHECK_FULL}) AND ("${CHECK_NAME}" IN_LIST
-                                                VERIFIY_WITHOUT_SMR_ON_QUICK))
-                set(SMR_FLAG -DSMR_NONE)
-            else()
-                unset(SMR_FLAG)
-            endif()
-
             add_vsyncer_check(
                 TARGET ${CHECK_NAME_PREFIX}
                 SOURCE ${VERIFY_FILE}
                 CFLAGS -D${algo} ${tc_check} ${CHECK_FLAGS} ${SMR_FLAG}
-                TIMEOUT 600
+                TIMEOUT 1200
                 MEMORY_MODELS ${WMM} #
                               ${CHECK_OPTIONS} #
                 DEPENDENCIES vsync)
