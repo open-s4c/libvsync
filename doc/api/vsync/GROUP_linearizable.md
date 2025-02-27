@@ -21,6 +21,7 @@ _Group of algorithms linearizable algorithms._
 | [vsync/queue/bounded_locked.h](queue/bounded_locked.h.md)|Multi-producer, multi-consumer bounded queue protected by a spinlock. | &#x2714; | &#x274C; | &#x274C; | &#x274C; |
 | [vsync/queue/bounded_mpmc.h](queue/bounded_mpmc.h.md)|Lockless, multi-producer, multi-consumer bounded queue. | &#x2714; | &#x274C; | &#x274C; | &#x274C; |
 | [vsync/queue/bounded_spsc.h](queue/bounded_spsc.h.md)|Single-producer, single-consumer, wait-free bounded queue. | &#x2714; | &#x2714; | &#x274C; | &#x274C; |
+| [vsync/queue/cachedq.h](queue/cachedq.h.md)|Lockless, multi-producer, multi-consumer queue. | &#x2714; | &#x274C; | &#x274C; | &#x274C; |
 | [vsync/queue/unbounded_queue_lf.h](queue/unbounded_queue_lf.h.md)|Lock-free unbounded queue. | &#x2714; | &#x2714; | &#x2714; | &#x2714; |
 | [vsync/queue/unbounded_queue_lf_recycle.h](queue/unbounded_queue_lf_recycle.h.md)|Lock-free recycle unbounded queue. | &#x2714; | &#x2714; | &#x274C; | &#x2714; |
 | [vsync/queue/unbounded_queue_total.h](queue/unbounded_queue_total.h.md)|Unbounded blocking total queue. | &#x2714; | &#x274C; | &#x274C; | &#x2714; |
