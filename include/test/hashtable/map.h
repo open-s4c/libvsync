@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -7,10 +7,10 @@
 #define VIHASHABLE_H
 
 #include <vsync/common/dbg.h>
+#include <vsync/common/compiler.h>
 #include <test/hashtable/hashtable.h>
 #include <test/smr/ismr.h>
 #include <stdlib.h>
-#include <test/smr/cleaner_thread.h>
 #include <test/vmem_stdlib.h>
 #include <test/rand.h>
 #include <test/hashtable/user_key.h>
@@ -25,7 +25,6 @@ typedef struct hash_entry_s {
 } hash_entry_t;
 
 vhashtable_t g_hashtable;
-cleaner_t g_cleaner;
 
 #define MIN_RECLAIM_COUNT 1
 #define RECLAIM_FREQUENCY 1
@@ -79,8 +78,7 @@ _evict_callback(vhashtable_entry_t *hnode, void *args)
 #if defined(SMR_EBR) && !defined(ISMR_USE_TLS)
     #error ebr will not work without tid here
 #endif
-    // passing TID as zero, it is not used so should be safe
-    ismr_retire(0, &entry->smr_node, _reclaim_callback, false);
+    ismr_retire(&entry->smr_node, _reclaim_callback, false);
     vatomic64_inc_rlx(&g_evict_count);
 #ifdef TEST_SANITY
     g_sanity_evict_count++;
@@ -153,7 +151,7 @@ map_init(void)
     vhashtable_init(&g_hashtable, _evict_callback, NULL, _cmp_callback);
 
 #if !defined(VSYNC_VERIFICATION) && !defined(VSYNC_VERIFICATION_TEST)
-    vcleaner_start(&g_cleaner, 0, RECLAIM_FREQUENCY, 0);
+    ismr_start_cleaner();
 #endif
 }
 
@@ -163,7 +161,7 @@ map_destroy(void)
     // TODO: implement destroy for hashtable entries
     istats_verify(false);
 #if !defined(VSYNC_VERIFICATION) && !defined(VSYNC_VERIFICATION_TEST)
-    vcleaner_stop(&g_cleaner);
+    ismr_stop_cleaner();
 #endif
     vhashtable_destroy(&g_hashtable);
     ismr_destroy();

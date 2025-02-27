@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -42,6 +42,7 @@ _usleep_callback(unsigned int milliseconds)
 #include <test/smr/ismr.h>
 #include <time.h>
 #include <test/rand.h>
+#include <vsync/common/compiler.h>
 
 #ifndef NTHREADS
     #error "undefined number of threads"
@@ -51,12 +52,6 @@ _usleep_callback(unsigned int milliseconds)
 
 #ifndef N_DS
     #define N_DS 1
-#endif
-
-#if !defined(VSYNC_VERIFICATION)
-    #include <test/smr/cleaner_thread.h>
-cleaner_t g_cleaner;
-vsize_t g_cleaner_tid = 0;
 #endif
 
 
@@ -110,10 +105,11 @@ pop(vsize_t tid, vsize_t ds)
 #endif
     if (node) {
         data_node_t *out_data = V_CONTAINER_OF(node, data_node_t, stack_node);
-        ismr_retire(tid, &out_data->smr_node, _free_callback, false);
-        trace_add(&g_removed[ds][tid], out_data->key);
-        DBG_GREEN("[T%zu] popped %lx", tid, out_data->key);
-        return out_data->key;
+        vuint64_t key         = out_data->key;
+        ismr_retire(&out_data->smr_node, _free_callback, false);
+        trace_add(&g_removed[ds][tid], key);
+        DBG_GREEN("[T%zu] popped %lx", key);
+        return key;
     }
     /* zero is mapped to no item */
     DBG_GREEN("[T%zu] popped EMPTY ", tid);
@@ -151,7 +147,7 @@ init(void)
 
 
 #if !defined(VSYNC_VERIFICATION)
-    vcleaner_start(&g_cleaner, g_cleaner_tid, 0, 0);
+    ismr_start_cleaner();
 #endif
 }
 
@@ -183,7 +179,7 @@ destroy(void)
     trace_destroy(&g_final_state);
 
 #if !defined(VSYNC_VERIFICATION)
-    vcleaner_stop(&g_cleaner);
+    ismr_stop_cleaner();
 #endif
 
     ismr_destroy();

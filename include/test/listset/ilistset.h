@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -60,8 +60,7 @@ static inline void
 _retire_callback(vlistset_node_t *node, void *args)
 {
     listset_mock_node_t *mock = vlistset_node_to_mock(node);
-    // passing 0 as tid, should be harmless in most SMRs because 0
-    ismr_retire(0, &mock->smr_node, _free_callback, false);
+    ismr_retire(&mock->smr_node, _free_callback, false);
     vatomic64_inc_rlx(&g_retire_count);
     V_UNUSED(args);
 }

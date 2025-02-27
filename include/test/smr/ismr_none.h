@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -39,7 +39,9 @@ _ismr_none_destroy_all_cb(trace_unit_t *unit)
 static inline void
 ismr_init(void)
 {
+#if !defined(SMR_BENCHMARK)
     locked_trace_init(&global_trace, CAPACITY);
+#endif
 }
 
 static inline void
@@ -71,17 +73,24 @@ _ismr_none_trace(smr_node_t *node, smr_node_destroy_fun fun, void *args)
 }
 
 static inline void
-ismr_retire(vsize_t tid, smr_node_t *node, smr_node_destroy_fun fun,
-            vbool_t local)
+ismr_retire(smr_node_t *node, smr_node_destroy_fun fun, vbool_t local)
 {
+#if defined(SMR_BENCHMARK)
+    V_UNUSED(node, fun, local);
+#else
     _ismr_none_trace(node, fun, NULL);
-    V_UNUSED(tid, local);
+    V_UNUSED(local);
+#endif
 }
 
 static inline void
 ismr_retire_with_arg(smr_node_t *node, smr_node_destroy_fun fun, void *args)
 {
+#if defined(SMR_BENCHMARK)
+    V_UNUSED(node, fun, args);
+#else
     _ismr_none_trace(node, fun, args);
+#endif
 }
 
 static inline void
@@ -105,7 +114,9 @@ ismr_dereg(vsize_t tid)
 static inline void
 ismr_destroy(void)
 {
+#if !defined(SMR_BENCHMARK)
     locked_trace_destroy(&global_trace, _ismr_none_destroy_all_cb);
+#endif
 }
 
 static inline vbool_t
@@ -115,10 +126,11 @@ ismr_sync(vsize_t tid)
     return true;
 }
 
-static inline void
+static inline vsize_t
 ismr_recycle(vsize_t tid)
 {
     V_UNUSED(tid);
+    return 0;
 }
 
 static inline char *
@@ -126,5 +138,4 @@ ismr_get_name(void)
 {
     return "NONE";
 }
-
 #endif

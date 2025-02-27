@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -21,7 +21,6 @@
 /* includes */
 #include <test/trace_manager.h>
 #include <vsync/map/simpleht.h>
-#include <vsync/vtypes.h>
 
 
 /* types */
@@ -196,7 +195,7 @@ imap_print(void)
     vsimpleht_iter_t iter;
     vsimpleht_iter_init(&g_simpleht, &iter);
     while (vsimpleht_iter_next(&iter, &key, (void **)&data)) {
-        printf("[%" VUINTPTR_FORMAT ":%" VUINT64_FORMAT "],", key, data->val);
+        printf("[%lu:%lu],", key, data->val);
     }
     printf("\n");
 }
