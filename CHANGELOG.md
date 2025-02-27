@@ -18,6 +18,7 @@ what exists in open-s4c libvsync.
 - support for compilation on macos
 - `cached_pool.h`
 - `cachedq.h`
+- `chaselev.h`
 
 ## [4.0.2]
 
