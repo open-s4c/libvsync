@@ -2,7 +2,7 @@
  * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
  * SPDX-License-Identifier: MIT
  *
- * Version 0.9.3
+ * Version 0.9.4
  */
 
 (* Notation
@@ -63,7 +63,7 @@ let coi = co & int
 let fri = fr & int
 
 (** Atomicity **)
-empty rmw & (fre;coe)
+empty rmw & (fr;co)
 
 (** SC per location **)
 acyclic co | rf | fr | po-loc
@@ -140,7 +140,7 @@ flag ~empty w-racy as w-data-race
 *)
 let r-race-fix = ([Marked] | ppo);hb+; WRF-ppo
 
-let r-race = ((fre \ r-race-fix) | rfe) \ w-race-fix
+let r-race = (fre | rfe) \ (w-race-fix | r-race-fix)
 let r-racy = [domain(r-race)] | [range(r-race)]
 (* a read is observed through a dependency if the value is eventually used to determine a control or address dependency, or the value is stored (through data dependencies) in a location that is read by another thread.
   In those cases, if the read was data racy and returned a trashy value (e.g. due to torn read/write or other compiler optimizations like store value speculation), this trashy value will actually affect the execution, which is UB.
