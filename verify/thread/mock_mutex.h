@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -10,6 +10,12 @@
     #include <pthread.h>
 
 typedef pthread_mutex_t vmutex_t;
+
+static inline void
+vmutex_init(vmutex_t *l)
+{
+    pthread_mutex_init(l, 0);
+}
 
 static inline void
 vmutex_acquire(vmutex_t *l)
@@ -25,6 +31,11 @@ vmutex_release(vmutex_t *l)
     #include <vsync/caslock.h>
 
 typedef caslock_t vmutex_t;
+
+vmutex_init(vmutex_t *l)
+{
+    caslock_init(l);
+}
 
 static inline void
 vmutex_acquire(vmutex_t *l)
