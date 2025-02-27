@@ -15,16 +15,6 @@ set(TEST_DEFS VSTACK_TESTING SMR_MAX_NTHREADS=${NUM_THREADS}
 set(CHECK_FLAGS -DVSYNC_VERIFICATION -DVSTACK_TESTING -DSMR_THRESHOLD=1
                 -DSMR_MAX_NTHREADS=${NUM_THREADS} -DVSTACK_XCHGER_COUNT=1)
 
-set(VERIFY_WITH_GENMC10
-    check_test_case_2push_2pop_stack_elimination_backoff_imm
-    check_test_case_2push_2pop_stack_xbo_backoff_imm
-    check_test_case_2push_msg_passing_stack_elimination_backoff_imm
-    check_test_case_2push_msg_passing_stack_xbo_backoff_imm
-    check_test_case_lifo_stack_elimination_backoff_imm
-    check_test_case_lifo_stack_xbo_backoff_imm
-    check_test_case_only_pop_stack_elimination_backoff_imm
-    check_test_case_only_pop_stack_xbo_backoff_imm)
-
 set(VERIFIY_WITHOUT_SMR_ON_QUICK
     check_test_case_lifo_stack_xbo_backoff_imm
     check_test_case_lifo_stack_elimination_backoff_imm
@@ -89,11 +79,6 @@ foreach(test_path IN ITEMS ${TEST_CASES})
         foreach(WMM IN ITEMS ${MEMORY_MODELS})
             set(CHECK_NAME_PREFIX check_${TEST})
             set(CHECK_NAME ${CHECK_NAME_PREFIX}_${WMM})
-            if("${CHECK_NAME}" IN_LIST VERIFY_WITH_GENMC10)
-                set(CHECK_OPTIONS USE_GENMC10)
-            else()
-                unset(CHECK_OPTIONS)
-            endif()
             if((NOT ${VSYNCER_CHECK_FULL}) AND ("${CHECK_NAME}" IN_LIST
                                                 VERIFIY_WITHOUT_SMR_ON_QUICK))
                 set(SMR_FLAG -DSMR_NONE)
@@ -106,7 +91,6 @@ foreach(test_path IN ITEMS ${TEST_CASES})
                 CFLAGS -D${algo} ${tc_check} ${CHECK_FLAGS} ${SMR_FLAG}
                 MEMORY_MODELS ${WMM}
                 TIMEOUT 600 #
-                        ${CHECK_OPTIONS} #
                 DEPENDENCIES vsync)
         endforeach()
     endforeach()
