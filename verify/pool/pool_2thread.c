@@ -136,9 +136,9 @@ main(void)
 
     pthread_t threads[CACHEDP_MAX_THREAD];
     for (int i = 0; i < CACHEDP_MAX_THREAD; i++) {
-        td[i].tid     = i;
+        td[i].tid = i;
         // td[i].barrier = &barrier;
-        td[i].iters   = 0;
+        td[i].iters = 0;
         if (pthread_create(&threads[i], NULL, start_thread, (void *)&td[i]) !=
             0) {
             DBG_RED("Error: could not create thread %d", i);
