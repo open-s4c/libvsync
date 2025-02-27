@@ -7,7 +7,6 @@
 #include <assert.h>
 #include <pthread.h>
 #include <stdio.h>
-#include <malloc.h>
 #include <vsync/atomic.h>
 #include <vsync/common/dbg.h>
 #include <vsync/queue/chaselev.h>

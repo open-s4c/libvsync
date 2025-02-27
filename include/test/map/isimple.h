@@ -21,7 +21,7 @@
 /* includes */
 #include <test/trace_manager.h>
 #include <vsync/map/simpleht.h>
-
+#include <vsync/vtypes.h>
 
 /* types */
 typedef struct data_s {
