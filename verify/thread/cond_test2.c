@@ -38,6 +38,7 @@ run(void *arg)
 int
 main(void)
 {
+    vmutex_init(&g_mutex);
     launch_threads(NTHREADS, run);
     ASSERT(g_shared == NTHREADS);
     return 0;
