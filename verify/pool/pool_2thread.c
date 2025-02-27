@@ -19,6 +19,7 @@
 
 #include <vsync/atomic.h>
 #include <vsync/queue/bounded_spsc.h>
+#include <test/thread_barrier.h>
 
 #define RUNNING_NUM         5
 #define CACHEDP_MAX_THREAD  2
@@ -32,7 +33,7 @@
 
 struct thread_data {
     unsigned int tid;
-    // pthread_barrier_t *barrier;
+    vthread_barrier_t *barrier;
     long unsigned int iters;
 } __attribute__((aligned(CLSZ)));
 struct thread_data td[CACHEDP_MAX_THREAD];
@@ -71,7 +72,7 @@ start_thread(void *arg)
     cached_pool_t *t       = (cached_pool_t *)buf;
 
     vatomic64_init(&finished[id], false);
-    // pthread_barrier_wait(td->barrier);
+    vthread_barrier_wait(td->barrier);
 
     td->iters                 = 0;
     vuint64_t current_enq_idx = id;
@@ -128,17 +129,17 @@ main(void)
 {
     init();
 
-    //  pthread_barrier_t barrier;
-    // if (pthread_barrier_init(&barrier, NULL, CACHEDP_MAX_THREAD + 1)) {
-    //     DBG_RED("Error: could not initialize barrier");
-    //     exit(-1);
-    // }
+    vthread_barrier_t barrier;
+    if (vthread_barrier_init(&barrier, NULL, CACHEDP_MAX_THREAD + 1)) {
+        DBG_RED("Error: could not initialize barrier");
+        exit(-1);
+    }
 
     pthread_t threads[CACHEDP_MAX_THREAD];
     for (int i = 0; i < CACHEDP_MAX_THREAD; i++) {
-        td[i].tid = i;
-        // td[i].barrier = &barrier;
-        td[i].iters = 0;
+        td[i].tid     = i;
+        td[i].barrier = &barrier;
+        td[i].iters   = 0;
         if (pthread_create(&threads[i], NULL, start_thread, (void *)&td[i]) !=
             0) {
             DBG_RED("Error: could not create thread %d", i);
@@ -146,7 +147,7 @@ main(void)
         }
     }
 
-    // pthread_barrier_wait(&barrier);
+    vthread_barrier_wait(&barrier);
 
     long unsigned total_iters = 0;
     for (int i = 0; i < CACHEDP_MAX_THREAD; i++) {

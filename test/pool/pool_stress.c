@@ -19,6 +19,8 @@
 #include <vsync/atomic.h>
 #include <vsync/queue/bounded_spsc.h>
 #include <vsync/pool/cached_pool.h>
+#include <test/thread_barrier.h>
+#include <test/thread_launcher.h>
 
 #define CACHEDP_NUM_ENTRIES 4096U
 #define CACHEDP_MAX_THREAD  32U
@@ -32,7 +34,7 @@
 
 struct thread_data {
     unsigned int tid;
-    pthread_barrier_t *barrier;
+    vthread_barrier_t *barrier;
     long unsigned int iters;
 } __attribute__((aligned(CLSZ)));
 struct thread_data td[MAX_THREADS];
@@ -49,19 +51,9 @@ uint8_t buf[cached_pool_memsize(CACHEDP_MAX_THREAD, CACHEDP_NUM_ENTRIES,
 vatomic64_t finished[MAX_THREADS];
 vatomic64_t stop;
 
-static inline void
-set_affinity(int id)
-{
-    cpu_set_t mask;
-    CPU_ZERO(&mask);
-    CPU_SET(id, &mask);
-    if (sched_setaffinity(0, sizeof(mask), &mask) == -1) {
-        DBG_RED("Error: failed to set affinity\n");
-    }
-}
 
 double
-now_ms()
+now_ms(void)
 {
     struct timeval now;
     int ret;
@@ -75,7 +67,7 @@ now_ms()
 }
 
 void
-init()
+init(void)
 {
     cached_pool_init(buf, CACHEDP_MAX_THREAD, CACHEDP_NUM_ENTRIES,
                      CACHEDP_ENTRY_SIZE);
@@ -92,11 +84,11 @@ start_thread(void *arg)
 {
     struct thread_data *td = (struct thread_data *)arg;
     vuint32_t id           = td->tid;
-    set_affinity(id);
+    set_cpu_affinity(id);
     cached_pool_t *t = (cached_pool_t *)buf;
 
     vatomic64_init(&finished[id], false);
-    pthread_barrier_wait(td->barrier);
+    vthread_barrier_wait(td->barrier);
 
     td->iters                 = 0;
     vuint64_t current_enq_idx = id;
@@ -172,8 +164,8 @@ main(void)
 {
     init();
 
-    pthread_barrier_t barrier;
-    if (pthread_barrier_init(&barrier, NULL, MAX_THREADS + 1)) {
+    vthread_barrier_t barrier;
+    if (vthread_barrier_init(&barrier, NULL, MAX_THREADS + 1)) {
         DBG_RED("Error: could not initialize barrier");
         exit(-1);
     }
@@ -191,7 +183,7 @@ main(void)
     }
 
     double start_ms = now_ms();
-    pthread_barrier_wait(&barrier);
+    vthread_barrier_wait(&barrier);
 
     if (RUNNING_TIME_SECOND) {
         sleep(RUNNING_TIME_SECOND);

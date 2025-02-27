@@ -195,7 +195,7 @@ imap_print(void)
     vsimpleht_iter_t iter;
     vsimpleht_iter_init(&g_simpleht, &iter);
     while (vsimpleht_iter_next(&iter, &key, (void **)&data)) {
-        printf("[%lu:%lu],", key, data->val);
+        printf("[%" VUINTPTR_FORMAT ":%" VUINT64_FORMAT "],", key, data->val);
     }
     printf("\n");
 }
