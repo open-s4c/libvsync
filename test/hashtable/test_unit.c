@@ -1,10 +1,9 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
 #include <test/hashtable/map.h>
-#define TID 0
 
 #define LEN (VHASHTABLE_BUCKET_COUNT * VHASHTABLE_BUCKET_LEN * 10)
 user_key_t g_keys[LEN];
@@ -44,30 +43,30 @@ unit_test_add_get_remove(void)
 
     /* get -> insert -> get */
     for (vsize_t i = 0; i < LEN; i++) {
-        entry = map_get(TID, g_keys[i]);
+        entry = map_get(MAIN_TID, g_keys[i]);
         ASSERT(entry == NULL);
 
-        success = map_insert(TID, g_keys[i]);
+        success = map_insert(MAIN_TID, g_keys[i]);
         ASSERT(success);
 
-        entry = map_get(TID, g_keys[i]);
+        entry = map_get(MAIN_TID, g_keys[i]);
         ASSERT(entry != NULL);
 
-        success = map_insert(TID, g_keys[i]);
+        success = map_insert(MAIN_TID, g_keys[i]);
         ASSERT(success != true);
     }
 
     for (vsize_t i = 0; i < LEN; i++) {
-        entry = map_get(TID, g_keys[i]);
+        entry = map_get(MAIN_TID, g_keys[i]);
         ASSERT(entry != NULL);
 
-        success = map_remove(TID, g_keys[i]);
+        success = map_remove(MAIN_TID, g_keys[i]);
         ASSERT(success);
 
-        entry = map_get(TID, g_keys[i]);
+        entry = map_get(MAIN_TID, g_keys[i]);
         ASSERT(entry == NULL);
 
-        success = map_remove(TID, g_keys[i]);
+        success = map_remove(MAIN_TID, g_keys[i]);
         ASSERT(success == false);
     }
 
