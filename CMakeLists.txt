@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.16)
 project(
     libvsync
     LANGUAGES C
-    VERSION 0.0.0
+    VERSION 4.1.0
     DESCRIPTION
         "Verified library of atomics, synchronization primitives and concurrent data structures"
 )
