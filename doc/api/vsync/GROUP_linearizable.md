@@ -13,6 +13,7 @@ _Group of algorithms linearizable algorithms._
 | [vsync/map/listset_lazy.h](map/listset_lazy.h.md)|This is a partially parallel implementation with lock-free get. | &#x2714; | &#x274C; | &#x2714; | &#x274C; |
 | [vsync/map/listset_lf.h](map/listset_lf.h.md)|Lock-free implementation of listset. | &#x2714; | &#x2714; | &#x2714; | &#x274C; |
 | [vsync/map/listset_opt.h](map/listset_opt.h.md)|This implementation is an optimized verison of listset_fine. | &#x2714; | &#x274C; | &#x2714; | &#x274C; |
+| [vsync/map/rbtree.h](map/rbtree.h.md)|This implementation of red-black tree uses a latch sequence counter to get lockless readers and non-starving writers. | &#x2714; | &#x274C; | &#x2714; | &#x274C; |
 | [vsync/map/simpleht.h](map/simpleht.h.md)|Simple lock-free hashtable. | &#x2714; | &#x2714; | &#x274C; | &#x274C; |
 | [vsync/map/treeset_bst_coarse.h](map/treeset_bst_coarse.h.md)|This implementation of treeset uses unbalanced binary search tree (BST) and coarse-grained locking. | &#x2714; | &#x274C; | &#x274C; | &#x274C; |
 | [vsync/map/treeset_bst_fine.h](map/treeset_bst_fine.h.md)|This implementation of treeset uses unbalanced binary search tree (BST) and fine-grained locking. | &#x2714; | &#x274C; | &#x274C; | &#x274C; |
