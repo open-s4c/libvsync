@@ -17,7 +17,7 @@ jobs:
       - name: Build Tests
         run: cmake --build build/${{ matrix.dir }}
       - name: Run Tests
-        run: ctest --test-dir build/${{ matrix.dir }}
+        run: ctest --test-dir build/${{ matrix.dir }} --output-on-failure
   ###########################################################################
   Run-Checks:
     runs-on: ubuntu-22.04
@@ -27,7 +27,9 @@ jobs:
         test-dir: [ {p: "test", c: "spinlock"}, {p: "test", c: "quack"},  {p: "test", c: "queue"},
                     {p: "verify", c: "unbounded_queue"}, {p: "verify", c: "listset"} ,
                     {p: "verify", c: "stack"}, {p: "verify", c: "thread"}, {p: "verify", c: "simpleht"},
-                    {p: "verify", c: "bitmap"}, {p: "verify", c: "treeset"}]
+                    {p: "verify", c: "bitmap"}, {p: "verify", c: "treeset"},  {p: "verify", c: "pool"},
+                    {p: "verify", c: "cachedq"}, {p: "verify", c: "chaselev"}
+                  ]
     steps:
       - name: Print vsyncer version
         run: vsyncer version
