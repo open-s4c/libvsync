@@ -4,10 +4,6 @@ set(MEMORY_MODELS_seqlock imm)
 
 file(GLOB SRCS *.c)
 
-set(VERIFY_WITH_GENMC10 #
-    hclhlock #
-)
-
 foreach(SRC ${SRCS})
     get_filename_component(TEST ${SRC} NAME_WE)
 
@@ -28,18 +24,11 @@ foreach(SRC ${SRCS})
         set(MEMORY_MODELS "imm" "rc11")
     endif()
 
-    if("${TEST}" IN_LIST VERIFY_WITH_GENMC10)
-        set(CHECK_OPTIONS USE_GENMC10)
-    else()
-        unset(CHECK_OPTIONS)
-    endif()
-
     add_vsyncer_check(
         TARGET check_${TEST}
         SOURCE ${SRC}
         MEMORY_MODELS ${MEMORY_MODELS}
         TIMEOUT 180 #
-                ${CHECK_OPTIONS} #
         DEPENDENCIES vsync)
 endforeach()
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -95,7 +95,7 @@ map_insert_stamped(vsize_t tid, user_key_t key, vsize_t stamp)
 
 #if defined(VSYNC_ADDRESS_SANITIZER)
     if (evicted) {
-        ismr_retire(tid, &((hash_entry_t *)evicted)->smr_node, free_cb, false);
+        ismr_retire(&((hash_entry_t *)evicted)->smr_node, free_cb, false);
     }
 #endif
 

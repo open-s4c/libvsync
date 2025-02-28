@@ -11,11 +11,14 @@ is not guaranteed to result in increment of major version.
 Please note that the version correlates to the internal libvsync, which is a superset of
 what exists in open-s4c libvsync.
 
-## [Unreleased]
+## [4.1.0]
 
 ### Added
 
 - support for compilation on macos
+- `cached_pool.h`
+- `cachedq.h`
+- `chaselev.h`
 
 ## [4.0.2]
 

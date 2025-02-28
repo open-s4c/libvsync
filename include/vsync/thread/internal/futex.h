@@ -18,7 +18,7 @@
 #define FUTEX_WAKE_ONE 1
 
 /* at the moment we do not support macos futex (__ulock) */
-#if defined(__APPLE__) && !defined(FUTEX_USERSPACE)
+#if (defined(__NetBSD__) || defined(__APPLE__)) && !defined(FUTEX_USERSPACE)
     #define FUTEX_USERSPACE
 #endif
 

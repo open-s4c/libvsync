@@ -2,13 +2,6 @@ set(PREFIX "unbounded_queue")
 
 set(TEST_DEFS -D_GNU_SOURCE -DSMR_MAX_NTHREADS=4)
 
-set(VERIFY_WITH_GENMC10
-    "vqueue_ub_total_test_case_1" #
-    "vqueue_ub_total_test_case_3" #
-    "vqueue_ub_total_test_case_4" #
-    "vqueue_ub_total_test_case_6" #
-)
-
 # detect test cases header files
 file(GLOB TEST_CASES test_case*.h)
 
@@ -49,19 +42,13 @@ foreach(test_path IN ITEMS ${TEST_CASES})
         # add it as a test
         v_add_bin_test(NAME ${TEST} COMMAND ${TEST})
 
-        if(${TEST} IN_LIST VERIFY_WITH_GENMC10)
-            set(CHECK_OPTIONS USE_GENMC10)
-        else()
-            unset(CHECK_OPTIONS)
-        endif()
-
         add_vsyncer_check(
             TARGET check_${TEST}
             SOURCE ${VERIFY_FILE}
             CFLAGS -D${algo} ${TEST_DEFS} ${tc_check}
             DEPENDENCIES vsync
             TIMEOUT 1200 #
-                    ${CHECK_OPTIONS})
+        )
 
         if(${DAT3M_BOUND_${algo}})
             add_vsyncer_check(

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -15,7 +15,7 @@ insert(vlistset_key_t k1, vlistset_key_t k2, vlistset_key_t step,
     vlistset_key_t key;
     vbool_t success = false;
     for (key = k1; key <= k2; key += step) {
-        success = lst_add(0, 0, key);
+        success = lst_add(MAIN_TID, 0, key);
         ASSERT(success == success_expected);
     }
     V_UNUSED(success);
@@ -28,7 +28,7 @@ rem(vlistset_key_t k1, vlistset_key_t k2, vlistset_key_t step,
     vlistset_key_t key;
     vbool_t success = false;
     for (key = k1; key <= k2; key += step) {
-        success = lst_rem(0, 0, key);
+        success = lst_rem(MAIN_TID, 0, key);
         ASSERT(success == success_expected);
     }
     V_UNUSED(success);
@@ -41,7 +41,7 @@ find(vlistset_key_t k1, vlistset_key_t k2, vlistset_key_t step,
     vlistset_key_t key;
     vbool_t success = false;
     for (key = k1; key <= k2; key += step) {
-        success = lst_con(0, 0, key);
+        success = lst_con(MAIN_TID, 0, key);
         ASSERT(success == success_expected);
     }
     V_UNUSED(success);
@@ -60,7 +60,6 @@ main(void)
     vlistset_key_t max_key = 10;
 
     lsts_init();
-    lst_reg(0);
 
     insert(min_key, max_key, 1, true);
     find(min_key, max_key, 1, true);
@@ -78,6 +77,5 @@ main(void)
     find(min_key, max_key, 1, false);
 
     lst_verify_traces(0);
-    lst_dereg(0);
     lsts_destroy();
 }

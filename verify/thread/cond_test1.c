@@ -43,6 +43,7 @@ run(void *arg)
 int
 main(void)
 {
+    vmutex_init(&g_mutex);
     launch_threads(NTHREADS, run);
     ASSERT(g_cs_x == NTHREADS);
     ASSERT(g_cs_y == NTHREADS);

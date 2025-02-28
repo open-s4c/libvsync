@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -189,7 +189,6 @@ vlistset_remove(vlistset_t *lst, vlistset_key_t key)
         if (_vlistset_validate(lst, pred, curr, key)) {
             if (curr != tail && lst->cmp_fun(curr, key) == 0) {
                 vatomicptr_write(&pred->next, vatomicptr_read(&curr->next));
-                lst->retire_fun(curr, lst->retire_fun_arg);
                 success = true;
             } else {
                 success = false;
@@ -201,7 +200,9 @@ vlistset_remove(vlistset_t *lst, vlistset_key_t key)
         vlistset_lock_release(&pred->lock);
         vlistset_lock_release(&curr->lock);
     }
-
+    if (success) {
+        lst->retire_fun(curr, lst->retire_fun_arg);
+    }
     return success;
 }
 /**

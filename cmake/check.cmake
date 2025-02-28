@@ -8,8 +8,8 @@ function(add_vsyncer_check)
     # ##########################################################################
     # Parse Params
     # ##########################################################################
-    set(opts USE_DAT3M USE_GENMC10)
-    set(ones TARGET SOURCE TIMEOUT GENMC10_EXTRA_OPTIONS DARTAGNAN_OPTIONS)
+    set(opts USE_DAT3M)
+    set(ones TARGET SOURCE TIMEOUT DARTAGNAN_OPTIONS)
     set(mult CFLAGS DEPENDENCIES MEMORY_MODELS)
     cmake_parse_arguments(VSYNCER_CHECK "${opts}" "${ones}" "${mult}" ${ARGN})
     # ##########################################################################
@@ -67,18 +67,6 @@ function(add_vsyncer_check)
     else()
         set(CHECKER genmc)
         list(APPEND CFLAGS -DVSYNC_VERIFICATION_GENMC)
-        if(${VSYNCER_CHECK_USE_GENMC10})
-            set(GENMC10_OPTIONS #
-                --disable-estimation #
-                --check-liveness #
-                --disable-spin-assume #
-                ${VSYNCER_CHECK_GENMC10_EXTRA_OPTIONS})
-            string(REPLACE ";" " " GENMC10_OPTIONS "${GENMC10_OPTIONS}")
-            set(CHECKER_ENV #
-                GENMC_SET_OPTIONS=${GENMC10_OPTIONS} #
-                GENMC_CMD=/usr/share/genmc10/bin/genmc #
-            )
-        endif()
     endif()
     # ##########################################################################
     # Define memory models
@@ -100,7 +88,7 @@ function(add_vsyncer_check)
         # Compile ll file with vsyncer
         # ######################################################################
 
-        set(VSYNCER_CHECK_LL ${CMAKE_CURRENT_SOURCE_DIR}/${TEST_NAME}.ll)
+        set(VSYNCER_CHECK_LL ${CMAKE_CURRENT_BINARY_DIR}/${TEST_NAME}.ll)
 
         set(VSYNCER_COMPILE_CMD
             env

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -10,12 +10,12 @@
  * Based on the define chooses which queue, to include for testing
  *
  */
-
+#include <vsync/common/compiler.h>
 #if defined(VQUEUE_UB_LF)
     #define VGDUMP_ENABLE_BUFF
     #include <vsync/queue/unbounded_queue_lf.h>
     #include <test/smr/ismr.h>
-    #include <test/smr/cleaner_thread.h>
+
     #define VQUEUE_UB_NAME "LF"
 #elif defined(VQUEUE_UB_LF_RECYCLE)
     #include <vsync/queue/unbounded_queue_lf_recycle.h>
@@ -39,7 +39,6 @@
 
 
 #if defined(VQUEUE_UB_LF)
-cleaner_t g_cleaner;
 vsize_t g_cleaner_tid = 0;
 #endif
 
@@ -58,8 +57,7 @@ static inline void
 _queue_retire(queue_node_t *node, void *arg)
 {
 #if defined(VQUEUE_UB_LF)
-    vsize_t tid = (vsize_t)(vuintptr_t)arg;
-    ismr_retire(tid, &node->smr_node, _queue_free, true);
+    ismr_retire(&node->smr_node, _queue_free, true);
 #elif defined(VQUEUE_UB_LF_RECYCLE)
     node_pool_put(node);
 #else
@@ -117,7 +115,7 @@ queue_init(queue_t *q)
     ismr_init();
     vqueue_ub_init(q);
 #if defined(VQUEUE_UB_LF) && !defined(VSYNC_VERIFICATION)
-    vcleaner_start(&g_cleaner, g_cleaner_tid, 0, 0);
+    ismr_start_cleaner();
 #endif
 #if defined(VQUEUE_UB_LF_RECYCLE)
     locked_trace_init(&pool_trace, TRACE_CAPACITY);
@@ -164,7 +162,7 @@ queue_destroy(queue_t *q)
     vqueue_ub_destroy(q, _queue_destroy, NULL);
 
 #if defined(VQUEUE_UB_LF) && !defined(VSYNC_VERIFICATION)
-    vcleaner_stop(&g_cleaner);
+    ismr_stop_cleaner();
 #endif
 
     ismr_destroy();
@@ -224,7 +222,7 @@ static inline void *
 queue_deq(vsize_t tid, queue_t *q)
 {
     ismr_enter(tid);
-    void *data = vqueue_ub_deq(q, _queue_retire, (void *)tid);
+    void *data = vqueue_ub_deq(q, _queue_retire, NULL);
     ismr_exit(tid);
     return data;
 }

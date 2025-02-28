@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -41,7 +41,7 @@ post(void)
 
 
     for (vsize_t i = 0; i < len; i++) {
-        popped[i] = pop(NTHREADS, ds_idx);
+        popped[i] = pop(MAIN_TID, ds_idx);
         ASSERT(popped[i]);
         if (popped[i] == 1) {
             vbool_t found = false;
@@ -55,5 +55,5 @@ post(void)
         }
     }
 
-    ASSERT(pop(NTHREADS, ds_idx) == 0);
+    ASSERT(pop(MAIN_TID, ds_idx) == 0);
 }

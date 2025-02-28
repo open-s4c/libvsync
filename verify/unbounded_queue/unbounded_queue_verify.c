@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -65,28 +65,27 @@ main(void)
 }
 
 void
-init()
+init(void)
 {
     queue_init(&g_queue);
 #if defined(VQUEUE_UB_LF_RECYCLE) && defined(VSYNC_VERIFICATION)
     aligned_alloc_init(sizeof(queue_node_t));
 #endif
 
-    queue_register(0, &g_queue);
+
 #if defined(KICKOUT_SENTINEL)
     // kick out static sentinel
-    enq(0, 0, 'a');
-    void *data = deq(0);
+    enq(MAIN_TID, 0, 'a');
+    void *data = deq(MAIN_TID);
     free(data);
 #endif
 
 #if defined(INIT_WITH_N_NODES)
     char lbl = 'a';
     for (vsize_t i = 1; i <= INIT_WITH_N_NODES; i++, lbl++) {
-        enq(0, i, lbl);
+        enq(MAIN_TID, i, lbl);
     }
 #endif
-    queue_deregister(0, &g_queue);
 }
 
 void
