@@ -71,6 +71,7 @@ set(LIBVSYNC_VERSION ${PROJECT_VERSION})
 set(COMPILER_VERSION_LINE "${CMAKE_C_COMPILER_ID} ${CMAKE_C_COMPILER_VERSION}")
 set(COPYRIGHT "SPDX-FileCopyrightText: ${RANGE} Huawei Technologies Co., Ltd.")
 set(LICENSE "SPDX-License-Identifier: MIT")
+set(SED_CMD "sed")
 
 # ##############################################################################
 # copy source files and apply bugs.patch
@@ -92,17 +93,17 @@ add_custom_target(
     COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/include
             ${TARGET_DIR}/src/include
     COMMAND
-        sed #
+        ${SED_CMD} #
         -e '1i\# ${COPYRIGHT}\\n\# ${LICENSE}\\n' #
         ${CMAKE_CURRENT_SOURCE_DIR}/Makefile.in #
         > ${TARGET_DIR}/Makefile
     COMMAND
-        sed #
+        ${SED_CMD} #
         -e '1i${COPYRIGHT}\\n${LICENSE}\\n' #
         ${CMAKE_CURRENT_SOURCE_DIR}/bugs.patch #
         > ${TARGET_DIR}/src/bugs.patch
     COMMAND
-        sed #
+        ${SED_CMD} #
         -e '1i${COPYRIGHT}\\n${LICENSE}\\n' #
         -e 's^@LIBVSYNC_VERSION@^${LIBVSYNC_VERSION}^g' #
         -e 's^@COMPILER_VERSION_LINE@^${COMPILER_VERSION_LINE}^g' #
@@ -161,7 +162,7 @@ foreach(TEST_SRC ${TEST_SRCS})
     add_custom_target(
         export-${TEST}.i
         COMMAND
-            sed #
+            ${SED_CMD} #
             -e 's^@RANGE@^${RANGE}^g' #
             -e 's^@SOURCE_FILE@^${SOURCE_FILE}^g' #
             -e 's^@LIBVSYNC_VERSION@^${LIBVSYNC_VERSION}^g' #
@@ -182,7 +183,7 @@ foreach(TEST_SRC ${TEST_SRCS})
     add_custom_target(
         ${TEST}.yml
         COMMAND
-            sed "s/FILENAME/${TEST}.i/g"
+            ${SED_CMD} "s/FILENAME/${TEST}.i/g"
             ${CMAKE_CURRENT_SOURCE_DIR}/${CONFIG_FILE} >
             ${TARGET_DIR}/${TEST}.yml
         DEPENDS svcomp-dir)
