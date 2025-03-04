@@ -3,7 +3,7 @@ index fc89075..8444dca 100644
 --- a/include/vsync/common/assert.h
 +++ b/include/vsync/common/assert.h
 @@ -12,7 +12,18 @@
- 
+
  #ifndef ASSERT
      #include <assert.h>
 -    #define ASSERT(V) assert(V)
@@ -20,7 +20,7 @@ index fc89075..8444dca 100644
 +}
 +
  #endif
- 
+
  #ifndef BUG_ON
 diff --git a/include/vsync/queue/bounded_mpmc.h b/include/vsync/queue/bounded_mpmc.h
 index e97fda4..ad655f0 100644
@@ -29,7 +29,7 @@ index e97fda4..ad655f0 100644
 @@ -87,8 +87,18 @@ bounded_mpmc_enq(bounded_mpmc_t *q, void *v)
      /* push value into buffer */
      q->buf[curr % q->size] = v;
- 
+
 +
 +    /* BUG: the following line has been removed.
 +     *
@@ -44,7 +44,7 @@ index e97fda4..ad655f0 100644
      /* mode producer tail */
 -    vatomic32_await_eq_acq(&q->ptail, curr);
      vatomic32_write_rel(&q->ptail, next);
- 
+
      return QUEUE_BOUNDED_OK;
 diff --git a/include/vsync/queue/bounded_spsc.h b/include/vsync/queue/bounded_spsc.h
 index 8886204..f9bd899 100644
@@ -53,7 +53,7 @@ index 8886204..f9bd899 100644
 @@ -100,8 +100,14 @@ bounded_spsc_deq(bounded_spsc_t *q, void **v)
          return QUEUE_BOUNDED_EMPTY;
      }
- 
+
 -    *v = q->buf[head % q->size];
 +    /* BUG: the following two lines have been reversed. In a single-threaded
 +     * queue, that shouldn't be a problem. However, in a SPSC queue, when
@@ -63,7 +63,7 @@ index 8886204..f9bd899 100644
 +     */
      vatomic32_write_rel(&q->head, head + 1);
 +    *v = q->buf[head % q->size];
- 
+
      return QUEUE_BOUNDED_OK;
  }
 diff --git a/include/vsync/spinlock/caslock.h b/include/vsync/spinlock/caslock.h
@@ -116,7 +116,7 @@ index d8718d5..1b3154a 100644
 +++ b/include/vsync/spinlock/hemlock.h
 @@ -82,7 +82,19 @@ hemlock_acquire(hemlock_t *l, hem_node_t *node)
      }
- 
+
  #if !defined(HEMLOCK_USE_CTR)
 -    vatomicptr_await_eq_acq(&pred->grant, l);
 +    /* BUG: one major difference between hemlock and MCS lock is that the
@@ -140,7 +140,7 @@ index 923462e..c5603da 100644
 --- a/include/vsync/spinlock/twalock.h
 +++ b/include/vsync/spinlock/twalock.h
 @@ -91,8 +91,12 @@ twalock_acquire(twalock_t *l)
- 
+
      if (dx > TWA_L) {
          _twalock_acquire_slowpath(l, tx);
 -    }
@@ -163,13 +163,13 @@ index 1d567df..00e09b3 100644
  #include <vsync/common/verify.h>
  #include <vsync/common/assert.h>
 -#include <test/thread_launcher.h>
- 
+
  #ifdef VSYNC_VERIFICATION
      #define NWRITERS 2
 @@ -65,7 +64,13 @@ main(void)
- 
+
      bounded_mpmc_init(&g_queue, g_buf, QUEUE_SIZE);
- 
+
 -    launch_threads(NWRITERS, writer);
 +    pthread_t t[NWRITERS];
 +    for (vuintptr_t i = 0; i < NWRITERS; i++) {
@@ -178,7 +178,7 @@ index 1d567df..00e09b3 100644
 +    for (vuintptr_t i = 0; i < NWRITERS; i++) {
 +        (void)pthread_join(t[i], NULL);
 +    }
- 
+
      void *r = NULL;
      // dequeue last value
 diff --git a/test/queue/bounded_spsc.c b/test/queue/bounded_spsc.c
@@ -190,7 +190,7 @@ index 6613835..ae527fd 100644
  #include <vsync/queue/bounded_spsc.h>
  #include <vsync/atomic.h>
 -#include <test/thread_launcher.h>
- 
+
  #define NTHREADS   2
  #define QUEUE_SIZE 2
 @@ -66,6 +65,13 @@ main(void)
@@ -212,10 +212,10 @@ diff --git a/test/spinlock/hemlock.c b/test/spinlock/hemlock.c
 index fc88b30..4abdef2 100644
 --- a/test/spinlock/hemlock.c
 +++ b/test/spinlock/hemlock.c
-@@ -2,37 +2,45 @@
-  * Copyright (C) Huawei Technologies Co., Ltd. 2023. All rights reserved.
+@@ -3,37 +2,45 @@
   * SPDX-License-Identifier: MIT
   */
+
 -#ifdef VSYNC_VERIFICATION_QUICK
 -    #define REACQUIRE 1
 -    #define NTHREADS  3
@@ -224,15 +224,15 @@ index fc88b30..4abdef2 100644
 -    #define NTHREADS  4
 -#endif
 +#define NTHREADS 3
- 
+
  #include <vsync/spinlock/hemlock.h>
  #include <test/boilerplate/lock.h>
- 
+
 -hemlock_t lock = HEMLOCK_INIT();
 +hemlock_t lock1 = HEMLOCK_INIT();
 +hemlock_t lock2 = HEMLOCK_INIT();
  struct hem_node_s nodes[NTHREADS];
- 
+
 +
 +/* This test case is fine with the correct implementation of hemlock, but it
 + * fails when we inject the bug (see hemlock.h). Example:
@@ -249,7 +249,7 @@ index fc88b30..4abdef2 100644
  acquire(vuint32_t tid)
  {
 -    if (tid == NTHREADS - 1) {
--#if defined(VSYNC_VERIFICATION_DAT3M)
+-#if defined(VSYNC_VERIFICATION_DAT3M) || defined(VSYNC_VERIFICATION_GENERIC)
 -        vbool_t acquired = hemlock_tryacquire(&lock, &nodes[tid]);
 -        verification_assume(acquired);
 -#else
@@ -269,7 +269,7 @@ index fc88b30..4abdef2 100644
 +        hemlock_release(&lock1, &nodes[tid]);
      }
  }
- 
+
  void
  release(vuint32_t tid)
  {
