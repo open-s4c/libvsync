@@ -18,6 +18,8 @@
  * users can implement the same interface with pthread_mutex_t or similar and
  * include that to be used by cond.h.
  *
+ * @note on linux compile with `-D_GNU_SOURCE`.
+ *
  * @cite [Condition variable with futex]
  * (https://www.remlab.net/op/futex-condvar.shtml)
  *

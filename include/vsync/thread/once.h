@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -14,6 +14,8 @@
  *
  * @example
  * @include eg_once.c
+ *
+ * @note on linux compile with `-D_GNU_SOURCE`.
  *
  * @cite [One-time initializer](https://www.remlab.net/op/futex-misc.shtml)
  *
@@ -32,7 +34,7 @@ typedef vatomic32_t vonce_t;
 typedef void *(*vonce_cb)(void *arg);
 
 #ifdef VSYNC_VERIFICATION
-void *__once_verification_cb(void *);
+void *verification_once_cb(void *);
 #endif
 
 /**
@@ -60,7 +62,7 @@ vonce_call(vonce_t *o, vonce_cb cb, void *arg)
     state = vatomic32_cmpxchg_acq(o, VONCE_ZERO, VONCE_CALL);
     if (state == VONCE_ZERO) {
 #ifdef VSYNC_VERIFICATION
-        ret = __once_verification_cb(arg);
+        ret = verification_once_cb(arg);
 #else
         ret = cb(arg);
 #endif
