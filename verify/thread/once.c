@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -15,7 +15,7 @@ vonce_t g_once   = VONCE_INIT();
 vsize_t g_winner = 0;
 
 void *
-__once_verification_cb(void *arg)
+verification_once_cb(void *arg)
 {
     g_winner = (vsize_t)(vuintptr_t)arg;
     ASSERT(g_winner != 0);
@@ -29,7 +29,7 @@ run(void *arg)
     ASSERT(tid != 0);
 
     void *r =
-        vonce_call(&g_once, __once_verification_cb, (void *)(vuintptr_t)tid);
+        vonce_call(&g_once, verification_once_cb, (void *)(vuintptr_t)tid);
 
     if (r != NULL) {
         /* if once returns something, then I was the winner */
