@@ -32,8 +32,7 @@ static inline void ismr_retire(smr_node_t *n, smr_node_destroy_fun destroy_fun,
                                vbool_t local);
 static inline void ismr_destroy(void);
 
-
-#if defined(VSYNC_SMR_NOT_AVAILABLE) || defined(SMR_NONE)
+#if defined(SMR_NONE)
     #include <test/smr/ismr_none.h>
 #elif defined(SMR_CLEANUP)
     #include <test/smr/ismr_cleanup.h>
@@ -47,8 +46,12 @@ static inline void ismr_destroy(void);
     #include <test/smr/ismr_cebr.h>
 #elif defined(SMR_GDUMP_LT)
     #include <test/smr/ismr_gdump_lt.h>
+#elif defined(SMR_GDUMPV1) || defined(SMR_GDUMPV2) || defined(SMR_GDUMPV3) ||  \
+    defined(SMR_GDUMPV4)
+    #include <test/smr/ismr_gdump.h>
+#elif defined(DEFAULT_SMR_EBR)
+    #include <test/smr/ismr_ebr.h>
 #else
-    // can be multiple
     #include <test/smr/ismr_gdump.h>
 #endif
 
@@ -56,8 +59,8 @@ static inline void ismr_destroy(void);
     #error "MAIN_TID must be defined by ismr implementation"
 #endif
 
-size_t g_cycles            = 0;
-size_t g_freed_nodes       = 0;
+vsize_t g_cycles           = 0;
+vsize_t g_freed_nodes      = 0;
 vatomic32_t g_stop_cleaner = VATOMIC_INIT(0);
 pthread_t g_cleaner;
 

@@ -16,7 +16,6 @@
 
 #define CAPACITY 100
 
-
 locked_trace_t global_trace;
 
 typedef struct {
@@ -24,7 +23,6 @@ typedef struct {
     smr_node_destroy_fun callback;
     void *args;
 } smr_none_retire_info_t;
-
 
 static inline vbool_t
 _ismr_none_destroy_all_cb(trace_unit_t *unit)

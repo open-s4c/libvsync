@@ -1,0 +1,47 @@
+ProcessorCount(PCOUNT)
+
+include_directories(include)
+
+file(GLOB TEST_FILES test*.c)
+
+set(NTHREADS ${PCOUNT})
+
+set(TEST_DEFS TST_IT=10000 SMR_MAX_NTHREADS=${NTHREADS} VGDUMP_TESTING)
+
+if(DEFINED ALGOS)
+    add_subdirectory(specific)
+else()
+    set(ALGOS SMR_EBR)
+endif()
+
+foreach(test_path IN ITEMS ${TEST_FILES})
+    foreach(algo IN ITEMS ${ALGOS})
+        # extract test_name with extension
+        get_filename_component(test_name ${test_path} NAME)
+
+        # name without extension
+        get_filename_component(test_case ${test_path} NAME_WE)
+
+        set(TEST_CASE ${test_case}_${algo})
+
+        string(TOLOWER ${TEST_CASE} TEST_CASE)
+
+        add_executable(${TEST_CASE} ${test_name})
+
+        target_link_libraries(${TEST_CASE} vsync pthread)
+
+        # add defines
+        target_compile_definitions(${TEST_CASE} PUBLIC ${TEST_DEFS} ${algo})
+
+        v_add_bin_test_advanced(
+            NAME
+            ${TEST_CASE}
+            COMMAND
+            ${TEST_CASE}
+            TIMEOUT
+            3600
+            PROCESSORS
+            4)
+
+    endforeach()
+endforeach()
