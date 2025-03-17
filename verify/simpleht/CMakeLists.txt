@@ -10,16 +10,13 @@ set(ALGOS SIMPLEHT)
 # for all files that start with test
 foreach(test_path IN ITEMS ${TEST_CASES})
 
-    # extract test_name with extension
-    get_filename_component(test_name ${test_path} NAME)
-
     # name without extension
     get_filename_component(test_prefix ${test_path} NAME_WE)
 
     # define TEST_CASE, we need to pass it like this to be recognized
-    set(tc TEST_CASE="${test_name}")
+    set(tc TEST_CASE="${test_path}")
     # we have to escape it like this to work for check
-    set(tc_check -DTEST_CASE="'\"${test_name}\"'")
+    set(tc_check -DTEST_CASE="'\"${test_path}\"'")
 
     foreach(algo IN ITEMS ${ALGOS})
 
