@@ -19,7 +19,6 @@ vatomic64_t _g_vmem_alloc_count = VATOMIC_INIT(0);
 vatomic64_t _g_vmem_free_count  = VATOMIC_INIT(0);
 #endif
 
-
 static inline void *
 vmem_malloc(vsize_t sz)
 {
@@ -72,7 +71,6 @@ vmem_calloc(vsize_t nitems, vsize_t size)
 #endif
 }
 
-
 static inline void
 vmem_free(void *ptr)
 {
@@ -91,7 +89,6 @@ vmem_free_cb(void *ptr, void *arg)
     vmem_free(ptr);
 }
 
-
 static inline vuint64_t
 vmem_get_alloc_count(void)
 {
@@ -104,7 +101,6 @@ vmem_get_alloc_count(void)
     return 0;
 #endif
 }
-
 
 static inline vuint64_t
 vmem_get_free_count(void)

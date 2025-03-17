@@ -1,10 +1,10 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
-#ifndef VSYNC_TIME_MEASUREMENT
-#define VSYNC_TIME_MEASUREMENT
+#ifndef VSYNC_TIME_MEASUREMENT_H
+#define VSYNC_TIME_MEASUREMENT_H
 
 #include <vsync/vtypes.h>
 #include <vsync/common/compiler.h>
@@ -57,7 +57,7 @@ calc_ticks_in_ms(void)
     vuint64_t microseconds = 1000 * milliseconds;
     ticks_before           = read_time_stamp_counter();
     // sleeps for the given amount of microseconds
-    usleep(microseconds);
+    usleep((useconds_t)microseconds);
     ticks_after   = read_time_stamp_counter();
     ticks_elapsed = ticks_after - ticks_before;
     // calculate how many ticks correlate to a millisecond
@@ -126,6 +126,5 @@ get_local_time(void)
     timeinfo = localtime(&rawtime);
     return asctime(timeinfo);
 }
-
 
 #endif

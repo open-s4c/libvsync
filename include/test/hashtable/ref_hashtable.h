@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -29,7 +29,6 @@ seqlock_is_writer_active(seqlock_t *seq)
     return VIS_ODD(vatomic32_read_rlx(&seq->seqcount));
 }
 
-
 typedef struct ventry_s {
     user_key_t key;
     void *value;
@@ -45,7 +44,6 @@ typedef struct vbucket_s {
 typedef struct vhashtable_s {
     vbucket_t buckets[VHASHTABLE_BUCKET_COUNT];
 } vhashtable_t;
-
 
 static inline void
 vhashtable_init(vhashtable_t *table)

@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
-#ifndef VSYNC_QUEUE_INTERFACE
-#define VSYNC_QUEUE_INTERFACE
+#ifndef VSYNC_QUEUE_INTERFACE_H
+#define VSYNC_QUEUE_INTERFACE_H
 
 /**
  * Based on the define chooses which queue, to include for testing
@@ -37,7 +37,6 @@
 
 #include <test/vmem_stdlib.h>
 
-
 #if defined(VQUEUE_UB_LF)
 vsize_t g_cleaner_tid = 0;
 #endif
@@ -45,7 +44,6 @@ vsize_t g_cleaner_tid = 0;
 typedef vqueue_ub_t queue_t;
 typedef vqueue_ub_node_t queue_node_t;
 typedef void (*queue_node_free)(vqueue_ub_node_t *, void *);
-
 
 typedef struct data_s {
     vuint64_t key;

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -22,7 +22,6 @@ typedef struct user_key_s {
     vuint16_t tclass;
 } user_key_t;
 #endif
-
 
 typedef struct user_data_s {
     vsize_t stamp;
@@ -70,7 +69,6 @@ user_key_cmp(user_key_t a, user_key_t b)
 #endif
 }
 
-
 static inline vsize_t
 user_key_hash(user_key_t key)
 {
@@ -84,7 +82,6 @@ user_key_hash(user_key_t key)
     return idx;
 }
 
-
 static inline void
 iprint_key(char *prefix, vsize_t tid, user_key_t key)
 {
@@ -95,7 +92,6 @@ iprint_key(char *prefix, vsize_t tid, user_key_t key)
              key.tclass);
 #endif
 }
-
 
 static inline user_key_t
 user_key_rand_gen(void)

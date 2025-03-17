@@ -1,10 +1,10 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
-#ifndef VSYNC_ITREESET
-#define VSYNC_ITREESET
+#ifndef VSYNC_ITREESET_H
+#define VSYNC_ITREESET_H
 
 #if defined TREESET_BST_FINE
     #include <vsync/map/treeset_bst_fine.h>

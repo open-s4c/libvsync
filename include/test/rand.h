@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
-#ifndef VSYNC_UTILS_RAND
-#define VSYNC_UTILS_RAND
+#ifndef VSYNC_UTILS_RAND_H
+#define VSYNC_UTILS_RAND_H
 
 #include <vsync/common/assert.h>
 #include <vsync/utils/math.h>
@@ -307,7 +307,6 @@ random_gen_values(vuint32_t arr[], vsize_t len, vuint32_t min, vuint32_t max)
         arr[i] = random_next_int(min, max);
     }
 }
-
 
 /* Deterministic random generator that allows multiple seeding,
  * to be used in testing.

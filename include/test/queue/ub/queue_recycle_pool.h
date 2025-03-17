@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -37,7 +37,6 @@ node_pool_get_and_destroy(void)
     return head;
 }
 
-
 static inline void
 node_pool_destroy(vqueue_ub_node_t *head,
                   void (*callback)(vqueue_ub_node_t *, void *))
@@ -50,6 +49,5 @@ node_pool_destroy(vqueue_ub_node_t *head,
         curr = succ;
     }
 }
-
 
 #endif

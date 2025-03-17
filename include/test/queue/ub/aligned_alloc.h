@@ -1,10 +1,10 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
-#ifndef VSYNC_VERIFICATION_ALIGNED_ALLOC
-#define VSYNC_VERIFICATION_ALIGNED_ALLOC
+#ifndef VSYNC_VERIFICATION_ALIGNED_ALLOC_H
+#define VSYNC_VERIFICATION_ALIGNED_ALLOC_H
 
 #include <stdlib.h>
 #include <vsync/atomic.h>
@@ -24,17 +24,14 @@
 
 #define NODES_COUNT ((NTHREADS + 1) * ALLOC_PER_THREAD)
 
-
 typedef struct g_map {
     void *node;
     char *parent;
 } map_t;
 
-
 static vbool_t g_aalloc_md_init = false;
 static map_t g_map[NODES_COUNT];
 static vatomic32_t g_map_idx = VATOMIC_INIT(0);
-
 
 static inline void
 _aligned_alloc_allocate_node(map_t *loc, vsize_t num_bytes)
@@ -55,7 +52,6 @@ _aligned_alloc_allocate_node(map_t *loc, vsize_t num_bytes)
     }
     ASSERT(0 && "could not find aligned byte");
 }
-
 
 static inline void
 aligned_alloc_init(vsize_t num_bytes)

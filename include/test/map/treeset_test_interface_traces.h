@@ -1,10 +1,10 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
-#ifndef VSYNC_TREESET_TEST_INTERFACE_TRACES
-#define VSYNC_TREESET_TEST_INTERFACE_TRACES
+#ifndef VSYNC_TREESET_TEST_INTERFACE_TRACES_H
+#define VSYNC_TREESET_TEST_INTERFACE_TRACES_H
 
 #include <test/vmem_stdlib.h>
 #include <test/trace_manager.h>
@@ -17,7 +17,6 @@ trace_t g_removed[NTRACES];
 treeset_t g_tree;
 vsize_t collected_count;
 vsize_t final_count;
-
 
 static inline vbool_t
 tr_add_trace(vsize_t tid, treeset_key_t key)
@@ -72,7 +71,7 @@ tr_verify_allocs(void)
 
     printf("Allocs: %" VUINT64_FORMAT "\n", allocs);
     printf("Frees:  %" VUINT64_FORMAT "\n", frees);
-    assert(allocs == frees);
+    ASSERT(allocs == frees);
 }
 
 vbool_t
@@ -111,7 +110,7 @@ tr_verify_traces(void)
 
     printf("Collected: %zu\n", collected_count);
     printf("Final:     %zu\n", final_count);
-    assert(collected_count == final_count);
+    ASSERT(collected_count == final_count);
 
     trace_destroy(&collected);
 }

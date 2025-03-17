@@ -1,10 +1,10 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
-#ifndef VSYNC_TREESET_TEST_INTERFACE
-#define VSYNC_TREESET_TEST_INTERFACE
+#ifndef VSYNC_TREESET_TEST_INTERFACE_H
+#define VSYNC_TREESET_TEST_INTERFACE_H
 
 #include <test/vmem_stdlib.h>
 

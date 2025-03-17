@@ -22,15 +22,12 @@
 
 #ifdef DEACTIVATE_LISTSET_SMR
     #define SMR_NONE
-#else
-    #define SMR_GDUMPV3
 #endif
 
 #include <vsync/common/compiler.h>
 #include <test/vmem_stdlib.h>
 #include <test/smr/ismr.h>
 #include <test/trace_manager.h>
-
 
 typedef struct listset_mock_node_s {
     char lbl;
@@ -77,7 +74,6 @@ _cmp_callback(vlistset_node_t *a, vlistset_key_t key)
         return 1;
     }
 }
-
 
 static inline void
 vlistset_mock_node_print(vlistset_node_t *lnode, void *arg)
@@ -141,6 +137,5 @@ ilistset_to_trace(vlistset_t *lst, trace_t *a)
 {
     _vlistset_visit(lst, _ilistset_add_to_trace, a, false);
 }
-
 
 #endif

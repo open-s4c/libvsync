@@ -3,6 +3,9 @@
  * SPDX-License-Identifier: MIT
  */
 
+#ifndef VSTACK_INTERFACE_H
+#define VSTACK_INTERFACE_H
+
 #if defined(STACK_ELIMINATION_BACKOFF)
     #include <vsync/stack/elimination_stack.h>
     #define VSTACK_NAME "elimination"
@@ -30,7 +33,7 @@ _usleep_callback(unsigned int milliseconds)
 #elif defined(STACK_BASELINE)
     #include <test/stack/stack_baseline.h>
     #define VSTACK_NAME "baseline"
-/* does not need SMR */
+    /* does not need SMR */
     #define SMR_NONE
 #else
     #include <test/stack/stack_helper_dispatcher.h>
@@ -54,7 +57,6 @@ _usleep_callback(unsigned int milliseconds)
     #define N_DS 1
 #endif
 
-
 #define DEFAULT_TRACE_LEN 10
 
 static vstack_t g_stack[N_DS];
@@ -71,7 +73,6 @@ typedef struct data_node_s {
     vuint64_t key;
     char lbl;
 } data_node_t;
-
 
 static inline void
 _free_callback(smr_node_t *snode, void *args)
@@ -116,9 +117,8 @@ pop(vsize_t tid, vsize_t ds)
     return 0;
 }
 
-
 static inline void
-init(void)
+istack_init(void)
 {
     vsize_t i = 0;
     vsize_t j = 0;
@@ -145,7 +145,6 @@ init(void)
     trace_init(&g_joint_rems, DEFAULT_TRACE_LEN);
     trace_init(&g_final_state, DEFAULT_TRACE_LEN);
 
-
 #if !defined(VSYNC_VERIFICATION)
     ismr_start_cleaner();
 #endif
@@ -160,7 +159,7 @@ destroy_data(vstack_node_t *node, void *arg)
 }
 
 static inline void
-destroy(void)
+istack_destroy(void)
 {
     vsize_t i = 0;
     vsize_t j = 0;
@@ -201,7 +200,6 @@ visit_node(vstack_node_t *snode, void *arg)
     trace_add(trace, data->key);
 }
 
-
 static inline vbool_t
 verify_unit(trace_unit_t *unit, vbool_t expect_existence)
 {
@@ -230,7 +228,6 @@ verify_unit_exists(trace_unit_t *unit)
     return verify_unit(unit, true);
 }
 
-
 static inline void
 verify(vsize_t ds_idx)
 {
@@ -242,7 +239,6 @@ verify(vsize_t ds_idx)
     // extract final state
     _vstack_visit(&g_stack[ds_idx], visit_node, &g_final_state);
 
-
     for (i = 0; i < NTRACES; i++) {
         trace_merge_into(&g_joint_adds, &g_added[ds_idx][i]);
         trace_merge_into(&g_joint_rems, &g_removed[ds_idx][i]);
@@ -250,7 +246,6 @@ verify(vsize_t ds_idx)
 
     trace_is_sound = trace_verify(&g_joint_rems, verify_unit_does_not_exist);
     ASSERT(trace_is_sound && "remove trace is not sound");
-
 
     trace_subtract_from(&g_joint_adds, &g_joint_rems);
 
@@ -261,7 +256,6 @@ verify(vsize_t ds_idx)
     }
     ASSERT(trace_is_sound && "remaining add trace is not sound");
 
-
     vbool_t equal = trace_is_subtrace(&g_joint_adds, &g_final_state, NULL);
     ASSERT(equal && "final state is not part of the added nodes");
 
@@ -271,12 +265,12 @@ verify(vsize_t ds_idx)
 }
 
 void
-reg(vsize_t tid)
+istack_reg(vsize_t tid)
 {
     ismr_reg(tid);
 }
 void
-dereg(vsize_t tid)
+istack_dereg(vsize_t tid)
 {
     ismr_dereg(tid);
 }
@@ -291,9 +285,9 @@ stack_exit(vsize_t tid)
     ismr_exit(tid);
 }
 
-
 static inline void
 stack_clean(vsize_t tid)
 {
     ismr_recycle(tid);
 }
+#endif

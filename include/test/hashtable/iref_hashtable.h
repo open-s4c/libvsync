@@ -37,7 +37,6 @@ typedef struct hash_entry_s {
     user_data_t data;
 } hash_entry_t;
 
-
 vhashtable_t g_hashtable;
 vatomic64_t g_failed_insert_count;
 

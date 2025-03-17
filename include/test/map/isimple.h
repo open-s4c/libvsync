@@ -35,7 +35,6 @@ static trace_t g_rem[NTRACES] = {0};
 static vsimpleht_t g_simpleht = {0};
 static void *g_buff           = NULL;
 
-
 /* callbacks */
 static inline vint8_t
 cb_cmp(vuintptr_t key_a, vuintptr_t key_b)
@@ -135,6 +134,7 @@ imap_destroy(void)
     }
     vsimpleht_destroy(&g_simpleht);
     free(g_buff);
+    g_buff = NULL;
 }
 static inline vbool_t
 imap_add(vsize_t tid, vuintptr_t key, vuint64_t val)

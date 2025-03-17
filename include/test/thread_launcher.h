@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
-#ifndef VSYNC_THREAD_LAUNCHER
-#define VSYNC_THREAD_LAUNCHER
+#ifndef VSYNC_THREAD_LAUNCHER_H
+#define VSYNC_THREAD_LAUNCHER_H
 
 #include <vsync/common/assert.h>
 #include <pthread.h>
@@ -37,7 +37,6 @@ static vatomic32_t g_go = VATOMIC_INIT(0);
 #endif
 
 typedef void *(*thread_fun_t)(void *);
-
 
 typedef struct {
     pthread_t t;
@@ -76,7 +75,7 @@ set_cpu_affinity(vsize_t target_cpu)
     CPU_ZERO(&set);
 
     /* to cover for oversubscription */
-    vsize_t core = target_cpu % number_of_cores;
+    vsize_t core = target_cpu % (vuint32_t)number_of_cores;
 
     CPU_SET(core, &set);
 
@@ -160,6 +159,5 @@ launch_threads_and_stop_them(vsize_t thread_count, thread_fun_t fun,
     free(threads);
     return stop_time;
 }
-
 
 #endif

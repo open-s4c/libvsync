@@ -1,10 +1,10 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
-#ifndef VSYNC_VITID
-#define VSYNC_VITID
+#ifndef VSYNC_VTID_H
+#define VSYNC_VTID_H
 
 #include <vsync/common/assert.h>
 #include <pthread.h>
@@ -26,6 +26,5 @@ vtid_get_thread_id(void)
     }
     return pqueue_tid;
 }
-
 
 #endif

@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
-#ifndef VSYNC_LISTSET_TEST_INTERFACE
-#define VSYNC_LISTSET_TEST_INTERFACE
+#ifndef VSYNC_LISTSET_TEST_INTERFACE_H
+#define VSYNC_LISTSET_TEST_INTERFACE_H
 
 #include <test/listset/ilistset.h>
 #include <test/trace_manager.h>
@@ -13,16 +13,13 @@
 #define NTRACES           (NTHREADS + 2U)
 #define DEFAULT_TRACE_LEN 10
 
-
 #define N_DS 2
-
 
 vlistset_t g_list[N_DS];
 
 trace_t g_added[N_DS][NTRACES];
 
 trace_t g_removed[N_DS][NTRACES];
-
 
 static inline vbool_t
 lst_add(vsize_t tid, vsize_t lst_id, vlistset_key_t key)
@@ -143,7 +140,6 @@ lst_reg(vsize_t tid)
 {
     ismr_reg(tid);
 }
-
 
 static inline void
 lst_dereg(vsize_t tid)
