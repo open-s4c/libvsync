@@ -28,7 +28,8 @@ jobs:
                     {p: "verify", c: "unbounded_queue"}, {p: "verify", c: "listset"} ,
                     {p: "verify", c: "stack"}, {p: "verify", c: "thread"}, {p: "verify", c: "simpleht"},
                     {p: "verify", c: "bitmap"}, {p: "verify", c: "treeset"},  {p: "verify", c: "pool"},
-                    {p: "verify", c: "cachedq"}, {p: "verify", c: "chaselev"}
+                    {p: "verify", c: "cachedq"}, {p: "verify", c: "chaselev"} , {p: "verify", c: "priority_queue"},
+                    {p: "verify", c: "skiplist"}, {p: "verify", c: "smr"}
                   ]
     steps:
       - name: Print vsyncer version
