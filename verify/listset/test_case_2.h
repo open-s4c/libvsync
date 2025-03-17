@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
+#ifndef VSYNC_TEST_CASE_H
+#define VSYNC_TEST_CASE_H
 #define INIT_K1 0
 #define INIT_K2 4
 
@@ -10,6 +12,8 @@
  * goal: SC of remove
  */
 const vsize_t g_lst_idx = 0;
+#define KEY_A 3U
+#define KEY_B 2U
 void
 pre(void)
 {
@@ -21,18 +25,17 @@ void
 t0(vsize_t tid)
 {
     vbool_t success = false;
-    success         = lst_rem(tid, g_lst_idx, 3);
+    success         = lst_rem(tid, g_lst_idx, KEY_A);
     ASSERT(success);
 
-    success = lst_rem(tid, g_lst_idx, 2);
+    success = lst_rem(tid, g_lst_idx, KEY_B);
     ASSERT(success);
 }
 void
 t1(vsize_t tid)
 {
-    if (!lst_con(tid, g_lst_idx, 2)) {
-        ASSERT(!lst_con(tid, g_lst_idx, 3));
-
+    if (!lst_con(tid, g_lst_idx, KEY_B)) {
+        ASSERT(!lst_con(tid, g_lst_idx, KEY_A));
     } else {
         verification_ignore();
     }
@@ -47,3 +50,4 @@ post(void)
 {
     lst_verify_traces(g_lst_idx);
 }
+#endif
