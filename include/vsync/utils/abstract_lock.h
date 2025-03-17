@@ -1,10 +1,10 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
-#ifndef VSYNC_ABSTRACT_LOCK
-#define VSYNC_ABSTRACT_LOCK
+#ifndef VSYNC_ABSTRACT_LOCK_H
+#define VSYNC_ABSTRACT_LOCK_H
 
 /*******************************************************************************
  * @file  abstract_lock.h
@@ -66,6 +66,7 @@
 
 /** @cond */
 #ifdef VSYNC_VERIFICATION
+    #include <pthread.h>
     #define DEF_ABSTRACT_LOCK_TYPE(name, lock_type)                            \
         typedef pthread_mutex_t name##_t
 

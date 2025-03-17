@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -11,18 +11,18 @@
 static inline vuint32_t
 v_log2(vuint32_t v)
 {
-    const unsigned int b[] = {0x2, 0xC, 0xF0, 0xFF00, 0xFFFF0000};
-    const unsigned int S[] = {1, 2, 4, 8, 16};
-    int i;
-
-    register unsigned int r = 0; // result of log2(v) will go here
-    for (i = 4; i >= 0; i--)     // unroll for speed...
-    {
+    #define V_ARR_LEN 5U
+    const vuint32_t b[V_ARR_LEN] = {0x2, 0xC, 0xF0, 0xFF00, 0xFFFF0000};
+    const vuint32_t S[V_ARR_LEN] = {1, 2, 4, 8, 16};
+    vsize_t i                    = 0;
+    register vuint32_t r         = 0; // result of log2(v) will go here
+    for (i = V_ARR_LEN - 1; i < V_ARR_LEN; i--) {
         if (v & b[i]) {
             v >>= S[i];
             r |= S[i];
         }
     }
+    #undef V_ARR_LEN
     return r;
 }
 /**

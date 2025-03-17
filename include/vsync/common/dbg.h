@@ -1,10 +1,10 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
-#ifndef VSYNC_UTILS_DBG
-#define VSYNC_UTILS_DBG
+#ifndef VSYNC_UTILS_DBG_H
+#define VSYNC_UTILS_DBG_H
 
 #include <vsync/common/macros.h>
 

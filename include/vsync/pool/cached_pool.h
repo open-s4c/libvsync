@@ -24,7 +24,7 @@
 #include <vsync/utils/math.h>
 
 typedef struct cached_pool_config_s {
-    vuint32_t entry_space;
+    vsize_t entry_space;
     vuint32_t buffer_mask;
     vuint32_t threshold_init;
     vuint32_t threshold_link;
@@ -72,7 +72,7 @@ _cached_pool_entry_set_next(cached_pool_entry_t *entry,
 }
 
 static inline cached_pool_entry_t *
-_cached_pool_entry_find(void *start, vuint32_t size, vuint32_t idx)
+_cached_pool_entry_find(void *start, vsize_t size, vsize_t idx)
 {
     return (cached_pool_entry_t *)(((vuintptr_t)start) + size * idx);
 }
@@ -102,15 +102,19 @@ _cached_pool_buffer_init(cached_pool_buffer_t *buf)
 static inline cached_pool_entry_t *
 _cached_pool_buffer_alloc(cached_pool_t *a, cached_pool_buffer_t *buf)
 {
-again:;
-    vuint64_t ch = vatomic64_read_rlx(&buf->chead);
-    vuint64_t pt = vatomic64_read_acq(&buf->ptail);
-    if (ch == pt) {
-        return NULL;
-    }
-    if (vatomic64_cmpxchg_rlx(&buf->chead, ch, ch + 1) != ch) {
-        goto again;
-    }
+    vuint64_t ch = 0;
+    vuint64_t pt = 0;
+    ASSERT(a);
+    ASSERT(buf);
+
+    do {
+        ch = vatomic64_read_rlx(&buf->chead);
+        pt = vatomic64_read_acq(&buf->ptail);
+        if (ch == pt) {
+            return NULL;
+        }
+    } while (vatomic64_cmpxchg_rlx(&buf->chead, ch, ch + 1) != ch);
+
     cached_pool_entry_t *es = buf->nodes[ch & a->conf.buffer_mask];
     await_while (vatomic64_read_rlx(&buf->ctail) != ch) {}
     vatomic64_write_rel(&buf->ctail, ch + 1);
@@ -121,11 +125,14 @@ static inline void
 _cached_pool_buffer_free(cached_pool_t *a, cached_pool_buffer_t *buf,
                          cached_pool_entry_t *es)
 {
-again:;
-    vuint64_t ph = vatomic64_read_rlx(&buf->phead);
-    if (vatomic64_cmpxchg_rlx(&buf->phead, ph, ph + 1) != ph) {
-        goto again;
-    }
+    vuint64_t ph = 0;
+    ASSERT(a);
+    ASSERT(buf);
+
+    do {
+        ph = vatomic64_read_rlx(&buf->phead);
+    } while (vatomic64_cmpxchg_rlx(&buf->phead, ph, ph + 1) != ph);
+
     buf->nodes[ph & a->conf.buffer_mask] = es;
     await_while (vatomic64_read_rlx(&buf->ptail) != ph) {}
     vatomic64_write_rel(&buf->ptail, ph + 1);
@@ -212,19 +219,18 @@ _cached_pool_vunit_find(cached_pool_t *a, vuint32_t id)
  */
 static cached_pool_t *
 cached_pool_init(void *buf, vuint32_t thread_num, vuint32_t entry_num,
-                 vuint32_t entry_size)
+                 vsize_t entry_size)
 {
-    vuint32_t cached_pool_head = sizeof(cached_pool_t);
-    vuint32_t buffer_head      = sizeof(cached_pool_buffer_t);
-    vuint32_t buffer_size =
-        buffer_head + (vuint32_t)(sizeof(void *) * thread_num * 2);
-    vuint32_t node_num          = (v_pow2_round_up(thread_num * 2));
-    vuint32_t threshold         = ((entry_num - 1) / thread_num + 1);
-    vuint32_t vunit_size        = sizeof(cached_pool_vunit_t);
-    vuint32_t vunits_size       = vunit_size * thread_num;
-    vuint32_t vunit_addr_offset = cached_pool_head;
-    vuint32_t buf_addr_offset   = vunit_addr_offset + vunits_size;
-    vuint32_t entry_addr_offset = buf_addr_offset + buffer_size;
+    vsize_t cached_pool_head  = sizeof(cached_pool_t);
+    vsize_t buffer_head       = sizeof(cached_pool_buffer_t);
+    vsize_t buffer_size       = buffer_head + (sizeof(void *) * thread_num * 2);
+    vuint32_t node_num        = (v_pow2_round_up(thread_num * 2));
+    vuint32_t threshold       = ((entry_num - 1) / thread_num + 1);
+    vsize_t vunit_size        = sizeof(cached_pool_vunit_t);
+    vsize_t vunits_size       = vunit_size * thread_num;
+    vsize_t vunit_addr_offset = cached_pool_head;
+    vsize_t buf_addr_offset   = vunit_addr_offset + vunits_size;
+    vsize_t entry_addr_offset = buf_addr_offset + buffer_size;
 
     cached_pool_t *a = (cached_pool_t *)buf;
     a->buf     = (cached_pool_buffer_t *)(((vuintptr_t)a) + buf_addr_offset);
