@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -20,5 +20,5 @@
 
 #include <vsync/atomic/await.h>
 #include <vsync/atomic/core.h>
-
+#include <vsync/atomic/dispatch.h>
 #endif /* VSYNC_ATOMIC_H */
