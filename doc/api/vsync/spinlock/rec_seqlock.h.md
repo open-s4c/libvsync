@@ -117,7 +117,7 @@ _Initializer of_ `rec_seqlock`_._
 ##  Function `rec_seqlock_init`
 
 ```c
-static void rec_seqlock_init(rec_seqlock_t *l)
+static void rec_seqlock_init(struct rec_seqlock_s *l)
 ``` 
 _Initializes the given recursive seqlock._ 
 
@@ -134,7 +134,7 @@ _Initializes the given recursive seqlock._
 ##  Function `rec_seqlock_acquire`
 
 ```c
-static void rec_seqlock_acquire(rec_seqlock_t *l, vuint32_t id)
+static void rec_seqlock_acquire(struct rec_seqlock_s *l, vuint32_t id)
 ``` 
 _Acquires the given recursive seqlock._ 
 
@@ -153,7 +153,7 @@ _Acquires the given recursive seqlock._
 ##  Function `rec_seqlock_release`
 
 ```c
-static void rec_seqlock_release(rec_seqlock_t *l)
+static void rec_seqlock_release(struct rec_seqlock_s *l)
 ``` 
 _Releases the given recursive seqlock._ 
 

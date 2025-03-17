@@ -69,6 +69,8 @@ main(void)
 
 
 
+> **Note:** on linux compile with `-D_GNU_SOURCE`.
+
 
 ### References:
  [One-time initializer](https://www.remlab.net/op/futex-misc.shtml) 

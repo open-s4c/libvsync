@@ -56,6 +56,8 @@ main(void)
 
 
 
+> **Note:** on linux compile with `-D_GNU_SOURCE`.
+
 > **Note:** replace `#include <`[`vsync/thread/mutex.h`](../mutex.h.md)`>` with `#include <`[`vsync/thread/mutex/slim.h`](slim.h.md)`>` in the example above. 
 
 ---

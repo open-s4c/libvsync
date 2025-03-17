@@ -117,7 +117,7 @@ _Calculate the needed memory space for creating a pool._
 ##  Function `cached_pool_init`
 
 ```c
-static cached_pool_t* cached_pool_init(void *buf, vuint32_t thread_num, vuint32_t entry_num, vuint32_t entry_size)
+static cached_pool_t* cached_pool_init(void *buf, vuint32_t thread_num, vuint32_t entry_num, vsize_t entry_size)
 ``` 
 _Initialize the pool._ 
 

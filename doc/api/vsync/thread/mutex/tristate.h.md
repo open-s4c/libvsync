@@ -58,6 +58,8 @@ main(void)
 
 > **Note:** replace `#include <`[`vsync/thread/mutex.h`](../mutex.h.md)`>` with `#include <`[`vsync/thread/mutex/tristate.h`](tristate.h.md)`>` in the example above.
 
+> **Note:** on linux compile with -D_GNU_SOURCE
+
 
 ### References:
  [Ulrich Drepper - Futexes Are Tricky](https://cis.temple.edu/~ingargio/old/cis307s07/readings/futex.pdf) 

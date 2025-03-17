@@ -58,6 +58,8 @@ main(void)
 
 > **Note:** replace `#include <`[`vsync/thread/mutex.h`](../mutex.h.md)`>` with `#include <`[`vsync/thread/mutex/musl.h`](musl.h.md)`>` in the example above.
 
+> **Note:** on linux compile with `-D_GNU_SOURCE`.
+
 
 ### References:
  [Check mutex implementation in libc](http://musl.libc.org)
