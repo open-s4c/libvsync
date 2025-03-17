@@ -1,9 +1,11 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
-#define KICKOUT_SENTINEL
+#ifndef VSYNC_TEST_CASE_H
+#define VSYNC_TEST_CASE_H
+
 /**
  * This test case can detect access to freed memory, if free is used instead of
  * SMR in LF queue
@@ -20,12 +22,21 @@
  *
  */
 
+void
+pre(void)
+{
+    /* kickout sentinel */
+    enq(MAIN_TID, 0, 'a');
+    void *data = deq(MAIN_TID);
+    free(data);
+}
+
 /**
  * for thread with tid = 0
  *
  */
 void
-t1(vsize_t tid)
+t0(vsize_t tid)
 {
     enq(tid, 2, 'A');
 }
@@ -34,14 +45,17 @@ t1(vsize_t tid)
  * for thread with tid = 1
  *
  */
-data_t *deq_1 = NULL;
+data_t *deq_1      = NULL;
+vbool_t g_dequeued = false;
 void
-t2(vsize_t tid)
+t1(vsize_t tid)
 {
     deq_1 = deq(tid);
     if (deq_1) {
         ASSERT(deq_1->key == 2 || deq_1->key == 3);
         free(deq_1);
+        deq_1      = NULL;
+        g_dequeued = true;
     } else {
         verification_ignore();
     }
@@ -51,18 +65,20 @@ t2(vsize_t tid)
  *
  */
 void
-t3(vsize_t tid)
+t2(vsize_t tid)
 {
     enq(tid, 3, 'B');
     queue_clean(tid);
 }
 void
-verify(void)
+post(void)
 {
-    if (deq_1) {
+    queue_print(&g_queue, get_final_state_cb);
+    if (g_dequeued) {
         ASSERT(g_len == 1);
     } else {
         ASSERT(g_len == 2);
     }
     ASSERT(g_final_state[0] == 2 || g_final_state[0] == 3);
 }
+#endif

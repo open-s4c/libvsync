@@ -84,28 +84,21 @@ cachedq_init(void *buf, vsize_t capacity)
 static inline vsize_t
 cachedq_enqueue(cachedq_t *q, vuint64_t *buf, vsize_t count)
 {
-again:;
-    vuint64_t phead        = vatomic64_read_rlx(&q->phead);
-    vuint64_t pnext        = phead + count;
-    vuint64_t ctail_cached = vatomic64_read_rlx(&q->ctail_cached);
+    vuint64_t phead        = 0;
+    vuint64_t pnext        = 0;
+    vuint64_t ctail_cached = 0;
 
-    if (pnext <= ctail_cached + q->size) {
-        if (vatomic64_cmpxchg_rlx(&q->phead, phead, pnext) != phead) {
-            goto again;
-        }
-        for (vsize_t i = 0; i < count; i++) {
-            q->entry[(phead + i) % q->size] = buf[i];
-        }
-        await_while (vatomic64_read_rlx(&q->ptail) != phead) {}
-        vatomic64_write_rel(&q->ptail, pnext);
-        return count;
-    } else {
-        vuint64_t ctail = vatomic64_read_acq(&q->ctail);
-        if (pnext <= ctail + q->size) {
+    ASSERT(q);
+    ASSERT(buf);
+
+    while (true) {
+        phead        = vatomic64_read_rlx(&q->phead);
+        pnext        = phead + count;
+        ctail_cached = vatomic64_read_rlx(&q->ctail_cached);
+        if (pnext <= ctail_cached + q->size) {
             if (vatomic64_cmpxchg_rlx(&q->phead, phead, pnext) != phead) {
-                goto again;
+                continue;
             }
-            vatomic64_write_rlx(&q->ctail_cached, ctail);
             for (vsize_t i = 0; i < count; i++) {
                 q->entry[(phead + i) % q->size] = buf[i];
             }
@@ -113,7 +106,21 @@ again:;
             vatomic64_write_rel(&q->ptail, pnext);
             return count;
         } else {
-            return 0;
+            vuint64_t ctail = vatomic64_read_acq(&q->ctail);
+            if (pnext <= ctail + q->size) {
+                if (vatomic64_cmpxchg_rlx(&q->phead, phead, pnext) != phead) {
+                    continue;
+                }
+                vatomic64_write_rlx(&q->ctail_cached, ctail);
+                for (vsize_t i = 0; i < count; i++) {
+                    q->entry[(phead + i) % q->size] = buf[i];
+                }
+                await_while (vatomic64_read_rlx(&q->ptail) != phead) {}
+                vatomic64_write_rel(&q->ptail, pnext);
+                return count;
+            } else {
+                return 0;
+            }
         }
     }
 }
@@ -131,42 +138,21 @@ again:;
 static inline vsize_t
 cachedq_dequeue(cachedq_t *q, vuint64_t *buf, vsize_t count)
 {
-again:;
-    vuint64_t chead        = vatomic64_read_rlx(&q->chead);
-    vuint64_t cnext        = chead + count;
-    vuint64_t ptail_cached = vatomic64_read_rlx(&q->ptail_cached);
+    vuint64_t chead        = 0;
+    vuint64_t cnext        = 0;
+    vuint64_t ptail_cached = 0;
 
-    if (cnext <= ptail_cached) {
-        if (vatomic64_cmpxchg_rlx(&q->chead, chead, cnext) != chead) {
-            goto again;
-        }
-        for (vsize_t i = 0; i < count; i++) {
-            buf[i] = q->entry[(chead + i) % q->size];
-        }
-        await_while (vatomic64_read_rlx(&q->ctail) != chead) {}
-        vatomic64_write_rel(&q->ctail, cnext);
-        return count;
-    } else {
-        vuint64_t ptail = vatomic64_read_acq(&q->ptail);
-        if (cnext <= ptail) {
+    ASSERT(q);
+    ASSERT(buf);
+
+    while (true) {
+        chead        = vatomic64_read_rlx(&q->chead);
+        cnext        = chead + count;
+        ptail_cached = vatomic64_read_rlx(&q->ptail_cached);
+        if (cnext <= ptail_cached) {
             if (vatomic64_cmpxchg_rlx(&q->chead, chead, cnext) != chead) {
-                goto again;
+                continue;
             }
-            vatomic64_write_rlx(&q->ptail_cached, ptail);
-            for (vsize_t i = 0; i < count; i++) {
-                buf[i] = q->entry[(chead + i) % q->size];
-            }
-            await_while (vatomic64_read_rlx(&q->ctail) != chead) {}
-            vatomic64_write_rel(&q->ctail, cnext);
-            return count;
-        } else if (chead < ptail) {
-            cnext = ptail;
-            ASSERT((cnext - chead) < VSIZE_MAX);
-            count = (vsize_t)(cnext - chead);
-            if (vatomic64_cmpxchg_rlx(&q->chead, chead, cnext) != chead) {
-                goto again;
-            }
-            vatomic64_write_rlx(&q->ptail_cached, ptail);
             for (vsize_t i = 0; i < count; i++) {
                 buf[i] = q->entry[(chead + i) % q->size];
             }
@@ -174,7 +160,35 @@ again:;
             vatomic64_write_rel(&q->ctail, cnext);
             return count;
         } else {
-            return 0;
+            vuint64_t ptail = vatomic64_read_acq(&q->ptail);
+            if (cnext <= ptail) {
+                if (vatomic64_cmpxchg_rlx(&q->chead, chead, cnext) != chead) {
+                    continue;
+                }
+                vatomic64_write_rlx(&q->ptail_cached, ptail);
+                for (vsize_t i = 0; i < count; i++) {
+                    buf[i] = q->entry[(chead + i) % q->size];
+                }
+                await_while (vatomic64_read_rlx(&q->ctail) != chead) {}
+                vatomic64_write_rel(&q->ctail, cnext);
+                return count;
+            } else if (chead < ptail) {
+                cnext = ptail;
+                ASSERT((cnext - chead) < VSIZE_MAX);
+                count = (vsize_t)(cnext - chead);
+                if (vatomic64_cmpxchg_rlx(&q->chead, chead, cnext) != chead) {
+                    continue;
+                }
+                vatomic64_write_rlx(&q->ptail_cached, ptail);
+                for (vsize_t i = 0; i < count; i++) {
+                    buf[i] = q->entry[(chead + i) % q->size];
+                }
+                await_while (vatomic64_read_rlx(&q->ctail) != chead) {}
+                vatomic64_write_rel(&q->ctail, cnext);
+                return count;
+            } else {
+                return 0;
+            }
         }
     }
 }
