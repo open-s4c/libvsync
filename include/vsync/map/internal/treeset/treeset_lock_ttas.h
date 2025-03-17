@@ -1,10 +1,10 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
-#ifndef VSYNC_TREESET_LOCK_TTAS
-#define VSYNC_TREESET_LOCK_TTAS
+#ifndef VSYNC_TREESET_LOCK_TTAS_H
+#define VSYNC_TREESET_LOCK_TTAS_H
 
 #include <vsync/spinlock/ttaslock.h>
 

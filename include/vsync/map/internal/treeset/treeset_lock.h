@@ -1,14 +1,28 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
-#ifndef VSYNC_TREESET_LOCK
-#define VSYNC_TREESET_LOCK
+#ifndef VSYNC_TREESET_LOCK_H
+#define VSYNC_TREESET_LOCK_H
 
 #ifdef VSYNC_VERIFICATION
     #define TREESET_LOCK_PTHREAD
 #endif
+
+struct lock_s;
+
+static inline void l_init(struct lock_s *lock);
+
+static inline void l_destroy(struct lock_s *lock);
+
+static inline void l_acquire(struct lock_s *lock);
+
+static inline void l_release(struct lock_s *lock);
+
+static inline void l_reader_acquire(struct lock_s *lock);
+
+static inline void l_reader_release(struct lock_s *lock);
 
 #if defined TREESET_LOCK_PTHREAD
     #include <vsync/map/internal/treeset/treeset_lock_pthread.h>
@@ -21,18 +35,6 @@
 #else
     #error "Choose lock implementation by setting TREESET_LOCK_*"
 #endif
-
-static inline void l_init(lock_t *lock);
-
-static inline void l_destroy(lock_t *lock);
-
-static inline void l_acquire(lock_t *lock);
-
-static inline void l_release(lock_t *lock);
-
-static inline void l_reader_acquire(lock_t *lock);
-
-static inline void l_reader_release(lock_t *lock);
 
 #ifndef TREESET_RW_LOCK_DEFINED
 
