@@ -8,10 +8,10 @@ set(NTHREADS ${PCOUNT})
 
 set(TEST_DEFS TST_IT=10000 SMR_MAX_NTHREADS=${NTHREADS} VGDUMP_TESTING)
 
-if(DEFINED ALGOS)
-    add_subdirectory(specific)
-else()
+if(NOT DEFINED ALGOS)
     set(ALGOS SMR_EBR)
+else()
+    add_subdirectory(specific)
 endif()
 
 foreach(test_path IN ITEMS ${TEST_FILES})

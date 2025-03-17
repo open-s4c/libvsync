@@ -12,6 +12,10 @@ set(MEMORY_MODELS "imm" "rc11")
 set(DAT3M_BOUND_test_case_free_after_sync_smr_gdumpv1 1)
 set(DAT3M_BOUND_test_case_sanity_smr_gdumpv1 1)
 
+if(NOT DEFINED ALGOS)
+    set(ALGOS SMR_EBR)
+endif()
+
 foreach(test_path IN ITEMS ${TEST_CASES})
     foreach(algo IN ITEMS ${ALGOS})
 
