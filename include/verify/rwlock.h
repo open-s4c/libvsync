@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -26,10 +26,8 @@ typedef struct rwlock_s {
     vatomic32_t idx;
 } rwlock_t;
 
-
 __thread vuint32_t g_tid = RWLOCK_MAX_READERS;
 static inline vuint32_t _rwlock_get_tid(rwlock_t *l);
-
 
 static inline void
 rwlock_init(rwlock_t *l)

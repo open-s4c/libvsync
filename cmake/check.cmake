@@ -49,7 +49,7 @@ function(add_vsyncer_check)
         CFLAGS #
         -I${PROJECT_SOURCE_DIR}/include #
         -DVSYNC_VERIFICATION #
-        -DVSYNC_SMR_NOT_AVAILABLE)
+        -DDEFAULT_SMR_EBR)
     if(VSYNCER_CHECK_FULL)
         set(TIMEOUT 3600)
     else()
