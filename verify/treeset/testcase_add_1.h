@@ -1,45 +1,52 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
-// Concurrent adds with different keys
+#ifndef VSYNC_TEST_CASE_H
+#define VSYNC_TEST_CASE_H
 
+// Concurrent adds with different keys
 void
-tinit(void)
+pre(void)
 {
 }
 
 void
-t0(void)
+t0(vsize_t tid)
 {
+    V_UNUSED(tid);
     ASSERT(!tr_con(0));
     ASSERT(tr_add(0));
     ASSERT(tr_con(0));
 }
 
 void
-t1(void)
+t1(vsize_t tid)
 {
+    V_UNUSED(tid);
     ASSERT(!tr_con(1));
     ASSERT(tr_add(1));
     ASSERT(tr_con(1));
 }
 
 void
-t2(void)
+t2(vsize_t tid)
 {
+    V_UNUSED(tid);
     ASSERT(!tr_con(2));
     ASSERT(tr_add(2));
     ASSERT(tr_con(2));
 }
 
 void
-t3(void)
+t3(vsize_t tid)
 {
+    V_UNUSED(tid);
 }
 
 void
-tfini(void)
+post(void)
 {
 }
+#endif

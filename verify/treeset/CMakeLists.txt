@@ -1,6 +1,6 @@
 file(GLOB TEST_CASES testcase_*.h)
 
-set(VERIFY_FILE verify_treeset.c)
+set(VERIFY_FILE verify.c)
 
 set(NUM_THREADS 4)
 
@@ -9,11 +9,10 @@ set(TEST_DEFS TREESET_LOCK_TTAS)
 set(CHECK_FLAGS -DVSYNC_VERIFICATION -DVMEM_LIB_ALLOC_TRACKING_OFF)
 
 foreach(test_path IN ITEMS ${TEST_CASES})
-    get_filename_component(test_name ${test_path} NAME)
     get_filename_component(test_prefix ${test_path} NAME_WE)
 
-    set(tc TEST_CASE="${test_name}")
-    set(tc_check -DTEST_CASE="'\"${test_name}\"'")
+    set(tc TEST_CASE="${test_path}")
+    set(tc_check -DTEST_CASE="'\"${test_path}\"'")
 
     foreach(algo IN ITEMS ${ALGOS})
         set(TEST treeset_${test_prefix}_${algo})
