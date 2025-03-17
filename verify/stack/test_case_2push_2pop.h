@@ -1,9 +1,10 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
-
+#ifndef VSYNC_TEST_CASE_H
+#define VSYNC_TEST_CASE_H
 vsize_t ds_idx = 0;
 
 void
@@ -44,3 +45,4 @@ void
 post(void)
 {
 }
+#endif

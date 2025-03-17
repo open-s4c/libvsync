@@ -1,8 +1,10 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
+#ifndef VSYNC_TEST_CASE_H
+#define VSYNC_TEST_CASE_H
 vsize_t ds_idx = 0;
 
 void
@@ -31,14 +33,12 @@ t1(vsize_t tid)
 {
     vbool_t full_match = false;
 
-
     for (vsize_t j = 0; j < NUM_OF_POPS; j++) {
         stack_enter(tid);
         outcome[j] = pop(tid, ds_idx);
         stack_exit(tid);
         DBG("outcome[%zu] popped %" VUINTPTR_FORMAT " \n", j, outcome[j]);
     }
-
 
     for (vsize_t i = 0; i < NUM_POSSIBLE_OUTCOMES; i++) {
         full_match = true;
@@ -67,3 +67,4 @@ void
 post(void)
 {
 }
+#endif

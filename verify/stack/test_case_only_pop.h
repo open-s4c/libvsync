@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
+#ifndef VSYNC_TEST_CASE_H
+#define VSYNC_TEST_CASE_H
 vsize_t ds_idx = 0;
 
 void
@@ -12,7 +14,6 @@ pre(void)
         push(MAIN_TID, ds_idx, i);
     }
 }
-
 
 void
 t0(vsize_t tid)
@@ -58,3 +59,4 @@ post(void)
         ASSERT(val == 1);
     }
 }
+#endif
