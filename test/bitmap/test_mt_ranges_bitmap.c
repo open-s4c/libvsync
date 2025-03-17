@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -62,7 +62,6 @@ run(void *args)
         vbitmap_clr_range(g_bitmap, g_clr_ranges[i][0], g_clr_ranges[i][1]);
     }
 
-
     return 0;
 }
 
@@ -86,5 +85,6 @@ main(void)
     }
 
     free(g_bitmap);
+    g_bitmap = NULL;
     return 0;
 }

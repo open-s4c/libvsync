@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -42,7 +42,6 @@ sched_yield(void)
 #if QUEUE_SIZE < TOTAL_VALUES
     #error "QUEUE_SIZE should be at least VALUES * NWRITERS"
 #endif
-
 
 void *g_buf[QUEUE_SIZE];
 bounded_mpmc_t g_queue;

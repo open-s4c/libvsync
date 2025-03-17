@@ -12,6 +12,7 @@
 
 #define NUM_ENTRIES 2000U
 #define NUM_THREADS 100U
+#define POP_FREQ    3U
 
 vdeque_t g_deque;
 vuint32_t g_num_enqueue = 0;
@@ -35,7 +36,7 @@ owner(void)
         status = vdeque_push_bottom(&g_deque, &v);
         ASSERT(status == VDEQUE_STATE_OK);
         g_num_enqueue++;
-        if (i % 3 == 0) {
+        if (i % POP_FREQ == 0) {
             vdeque_pop_bottom(&g_deque, &r);
         }
     }

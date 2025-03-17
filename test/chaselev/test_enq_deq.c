@@ -30,7 +30,7 @@ test_push_pop(void)
     }
     status = vdeque_push_bottom(&g_vdeque, &v1);
     ASSERT(status == VDEQUE_STATE_FULL);
-    ASSERT(num_push == 3);
+    ASSERT(num_push == NUM_ENTRIES);
 
     void *v2 = NULL;
     while (vdeque_pop_bottom(&g_vdeque, &v2) == VDEQUE_STATE_OK) {

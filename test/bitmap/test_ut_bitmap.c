@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -40,10 +40,10 @@ ut_iter_set(void)
     vbitmap_init(bitmap, len, true);
     vbitmap_iter_init(bitmap, &iter);
 
-
     while (vbitmap_iter_next(&iter, &idx)) {
-        ASSERT(expected++ == idx);
+        ASSERT(expected == idx);
         ASSERT(idx < len);
+        expected++;
     }
     vbool_t set = vbitmap_iter_next(&iter, &idx);
     ASSERT(!set);
@@ -156,7 +156,6 @@ ut_range_multi_slot_funs(vsize_t len, vsize_t from, vsize_t to)
         }
     }
 
-
     _destroy(bitmap);
 }
 
@@ -171,48 +170,48 @@ ut_ranges(void)
 void
 ut_basic_funs(void)
 {
-    bool is_set       = false;
+    vbool_t is_set    = false;
     vbitmap_t *bitmap = _create(VBITMAP_ENTRY_COUNT);
 
-    for (size_t i = 0; i < VBITMAP_ENTRY_COUNT; i++) {
+    for (vsize_t i = 0; i < VBITMAP_ENTRY_COUNT; i++) {
         is_set = vbitmap_get(bitmap, i);
         ASSERT(is_set == false);
     }
 
-    for (size_t i = 0; i < VBITMAP_ENTRY_COUNT; i++) {
+    for (vsize_t i = 0; i < VBITMAP_ENTRY_COUNT; i++) {
         vbitmap_set_bit(bitmap, i);
         is_set = vbitmap_get(bitmap, i);
         ASSERT(is_set == true);
     }
 
-    for (size_t i = 0; i < VBITMAP_ENTRY_COUNT; i++) {
+    for (vsize_t i = 0; i < VBITMAP_ENTRY_COUNT; i++) {
         is_set = vbitmap_get(bitmap, i);
         ASSERT(is_set == true);
     }
 
-    for (size_t i = 0; i < VBITMAP_ENTRY_COUNT; i++) {
+    for (vsize_t i = 0; i < VBITMAP_ENTRY_COUNT; i++) {
         vbitmap_clr_bit(bitmap, i);
         is_set = vbitmap_get(bitmap, i);
         ASSERT(is_set == false);
     }
 
-    for (size_t i = 0; i < VBITMAP_ENTRY_COUNT; i++) {
+    for (vsize_t i = 0; i < VBITMAP_ENTRY_COUNT; i++) {
         is_set = vbitmap_get(bitmap, i);
         ASSERT(is_set == false);
     }
 
-    for (size_t i = 0; i < VBITMAP_ENTRY_COUNT; i++) {
+    for (vsize_t i = 0; i < VBITMAP_ENTRY_COUNT; i++) {
         if (VIS_EVEN(i)) {
             vbitmap_set_bit(bitmap, i);
         }
     }
 
-    for (size_t i = 0; i < VBITMAP_ENTRY_COUNT; i++) {
+    for (vsize_t i = 0; i < VBITMAP_ENTRY_COUNT; i++) {
         is_set = vbitmap_get(bitmap, i);
         ASSERT(is_set == VIS_EVEN(i));
     }
 
-    for (size_t i = 0; i < VBITMAP_ENTRY_COUNT; i++) {
+    for (vsize_t i = 0; i < VBITMAP_ENTRY_COUNT; i++) {
         if (VIS_EVEN(i)) {
             vbitmap_clr_bit(bitmap, i);
         } else {
@@ -220,7 +219,7 @@ ut_basic_funs(void)
         }
     }
 
-    for (size_t i = 0; i < VBITMAP_ENTRY_COUNT; i++) {
+    for (vsize_t i = 0; i < VBITMAP_ENTRY_COUNT; i++) {
         is_set = vbitmap_get(bitmap, i);
         ASSERT(is_set == VIS_ODD(i));
     }
@@ -232,12 +231,12 @@ void
 ut_test_iterator_all_set(void)
 {
     vbitmap_iter_t iter;
-    size_t bit_idx = 0;
-    size_t idx     = 0;
+    vsize_t bit_idx = 0;
+    vsize_t idx     = 0;
 
     vbitmap_t *bitmap = _create(VBITMAP_ENTRY_COUNT);
 
-    for (size_t i = 0; i < VBITMAP_ENTRY_COUNT; i++) {
+    for (vsize_t i = 0; i < VBITMAP_ENTRY_COUNT; i++) {
         vbitmap_set_bit(bitmap, i);
     }
 
@@ -255,7 +254,7 @@ void
 ut_test_iterator_all_clr(void)
 {
     vbitmap_iter_t iter;
-    size_t bit_idx = 0;
+    vsize_t bit_idx = 0;
 
     vbitmap_t *bitmap = _create(VBITMAP_ENTRY_COUNT);
 
@@ -270,12 +269,12 @@ void
 ut_test_iterator_partial_set_even(void)
 {
     vbitmap_iter_t iter;
-    size_t bit_idx = 0;
-    size_t idx     = 0;
+    vsize_t bit_idx = 0;
+    vsize_t idx     = 0;
 
     vbitmap_t *bitmap = _create(VBITMAP_ENTRY_COUNT);
 
-    for (size_t i = 0; i < VBITMAP_ENTRY_COUNT; i++) {
+    for (vsize_t i = 0; i < VBITMAP_ENTRY_COUNT; i++) {
         if (VIS_EVEN(i)) {
             vbitmap_set_bit(bitmap, i);
         }
@@ -294,12 +293,12 @@ void
 ut_test_iterator_partial_set_odd(void)
 {
     vbitmap_iter_t iter;
-    size_t bit_idx = 0;
-    size_t idx     = 1;
+    vsize_t bit_idx = 0;
+    vsize_t idx     = 1;
 
     vbitmap_t *bitmap = _create(VBITMAP_ENTRY_COUNT);
 
-    for (size_t i = 0; i < VBITMAP_ENTRY_COUNT; i++) {
+    for (vsize_t i = 0; i < VBITMAP_ENTRY_COUNT; i++) {
         if (VIS_ODD(i)) {
             vbitmap_set_bit(bitmap, i);
         }

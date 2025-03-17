@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -16,7 +16,6 @@
 #define TID     MAIN_TID
 
 vatomicsz_t g_cnt = VATOMIC_INIT(0);
-
 
 void
 run_operation(vsize_t tid, vuintptr_t key)

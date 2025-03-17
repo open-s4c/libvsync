@@ -13,12 +13,13 @@
 #define CACHEDP_NUM_ENTRIES 4096U
 #define CACHEDP_MAX_THREAD  32U
 #define CACHEDP_ENTRY_SIZE  8U
+#define MS_PER_SEC          1000.0
 
 uint8_t buf[cached_pool_memsize(CACHEDP_MAX_THREAD, CACHEDP_NUM_ENTRIES,
                                 CACHEDP_ENTRY_SIZE)];
 
 double
-now_ms()
+now_ms(void)
 {
     struct timeval now;
     int ret;
@@ -28,11 +29,11 @@ now_ms()
         DBG_RED("Error: could not get time of day\n");
         exit(-1);
     }
-    return (double)now.tv_sec * 1000.0 + (double)now.tv_usec / 1000.0;
+    return (double)now.tv_sec * MS_PER_SEC + (double)now.tv_usec / MS_PER_SEC;
 }
 
 void
-run_cached_pool()
+run_cached_pool(void)
 {
     cached_pool_t *t = cached_pool_init(
         buf, CACHEDP_MAX_THREAD, CACHEDP_NUM_ENTRIES, CACHEDP_ENTRY_SIZE);
@@ -51,11 +52,11 @@ run_cached_pool()
     }
     double elapsed_ms = now_ms() - start_ms;
     printf("cached_pool throughput: %.3lf iter/s\n",
-           1000.0 * ITERS * CACHEDP_NUM_ENTRIES * 2 / elapsed_ms);
+           MS_PER_SEC * ITERS * CACHEDP_NUM_ENTRIES * 2 / elapsed_ms);
 }
 
 void
-run_baseline()
+run_baseline(void)
 {
     void *data[CACHEDP_NUM_ENTRIES];
     vuint64_t ITERS = 100000;
@@ -72,7 +73,7 @@ run_baseline()
     }
     double elapsed_ms = now_ms() - start_ms;
     printf("baseline throughput: %.3lf iter/s\n",
-           1000.0 * ITERS * CACHEDP_NUM_ENTRIES * 2 / elapsed_ms);
+           MS_PER_SEC * ITERS * CACHEDP_NUM_ENTRIES * 2 / elapsed_ms);
 }
 
 int
