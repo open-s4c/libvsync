@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -37,6 +37,10 @@
 #define HMCLOCK_MAX            UINT64_MAX
 #define HMCLOCK_ACQUIRE_PARENT (HMCLOCK_MAX - 1)
 #define HMCLOCK_WAIT           HMCLOCK_MAX
+
+#ifndef HMCS_MAX_THREADS
+    #define HMCS_MAX_THREADS 1024U
+#endif
 
 #if defined(NDEBUG)
     /* on release mode make all assertions void */
@@ -107,6 +111,8 @@ static inline vsize_t _hmcslock_count_nodes(hmcslock_level_spec_t *level_specs,
  *
  * @return hmcslock_t* address of hmcslock_t object, which the calling
  * thread should use to acquire the lock.
+ *
+ * @return NULL when `HMCS_MAX_THREADS` is too small.
  */
 static inline hmcslock_t *
 hmcslock_which_lock(hmcslock_t *locks, vsize_t locks_len,
@@ -118,16 +124,18 @@ hmcslock_which_lock(hmcslock_t *locks, vsize_t locks_len,
     vsize_t j               = 0;
     vsize_t leaf_node_count = 1;
     vsize_t node_index      = 0;
+    hmcslock_t *leaf_nodes[HMCS_MAX_THREADS];
 
     for (l = 0; l < num_levels; l++) {
         leaf_node_count *= level_specs[l].num_nodes_per_parent;
     }
 
-#ifdef __cplusplus
-    hmcslock_t *leaf_nodes[HMCS_MAX_THREADS];
-#else
-    hmcslock_t *leaf_nodes[leaf_node_count];
-#endif
+    ASSERT(leaf_node_count <= HMCS_MAX_THREADS &&
+           "Compile with larger N in -DHMCS_MAX_THREADS=N");
+
+    if (leaf_node_count > HMCS_MAX_THREADS) {
+        return NULL;
+    }
 
     for (i = 0, j = 0; i < locks_len; i++) {
         HMCSLOCK_ASSERT(j < leaf_node_count &&
@@ -262,7 +270,6 @@ _hmcslock_one_acquire_real(hmcslock_t *lock, hmcs_node_t *qnode)
     vatomic64_write_rlx(&qnode->status, HMCLOCK_LOCKED);
     vatomicptr_write_rlx(&qnode->next, NULL);
     pred = (hmcs_node_t *)vatomicptr_xchg(&lock->lock, qnode);
-
     if (pred) {
         // spin as long as it's locked
         vatomicptr_write_rel(&pred->next, qnode);
@@ -290,12 +297,10 @@ _hmcslock_acquire_real(hmcslock_t *lock, hmcs_node_t *qnode, vsize_t depth)
     vatomic64_write_rlx(&qnode->status, HMCLOCK_WAIT);
     vatomicptr_write_rlx(&qnode->next, NULL);
     pred = (hmcs_node_t *)vatomicptr_xchg(&lock->lock, qnode);
-
     if (pred) {
         vatomicptr_write_rel(&pred->next, qnode);
         // spin as long as the status is wait
         cur_status = vatomic64_await_neq_acq(&qnode->status, HMCLOCK_WAIT);
-
         // acquired, enter the CS
         if (cur_status < HMCLOCK_ACQUIRE_PARENT) {
             return;
@@ -332,7 +337,6 @@ _hmcslock_release_real(hmcslock_t *lock, hmcs_node_t *qnode, vsize_t depth)
 
     // Lower level releases
     if (cur_count < lock->threshold) { // Not reached threshold
-
         succ = (hmcs_node_t *)vatomicptr_read_acq(&qnode->next);
         if (succ) { // pass within cohorts
             vatomic64_write_rel(&succ->status, cur_count + 1);

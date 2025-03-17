@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -38,17 +38,17 @@ typedef struct twa_counter_s {
 
 /** @cond DO_NOT_DOCUMENT */
 
-/** __twa_array is a waiting array shared among all TWA lock instances. To use
+/** g_vtwa_array is a waiting array shared among all TWA lock instances. To use
  * the TWA lock, one must declare the array once in the program. */
-extern twa_counter_t __twa_array[TWA_A];
+extern twa_counter_t g_vtwa_array[TWA_A];
 
 /** TWA_ARRAY(i) internal macro to access the i-th value of the array. */
-#define TWA_ARRAY(i) &__twa_array[i].val
+#define TWA_ARRAY(i) &g_vtwa_array[i].val
 
 /** @endcond */
 
-/** TWALOCK_ARRAY_DECL declares the global __twa_array variable. */
-#define TWALOCK_ARRAY_DECL twa_counter_t __twa_array[TWA_A] VSYNC_CACHEALIGN;
+/** TWALOCK_ARRAY_DECL declares the global g_vtwa_array variable. */
+#define TWALOCK_ARRAY_DECL twa_counter_t g_vtwa_array[TWA_A] VSYNC_CACHEALIGN
 
 typedef struct twalock_s {
     vatomic32_t ticket;
@@ -85,7 +85,6 @@ twalock_acquire(twalock_t *l)
 {
     vuint32_t tx = vatomic32_get_inc_rlx(&l->ticket);
     vuint32_t dx = TWA_DIFF(tx, vatomic32_read_acq(&l->grant));
-
     if (dx == 0) {
         return;
     }

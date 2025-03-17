@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -28,10 +28,7 @@
 #include <vsync/spinlock/seqlock.h>
 #include <vsync/utils/recursive_lock.h>
 
-/** @cond DO_NOT_DOCUMENT */
-DEF_RECURSIVE_LOCK(rec_seqlock, seqlock_t, seqlock_init, seqlock_acquire,
-                   seqlock_release, WITHOUT_TRYACQUIRE, WITHOUT_CONTEXT)
-/** @endcond */
+struct rec_seqlock_s;
 
 /** Initializer of `rec_seqlock`. */
 #define REC_SEQLOCK_INIT() RECURSIVE_LOCK_INIT(SEQ_LOCK_INIT())
@@ -41,7 +38,7 @@ DEF_RECURSIVE_LOCK(rec_seqlock, seqlock_t, seqlock_init, seqlock_acquire,
  *
  * @param l address of rec_seqlock_t object.
  */
-static inline void rec_seqlock_init(rec_seqlock_t *l);
+static inline void rec_seqlock_init(struct rec_seqlock_s *l);
 /**
  * Acquires the given recursive seqlock.
  *
@@ -50,7 +47,7 @@ static inline void rec_seqlock_init(rec_seqlock_t *l);
  *
  * @note called by writer threads.
  */
-static inline void rec_seqlock_acquire(rec_seqlock_t *l, vuint32_t id);
+static inline void rec_seqlock_acquire(struct rec_seqlock_s *l, vuint32_t id);
 /**
  * Releases the given recursive seqlock.
  *
@@ -58,7 +55,13 @@ static inline void rec_seqlock_acquire(rec_seqlock_t *l, vuint32_t id);
  *
  * @note called by writer threads.
  */
-static inline void rec_seqlock_release(rec_seqlock_t *l);
+static inline void rec_seqlock_release(struct rec_seqlock_s *l);
+
+/** @cond DO_NOT_DOCUMENT */
+DEF_RECURSIVE_LOCK(rec_seqlock, seqlock_t, seqlock_init, seqlock_acquire,
+                   seqlock_release, WITHOUT_TRYACQUIRE, WITHOUT_CONTEXT)
+/** @endcond */
+
 /**
  * Marks beginning of reader critical section.
  *

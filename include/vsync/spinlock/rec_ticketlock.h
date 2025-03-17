@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -23,11 +23,7 @@
 #include <vsync/utils/recursive_lock.h>
 #include <vsync/vtypes.h>
 
-/** @cond DO_NOT_DOCUMENT */
-DEF_RECURSIVE_LOCK(rec_ticketlock, ticketlock_t, ticketlock_init,
-                   ticketlock_acquire, ticketlock_release,
-                   WITH_TRYACQUIRE(ticketlock_tryacquire), WITHOUT_CONTEXT)
-/** @endcond */
+struct rec_ticketlock_s;
 
 /** Initializer of `rec_ticketlock`. */
 #define REC_TICKETLOCK_INIT() RECURSIVE_LOCK_INIT(TICKETLOCK_INIT())
@@ -39,7 +35,7 @@ DEF_RECURSIVE_LOCK(rec_ticketlock, ticketlock_t, ticketlock_init,
  *
  * @note alternatively use `REC_TICKETLOCK_INIT`.
  */
-static inline void rec_ticketlock_init(rec_ticketlock_t *l);
+static inline void rec_ticketlock_init(struct rec_ticketlock_s *l);
 /**
  * Acquires the recursive ticketlock.
  *
@@ -48,7 +44,8 @@ static inline void rec_ticketlock_init(rec_ticketlock_t *l);
  * @param l address of rec_ticketlock_t object.
  * @param id thread ID or core ID.
  */
-static inline void rec_ticketlock_acquire(rec_ticketlock_t *l, vuint32_t id);
+static inline void rec_ticketlock_acquire(struct rec_ticketlock_s *l,
+                                          vuint32_t id);
 /**
  * Releases the recursive ticketlock.
  *
@@ -58,7 +55,7 @@ static inline void rec_ticketlock_acquire(rec_ticketlock_t *l, vuint32_t id);
  *
  * @param l address of rec_ticketlock_t object.
  */
-static inline void rec_ticketlock_release(rec_ticketlock_t *l);
+static inline void rec_ticketlock_release(struct rec_ticketlock_s *l);
 /**
  * Tries to acquire the recursive ticketlock.
  *
@@ -69,6 +66,12 @@ static inline void rec_ticketlock_release(rec_ticketlock_t *l);
  * @return true, if lock is acquired successfully.
  * @return false, if failed to acquire the lock.
  */
-static inline vbool_t rec_ticketlock_tryacquire(rec_ticketlock_t *l,
+static inline vbool_t rec_ticketlock_tryacquire(struct rec_ticketlock_s *l,
                                                 vuint32_t id);
+
+/** @cond DO_NOT_DOCUMENT */
+DEF_RECURSIVE_LOCK(rec_ticketlock, ticketlock_t, ticketlock_init,
+                   ticketlock_acquire, ticketlock_release,
+                   WITH_TRYACQUIRE(ticketlock_tryacquire), WITHOUT_CONTEXT)
+/** @endcond */
 #endif
