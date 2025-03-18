@@ -1,5 +1,9 @@
 ProcessorCount(PCOUNT)
 
+target_include_directories(
+    vsync INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+                    $<INSTALL_INTERFACE:include>)
+
 include_directories(include)
 
 file(GLOB TEST_FILES test*.c)

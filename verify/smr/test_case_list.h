@@ -63,7 +63,7 @@ t2(vsize_t tid)
 }
 
 void
-verify(void)
+post(void)
 {
     mock_node_t *curr = g_head;
     mock_node_t *succ = NULL;
@@ -76,7 +76,7 @@ verify(void)
 }
 
 void
-prepare(void)
+pre(void)
 {
     vsize_t i = 0;
 

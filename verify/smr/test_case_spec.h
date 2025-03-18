@@ -72,11 +72,11 @@ t2(vsize_t tid)
 }
 
 void
-verify(void)
+post(void)
 {
 }
 void
-prepare(void)
+pre(void)
 {
     node_to_retire = mock_node_alloc();
     /* g_notify is defined in mock_node.h */

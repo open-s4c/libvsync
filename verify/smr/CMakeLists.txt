@@ -1,7 +1,7 @@
 file(GLOB TEST_CASES test_case*.h)
 
 # verification template file
-set(VERIFY_FILE verify_smr.c)
+set(VERIFY_FILE verify.c)
 
 set(NUM_THREADS 3)
 set(TEST_DEFS SMR_MAX_NTHREADS=3 CAP_TESTING VGDUMP_TESTING)
@@ -23,18 +23,15 @@ foreach(test_path IN ITEMS ${TEST_CASES})
             continue()
         endif()
 
-        # extract test_name with extension
-        get_filename_component(test_name ${test_path} NAME)
-
         # name without extension
         get_filename_component(test_case ${test_path} NAME_WE)
 
         # The test includes whatever is given as TEST_CASE define TEST_CASE, we
         # need to pass it like this to be recognized
-        set(tc TEST_CASE="${test_name}")
+        set(tc TEST_CASE="${test_path}")
 
         # we have to escape it like this to work for check
-        set(tc_check -DTEST_CASE="'\"${test_name}\"'")
+        set(tc_check -DTEST_CASE="'\"${test_path}\"'")
 
         set(TEST_CASE ${test_case}_${algo})
 
@@ -92,7 +89,7 @@ endforeach()
 
 # Add checks for stand-alone testcases
 file(GLOB STAND_ALONE_TCS *.c)
-list(FILTER STAND_ALONE_TCS EXCLUDE REGEX "verify\_smr\.c")
+list(FILTER STAND_ALONE_TCS EXCLUDE REGEX "verify\.c")
 foreach(test_path IN ITEMS ${STAND_ALONE_TCS})
     get_filename_component(test_case ${test_path} NAME_WE)
     set(CHECK_NAME check_${test_case})

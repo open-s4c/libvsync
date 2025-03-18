@@ -63,7 +63,7 @@ t2(vsize_t tid)
 }
 
 void
-verify(void)
+post(void)
 {
 #if defined(SMR_KCLEANUP)
     // kcleanup does not implement sync so this test case is not fully accurate
@@ -72,7 +72,7 @@ verify(void)
 #endif
 }
 void
-prepare(void)
+pre(void)
 {
     mock_node_t *node = mock_node_alloc();
     node->x           = 10;

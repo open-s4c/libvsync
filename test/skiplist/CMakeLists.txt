@@ -1,3 +1,7 @@
+target_include_directories(
+    vsync INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+                    $<INSTALL_INTERFACE:include>)
+
 set(ALGOS LOCK_FREE_SKIPLIST)
 
 # detect test files

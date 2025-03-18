@@ -72,11 +72,11 @@ t2(vsize_t tid)
 }
 
 void
-verify(void)
+post(void)
 {
 }
 void
-prepare(void)
+pre(void)
 {
     vsize_t i = 0;
 
