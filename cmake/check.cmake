@@ -40,6 +40,11 @@ function(add_vsyncer_check)
     else()
         set(TIMEOUT 60)
     endif()
+    if(DEFINED ENV{CI})
+        # increase the timeout in the CI
+        math(EXPR INCREASED_TIMEOUT "${TIMEOUT} * 3")
+        set(TIMEOUT ${INCREASED_TIMEOUT})
+    endif()
     # ##########################################################################
     # Set CFLAGS
     # ##########################################################################
