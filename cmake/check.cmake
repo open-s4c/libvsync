@@ -53,6 +53,8 @@ function(add_vsyncer_check)
         APPEND
         CFLAGS #
         -I${PROJECT_SOURCE_DIR}/include #
+        -I${PROJECT_SOURCE_DIR}/test/include #
+        -I${PROJECT_SOURCE_DIR}/verify/include #
         -DVSYNC_VERIFICATION #
         -DDEFAULT_SMR_EBR)
     if(VSYNCER_CHECK_FULL)
