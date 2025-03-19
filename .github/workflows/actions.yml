@@ -81,6 +81,8 @@ jobs:
           cat "${CSV_FILES[0]}" | head -n 1 > verification_report.csv
           cat "${CSV_FILES[@]}" | grep -E --invert '^#' >> verification_report.csv
           cat verification_report.csv
+      - name: check skipped
+        run: |
           if grep -q skipped verification_report.csv; then echo "ERROR: skipped checks detected!!"; exit 1; fi
       - name: upload final report
         uses: actions/upload-artifact@v4
