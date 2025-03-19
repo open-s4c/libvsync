@@ -96,7 +96,7 @@ _Initializer of_ `rec_mcslock`_._
 ##  Function `rec_mcslock_init`
 
 ```c
-static void rec_mcslock_init(rec_mcslock_t *l)
+static void rec_mcslock_init(struct rec_mcslock_s *l)
 ``` 
 _Initializes the recursive MCS lock._ 
 
@@ -114,7 +114,7 @@ _Initializes the recursive MCS lock._
 ##  Function `rec_mcslock_acquire`
 
 ```c
-static void rec_mcslock_acquire(rec_mcslock_t *l, vuint32_t id, mcs_node_t *ctx)
+static void rec_mcslock_acquire(struct rec_mcslock_s *l, vuint32_t id, mcs_node_t *ctx)
 ``` 
 _Acquires the recursive MCS lock._ 
 
@@ -135,7 +135,7 @@ This function can be called multiple times by the same thread, consecutively.
 ##  Function `rec_mcslock_release`
 
 ```c
-static void rec_mcslock_release(rec_mcslock_t *l, mcs_node_t *ctx)
+static void rec_mcslock_release(struct rec_mcslock_s *l, mcs_node_t *ctx)
 ``` 
 _Releases the recursive MCS lock._ 
 
@@ -155,7 +155,7 @@ To fully release the lock, this function should be called the same number of tim
 ##  Function `rec_mcslock_tryacquire`
 
 ```c
-static vbool_t rec_mcslock_tryacquire(rec_mcslock_t *l, vuint32_t id, mcs_node_t *ctx)
+static vbool_t rec_mcslock_tryacquire(struct rec_mcslock_s *l, vuint32_t id, mcs_node_t *ctx)
 ``` 
 _Tries to acquire the recursive mcslock._ 
 

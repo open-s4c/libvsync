@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -14,6 +14,8 @@
  *
  * @note replace `#include <vsync/thread/mutex.h>` with
  *   `#include <vsync/thread/mutex/tristate.h>` in the example above.
+ *
+ * @note on linux compile with -D_GNU_SOURCE
  *
  * @cite [Ulrich Drepper - Futexes Are Tricky]
  * (https://cis.temple.edu/~ingargio/old/cis307s07/readings/futex.pdf)

@@ -5,16 +5,22 @@
 
 #include <stdlib.h>
 #include <vsync/queue/chaselev.h>
-#define STEALER_NUM 2
 #include <pthread.h>
 #include <stdio.h>
 
-#define ARRAY_SIZE 4
+#define STEALER_NUM    2U
+#define POP_COUNT      3U
+#define PRE_PUSH_COUNT 3U
+#define POST_POP_COUNT 4U
+
+#define ARRAY_SIZE 4U
 #if defined(VSYNC_VERIFICATION_QUICK)
-    #define STEAL_COUNT 1
+    #define STEAL_COUNT 1U
 #else
-    #define STEAL_COUNT 2
+    #define STEAL_COUNT 2U
 #endif
+
+#define CALC_EXPECTED_SUM(_enq_cnt_) ((_enq_cnt_) * ((_enq_cnt_)-1U) / 2U)
 
 vdeque_t g_vdeque;
 
@@ -52,7 +58,7 @@ self_func(void *arg)
         }
     }
 
-    for (vsize_t i = 0; i < 3; i++) {
+    for (vsize_t i = 0; i < POP_COUNT; i++) {
         if (vdeque_pop_bottom(&g_vdeque, (void **)&buf) == VDEQUE_STATE_OK) {
             deq_count++;
             deq_data_sum += buf;
@@ -83,7 +89,7 @@ main(void)
 {
     init();
 
-    for (vsize_t i = 0; i < 3; i++) {
+    for (vsize_t i = 0; i < PRE_PUSH_COUNT; i++) {
         if (vdeque_push_bottom(&g_vdeque, (void *)enq_count) ==
             VDEQUE_STATE_OK) {
             enq_count++;
@@ -111,7 +117,7 @@ main(void)
     vuint64_t buf = 0;
 
     /* dequeue the rest */
-    for (vsize_t i = 0; i < 4; i++) {
+    for (vsize_t i = 0; i < POST_POP_COUNT; i++) {
         if (vdeque_pop_bottom(&g_vdeque, (void **)&buf) == VDEQUE_STATE_OK) {
             deq_count++;
             deq_data_sum += buf;
@@ -126,9 +132,8 @@ main(void)
         steal_data_sum_all += steal_data_sum[i];
     }
 
-    ASSERT(deq_count + steal_count_all == enq_count);
-    ASSERT(deq_data_sum + steal_data_sum_all ==
-           enq_count * (enq_count - 1) / 2);
+    ASSERT((deq_count + steal_count_all) == enq_count);
+    ASSERT((deq_data_sum + steal_data_sum_all) == CALC_EXPECTED_SUM(enq_count));
 
     free((vdeque_array_t *)vatomicptr_read_rlx(&g_vdeque.array));
     return 0;

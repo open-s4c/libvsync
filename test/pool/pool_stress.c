@@ -3,9 +3,6 @@
  * SPDX-License-Identifier: MIT
  */
 
-#if !defined(_GNU_SOURCE)
-    #define _GNU_SOURCE
-#endif
 #include <stdio.h>
 #include <pthread.h>
 #include <sched.h>
@@ -25,9 +22,10 @@
 #define CACHEDP_NUM_ENTRIES 4096U
 #define CACHEDP_MAX_THREAD  32U
 #define CACHEDP_ENTRY_SIZE  8U
-
+#define MS_PER_SEC          1000.0
 #define RUNNING_TIME_SECOND 5
 #define MAX_THREADS         8
+#define NUM_IT              100U
 
 #define CLSZ 128
 #define QSZ  128
@@ -51,7 +49,6 @@ uint8_t buf[cached_pool_memsize(CACHEDP_MAX_THREAD, CACHEDP_NUM_ENTRIES,
 vatomic64_t finished[MAX_THREADS];
 vatomic64_t stop;
 
-
 double
 now_ms(void)
 {
@@ -63,7 +60,7 @@ now_ms(void)
         DBG_RED("Error: could not get time of day\n");
         exit(-1);
     }
-    return (double)now.tv_sec * 1000.0 + (double)now.tv_usec / 1000.0;
+    return (double)now.tv_sec * MS_PER_SEC + (double)now.tv_usec / MS_PER_SEC;
 }
 
 void
@@ -96,11 +93,11 @@ start_thread(void *arg)
     void *addr;
     while (!vatomic64_read_rlx(&stop)) {
         /* malloc */
-        for (int i = 0; i < 100; i++) {
+        for (vsize_t i = 0; i < NUM_IT; i++) {
             addr = cached_pool_alloc(t, id);
             if (addr) {
                 vbool_t success = false;
-                for (vuint64_t i = 0; i < MAX_THREADS; i++) {
+                for (vuint64_t j = 0; j < MAX_THREADS; j++) {
                     if (current_enq_idx != id &&
                         bounded_spsc_enq(&q[id][current_enq_idx], addr) ==
                             QUEUE_BOUNDED_OK) {
@@ -120,9 +117,9 @@ start_thread(void *arg)
         }
 
         /* free */
-        for (int i = 0; i < 100; i++) {
+        for (vsize_t i = 0; i < NUM_IT; i++) {
             vbool_t success = false;
-            for (vuint64_t i = 0; i < MAX_THREADS; i++) {
+            for (vuint64_t j = 0; j < MAX_THREADS; j++) {
                 if (current_deq_idx != id &&
                     bounded_spsc_deq(&q[current_deq_idx][id], &addr) ==
                         QUEUE_BOUNDED_OK) {
@@ -211,6 +208,6 @@ main(void)
     printf("time: %.3lf ms\n", elapsed_ms);
     printf("iter: %lu iters\n", total_iters);
     printf("single thread throughput: %.3lf iter/s\n",
-           1000.0 * total_iters / elapsed_ms / MAX_THREADS);
-    printf("throughput: %.3lf iter/s\n", 1000.0 * total_iters / elapsed_ms);
+           MS_PER_SEC * total_iters / elapsed_ms / MAX_THREADS);
+    printf("throughput: %.3lf iter/s\n", MS_PER_SEC * total_iters / elapsed_ms);
 }

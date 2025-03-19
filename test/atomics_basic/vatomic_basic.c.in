@@ -5,7 +5,7 @@
  */
 /* clang-format off */
 
-#include <assert.h>
+#include <vsync/common/assert.h>
 #include <vsync/atomic/core.h>
 #include <vsync/atomic/internal/macros.h>
 #define VATOMIC_DISABLE_MACRO_UNDEF
@@ -87,13 +87,13 @@ test(T init, T arg1, T arg2)
 #endif
 
     /* check final state in the atomic variable */
-    assert(a._v == tc.fini);
+    ASSERT(a._v == tc.fini);
 
     /* if function returned, compare with expected value */
 #if @TC_GETX@
-    assert(ret == tc.init);
+    ASSERT(ret == tc.init);
 #elif @TC_XGET@
-    assert(ret == tc.fini);
+    ASSERT(ret == tc.fini);
 #endif
 }
 

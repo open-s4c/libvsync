@@ -10,22 +10,19 @@ if(NOT DEFINED ALGOS)
 endif()
 
 # verification template file
-set(VERIFY_FILE unbounded_queue_verify.c)
+set(VERIFY_FILE verify.c)
 
 # Enable some tests with VMM and set extra options for Dartagnan
 set(DAT3M_BOUND_VQUEUE_UB_TOTAL 4)
 
 foreach(test_path IN ITEMS ${TEST_CASES})
-    # extract test_name with extension
-    get_filename_component(test_name ${test_path} NAME)
-
     # name without extension
     get_filename_component(test_case ${test_path} NAME_WE)
 
     # define TEST_CASE, we need to pass it like this to be recognized
-    set(tc TEST_CASE="${test_name}")
+    set(tc TEST_CASE="${test_path}")
     # we have to escape it like this to work for check
-    set(tc_check -DTEST_CASE="'\"${test_name}\"'")
+    set(tc_check -DTEST_CASE="'\"${test_path}\"'")
 
     foreach(algo IN ITEMS ${ALGOS})
 

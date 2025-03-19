@@ -1,10 +1,10 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
-#ifndef VSYNC_TREESET_LOCK_FAKE
-#define VSYNC_TREESET_LOCK_FAKE
+#ifndef VSYNC_TREESET_LOCK_FAKE_H
+#define VSYNC_TREESET_LOCK_FAKE_H
 
 typedef struct lock_s {
     vbool_t locked;

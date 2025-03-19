@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -119,7 +119,6 @@ _cnalock_find_successor(cna_node_t *me, vuint32_t numa_node)
 {
     cna_node_t *next  = vatomicptr_read_rlx(&me->next);
     vuint32_t my_node = vatomic32_read_rlx(&me->node);
-
     if (my_node == CNALOCK_NODE_UNSET) {
         my_node = numa_node;
     }
@@ -200,7 +199,6 @@ cnalock_release(cnalock_t *lock, cna_node_t *me, vuint32_t numa_node)
     void *value      = (void *)1;
 
     vuint32_t keep_lock = _cnalock_keep_lock_local();
-
     if (keep_lock) {
         succ = _cnalock_find_successor(me, numa_node);
         spin = vatomicptr_read_rlx(&me->spin);

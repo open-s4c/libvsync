@@ -1,9 +1,13 @@
-# it is important to set VSYNC_SMR_NOT_AVAILABLE because SMR is not available
-# yet and tests need to detect this and act accordingly
-target_compile_definitions(vsync INTERFACE VSYNC_SMR_NOT_AVAILABLE _GNU_SOURCE)
+target_include_directories(
+    vsync INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+                    $<INSTALL_INTERFACE:include>)
+
+target_compile_definitions(vsync INTERFACE DEFAULT_SMR_EBR _GNU_SOURCE)
 
 # add all subdirectories
 file(GLOB SUBDIRS CONFIGURE_DEPENDS ${CMAKE_SOURCE_DIR}/test/*)
+list(REMOVE_ITEM SUBDIRS "${CMAKE_SOURCE_DIR}/test/include")
+
 foreach(child ${SUBDIRS})
     if(IS_DIRECTORY "${child}")
         add_subdirectory(${child})

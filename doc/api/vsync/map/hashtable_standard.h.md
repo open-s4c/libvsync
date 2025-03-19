@@ -7,7 +7,7 @@ This hashtable uses a lock-free listset per bucket. The listset is ordered by ke
 
 The table consists of `VHASHTABLE_BUCKET_COUNT` number of buckets with a default value of `1024`. This can be overwritten by the user by compiling with `-DVHASHTABLE_BUCKET_COUNT=N`. User control the mapping between keys and buckets by passing `hash_idx` to the APIs. It is expected that users use their own hash functions that map a key to a certain bucket index. Thus the given `hash_idx` is expected to be `< VHASHTABLE_BUCKET_COUNT`.
 
-> **Note:** users may easily build their own hashtables e.g. when dynamic allocation of the table is needed. Users can use [vsync/map/listset_lf.h](listset_lf.h.md) or any other listset e.g. [vsync/map/listset_lazy.h](listset_lazy.h.md) depending on the user needs. [listset_lf.h](listset_lf.h.md) and [listset_lazy.h](listset_lazy.h.md) can provide performance benefits under high contention and oversubscription scenarios. If memory overhead is not an issue and the buckets can grow long then skiplist_lf.h can be a better fit.
+> **Note:** users may easily build their own hashtables e.g. when dynamic allocation of the table is needed. Users can use [vsync/map/listset_lf.h](listset_lf.h.md) or any other listset e.g. [vsync/map/listset_lazy.h](listset_lazy.h.md) depending on the user needs. [listset_lf.h](listset_lf.h.md) and [listset_lazy.h](listset_lazy.h.md) can provide performance benefits under high contention and oversubscription scenarios. If memory overhead is not an issue and the buckets can grow long then [skiplist_lf.h](skiplist_lf.h.md) can be a better fit.
 
 
 ### Example:

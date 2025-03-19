@@ -4,6 +4,8 @@
  */
 
 
+#ifndef VSYNC_TEST_CASE_H
+#define VSYNC_TEST_CASE_H
 /* goal:
  * removing from head, middle, tail
  */
@@ -38,3 +40,4 @@ post(void)
 {
     lst_verify_traces(g_lst_idx);
 }
+#endif

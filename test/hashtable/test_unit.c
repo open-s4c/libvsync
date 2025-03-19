@@ -8,7 +8,6 @@
 #define LEN (VHASHTABLE_BUCKET_COUNT * VHASHTABLE_BUCKET_LEN * 10)
 user_key_t g_keys[LEN];
 
-
 vbool_t
 check_exists(user_key_t key, vsize_t len)
 {

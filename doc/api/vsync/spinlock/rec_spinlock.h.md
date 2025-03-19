@@ -91,7 +91,7 @@ _Initializer of_ `rec_spinlock`_._
 ##  Function `rec_spinlock_init`
 
 ```c
-static void rec_spinlock_init(rec_spinlock_t *l)
+static void rec_spinlock_init(struct rec_spinlock_s *l)
 ``` 
 _Initializes the recursive spinlock._ 
 
@@ -109,7 +109,7 @@ _Initializes the recursive spinlock._
 ##  Function `rec_spinlock_tryacquire`
 
 ```c
-static vbool_t rec_spinlock_tryacquire(rec_spinlock_t *l, vuint32_t id)
+static vbool_t rec_spinlock_tryacquire(struct rec_spinlock_s *l, vuint32_t id)
 ``` 
 _Tries to acquire the recursive spinlock._ 
 
@@ -131,7 +131,7 @@ _Tries to acquire the recursive spinlock._
 ##  Function `rec_spinlock_acquire`
 
 ```c
-static void rec_spinlock_acquire(rec_spinlock_t *l, vuint32_t id)
+static void rec_spinlock_acquire(struct rec_spinlock_s *l, vuint32_t id)
 ``` 
 _Acquires the recursive spinlock._ 
 
@@ -149,7 +149,7 @@ _Acquires the recursive spinlock._
 ##  Function `rec_spinlock_release`
 
 ```c
-static void rec_spinlock_release(rec_spinlock_t *l)
+static void rec_spinlock_release(struct rec_spinlock_s *l)
 ``` 
 _Releases the recursive spinlock._ 
 

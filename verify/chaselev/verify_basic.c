@@ -9,9 +9,10 @@
 #include <vsync/common/assert.h>
 #include <vsync/queue/chaselev.h>
 #include <test/thread_launcher.h>
+#include <vsync/utils/math.h>
 
-#define ARRAY_SIZE  1
-#define NUM_THREADS 3
+#define ARRAY_SIZE  1U
+#define NUM_THREADS 4U
 
 /* Tests the validity of deque operations enqueue, dequeue and steal by
  * asserting the correct status and correct indices after certain operations.
@@ -90,14 +91,14 @@ static void *
 run(void *args)
 {
     vsize_t tid = (vsize_t)(vuintptr_t)args;
-    ASSERT(tid < NUM_THREADS + 1);
+    ASSERT(tid < NUM_THREADS);
     switch (tid) {
         case 0:
             // Only one thread is owner
             run_owner();
             break;
         default:
-            if (tid % 2 == 1) {
+            if (VIS_ODD(tid)) {
                 // Every other thread checks validity of dequeue
                 run_stealer_check();
             } else {
@@ -133,7 +134,8 @@ main(void)
     init();
     pre();
     // Launch threads
-    launch_threads(NUM_THREADS + 1, run);
+    launch_threads(NUM_THREADS, run);
     free(g_arr);
+    g_arr = NULL;
     return 0;
 }

@@ -85,6 +85,8 @@ main(void)
 
 > **Note:** include [mutex.h](mutex.h.md) from libvsync before including [cond.h](cond.h.md). Alternatively, users can implement the same interface with pthread_mutex_t or similar and include that to be used by [cond.h](cond.h.md).
 
+> **Note:** on linux compile with `-D_GNU_SOURCE`.
+
 
 ### References:
  [Condition variable with futex](https://www.remlab.net/op/futex-condvar.shtml) 

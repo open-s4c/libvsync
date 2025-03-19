@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
+#ifndef VSYNC_TEST_CASE_H
+#define VSYNC_TEST_CASE_H
 vsize_t ds_idx       = 0;
 vuintptr_t popped[5] = {0};
 
@@ -39,7 +41,6 @@ post(void)
 {
     vsize_t len = t2_is_active ? 4 : 3;
 
-
     for (vsize_t i = 0; i < len; i++) {
         popped[i] = pop(MAIN_TID, ds_idx);
         ASSERT(popped[i]);
@@ -57,3 +58,4 @@ post(void)
 
     ASSERT(pop(MAIN_TID, ds_idx) == 0);
 }
+#endif

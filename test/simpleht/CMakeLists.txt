@@ -1,3 +1,6 @@
+target_include_directories(
+    vsync INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+                    $<INSTALL_INTERFACE:include>)
 ProcessorCount(PCOUNT)
 
 include_directories(include)

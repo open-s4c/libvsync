@@ -1,14 +1,21 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
+#ifndef VSYNC_TEST_CASE_H
+#define VSYNC_TEST_CASE_H
+
+void
+pre(void)
+{
+}
 /**
  * for thread with tid = 0
  *
  */
 void
-t1(vsize_t tid)
+t0(vsize_t tid)
 {
     enq(tid, 1, 'A');
     enq(tid, 2, 'B');
@@ -21,7 +28,7 @@ t1(vsize_t tid)
 data_t *deq_1 = NULL;
 data_t *deq_2 = NULL;
 void
-t2(vsize_t tid)
+t1(vsize_t tid)
 {
     deq_1 = deq(tid);
     deq_2 = deq(tid);
@@ -31,14 +38,15 @@ t2(vsize_t tid)
  *
  */
 void
-t3(vsize_t tid)
+t2(vsize_t tid)
 {
     queue_clean(tid);
 }
 
 void
-verify(void)
+post(void)
 {
+    queue_print(&g_queue, get_final_state_cb);
     switch (g_len) {
         case 2:
             ASSERT(!deq_1);
@@ -70,3 +78,4 @@ verify(void)
             break;
     }
 }
+#endif

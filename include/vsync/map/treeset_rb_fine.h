@@ -1,10 +1,10 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
-#ifndef VSYNC_TREESET_RB_FINE
-#define VSYNC_TREESET_RB_FINE
+#ifndef VSYNC_TREESET_RB_FINE_H
+#define VSYNC_TREESET_RB_FINE_H
 
 /*******************************************************************************
  * @file treeset_rb_fine.h
@@ -292,7 +292,7 @@ treeset_remove(treeset_t *tree, treeset_key_t key, void **out_value)
     /* 2 or more elements */
     if (!x->child[0]->red && !x->child[1]->red) {
         /* root is 2-node */
-        /* Assume f->red = true; */
+        /* Assume `f->red` is true */
         const vsize_t cx = x->key <= key;
         g                = f;
         f                = x;

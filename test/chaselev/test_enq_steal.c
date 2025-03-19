@@ -4,7 +4,7 @@
  */
 
 #include <stdlib.h>
-#include <assert.h>
+#include <vsync/common/assert.h>
 #include <pthread.h>
 #include <stdio.h>
 #include <vsync/atomic.h>
@@ -52,10 +52,10 @@ owner_thread(vsize_t tid)
             break;
         }
 
-        assert(data != NULL);
+        ASSERT(data != NULL);
         // Check LIFO property of deque
         if (prev_data != NULL) {
-            assert(data->id < prev_data->id);
+            ASSERT(data->id < prev_data->id);
         }
         g_num_pop++;
         DBG_YELLOW("[T%zu] deq %zu\n", tid, data->id);
@@ -78,11 +78,11 @@ stealing_thread(vsize_t tid)
         if (status != VDEQUE_STATE_OK) {
             break;
         }
-        assert(data != NULL);
+        ASSERT(data != NULL);
         // Check FIFO property of steal
         // This property does not hold when there is more than one owner
         if (prev_data != NULL) {
-            assert(data->id > prev_data->id);
+            ASSERT(data->id > prev_data->id);
         }
         vatomic32_inc_rlx(&g_num_steal);
         DBG_YELLOW("[T%zu] stole %zu\n", tid, data->id);
@@ -98,7 +98,7 @@ run(void *args)
 {
     vsize_t i = (vsize_t)args;
 
-    assert(i < NUM_THREADS);
+    ASSERT(i < NUM_THREADS);
     switch (i) {
         case 0:
             // Only one thread is owner
@@ -117,7 +117,7 @@ main(void)
     // Initialize the array struct
     vuint32_t array_size = vdeque_memsize(NUM_ENTRIES);
     vdeque_array_t *a    = (vdeque_array_t *)malloc(array_size);
-    assert(a != NULL);
+    ASSERT(a != NULL);
 
     // Initialize deque
     vdeque_init(&g_vdeque, a, NUM_ENTRIES);
@@ -125,8 +125,8 @@ main(void)
     // Create, start, join threads
     launch_threads(NUM_THREADS, run);
 
-    assert(g_num_push == NUM_ENTRIES);
-    assert(g_num_push == g_num_pop + vatomic32_read_rlx(&g_num_steal));
+    ASSERT(g_num_push == NUM_ENTRIES);
+    ASSERT(g_num_push == g_num_pop + vatomic32_read_rlx(&g_num_steal));
 
     return 0;
 }

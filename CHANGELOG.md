@@ -11,6 +11,18 @@ is not guaranteed to result in increment of major version.
 Please note that the version correlates to the internal libvsync, which is a superset of
 what exists in open-s4c libvsync.
 
+## [4.2.0]
+
+### Added
+
+- vsync/atomic/dispatch.h
+- vsync/map/skiplist.h
+- vsync/smr/vebr.h
+- vsync/queue/vqueue_prio_heap_based.h
+- vsync/queue/vqueue_prio_skiplist_based.h
+- vsync/queue/vqueue_prio_stack_array_based.h
+- vsync/queue/vqueue_prio_stack_tree_based.h
+
 ## [4.1.0]
 
 ### Added

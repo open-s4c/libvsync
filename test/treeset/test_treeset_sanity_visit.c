@@ -1,17 +1,20 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
 #include <test/map/itreeset.h>
 #include <test/vmem_stdlib.h>
+#include <vsync/common/assert.h>
+#include <vsync/vtypes.h>
 
 void
 visitor(treeset_key_t key, void *value, void *arg)
 {
     ASSERT(*(int *)arg == -1);
-    ASSERT((key == 3 && *(int *)value == 30) ||
-           (key == 5 && *(int *)value == 50));
+    vbool_t key_3 = (key == 3 && *(int *)value == 30);
+    vbool_t key_5 = (key == 5 && *(int *)value == 50);
+    ASSERT(key_3 || key_5);
 }
 
 int

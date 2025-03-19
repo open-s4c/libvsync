@@ -3,9 +3,6 @@
  * SPDX-License-Identifier: MIT
  */
 
-#if !defined(_GNU_SOURCE)
-    #define _GNU_SOURCE
-#endif
 #include <stdio.h>
 #include <pthread.h>
 #include <sched.h>

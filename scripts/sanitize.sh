@@ -126,4 +126,13 @@ for f in ${FILES}; do
         fi
     fi
 
+    # check if there is a header guard in header files
+    if [[ "$f" == *".h"* ]]; then
+        HEADER_GUARD=$(grep "#ifndef.*_H" ${f} || echo "")
+        if [ -z "$HEADER_GUARD" ]; then
+            echo "$f does not seem to have a header guard ending with _H"
+            exit 1
+        fi
+    fi
+
 done

@@ -77,8 +77,7 @@ main(void)
     vsize_t buf_size = cachedq_memsize(BUFFER_ENTRY_NUM);
     void *buf        = malloc(buf_size);
     q                = cachedq_init(buf, buf_size);
-    if (q == NULL)
-        exit(1);
+    ASSERT(q);
 
     int TW = WRITER_THREAD;
     pthread_t thread_w[TW];
@@ -96,10 +95,12 @@ main(void)
         pthread_create(&thread_r[i], NULL, reader, (void *)arg);
     }
 
-    for (int i = 0; i < TW; i++)
+    for (int i = 0; i < TW; i++) {
         pthread_join(thread_w[i], NULL);
-    for (int i = 0; i < TR; i++)
+    }
+    for (int i = 0; i < TR; i++) {
         pthread_join(thread_r[i], NULL);
+    }
 
     vuint64_t write_total_sum = 0;
     for (int i = 0; i < WRITER_THREAD; i++) {

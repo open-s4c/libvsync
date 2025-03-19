@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -22,11 +22,7 @@
 #include <vsync/spinlock/mcslock.h>
 #include <vsync/utils/recursive_lock.h>
 
-/** @cond DO_NOT_DOCUMENT */
-DEF_RECURSIVE_LOCK(rec_mcslock, mcslock_t, mcslock_init, mcslock_acquire,
-                   mcslock_release, WITH_TRYACQUIRE(mcslock_tryacquire),
-                   WITH_CONTEXT(mcs_node_t))
-/** @endcond */
+struct rec_mcslock_s;
 
 /** Initializer of `rec_mcslock`. */
 #define REC_MCSLOCK_INIT() RECURSIVE_LOCK_INIT(MCSLOCK_INIT())
@@ -37,7 +33,7 @@ DEF_RECURSIVE_LOCK(rec_mcslock, mcslock_t, mcslock_init, mcslock_acquire,
  *
  * @note alternatively use `REC_MCSLOCK_INIT`.
  */
-static inline void rec_mcslock_init(rec_mcslock_t *l);
+static inline void rec_mcslock_init(struct rec_mcslock_s *l);
 /**
  * Acquires the recursive MCS lock.
  *
@@ -48,7 +44,7 @@ static inline void rec_mcslock_init(rec_mcslock_t *l);
  * @param ctx address of rec_mcslock_t object associated with the caller
  * thread/core.
  */
-static inline void rec_mcslock_acquire(rec_mcslock_t *l, vuint32_t id,
+static inline void rec_mcslock_acquire(struct rec_mcslock_s *l, vuint32_t id,
                                        mcs_node_t *ctx);
 /**
  * Releases the recursive MCS lock.
@@ -61,7 +57,8 @@ static inline void rec_mcslock_acquire(rec_mcslock_t *l, vuint32_t id,
  * @param ctx address of rec_mcslock_t object associated with the caller
  * thread/core.
  */
-static inline void rec_mcslock_release(rec_mcslock_t *l, mcs_node_t *ctx);
+static inline void rec_mcslock_release(struct rec_mcslock_s *l,
+                                       mcs_node_t *ctx);
 /**
  * Tries to acquire the recursive mcslock.
  *
@@ -72,6 +69,12 @@ static inline void rec_mcslock_release(rec_mcslock_t *l, mcs_node_t *ctx);
  * @return true, if lock is acquired successfully.
  * @return false, if failed to acquire the lock.
  */
-static inline vbool_t rec_mcslock_tryacquire(rec_mcslock_t *l, vuint32_t id,
-                                             mcs_node_t *ctx);
+static inline vbool_t rec_mcslock_tryacquire(struct rec_mcslock_s *l,
+                                             vuint32_t id, mcs_node_t *ctx);
+
+/** @cond DO_NOT_DOCUMENT */
+DEF_RECURSIVE_LOCK(rec_mcslock, mcslock_t, mcslock_init, mcslock_acquire,
+                   mcslock_release, WITH_TRYACQUIRE(mcslock_tryacquire),
+                   WITH_CONTEXT(mcs_node_t))
+/** @endcond */
 #endif

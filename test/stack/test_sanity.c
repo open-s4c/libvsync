@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -24,7 +24,7 @@ single_threaded(void)
     vuint64_t last_id  = 10;
     vuint64_t out_id   = 0;
 
-    init();
+    istack_init();
 
     for (id = first_id; id <= last_id; id++) {
         push(MAIN_TID, ds_idx, id);
@@ -40,7 +40,7 @@ single_threaded(void)
 
     verify(ds_idx);
 
-    destroy();
+    istack_destroy();
 }
 
 void *
@@ -50,7 +50,7 @@ run(void *arg)
     vsize_t i      = 0;
     vuintptr_t key = 0;
 
-    reg(tid);
+    istack_reg(tid);
 
     for (i = 0; i < NUM_PUSH_PER_THREAD; i++) {
         key = vatomic64_get_inc(&g_key);
@@ -64,7 +64,7 @@ run(void *arg)
         stack_exit(tid);
     }
 
-    dereg(tid);
+    istack_dereg(tid);
 
     return NULL;
 }
@@ -72,10 +72,10 @@ run(void *arg)
 void
 multi_threaded(void)
 {
-    init();
+    istack_init();
     launch_threads(NTHREADS, run);
     verify(ds_idx);
-    destroy();
+    istack_destroy();
 }
 
 int

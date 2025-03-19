@@ -1,8 +1,10 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
+#ifndef VSYNC_TEST_CASE_H
+#define VSYNC_TEST_CASE_H
 #define MIN_KEY 1U
 #define MAX_KEY VSIMPLE_HT_CAPACITY
 
@@ -48,7 +50,8 @@ post(void)
         data_t *d = imap_get(MAIN_TID, k);
         if (k == CONFLICT_KEY) {
             if (g_added) {
-                ASSERT(d && d->val == NEW_VAL);
+                ASSERT(d);
+                ASSERT(d->val == NEW_VAL);
             } else if (d) {
                 ASSERT(d->val == k);
             }
@@ -60,3 +63,4 @@ post(void)
         ASSERT(g_added);
     }
 }
+#endif

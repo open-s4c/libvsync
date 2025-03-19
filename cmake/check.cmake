@@ -40,6 +40,11 @@ function(add_vsyncer_check)
     else()
         set(TIMEOUT 60)
     endif()
+    if(DEFINED ENV{CI})
+        # increase the timeout in the CI
+        math(EXPR INCREASED_TIMEOUT "${TIMEOUT} * 3")
+        set(TIMEOUT ${INCREASED_TIMEOUT})
+    endif()
     # ##########################################################################
     # Set CFLAGS
     # ##########################################################################
@@ -49,7 +54,7 @@ function(add_vsyncer_check)
         CFLAGS #
         -I${PROJECT_SOURCE_DIR}/include #
         -DVSYNC_VERIFICATION #
-        -DVSYNC_SMR_NOT_AVAILABLE)
+        -DDEFAULT_SMR_EBR)
     if(VSYNCER_CHECK_FULL)
         set(TIMEOUT 3600)
     else()

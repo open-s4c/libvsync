@@ -1,7 +1,10 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
+
+#ifndef VSYNC_TEST_CASE_H
+#define VSYNC_TEST_CASE_H
 
 vsize_t ds_idx = 0;
 
@@ -32,7 +35,6 @@ t1(vsize_t tid)
         ASSERT(msg_pushed_2);
         val = pop(tid, ds_idx);
         ASSERT(val == 1);
-
     } else if (val == 1) {
         ASSERT(msg_pushed_1);
     }
@@ -49,3 +51,4 @@ void
 post(void)
 {
 }
+#endif

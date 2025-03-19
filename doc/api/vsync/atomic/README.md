@@ -49,7 +49,7 @@ For the declaration and definition of the core atomic operations and fences, inc
 
 For a set of advanced atomic operations optimized for politely waiting (spinning), include [await.h](await.h.md).
 
-For readability and ease of use, include dispatch.h. It introduces several macro dispatchers prefixed with vatomic_. These dispatchers map to the call to the respective vatomic8_, vatomic16_, vatomic32_ or vatomi64_ functions depending on the type/size of the arguments. For example, vatomic_read(a) is the same as vatomic32_read(a) if the type of `a` is vatomic32_t.
+For readability and ease of use, include [dispatch.h](internal_2dispatch_8h). It introduces several macro dispatchers prefixed with vatomic_. These dispatchers map to the call to the respective vatomic8_, vatomic16_, vatomic32_ or vatomi64_ functions depending on the type/size of the arguments. For example, [vatomic_read(a)](dispatch.h.md#macro-vatomic_read) is the same as vatomic32_read(a) if the type of `a` is vatomic32_t.
 
 More advanced stamped and marked atomic pointers are available in [atomicptr_stamped.h](atomicptr_stamped.h.md) and [atomicptr_markable.h](atomicptr_markable.h.md).
 
@@ -119,6 +119,7 @@ main(void)
 | [vsync/atomic/core_u32.h](core_u32.h.md)|Atomic functions for vatomic32_t variables. |
 | [vsync/atomic/core_u64.h](core_u64.h.md)|Atomic functions for vatomic64_t variables. |
 | [vsync/atomic/core_u8.h](core_u8.h.md)|Atomic functions for vatomic8_t variables. |
+| [vsync/atomic/dispatch.h](dispatch.h.md)|Set of macros to dispatch atomic functions. |
 
 
 ---

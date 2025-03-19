@@ -1,13 +1,14 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
+#ifndef VSYNC_TEST_CASE_H
+#define VSYNC_TEST_CASE_H
 vsize_t ds_idx = 0;
 
 #define MAX_PUSHING 4
 int pop_counters[MAX_PUSHING] = {0};
-
 
 void
 pre(void)
@@ -16,7 +17,6 @@ pre(void)
         push(NTHREADS, ds_idx, i);
     }
 }
-
 
 void
 update_counters(vuintptr_t val)
@@ -59,7 +59,6 @@ t1(vsize_t tid)
     push(tid, ds_idx, 4);
 }
 
-
 void
 t2(vsize_t tid)
 {
@@ -82,3 +81,4 @@ post(void)
     }
     ASSERT(count_not_popped == 1);
 }
+#endif

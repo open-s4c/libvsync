@@ -95,5 +95,6 @@ main(void)
     // Launch threads
     launch_threads(NUM_THREADS + 1, run);
     free(g_arr);
+    g_arr = NULL;
     return 0;
 }

@@ -1,10 +1,10 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
-#ifndef VSYNC_TREESET_ALLOC
-#define VSYNC_TREESET_ALLOC
+#ifndef VSYNC_TREESET_ALLOC_H
+#define VSYNC_TREESET_ALLOC_H
 
 static inline treeset_node_t *
 _treeset_get_node(treeset_t *tree)

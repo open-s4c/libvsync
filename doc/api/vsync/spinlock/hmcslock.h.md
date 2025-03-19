@@ -145,7 +145,9 @@ _Returns the address of the lock associated with the core id._
 - `core_id`: core id of the calling thread.
 
 
-**Returns:** hmcslock_t* address of hmcslock_t object, which the calling thread should use to acquire the lock. 
+**Returns:** hmcslock_t* address of hmcslock_t object, which the calling thread should use to acquire the lock.
+
+**Returns:** NULL when `HMCS_MAX_THREADS` is too small. 
 
 
 

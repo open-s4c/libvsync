@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: MIT
  */
 
+#ifndef VSYNC_TEST_CASE_H
+#define VSYNC_TEST_CASE_H
 /* Preinsert keys \in [0, 1] in all lists */
 #define INIT_K1 0
 #define INIT_K2 1
@@ -52,3 +54,4 @@ post(void)
     lst_verify_traces(g_fst_lst_idx);
     lst_verify_traces(g_2nd_lst_idx);
 }
+#endif

@@ -93,7 +93,7 @@ _Initializer of_ `rec_ticketlock`_._
 ##  Function `rec_ticketlock_init`
 
 ```c
-static void rec_ticketlock_init(rec_ticketlock_t *l)
+static void rec_ticketlock_init(struct rec_ticketlock_s *l)
 ``` 
 _Initializes the recursive ticketlock._ 
 
@@ -111,7 +111,7 @@ _Initializes the recursive ticketlock._
 ##  Function `rec_ticketlock_acquire`
 
 ```c
-static void rec_ticketlock_acquire(rec_ticketlock_t *l, vuint32_t id)
+static void rec_ticketlock_acquire(struct rec_ticketlock_s *l, vuint32_t id)
 ``` 
 _Acquires the recursive ticketlock._ 
 
@@ -131,7 +131,7 @@ This function can be called multiple times by the same thread, consecutively.
 ##  Function `rec_ticketlock_release`
 
 ```c
-static void rec_ticketlock_release(rec_ticketlock_t *l)
+static void rec_ticketlock_release(struct rec_ticketlock_s *l)
 ``` 
 _Releases the recursive ticketlock._ 
 
@@ -150,7 +150,7 @@ To fully release the lock, this function should be called the same number of tim
 ##  Function `rec_ticketlock_tryacquire`
 
 ```c
-static vbool_t rec_ticketlock_tryacquire(rec_ticketlock_t *l, vuint32_t id)
+static vbool_t rec_ticketlock_tryacquire(struct rec_ticketlock_s *l, vuint32_t id)
 ``` 
 _Tries to acquire the recursive ticketlock._ 
 

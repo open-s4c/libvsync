@@ -10,6 +10,8 @@
  *
  * If the macros are not defined, we mock the futex syscall with a simple
  * spinning mechanism.
+ *
+ * @note on linux compile with `-D_GNU_SOURCE`.
  ******************************************************************************/
 #include <vsync/atomic.h>
 #include <limits.h>
@@ -42,10 +44,6 @@ vfutex_wake(vatomic32_t *m, vuint32_t v)
 }
 
 #elif defined(__linux__)
-
-    #ifndef _GNU_SOURCE
-        #define _GNU_SOURCE
-    #endif /* _GNU_SOURCE */
     #include <errno.h>
     #include <stdlib.h>
     #include <stdio.h>
@@ -65,7 +63,6 @@ vfutex_wait(vatomic32_t *m, vuint32_t v)
 {
     long s = 0;
     s      = _vfutex_call((int *)m, FUTEX_WAIT, (int)v);
-
     if (s == -1 && errno == EAGAIN) {
         return;
     }
@@ -81,7 +78,6 @@ vfutex_wake(vatomic32_t *m, vuint32_t nthreads)
 {
     long s = 0;
     s      = _vfutex_call((int *)m, FUTEX_WAKE, (int)nthreads);
-
     if (s == -1) {
         perror("futex_wake failed");
         exit(EXIT_FAILURE);

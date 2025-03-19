@@ -68,13 +68,13 @@ Dice and Kogan - [TWA - Ticket Locks Augmented with a Waiting Array, EuroPar-19]
 
 | Macro | Description |
 |---|---|
-| [TWALOCK_ARRAY_DECL](twalock.h.md#macro-twalock_array_decl) | TWALOCK_ARRAY_DECL declares the global __twa_array variable.  |
+| [TWALOCK_ARRAY_DECL](twalock.h.md#macro-twalock_array_decl) | TWALOCK_ARRAY_DECL declares the global g_vtwa_array variable.  |
 | [TWALOCK_INIT](twalock.h.md#macro-twalock_init) | Initializer of `twalock_t`.  |
 
 ##  Macro `TWALOCK_ARRAY_DECL`
 
  
-_TWALOCK_ARRAY_DECL declares the global __twa_array variable._ 
+_TWALOCK_ARRAY_DECL declares the global g_vtwa_array variable._ 
 
 
 

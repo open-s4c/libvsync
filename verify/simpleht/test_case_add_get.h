@@ -1,9 +1,11 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
 
+#ifndef VSYNC_TEST_CASE_H
+#define VSYNC_TEST_CASE_H
 #define PRE_KEYS_LEN 2U
 
 vuintptr_t g_pre_keys[PRE_KEYS_LEN] = {1, 3};
@@ -51,3 +53,4 @@ post(void)
     data_t *data = imap_get(MAIN_TID, g_new_key);
     ASSERT(data);
 }
+#endif
