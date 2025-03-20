@@ -41,7 +41,7 @@ jobs:
       - name: Build Verification Clients for ${{ matrix.test-dir }}
         run: cmake --build build/${{ matrix.test-dir.p }}/${{ matrix.test-dir.c }}
       - name: Run Verification
-        run: ctest --test-dir build/${{ matrix.test-dir.p }}/${{ matrix.test-dir.c }} -V -R check* --output-on-failure
+        run: ctest --test-dir build/${{ matrix.test-dir.p }}/${{ matrix.test-dir.c }} -R check* --output-on-failure
       - name: Upload vsyncer report
         uses: actions/upload-artifact@v4
         if: always()
@@ -81,6 +81,9 @@ jobs:
           cat "${CSV_FILES[0]}" | head -n 1 > verification_report.csv
           cat "${CSV_FILES[@]}" | grep -E --invert '^#' >> verification_report.csv
           cat verification_report.csv
+      - name: check skipped
+        run: |
+          if grep -q 'internalError' verification_report.csv; then echo "ERROR: Skipped checks were detected"; exit 1; fi
       - name: upload final report
         uses: actions/upload-artifact@v4
         if: always()
