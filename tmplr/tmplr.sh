@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 FILE=$0
 FILE=${FILE%.*}

@@ -1,5 +1,5 @@
 name: libvsync actions
-on: [push, pull_request]
+on: [pull_request]
 jobs:
   ###########################################################################
   Run-Tests:
@@ -68,7 +68,7 @@ jobs:
             (echo "Run 'make ${{ matrix.target }}' and commit" && false)
   ###########################################################################
   Generate-Report:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     needs: Run-Checks
     steps:
       - uses: actions/download-artifact@v4

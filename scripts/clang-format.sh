@@ -19,12 +19,20 @@ if [ "${STYLE}" != "" ]; then
     STYLE=":${STYLE}"
 fi
 
-# Apply clang-format to all *.h and *.c files in src folder.
-find "$@" \( -name '*.h' -o -name '*.c' -o -name '*.cpp' -o -name '*.hpp' -o -name '*.cxx' \) \
-    -not -path '*/build/*' \
-    -not -path '*/deps/*' \
-    -type f \
-    -exec clang-format -style=file${STYLE} -i {} +
+if [ -z "${IGNORE}" ]; then
+    IGNORE=".format.ignore"
+fi
+
+if [ ! -f "${IGNORE}" ]; then
+    echo "No ignore file"
+    exit 1
+fi
+IGNORE_GREP="grep -E --invert-match -f ${IGNORE}"
+
+git ls-files "$@" |
+    grep -E '(\.c|\.cpp|\.h|\.hpp|\.h\.in|\.hpp\.in)$' |
+    ${IGNORE_GREP} |
+    xargs clang-format -style=file${STYLE} -i
 
 if [ "${SILENT}" != "true" ]; then
     # Display changed files and exit with 1 if there were differences.

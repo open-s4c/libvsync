@@ -52,16 +52,20 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 
     set(CMAKE_STYLE_FILE ${PROJECT_SOURCE_DIR}/.cmake-format)
 
-    add_custom_target(cmake-format-apply COMMAND env STYLE=${CMAKE_STYLE_FILE}
-                                                 SILENT=true ${CMAKE_FMT_CMD})
+    add_custom_target(
+        cmake-format-apply
+        COMMAND env STYLE=${CMAKE_STYLE_FILE} SILENT=true ${CMAKE_FMT_CMD}
+        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
 
     set(CLANG_FMT_CMD ${PROJECT_SOURCE_DIR}/scripts/clang-format.sh
                       ${CMAKE_SOURCE_DIR})
 
     set(CLANG_STYLE_FILE ${PROJECT_SOURCE_DIR}/.clang-format)
 
-    add_custom_target(clang-format-apply COMMAND env STYLE=${CLANG_STYLE_FILE}
-                                                 SILENT=true ${CLANG_FMT_CMD})
+    add_custom_target(
+        clang-format-apply
+        COMMAND env STYLE=${CLANG_STYLE_FILE} SILENT=true ${CLANG_FMT_CMD}
+        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR})
 
     add_custom_target(
         sanitize-vsync

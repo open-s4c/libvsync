@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
 # This script fixes code formatting issues, which are not covered by normal clang-format.
@@ -22,7 +22,19 @@ set -e
 
 echo "Running sanatize on $(pwd)"
 
-FILES=$(git ls-files '*.h' '*.c' | grep -v "/build/" | grep -v "tmplr/" | grep -vE "^$(git ls-files -d | paste -sd "|" -)$")
+if [ -z "${IGNORE}" ]; then
+    IGNORE=".sanitize.ignore"
+fi
+
+if [ ! -f "${IGNORE}" ]; then
+    echo "No ignore file"
+    exit 1
+fi
+IGNORE_GREP="grep -E --invert-match -f ${IGNORE}"
+
+FILES=$(git ls-files '*.h' '*.c' '*.hpp' '*.cpp' |
+    ${IGNORE_GREP} |
+    grep -vE "^$(git ls-files -d | paste -sd "|" -)$")
 
 #YEAR=$(date +%Y)
 
@@ -36,29 +48,33 @@ COPYRIGHT_TEXT="\
 declare -a VTYPE_HEADERS=("<vsync/vstdint.h>" "<stdint.h>" "<stdbool.h>" "<inttypes.h>" "<stdbool.h>" "<stddef.h>")
 declare -a VTYPE_TYPES=("size_t" "bool")
 
+if [ -z "${SED}" ]; then
+    SED=sed
+fi
+
 for f in ${FILES}; do
     # echo $f
     if [[ "$f" == include/vsync/* ]] || [[ "$f" == test/atomics_gen/* ]] ; then
         # insert space after /* if missing
-        sed -i -e 's|\/\*\([^ *]\)|/* \1|g' $f
+        $SED -i -e 's|\/\*\([^ *]\)|/* \1|g' $f
 
         # insert space before */ if missing
-        sed -i -e 's|\([^ *]\)\*\/|\1 */|g' $f
+        $SED -i -e 's|\([^ *]\)\*\/|\1 */|g' $f
 
         # insert space after .*// if missing (not starting line)
-        sed -i -e 's|\([^:]\)\/\/\([^\/ ]\)|\1// \2|g' $f
+        $SED -i -e 's|\([^:]\)\/\/\([^\/ ]\)|\1// \2|g' $f
 
         # insert space after ^// if missing (starting line)
-        sed -i -e 's|^\/\/\([^\/ ]\)|// \1|g' $f
+        $SED -i -e 's|^\/\/\([^\/ ]\)|// \1|g' $f
 
         # remove blank lines at the end of code block defined by braces
-        sed -i -r -z 's|\n+(\n\s*})|\1|g' $f
+        $SED -i -r -z 's|\n+(\n\s*})|\1|g' $f
 
         # remove consequtive empty lines
-        sed -i 'N;/^\n$/D;P;D;' $f
+        $SED -i 'N;/^\n$/D;P;D;' $f
 
         # add newline at end of file
-        sed -i -e '$a\' ${f}
+        $SED -i -e '$a\' ${f}
     fi
 
     # add copy write notice to public files
@@ -78,7 +94,7 @@ for f in ${FILES}; do
     if [ -z "$EXISTING_COPYRIGHT" ]; then
         NOTICE="${COPYRIGHT_TEXT/<RANGE>/$REPLACEMENT}"
         echo "Adding copyrights to $f"
-        sed -i "1s;^;${NOTICE};" ${f}
+        $SED -i "1s;^;${NOTICE};" ${f}
     else
         REGEX="Ltd\. ([0-9]+)\-?([0-9]+)?"
         if [[ $EXISTING_COPYRIGHT =~ $REGEX ]]; then
@@ -100,7 +116,7 @@ for f in ${FILES}; do
 
         if [[ $REPLACEMENT != $ORIGINAL ]]; then
             echo "Updating copyrights notice in ${f} ${ORIGINAL} ==> ${REPLACEMENT}"
-            sed -i 's|Ltd. '${ORIGINAL}'\. All|Ltd. '${REPLACEMENT}'. All|g' ${f}
+            $SED -i 's|Ltd. '${ORIGINAL}'\. All|Ltd. '${REPLACEMENT}'. All|g' ${f}
         fi
     fi
 

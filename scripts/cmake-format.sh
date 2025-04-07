@@ -21,22 +21,19 @@ if [ -z "${STYLE}" ]; then
 fi
 
 if [ -z "${IGNORE}" ]; then
-    IGNORE=.cmake-format.ignore
+    IGNORE=".format.ignore"
 fi
 
-# check if the ignore file really exists otherwise do not use it
-if [ -f $IGNORE ]; then
-    # Apply cmake-format to all committed CMake files in the repo.
-    git ls-files "$@" |
-        grep -E 'CMakeLists.txt$|.*\.cmake(\.in)?$' |
-        grep -E --invert-match -f "${IGNORE}" |
-        xargs cmake-format -c "${STYLE}" -i
-else
-    echo -e "\e[33mWarning: $IGNORE does not exist!\e[0m"
-    git ls-files "$@" |
-        grep -E 'CMakeLists.txt$|.*\.cmake(\.in)?$' |
-        xargs cmake-format -c "${STYLE}" -i
+if [ ! -f "${IGNORE}" ]; then
+    echo "No ignore file"
+    exit 1
 fi
+IGNORE_GREP="grep -E --invert-match -f ${IGNORE}"
+
+git ls-files "$@" |
+    grep -E 'CMakeLists.txt$|.*\.cmake(\.in)?$' |
+    ${IGNORE_GREP} |
+    xargs cmake-format -c "${STYLE}" -i
 
 if [ "${SILENT}" != "true" ]; then
     # Display changed files and exit with 1 if there were differences.
