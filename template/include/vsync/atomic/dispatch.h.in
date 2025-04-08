@@ -1,0 +1,267 @@
+/*
+ * Copyright (C) Huawei Technologies Co., Ltd. 2022-2025. All rights reserved.
+ * SPDX-License-Identifier: MIT
+ */
+
+#ifndef VATOMIC_DISPATCH_H
+#define VATOMIC_DISPATCH_H
+/*******************************************************************************
+ * @file dispatch.h
+ * @brief Set of macros to dispatch atomic functions.
+ *
+ * These macros select the atomic function variant based on the
+ * argument type, for example, vatomic_read(a) calls vatomic32_read(a) if `a` is
+ * a vatomic32_t and calls vatomic64_read(a) if `a` is a vatomic64_t.
+ * vatomicptr_t is mapped to either 32 or 64 bits functions depending on the
+ * architecture.
+ ******************************************************************************/
+_tmpl_begin(=);
+AUTOGEN
+_tmpl_end;
+#define _tmpl_mute
+#include <vsync/vtypes.h>
+#include <vsync/atomic/tmplr.h>
+#define vatomic_OP1
+#define MAP_MAP_DIS_COND_OP
+#define MO_DRP_VARIANT_DRP
+#define DRP_OP_MO
+#define _tmpl_unmute
+_tmpl_dl;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // Select dispatcher type based on COND for await_COND
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_map(MAP_DIS_eq, ALL_RET);
+_tmpl_map(MAP_DIS_neq, ALL_RET);
+_tmpl_map(MAP_DIS_le, INT_RET);
+_tmpl_map(MAP_DIS_lt, INT_RET);
+_tmpl_map(MAP_DIS_gt, INT_RET);
+_tmpl_map(MAP_DIS_ge, INT_RET);
+_tmpl_dl;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // Select text on COND for await_COND
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_map(MAP_RET_eq, previously read value);
+_tmpl_map(MAP_RET_neq, value satisfying condition);
+_tmpl_map(MAP_RET_lt, value satisfying condition);
+_tmpl_map(MAP_RET_le, value satisfying condition);
+_tmpl_map(MAP_RET_gt, value satisfying condition);
+_tmpl_map(MAP_RET_ge, value satisfying condition);
+_tmpl_dl;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // Content starts here
+_tmpl_dl; // -------------------------------------------------------------------
+
+#include <vsync/atomic/internal/dispatch.h>
+
+/* *****************************************************************************
+ * init
+ * ****************************************************************************/
+
+/**
+ * @def vatomic_init(a, v)
+ * @brief Dispatches init calls with configurable memory order.
+ *
+ * See @ref vatomic32_init for details.
+ *
+ * @param a atomic variable
+ * @param v initial value
+ */
+#define vatomic_init(a, v) vatomic_write(a, v)
+
+/* *****************************************************************************
+ * read/write/xchg/cmpxchg
+ * ****************************************************************************/
+
+_tmpl_begin(MO = [[seq; acq; rlx]]);
+/**
+ * @def vatomic_read_MS(a)
+ * @brief Dispatches read calls with ME memory order.
+ *
+ * See @ref vatomic32_read_MS for details.
+ *
+ * @param a atomic variable
+ * @return current value
+ * @memord ME
+ */
+#define vatomic_read_MS(a) V_DISPATCH(ALL_RET, read, mo_MO, a)
+_tmpl_end;
+
+_tmpl_begin(MO = [[seq; rel; rlx]]);
+/**
+ * @def vatomic_write_MS(a, v)
+ * @brief Dispatches write calls with ME memory order.
+ *
+ * See @ref vatomic32_write_MS for details.
+ *
+ * @param a atomic variable
+ * @param v new value
+ * @memord ME
+ */
+#define vatomic_write_MS(a, v) V_DISPATCH(ALL, write, mo_MO, a, v)
+_tmpl_end;
+
+_tmpl_begin(MO = [[seq; acq; rel; rlx]]);
+/**
+ * @def vatomic_xchg_MS(a, v)
+ * @brief Dispatches xchg calls with ME memory order.
+ *
+ * See @ref vatomic32_xchg_MS for details.
+ *
+ * @param a atomic variable
+ * @param v new value
+ * @return old value
+ * @memord ME
+ */
+#define vatomic_xchg_MS(a, v) V_DISPATCH(ALL_RET, xchg, mo_MO, a, v)
+_tmpl_end;
+
+_tmpl_begin(MO = [[seq; acq; rel; rlx]]);
+/**
+ * @def vatomic_cmpxchg_MS(a, c, v)
+ * @brief Dispatches cmpxchg calls with ME memory order.
+ *
+ * See @ref vatomic32_cmpxchg_MS for details.
+ *
+ * @param a atomic variable
+ * @param c expected value
+ * @param v new value
+ * @return old value
+ * @memord ME
+ */
+#define vatomic_cmpxchg_MS(a, c, v) V_DISPATCH(ALL_RET, cmpxchg, mo_MO, a, c, v)
+_tmpl_end;
+
+/* *****************************************************************************
+ * RMW with 1 argument
+ * ****************************************************************************/
+
+_tmpl_begin(OP1 = [[inc; dec]], MO = [[seq; rel; rlx]]);
+/**
+ * @def vatomic_OP1_MS(a)
+ * @brief Dispatches OP1 calls with ME memory order.
+ *
+ * See @ref vatomic32_OP1_MS for details.
+ *
+ * @param a atomic variable
+ * @memord ME
+ */
+#define vatomic_OP1_MS(a) V_DISPATCH(INT, OP1, mo_MO, a)
+_tmpl_end;
+
+_tmpl_begin(OP1 = [[inc; dec]], MO = [[seq; acq; rel; rlx]]);
+/**
+ * @def vatomic_OP1_get_MS(a)
+ * @brief Dispatches OP1_get calls with ME memory order.
+ *
+ * See vatomic32_OP1_get_MS for details.
+ *
+ * @param a atomic variable
+ * @return new value
+ * @memord ME
+ */
+#define vatomic_OP1_get_MS(a) V_DISPATCH(INT_RET, OP1_get, mo_MO, a)
+_tmpl_end;
+
+_tmpl_begin(OP1 = [[inc; dec]], MO = [[seq; acq; rel; rlx]]);
+/**
+ * @def vatomic_get_OP1_MS(a)
+ * @brief Dispatches get_OP1 calls with ME memory order.
+ *
+ * See vatomic32_get_OP1_MS for details.
+ *
+ * @param a atomic variable
+ * @return old value
+ * @memord ME
+ */
+#define vatomic_get_OP1_MS(a) V_DISPATCH(INT_RET, get_OP1, mo_MO, a)
+_tmpl_end;
+
+/* *****************************************************************************
+ * RMW with 2 argument
+ * ****************************************************************************/
+
+_tmpl_begin(OP2 = [[add; sub; and; xor ; or ; max]], MO = [[seq; rel; rlx]]);
+/**
+ * @def vatomic_OP2_MS(a, v)
+ * @brief Dispatches OP2 calls with ME memory order.
+ *
+ * See @ref vatomic32_OP2_MS for details.
+ *
+ * @param a atomic variable
+ * @param v operand value
+ * @memord ME
+ */
+#define vatomic_OP2_MS(a, v) V_DISPATCH(INT, OP2, mo_MO, a, v)
+_tmpl_end;
+
+_tmpl_begin(OP2 = [[add; sub; and; xor ; or ; max]],
+            MO  = [[seq; acq; rel; rlx]]);
+/**
+ * @def vatomic_OP2_get_MS(a, v)
+ * @brief Dispatches OP2_get calls with ME memory order.
+ *
+ * See @ref vatomic32_OP2_get_MS for details.
+ *
+ * @param a atomic variable
+ * @param v operand value
+ * @return new value
+ * @memord ME
+ */
+#define vatomic_OP2_get_MS(a, v) V_DISPATCH(INT_RET, OP2_get, mo_MO, a, v)
+_tmpl_end;
+
+_tmpl_begin(OP2 = [[add; sub; and; xor ; or ; max]],
+            MO  = [[seq; acq; rel; rlx]]);
+/**
+ * @def vatomic_get_OP2(a, v, mo)
+ * @brief Dispatches get_OP2 calls with ME memory order.
+ *
+ * See @ref vatomic32_get_OP2_MS for details.
+ *
+ * @param a atomic variable
+ * @param v operand value
+ * @return old value
+ * @memord ME
+ */
+#define vatomic_get_OP2_MS(a, v) V_DISPATCH(INT_RET, get_OP2, mo_MO, a, v)
+_tmpl_end;
+
+/* *****************************************************************************
+ * await functions
+ * ****************************************************************************/
+
+_tmpl_begin(COND = [[eq; neq; le; lt; gt; ge]], MO = [[seq; acq; rlx]]);
+/**
+ * @def vatomic_await_COND_MS(a, c)
+ * @brief Dispatches await_COND calls with ME memory order.
+ *
+ * See @ref vatomic32_await_COND_MS for details.
+ *
+ * @param a atomic variable
+ * @param c condition value
+ * @return MAP_RET_COND
+ * @memord ME
+ */
+#define vatomic_await_COND_MS(a, c)                                            \
+    V_DISPATCH32(MAP_DIS_COND, await_COND, mo_MO, a, c)
+_tmpl_end;
+
+_tmpl_begin(COND = [[eq; neq; le; lt; gt; ge]], OP = [[set; sub; add]],
+            MO = [[seq; acq; rel; rlx]]);
+/**
+ * @def vatomic_await_COND_OP_MS(a, c, v)
+ * @brief Dispatches await_COND_OP calls with ME memory order.
+ *
+ * See @ref vatomic32_await_COND_OP_ME for details.
+ *
+ * @param a atomic variable
+ * @param c condition value
+ * @param v operand value
+ * @return MAP_RET_COND
+ * @memord ME
+ */
+#define vatomic_await_COND_OP_MS(a, c, v)                                      \
+    V_DISPATCH32(MAP_DIS_COND, await_COND_OP, mo_MO, a, c, v)
+_tmpl_end;
+
+#endif /* VATOMIC_DISPATCH_H */

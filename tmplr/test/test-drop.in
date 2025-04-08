@@ -1,0 +1,6 @@
+_tmpl_map(FILTER_ptr_lt, DROP!);
+_tmpl_begin(TY = [[ptr]], COND = [[neq;lt]], MO = [[seq]], DROP!=_tmpl_skip, FILTER=_tmpl_dl);
+FILTER_TY_COND;
+static inline TT _vatomic_await_COND_MS(AA *a, TT v);
+_tmpl_end;
+ 
