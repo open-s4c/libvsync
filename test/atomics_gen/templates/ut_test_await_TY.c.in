@@ -1,0 +1,182 @@
+/*
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2025. All rights reserved.
+ * SPDX-License-Identifier: MIT
+ */
+
+_tmpl_begin(=);
+AUTOGEN
+_tmpl_end;
+#include <assert.h>
+#include <vsync/atomic.h>
+#define _tmpl_mute
+#include <vsync/atomic/tmplr.h>
+#include <vsync/atomic/core.h.in>
+#define _tmpl_unmute
+_tmpl_begin(TY = [[u64]]);
+#define VUINT64_VAL ((((vuint64_t)0xF) << 32U) | ((vuint64_t)VUINT32_MAX))
+_tmpl_end;
+_tmpl_begin(TY = [[u32]]);
+#define VUINT32_VAL ((((vuint32_t)0xF) << 16U) | ((vuint32_t)VUINT16_MAX))
+_tmpl_end;
+_tmpl_begin(TY = [[u16]]);
+#define VUINT16_VAL ((((vuint16_t)0xF) << 8U) | ((vuint16_t)VUINT8_MAX))
+_tmpl_end;
+_tmpl_begin(TY = [[u8]]);
+#define VUINT8_VAL ((((vuint8_t)0xF)))
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // init values
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_map(MAP_INIT_ptr, NULL);
+_tmpl_map(MAP_INIT_u8, VUINT8_VAL);
+_tmpl_map(MAP_INIT_u16, VUINT16_VAL);
+_tmpl_map(MAP_INIT_u32, VUINT32_VAL);
+_tmpl_map(MAP_INIT_u64, VUINT64_VAL);
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // max values
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_map(MAP_MAX_ptr, (void *)VUINTPTR_MAX);
+_tmpl_map(MAP_MAX_u8, VUINT8_MAX);
+_tmpl_map(MAP_MAX_u16, VUINT16_MAX);
+_tmpl_map(MAP_MAX_u32, VUINT32_MAX);
+_tmpl_map(MAP_MAX_u64, VUINT64_MAX);
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // MAP_OP
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_map(MAP_set, );
+_tmpl_map(MAP_add, +);
+_tmpl_map(MAP_sub, -);
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // MAP_VAL
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_map(MAP_CUR_VAL_eq, MAP_INIT_TY);
+_tmpl_map(MAP_WAIT_VAL_eq, MAP_INIT_TY);
+_tmpl_map(MAP_CUR_VAL_neq, MAP_INIT_TY);
+_tmpl_map(MAP_WAIT_VAL_neq, MAP_MAX_TY);
+_tmpl_map(MAP_CUR_VAL_le, MAP_INIT_TY);
+_tmpl_map(MAP_WAIT_VAL_le, MAP_MAX_TY);
+_tmpl_map(MAP_CUR_VAL_gt, MAP_MAX_TY);
+_tmpl_map(MAP_WAIT_VAL_gt, MAP_INIT_TY);
+_tmpl_map(MAP_CUR_VAL_ge, MAP_INIT_TY);
+_tmpl_map(MAP_WAIT_VAL_ge, MAP_INIT_TY);
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // await eq/neq
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [[u8; u16; u32; u64; ptr]], MO = [[seq; acq; rlx]],
+            OP = [[eq; neq]]);
+/*****************************************************************************
+ * UnitTest: __vatomic_await_OP_MS
+ *****************************************************************************/
+static inline void
+ut_atomic_TY_await_OP_MS(void)
+{
+    AA obj = {MAP_CUR_VAL_OP};
+    TT val = __vatomic_await_OP_MS(&obj, MAP_WAIT_VAL_OP);
+    assert(val == MAP_CUR_VAL_OP);
+    V_UNUSED(val);
+}
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; ptr]], MO = [[seq; rel; acq; rlx]],
+            OP = [[eq; neq]]);
+/*****************************************************************************
+ * UnitTest: __vatomic_await_OP_set_MS
+ *****************************************************************************/
+static inline void
+ut_atomic_TY_await_OP_set_MS(void)
+{
+    AA obj   = {MAP_CUR_VAL_OP};
+    TT n_val = (TT)0xFF;
+    TT val   = __vatomic_await_OP_set_MS(&obj, MAP_WAIT_VAL_OP, n_val);
+    assert(val == MAP_CUR_VAL_OP);
+    val = __vatomic_read(&obj);
+    assert(val == n_val);
+    V_UNUSED(val);
+}
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64]], MO = [[seq; acq; rlx]],
+            OP = [[le; gt; ge]]);
+/*****************************************************************************
+ * UnitTest: __vatomic_await_OP_MS
+ *****************************************************************************/
+static inline void
+ut_atomic_TY_await_OP_MS(void)
+{
+    AA obj = {MAP_CUR_VAL_OP};
+    TT val = __vatomic_await_OP_MS(&obj, MAP_WAIT_VAL_OP);
+    assert(val == MAP_CUR_VAL_OP);
+    V_UNUSED(val);
+}
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64]], MO = [[seq; rel; acq; rlx]],
+            OP = [[le; gt; ge]]);
+/*****************************************************************************
+ * UnitTest: __vatomic_await_OP_set_MS
+ *****************************************************************************/
+static inline void
+ut_atomic_TY_await_OP_set_MS(void)
+{
+    AA obj   = {MAP_CUR_VAL_OP};
+    TT n_val = (TT)0xFF;
+    TT val   = __vatomic_await_OP_set_MS(&obj, MAP_WAIT_VAL_OP, n_val);
+    assert(val == MAP_CUR_VAL_OP);
+    val = __vatomic_read(&obj);
+    assert(val == n_val);
+    V_UNUSED(val);
+}
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64]], MO = [[seq; rel; acq; rlx]],
+            CON = [[neq; eq; le; gt; ge]], OP = [[add; sub]]);
+/*****************************************************************************
+ * UnitTest: __vatomic_await_CON_OP_MS
+ *****************************************************************************/
+static inline void
+ut_atomic_TY_await_CON_OP_MS(void)
+{
+    AA obj = {MAP_CUR_VAL_CON};
+    TT ref = MAP_CUR_VAL_CON;
+    TT val = __vatomic_await_CON_OP_MS(&obj, MAP_WAIT_VAL_CON, 0x1U);
+    assert(val == MAP_CUR_VAL_CON);
+    ref = ref MAP_OP 0x1U;
+    val = __vatomic_read(&obj);
+    assert(val == ref);
+    V_UNUSED(val, ref);
+}
+_tmpl_end;
+/*****************************************************************************
+ * Entry point
+ *****************************************************************************/
+int
+main(void)
+{
+    _tmpl_begin(TY = [[u8; u16; u32; u64; ptr]], MO = [[seq; acq; rlx]],
+                OP = [[eq; neq]]);
+    ut_atomic_TY_await_OP_MS();
+    _tmpl_end;
+
+    _tmpl_begin(TY = [[u8; u16; u32; u64; ptr]], MO = [[seq; rel; acq; rlx]],
+                OP = [[eq; neq]]);
+    ut_atomic_TY_await_OP_set_MS();
+    _tmpl_end;
+
+    _tmpl_begin(TY = [[u8; u16; u32; u64]], MO = [[seq; acq; rlx]],
+                OP = [[le; gt; ge]]);
+    ut_atomic_TY_await_OP_MS();
+    _tmpl_end;
+
+    _tmpl_begin(TY = [[u8; u16; u32; u64]], MO = [[seq; rel; acq; rlx]],
+                OP = [[le; gt; ge]]);
+    ut_atomic_TY_await_OP_set_MS();
+    _tmpl_end;
+
+    _tmpl_begin(TY = [[u8; u16; u32; u64]], MO = [[seq; rel; acq; rlx]],
+                CON = [[neq; eq; le; gt; ge]], OP = [[add; sub]]);
+    ut_atomic_TY_await_CON_OP_MS();
+    _tmpl_end;
+
+    return 0;
+}
