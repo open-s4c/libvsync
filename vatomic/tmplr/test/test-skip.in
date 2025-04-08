@@ -1,0 +1,12 @@
+_tmpl_begin(TY = [[u32; ptr]], COND = [[eq; ge]],
+            OP = [[sub; set]], MO = [[seq]],
+            FILTER_ptr_eq = KEEP,
+            FILTER_ptr_set = KEEP,
+            FILTER_ptr = SKIP,
+            FILTER = KEEP,
+            KEEP = _tmpl_dl,
+            SKIP = _tmpl_skip);
+FILTER_TY_COND
+FILTER_TY_OP
+---> ty = TY, cond = COND, op = OP
+_tmpl_end;

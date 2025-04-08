@@ -1,0 +1,419 @@
+/*
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2025. All rights reserved.
+ * SPDX-License-Identifier: MIT
+ */
+
+#ifndef VATOMIC_FALLBACK_H
+#define VATOMIC_FALLBACK_H
+_tmpl_begin(=);
+AUTOGEN
+_tmpl_end;
+#define _tmpl_mute
+#include <vsync/atomic/tmplr.h>
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // LSP helpers
+_tmpl_dl; // -------------------------------------------------------------------
+#include <vsync/atomic/internal/builtins.h.in>
+/* remove static inline prefix to avoid 'function not used' warnings */
+#define inline
+#define static
+/* declare some prototypes to avoid 'undefined function' warnings */
+void __vatomic_write(AA *, TT);
+TT __vatomic_read_MX(AA *);
+TT __vatomic_read_MS(AA *);
+TT __vatomic_read_MW(AA *);
+TT __vatomic_await_eq_MW(AA *, TT);
+TT __vatomic_await_neq_MW(AA *, TT);
+/* define some macros to avoid warnings */
+#define M_OP  1U
+#define M_CND ==
+#define $F_TY_OP
+#define _tmpl_unmute
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // memory order mappings for MAX operations
+_tmpl_dl; //
+_tmpl_dl; // Fallback MAX uses a read and a cmpxchg. The map below refers to
+_tmpl_dl; // implicit barrier of the read.
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_map(MAP_MAX_seq, MAP_M_seq);
+_tmpl_map(MAP_MAX_acq, MAP_M_acq);
+_tmpl_map(MAP_MAX_rel, MAP_M_rlx);
+_tmpl_map(MAP_MAX_rlx, MAP_M_rlx);
+_tmpl_map(_MX, MAP_MAX_MO);
+_tmpl_dl;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // Memory order mapping for await_COND_OP
+_tmpl_dl; //
+_tmpl_dl; // Fallback await_COND_OP functions perform an await_COND call
+_tmpl_dl; // before trying to update (cmpxchg) the value with result of OP.
+_tmpl_dl; // The map below refers to the implicit barrier of the internal
+_tmpl_dl; // await_COND in the await_COND_OP.
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_map(MAP_AWAIT_READ_seq, MAP_M_seq);
+_tmpl_map(MAP_AWAIT_READ_acq, MAP_M_rlx);
+_tmpl_map(MAP_AWAIT_READ_rel, MAP_M_rlx);
+_tmpl_map(MAP_AWAIT_READ_rlx, MAP_M_rlx);
+_tmpl_map(_MW, MAP_AWAIT_READ_MO);
+_tmpl_dl;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // condition mapping for await_COND
+_tmpl_dl; //
+_tmpl_dl; // Requirement:
+_tmpl_dl; // - COND defined in iter_vars of block
+_tmpl_dl; // - COND in {le, lt, ge, gt, eq, neq}
+_tmpl_dl; //
+_tmpl_dl; // Usage of (a M_CND b):
+_tmpl_dl; //   COND=le --> (a <= b)
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_map(M_CND, MAP_COND);
+_tmpl_map(MAP_le, <=);
+_tmpl_map(MAP_lt, <);
+_tmpl_map(MAP_ge, >=);
+_tmpl_map(MAP_gt, >);
+_tmpl_map(MAP_eq, ==);
+_tmpl_map(MAP_neq, !=);
+_tmpl_dl;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // guards for function declarations
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_hook(begin, IFDEF_FUN);
+_tmpl_hook(end, ENDIF_FUN);
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // init values
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_map(MAP_INIT_ptr, NULL);
+_tmpl_map(MAP_INIT_sz, 0);
+_tmpl_map(MAP_INIT_u8, 0);
+_tmpl_map(MAP_INIT_u16, 0);
+_tmpl_map(MAP_INIT_u32, 0);
+_tmpl_map(MAP_INIT_u64, 0);
+_tmpl_dl;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // Main content starts here
+_tmpl_dl; // -------------------------------------------------------------------
+
+#include <vsync/common/await_while.h>
+#include <vsync/vtypes.h>
+
+/* *****************************************************************************
+ * vatomic_cpu_pause
+ * ****************************************************************************/
+
+#ifndef vatomic_cpu_pause
+    #define vatomic_cpu_pause()                                                \
+        do {                                                                   \
+        } while (0)
+#endif
+
+/* *****************************************************************************
+ * vatomic_{get_max, max, max_get}
+ * ****************************************************************************/
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]],
+            FUNC = get_max);
+static inline TT
+__vatomic_get_max_MS(AA *a, TT v)
+{
+    TT old = MAP_INIT_TY;
+    TT cur = __vatomic_read_MX(a);
+    do {
+        old = cur;
+        if (old >= v) {
+            break;
+        }
+        cur = __vatomic_cmpxchg_MS(a, old, v);
+    } while (cur != old);
+    return old;
+}
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]],
+            FUNC = max_get);
+static inline TT
+__vatomic_max_get_MS(AA *a, TT v)
+{
+    TT o = __vatomic_get_max_MS(a, v);
+    return o >= v ? o : v;
+}
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]], FUNC = max);
+static inline void
+__vatomic_max_MS(AA *a, TT v)
+{
+    (void)__vatomic_get_max_MS(a, v);
+}
+_tmpl_end;
+
+/* *****************************************************************************
+ * vatomic_{get_and, and, and_get}
+ * ****************************************************************************/
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]],
+            FUNC = and_get);
+static inline TT
+__vatomic_and_get_MS(AA *a, TT v)
+{
+    return __vatomic_get_and_MS(a, v) & v;
+}
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]], FUNC = and);
+static inline void
+__vatomic_and_MS(AA *a, TT v)
+{
+    (void)__vatomic_get_and_MS(a, v);
+}
+_tmpl_end;
+
+/* *****************************************************************************
+ * vatomic_{get_or, or, or_get}
+ * ****************************************************************************/
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]],
+            FUNC = or_get);
+static inline TT
+__vatomic_or_get_MS(AA *a, TT v)
+{
+    return __vatomic_get_or_MS(a, v) | v;
+}
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]], FUNC = or);
+static inline void
+__vatomic_or_MS(AA *a, TT v)
+{
+    (void)__vatomic_get_or_MS(a, v);
+}
+_tmpl_end;
+
+/* *****************************************************************************
+ * vatomic_{get_xor, xor, xor_get}
+ * ****************************************************************************/
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]],
+            FUNC = xor_get);
+static inline TT
+__vatomic_xor_get_MS(AA *a, TT v)
+{
+    return __vatomic_get_xor_MS(a, v) ^ v;
+}
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]], FUNC = xor);
+static inline void
+__vatomic_xor_MS(AA *a, TT v)
+{
+    (void)__vatomic_get_xor_MS(a, v);
+}
+_tmpl_end;
+
+/* *****************************************************************************
+ * vatomic_{get_add, add, get_add}
+ * ****************************************************************************/
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]],
+            FUNC = add_get);
+static inline TT
+__vatomic_add_get_MS(AA *a, TT v)
+{
+    return __vatomic_get_add_MS(a, v) + v;
+}
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]], FUNC = add);
+static inline void
+__vatomic_add_MS(AA *a, TT v)
+{
+    (void)__vatomic_get_add_MS(a, v);
+}
+_tmpl_end;
+
+/* *****************************************************************************
+ * vatomic_{get_inc, inc, inc_get}
+ * ****************************************************************************/
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]],
+            FUNC = get_inc);
+static inline TT
+__vatomic_get_inc_MS(AA *a)
+{
+    return __vatomic_get_add_MS(a, 1U);
+}
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]],
+            FUNC = inc_get);
+static inline TT
+__vatomic_inc_get_MS(AA *a)
+{
+    return __vatomic_add_get_MS(a, 1U);
+}
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]],
+            FUNC = inc);
+static inline void
+__vatomic_inc_MS(AA *a)
+{
+    (void)__vatomic_get_inc_MS(a);
+}
+_tmpl_end;
+
+/* *****************************************************************************
+ * vatomic_{get_sub, sub, sub_get}
+ * ****************************************************************************/
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]],
+            FUNC = sub_get);
+static inline TT
+__vatomic_sub_get_MS(AA *a, TT v)
+{
+    return __vatomic_get_sub_MS(a, v) - v;
+}
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]],
+            FUNC = sub);
+static inline void
+__vatomic_sub_MS(AA *a, TT v)
+{
+    (void)__vatomic_get_sub_MS(a, v);
+}
+_tmpl_end;
+
+/* *****************************************************************************
+ * vatomic_{get_dec, dec, dec_get}
+ * ****************************************************************************/
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]],
+            FUNC = get_dec);
+static inline TT
+__vatomic_get_dec_MS(AA *a)
+{
+    return __vatomic_get_sub_MS(a, 1U);
+}
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]],
+            FUNC = dec_get);
+static inline TT
+__vatomic_dec_get_MS(AA *a)
+{
+    return __vatomic_sub_get_MS(a, 1U);
+}
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]],
+            FUNC = dec);
+static inline void
+__vatomic_dec_MS(AA *a)
+{
+    (void)__vatomic_get_dec_MS(a);
+}
+_tmpl_end;
+
+/* *****************************************************************************
+ * vatomic_init
+ * ****************************************************************************/
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz; ptr]], MO = [[seq]], FUNC = init);
+static inline void
+__vatomic_init(AA *a, TT v)
+{
+    __vatomic_write(a, v);
+}
+_tmpl_end;
+
+/* *****************************************************************************
+ * vatomic_await_cond functions
+ * ****************************************************************************/
+_tmpl_begin(TY = [[u32; u64; ptr]], MO = [[seq; acq; rlx]], FUNC = await_neq);
+static inline TT
+__vatomic_await_neq_MS(const AA *a, TT c)
+{
+    TT cur = MAP_INIT_TY;
+    await_while ((cur = __vatomic_read_MS(a), cur == c)) {
+        vatomic_cpu_pause();
+    }
+    return cur;
+}
+_tmpl_end;
+
+_tmpl_begin(TY = [[u32; u64; ptr]], MO = [[seq; acq; rlx]], FUNC = await_eq);
+static inline TT
+__vatomic_await_eq_MS(const AA *a, TT c)
+{
+    TT ret = c;
+    TT o   = MAP_INIT_TY;
+    await_while ((o = __vatomic_read_MS(a)) != c) {
+        vatomic_cpu_pause();
+        ret = o;
+    }
+    return ret;
+}
+_tmpl_end;
+
+/* *****************************************************************************
+ * vatomic_await_COND functions
+ * ****************************************************************************/
+
+_tmpl_begin(TY = [[u32; u64]], COND = [[le; lt; ge; gt]],
+            MO = [[seq; acq; rlx]], FUNC = await_COND);
+static inline TT
+__vatomic_await_COND_MS(const AA *a, TT c)
+{
+    TT old = __vatomic_read_MS(a);
+    while (!(old M_CND c)) {
+        old = __vatomic_await_neq_MS(a, old);
+    }
+    return old;
+}
+_tmpl_end;
+
+/* *****************************************************************************
+ * vatomic_await_COND_OP functions
+ * ****************************************************************************/
+_tmpl_begin(TY = [[u32; u64]], COND = [[le; lt; ge; gt]],
+            OP = [[add; sub; set]], MO = [[seq; acq; rel; rlx]],
+            M_add = cur + v, M_sub = cur - v, M_set = v, FUNC = await_COND_OP);
+static inline TT
+__vatomic_await_COND_OP_MS(AA *a, TT c, TT v)
+{
+    (void)v; // _tmpl_dl;
+    TT cur = MAP_INIT_TY;
+    TT old = __vatomic_read_MW(a);
+    do {
+        cur = old;
+        while (!(cur M_CND c)) {
+            cur = __vatomic_await_neq_MW(a, cur);
+        }
+    } while ((old = __vatomic_cmpxchg_MS(a, cur, M_OP)) != cur);
+    return old;
+}
+_tmpl_end;
+
+_tmpl_begin(TY = [[u32; u64; ptr]], OP = [[add; sub; set]],
+            MO = [[seq; acq; rel; rlx]], FUNC = await_neq_OP, M_add = old + v,
+            M_sub = old - v, M_set = v, $F_ptr_set = BLK_KEEP,
+            $F_ptr = BLK_SKIP);
+$F_TY_OP;
+static inline TT
+__vatomic_await_neq_OP_MS(AA *a, TT c, TT v)
+{
+    (void)v; // _tmpl_dl
+    TT old = MAP_INIT_TY;
+    do {
+        old = __vatomic_await_neq_MW(a, c);
+    } while (__vatomic_cmpxchg_MS(a, old, M_OP) != old);
+    return old;
+}
+_tmpl_end;
+
+_tmpl_begin(TY = [[u32; u64; ptr]], OP = [[add; sub; set]],
+            MO = [[seq; acq; rel; rlx]], FUNC = await_eq_OP, M_add = c + v,
+            M_sub = c - v, M_set = v, $F_ptr_set = BLK_KEEP, $F_ptr = BLK_SKIP);
+$F_TY_OP;
+static inline TT
+__vatomic_await_eq_OP_MS(AA *a, TT c, TT v)
+{
+    (void)v; // _tmpl_dl
+    do {
+        (void)__vatomic_await_eq_MW(a, c);
+    } while (__vatomic_cmpxchg_MS(a, c, M_OP) != c);
+    return c;
+}
+_tmpl_end;
+
+#endif /* VATOMIC_FALLBACK_H */
