@@ -1,0 +1,5 @@
+THIS IS A NEW FILE
+
+_tmpl_begin(X=[[cat;dog]]);
+X has some VAR. And Y?
+_tmpl_end;

@@ -1,0 +1,220 @@
+/*
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2025. All rights reserved.
+ * SPDX-License-Identifier: MIT
+ */
+
+#ifndef VATOMIC_BUILTINS_H
+#define VATOMIC_BUILTINS_H
+_tmpl_begin(=);
+AUTOGEN
+_tmpl_end;
+#include <vsync/common/macros.h>
+
+#define _tmpl_mute
+#include <vsync/atomic/tmplr.h>
+#include <vsync/atomic/core.h.in>
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // LSP helpers
+_tmpl_dl; // -------------------------------------------------------------------
+#define MB __ATOMIC_SEQ_CST
+#define MF __ATOMIC_SEQ_CST
+#define static
+#define inline
+#define _tmpl_unmute
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // memory order remappings when using VSYNC_SC
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_map(MB, _MAP__REMAP_MO);
+_tmpl_map(_REMAP_seq, seq);
+_tmpl_map(_REMAP_acq, acq);
+_tmpl_map(_REMAP_rel, rel);
+_tmpl_map(_REMAP_rlx, rlx);
+_tmpl_dl;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // memory order mappings
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_map(_MAP_seq, __ATOMIC_SEQ_CST);
+_tmpl_map(_MAP_acq, __ATOMIC_ACQUIRE);
+_tmpl_map(_MAP_rel, __ATOMIC_RELEASE);
+_tmpl_map(_MAP_rlx, __ATOMIC_RELAXED);
+_tmpl_dl;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // guards for function declarations
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_hook(begin, IFDEF_FUN);
+_tmpl_hook(end, ENDIF_FUN);
+_tmpl_dl;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // maps mo to a cmpxchg failure mode. cmpxchg has two access modes:
+_tmpl_dl; // success and failure. We preset the failure mode based on the
+_tmpl_dl; // success mode as follows.
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_map(MF, _MAP__REMAP_FAIL__REMAP_MO);
+_tmpl_map(_REMAP_FAIL_seq, seq);
+_tmpl_map(_REMAP_FAIL_acq, acq);
+_tmpl_map(_REMAP_FAIL_rel, rlx); /* rel mode is invalid */
+_tmpl_map(_REMAP_FAIL_rlx, rlx);
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // For atomic_fence_rlx we don't want to insert compiler barriers
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_map(FENCE_BARRIER, _REMAP_CBARRIER__REMAP_MO);
+_tmpl_map(_REMAP_CBARRIER_seq, V_COMPILER_BARRIER);
+_tmpl_map(_REMAP_CBARRIER_acq, V_COMPILER_BARRIER);
+_tmpl_map(_REMAP_CBARRIER_rel, V_COMPILER_BARRIER);
+_tmpl_map(_REMAP_CBARRIER_rlx, _tmpl_dl); /* map to nothing */
+_tmpl_dl;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // Content starts here
+_tmpl_dl; // -------------------------------------------------------------------
+
+/* ****************************************************************************
+ * vatomic_fence
+ * ****************************************************************************/
+_tmpl_begin(TY = [[va]], MO = [[seq; acq; rel; rlx]], FUNC = fence);
+static inline void
+__vatomic_fence_MS(void)
+{
+    FENCE_BARRIER();
+#if !defined(VSYNC_THREAD_SANITIZER)
+    __atomic_thread_fence(MB);
+#endif
+    FENCE_BARRIER();
+}
+_tmpl_end;
+
+/* *****************************************************************************
+ * vatomic_read
+ * ****************************************************************************/
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz; ptr]], MO = [[seq; acq; rlx]],
+            FUNC = read);
+static inline TT
+__vatomic_read_MS(const AA *a)
+{
+    V_COMPILER_BARRIER();
+    TT tmp = (TT)__atomic_load_n(&a->_v, MB);
+    V_COMPILER_BARRIER();
+    return tmp;
+}
+_tmpl_end;
+
+/* *****************************************************************************
+ * vatomic_write
+ * ****************************************************************************/
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz; ptr]], MO = [[seq; rel; rlx]],
+            FUNC = write);
+static inline void
+__vatomic_write_MS(AA *a, TT v)
+{
+    V_COMPILER_BARRIER();
+    __atomic_store_n(&a->_v, v, MB);
+    V_COMPILER_BARRIER();
+}
+_tmpl_end;
+
+/* *****************************************************************************
+ * vatomic_xchg
+ * ****************************************************************************/
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz; ptr]], MO = [[seq; acq; rel; rlx]],
+            FUNC = xchg);
+static inline TT
+__vatomic_xchg_MS(AA *a, TT v)
+{
+    V_COMPILER_BARRIER();
+    TT tmp = (TT)__atomic_exchange_n(&a->_v, (TT)v, MB);
+    V_COMPILER_BARRIER();
+    return tmp;
+}
+_tmpl_end;
+
+/* *****************************************************************************
+ * vatomic_cmpxchg
+ * ****************************************************************************/
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz; ptr]], MO = [[seq; acq; rel; rlx]],
+            FUNC = cmpxchg);
+static inline TT
+__vatomic_cmpxchg_MS(AA *a, TT e, TT v)
+{
+    TT exp = (TT)e;
+    V_COMPILER_BARRIER();
+    __atomic_compare_exchange_n(&a->_v, &exp, (TT)v, 0, MB, MF);
+    V_COMPILER_BARRIER();
+    return exp;
+}
+_tmpl_end;
+
+/* *****************************************************************************
+ * vatomic_get_and
+ * ****************************************************************************/
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]],
+            FUNC = get_and);
+static inline TT
+__vatomic_get_and_MS(AA *a, TT v)
+{
+    V_COMPILER_BARRIER();
+    TT tmp = (TT)__atomic_fetch_and(&a->_v, (TT)v, MB);
+    V_COMPILER_BARRIER();
+    return tmp;
+}
+_tmpl_end;
+
+/* *****************************************************************************
+ * vatomic_get_or
+ * ****************************************************************************/
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]],
+            FUNC = get_or);
+static inline TT
+__vatomic_get_or_MS(AA *a, TT v)
+{
+    V_COMPILER_BARRIER();
+    TT tmp = (TT)__atomic_fetch_or(&a->_v, (TT)v, MB);
+    V_COMPILER_BARRIER();
+    return tmp;
+}
+_tmpl_end;
+
+/* *****************************************************************************
+ * vatomic_get_xor
+ * ****************************************************************************/
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]],
+            FUNC = get_xor);
+static inline TT
+__vatomic_get_xor_MS(AA *a, TT v)
+{
+    V_COMPILER_BARRIER();
+    TT tmp = (TT)__atomic_fetch_xor(&a->_v, (TT)v, MB);
+    V_COMPILER_BARRIER();
+    return tmp;
+}
+_tmpl_end;
+
+/* *****************************************************************************
+ * vatomic_get_add
+ * ****************************************************************************/
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]],
+            FUNC = get_add);
+static inline TT
+__vatomic_get_add_MS(AA *a, TT v)
+{
+    V_COMPILER_BARRIER();
+    TT tmp = (TT)__atomic_fetch_add(&a->_v, v, MB);
+    V_COMPILER_BARRIER();
+    return tmp;
+}
+_tmpl_end;
+
+/* *****************************************************************************
+ * vatomic_get_sub
+ * ****************************************************************************/
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]],
+            FUNC = get_sub);
+static inline TT
+__vatomic_get_sub_MS(AA *a, TT v)
+{
+    V_COMPILER_BARRIER();
+    TT tmp = __atomic_fetch_sub(&a->_v, v, MB);
+    V_COMPILER_BARRIER();
+    return tmp;
+}
+_tmpl_end;
+
+#endif /* VATOMIC_BUILTINS_H */
