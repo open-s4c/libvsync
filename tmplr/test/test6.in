@@ -1,0 +1,7 @@
+_tmpl_dl; this is a comment
+_tmpl_map(OP_seq, sequential consistent);
+_tmpl_map(OP_acq, acquire);
+_tmpl_map(OP_acq, acquired);
+_tmpl_begin(mo=[[seq;acq;rel]]);
+OP_mo
+_tmpl_end;

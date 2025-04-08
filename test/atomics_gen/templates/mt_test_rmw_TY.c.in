@@ -1,0 +1,346 @@
+/*
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2025. All rights reserved.
+ * SPDX-License-Identifier: MIT
+ */
+
+_tmpl_begin(=);
+AUTOGEN
+_tmpl_end;
+#include <pthread.h>
+#include <assert.h>
+#include <vsync/atomic.h>
+#define _tmpl_mute
+#include <vsync/atomic/tmplr.h>
+#include <vsync/atomic/core.h.in>
+#define _tmpl_unmute
+#define N  5
+#define IT 10
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; //
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_map(MAP_inc, +);
+_tmpl_map(MAP_dec, -);
+_tmpl_map(MAP_add, +);
+_tmpl_map(MAP_sub, -);
+_tmpl_map(MAP_and, &);
+_tmpl_map(MAP_or, |);
+_tmpl_map(MAP_xor, ^);
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; //
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_map(MAP_VAL_u8, 0xFU);
+_tmpl_map(MAP_VAL_u16, VUINT8_MAX);
+_tmpl_map(MAP_VAL_u32, VUINT16_MAX);
+_tmpl_map(MAP_VAL_u64, VUINT32_MAX);
+_tmpl_map(MAP_VAL_sz,  SIZE_MAX);
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; //
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_map(MAP_OFFSET_u8,  0x2U);
+_tmpl_map(MAP_OFFSET_u16, 0xFU);
+_tmpl_map(MAP_OFFSET_u32, 0xFFU);
+_tmpl_map(MAP_OFFSET_u64, 0xFFFULL);
+_tmpl_map(MAP_OFFSET_sz,  0xFFU);
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; //
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_map(MAP_MASK_u8,  0xF0U);
+_tmpl_map(MAP_MASK_u16, 0xF0F0U);
+_tmpl_map(MAP_MASK_u32, 0xF0F0F0F0U);
+_tmpl_map(MAP_MASK_u64, 0xF0F0F0F0F0F0F0F0ULL);
+_tmpl_map(MAP_MASK_sz,  0xF0F0F0F0U);
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; //
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz; ptr]]);
+AA g_shared;
+_tmpl_end;
+_tmpl_begin(TY = [[ptr]]);
+void *g_ptrs[N];
+_tmpl_end;
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq;rel;rlx]], OP = [[inc; dec]]);
+/*****************************************************************************
+ * MultiThreadedTest: __vatomic_OP_MS
+ *****************************************************************************/
+static inline void *
+mt_atomic_OP_MS_run(void *args)
+{
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    for (vsize_t i = 0; i < IT; i++) {
+        __vatomic_OP_MS(&g_shared);
+    }
+    V_UNUSED(tid);
+    return NULL;
+}
+static inline void
+mt_atomic_OP_MS(void)
+{
+    TT init = MAP_VAL_TY;
+    __vatomic_init(&g_shared, init);
+    pthread_t t[N];
+    for (vsize_t i = 0; i < N; i++)
+        pthread_create(&t[i], 0, mt_atomic_OP_MS_run, (void*)i);
+    for (vsize_t i = 0; i < N; i++)
+        pthread_join(t[i], 0);
+    /* calculate the expected value */
+    TT expected = init MAP_OP(N * IT);
+    TT val      = __vatomic_read(&g_shared);
+    assert(expected == val);
+    V_UNUSED(expected, val);
+}
+_tmpl_end;
+_tmpl_dl;
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq;rel;rlx]], OP = [[sub; add]]);
+/*****************************************************************************
+ * MultiThreadedTest: __vatomic_OP_MS
+ *****************************************************************************/
+static inline void *
+mt_atomic_OP_MS_run(void *args)
+{
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    for (vsize_t i = 0; i < IT; i++) {
+        __vatomic_OP_MS(&g_shared, MAP_OFFSET_TY);
+    }
+    V_UNUSED(tid);
+    return NULL;
+}
+static inline void
+mt_atomic_OP_MS(void)
+{
+    TT init = MAP_VAL_TY;
+    __vatomic_init(&g_shared, init);
+    pthread_t t[N];
+    for (vsize_t i = 0; i < N; i++)
+        pthread_create(&t[i], 0, mt_atomic_OP_MS_run, (void*)i);
+    for (vsize_t i = 0; i < N; i++)
+        pthread_join(t[i], 0);
+    /* calculate the expected value */
+    TT expected = init MAP_OP(N * IT * MAP_OFFSET_TY);
+    TT val      = __vatomic_read(&g_shared);
+    assert(expected == val);
+    V_UNUSED(expected, val);
+}
+_tmpl_end;
+_tmpl_dl;
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq;rel;acq;rlx]]);
+/*****************************************************************************
+ * MultiThreadedTest: __vatomic_cmpxchg_MS
+ *****************************************************************************/
+static inline void *
+mt_atomic_cmpxchg_MS_run(void *args)
+{
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    TT cur     = 0;
+    TT old     = 0;
+    for (vsize_t i = 0; i < IT; i++) {
+        do {
+            cur = __vatomic_read(&g_shared);
+            old = __vatomic_cmpxchg_MS(&g_shared, cur, cur + 1);
+        } while (cur != old);
+    }
+    V_UNUSED(tid);
+    return NULL;
+}
+static inline void
+mt_atomic_cmpxchg_MS(void)
+{
+    TT init = MAP_VAL_TY;
+    __vatomic_init(&g_shared, init);
+    pthread_t t[N];
+    for (vsize_t i = 0; i < N; i++)
+        pthread_create(&t[i], 0, mt_atomic_cmpxchg_MS_run, (void*)i);
+    for (vsize_t i = 0; i < N; i++)
+        pthread_join(t[i], 0);
+    /* calculate the expected value */
+    TT expected = init + (N * IT);
+    TT val      = __vatomic_read(&g_shared);
+    assert(expected == val);
+    V_UNUSED(expected, val);
+}
+_tmpl_end;
+_tmpl_dl;
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq;acq;rel;rlx]]);
+/*****************************************************************************
+ * MultiThreadedTest: __vatomic_xchg_MS
+ *****************************************************************************/
+static inline void *
+mt_atomic_xchg_MS_run(void *args)
+{
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    for (vsize_t i = 0; i < IT; i++) {
+        (void)__vatomic_xchg_MS(&g_shared, (TT)tid);
+    }
+    V_UNUSED(tid);
+    return NULL;
+}
+static inline void
+mt_atomic_xchg_MS(void)
+{
+    TT init = MAP_VAL_TY;
+    __vatomic_init(&g_shared, init);
+    pthread_t t[N];
+    for (vsize_t i = 0; i < N; i++)
+        pthread_create(&t[i], 0, mt_atomic_xchg_MS_run, (void*)i);
+    for (vsize_t i = 0; i < N; i++)
+        pthread_join(t[i], 0);
+    TT val = __vatomic_read(&g_shared);
+    for (vsize_t i = 0; i < N; i++) {
+        if (val == (TT)i) {
+            return;
+        }
+    }
+    assert(0 && "value is none of the expected");
+}
+_tmpl_end;
+_tmpl_dl;
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq;rel;rlx]]);
+/*****************************************************************************
+ * MultiThreadedTest: __vatomic_max_MS
+ *****************************************************************************/
+static inline void *
+mt_atomic_max_MS_run(void *args)
+{
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    for (vsize_t i = 0; i < IT; i++) {
+        __vatomic_max_MS(&g_shared, (TT)tid);
+    }
+    V_UNUSED(tid);
+    return NULL;
+}
+static inline void
+mt_atomic_max_MS(void)
+{
+    TT init = 0;
+    __vatomic_init(&g_shared, init);
+    pthread_t t[N];
+    for (vsize_t i = 0; i < N; i++)
+        pthread_create(&t[i], 0, mt_atomic_max_MS_run, (void*)i);
+    for (vsize_t i = 0; i < N; i++)
+        pthread_join(t[i], 0);
+    TT val = __vatomic_read(&g_shared);
+    assert(val == (N - 1));
+    V_UNUSED(val);
+}
+_tmpl_end;
+_tmpl_dl;
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq;rel;rlx]], OP = [[and; or ; xor]]);
+/*****************************************************************************
+ * MultiThreadedTest: __vatomic_OP_MS
+ *****************************************************************************/
+static inline void *
+mt_atomic_OP_MS_run(void *args)
+{
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    TT mask    = MAP_MASK_TY;
+
+    for (vsize_t i = 0; i < IT; i++) {
+        mask = mask << (i * tid);
+        __vatomic_OP_MS(&g_shared, mask);
+    }
+    V_UNUSED(tid);
+    return NULL;
+}
+static inline void
+mt_atomic_OP_MS(void)
+{
+    TT init     = MAP_VAL_TY;
+    TT mask     = MAP_MASK_TY;
+    TT expected = MAP_VAL_TY;
+    __vatomic_init(&g_shared, init);
+    pthread_t t[N];
+    for (vsize_t i = 0; i < N; i++)
+        pthread_create(&t[i], 0, mt_atomic_OP_MS_run, (void*)i);
+    for (vsize_t i = 0; i < N; i++)
+        pthread_join(t[i], 0);
+    for (vsize_t t = 0; t < N; t++) {
+        mask = MAP_MASK_TY;
+        for (vsize_t i = 0; i < IT; i++) {
+            mask     = mask << (i * t);
+            expected = expected MAP_OP mask;
+        }
+    }
+    TT val = __vatomic_read(&g_shared);
+    assert(val == expected);
+    V_UNUSED(expected, val);
+}
+_tmpl_end;
+_tmpl_begin(TY = [[ptr]], MO = [[seq;acq;rel;rlx]]);
+/*****************************************************************************
+ * MultiThreadedTest: __vatomic_cmpxchg_MS
+ *****************************************************************************/
+static inline void *
+mt_atomic_cmpxchg_MS_run(void *args)
+{
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    TT cur     = 0;
+    TT old     = 0;
+    for (vsize_t i = 0; i < IT; i++) {
+        do {
+            cur = __vatomic_read(&g_shared);
+            old = __vatomic_cmpxchg_MS(&g_shared, cur, &g_ptrs[tid]);
+        } while (cur != old);
+    }
+    return NULL;
+}
+static inline void
+mt_atomic_cmpxchg_MS(void)
+{
+    __vatomic_init(&g_shared, NULL);
+    pthread_t t[N];
+    for (vsize_t i = 0; i < N; i++)
+        pthread_create(&t[i], 0, mt_atomic_cmpxchg_MS_run, (void*)i);
+    for (vsize_t i = 0; i < N; i++)
+        pthread_join(t[i], 0);
+    TT val = __vatomic_read(&g_shared);
+    for (vsize_t i = 0; i < N; i++) {
+        if(val == &g_ptrs[i]) {
+            return;
+        }
+    }
+    assert(0 && "resulting value is not expected");
+}
+/*****************************************************************************
+ * MultiThreadedTest: __vatomic_xchg_MS
+ *****************************************************************************/
+static inline void *
+mt_atomic_xchg_MS_run(void *args)
+{
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    for (vsize_t i = 0; i < IT; i++) {
+        (void)__vatomic_xchg_MS(&g_shared, &g_ptrs[tid]);
+    }
+    return NULL;
+}
+static inline void
+mt_atomic_xchg_MS(void)
+{
+    __vatomic_init(&g_shared, NULL);
+    pthread_t t[N];
+    for (vsize_t i = 0; i < N; i++)
+        pthread_create(&t[i], 0, mt_atomic_xchg_MS_run, (void*)i);
+    for (vsize_t i = 0; i < N; i++)
+        pthread_join(t[i], 0);
+    TT val = __vatomic_read(&g_shared);
+    for (vsize_t i = 0; i < N; i++) {
+        if(val == &g_ptrs[i]) {
+            return;
+        }
+    }
+    assert(0 && "resulting value is not expected");
+}
+_tmpl_end;
+/*****************************************************************************
+ * Entry point
+ *****************************************************************************/
+int
+main(void)
+{
+    _tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq;rel;rlx]],
+                OP = [[inc; dec; sub; add; max; and; or ; xor]]);
+    mt_atomic_OP_MS();
+    _tmpl_end;
+    _tmpl_begin(TY = [[u8; u16; u32; u64; sz; ptr]], MO = [[seq;rel;acq;rlx]], OP = [[cmpxchg;xchg]]);
+    mt_atomic_OP_MS();
+    _tmpl_end;
+    return 0;
+}
