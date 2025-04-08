@@ -1,0 +1,9 @@
+_tmpl_begin(X=[[dog;cat;rat]], Y=[[hello;hallo;oi]]);
+X is an animal.
+Say Y!
+--------
+_tmpl_end;
+HERE IS THE EMPTY LINE
+_tmpl_begin(X=[[cat;rat]]);
+X is nice.
+_tmpl_end;
