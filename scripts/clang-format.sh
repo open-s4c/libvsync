@@ -23,6 +23,7 @@ fi
 find "$@" \( -name '*.h' -o -name '*.c' -o -name '*.cpp' -o -name '*.hpp' -o -name '*.cxx' \) \
     -not -path '*/build/*' \
     -not -path '*/deps/*' \
+    -not -path '*/vatomic/*' \
     -type f \
     -exec clang-format -style=file${STYLE} -i {} +
 
