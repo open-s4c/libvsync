@@ -1,0 +1,382 @@
+/*
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2025. All rights reserved.
+ * SPDX-License-Identifier: MIT
+ */
+
+#define _tmpl_mute
+#include <vsync/atomic/tmplr.h>
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // LSP helpers
+_tmpl_dl; // -------------------------------------------------------------------
+#define static
+#define inline
+#define VATOMIC_CORE_H
+#define _tmpl_unmute
+_tmpl_dl;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // Content starts here
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // clang-format off
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz; ptr]]);
+#ifndef VATOMIC_CORE_UPCASE_TY__H
+#define VATOMIC_CORE_UPCASE_TY__H
+/*******************************************************************************
+ * @file core_TY.h
+ * @brief Atomic functions for AA variables.
+ *
+ * This file declares and documents the core atomic functions operating on
+ * AA variables.
+ *
+ * Please do not include this file directly, instead use:
+ * ```c
+ * #include <vsync/atomic/core.h>
+ * ```
+ ******************************************************************************/
+_tmpl_end;
+_tmpl_begin(=);
+AUTOGEN
+_tmpl_end;
+#ifndef VATOMIC_CORE_H
+    #error "File included directly. Include <vsync/atomic/core.h> instead!"
+#endif
+_tmpl_dl; // clang-format on
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz; ptr]], MO = [[seq]]);
+/**
+ * Initializes the atomic variable a with value v.
+ *
+ * The initialization is equivalent to an __vatomic_write().
+ *
+ * @param a atomic variable
+ * @param v initial value
+ * @memord ME
+ */
+static inline void __vatomic_init(AA *a, TT v);
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz; ptr]], MO = [[seq; acq; rlx]]);
+/**
+ * Returns the value of the atomic variable pointed by a.
+ *
+ * @param a atomic variable
+ * @return current value
+ * @memord ME
+ */
+static inline TT __vatomic_read_MS(const AA *a);
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz; ptr]], MO = [[seq; rel; rlx]]);
+/**
+ * Writes value v in the atomic variable pointed by a.
+ *
+ * @param a atomic variable
+ * @param v new value
+ * @memord ME
+ */
+static inline void __vatomic_write_MS(AA *a, TT v);
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz; ptr]], MO = [[seq; acq; rel; rlx]]);
+/**
+ * Writes v in a and returns old value.
+ *
+ * @param a atomic variable
+ * @param v new value
+ * @return old value
+ * @memord ME
+ */
+static inline TT __vatomic_xchg_MS(AA *a, TT v);
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz; ptr]], MO = [[seq; acq; rel; rlx]]);
+/**
+ * Writes value v in a if e is the current value.
+ *
+ * @param a atomic variable
+ * @param e expected value
+ * @param v new value
+ * @return old value
+ */
+static inline TT __vatomic_cmpxchg_MS(AA *a, TT e, TT v);
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
+/**
+ * Writes v to a if v is greater than *a and returns the old value.
+ *
+ * @param a atomic variable
+ * @param v potential max value
+ * @return old max value
+ * @memord ME
+ */
+static inline TT __vatomic_get_max_MS(AA *a, TT v);
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
+/**
+ * Writes v to a if v is greater than *a and returns the new value.
+ *
+ * @param a atomic variable
+ * @param v potential max value
+ * @return new max value
+ * @memord ME
+ */
+static inline TT __vatomic_max_get_MS(AA *a, TT v);
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]]);
+/**
+ * Writes v to a if v is greater than *a.
+ *
+ * @param a atomic variable
+ * @param v potential max value
+ * @memord ME
+ */
+static inline void __vatomic_max_MS(AA *a, TT v);
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
+/**
+ * Applies bitwise and to the value of a and returns the old value.
+ *
+ * @param a atomic variable
+ * @param v mask value
+ * @return old value
+ * @memord ME
+ */
+static inline TT __vatomic_get_and_MS(AA *a, TT v);
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
+/**
+ * Applies bitwise and operation with v to the value of a and returns
+ * the new value.
+ *
+ * @param a atomic variable
+ * @param v mask value
+ * @return new value
+ * @memord ME
+ */
+static inline TT __vatomic_and_get_MS(AA *a, TT v);
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]]);
+/**
+ * Applies bitwise and operation with v to the value of a.
+ *
+ * @param a atomic variable
+ * @param v mask value
+ * @memord ME
+ */
+static inline void __vatomic_and_MS(AA *a, TT v);
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
+/**
+ * Applies bitwise or operation with v to the value of a and returns
+ * the old value.
+ *
+ * @param a atomic variable
+ * @param v mask value
+ * @return old value
+ * @memord ME
+ */
+static inline TT __vatomic_get_or_MS(AA *a, TT v);
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
+/**
+ * Applies bitwise or operation with v to the value of a and returns
+ * the new value.
+ *
+ * @param a atomic variable
+ * @param v mask value
+ * @return new value
+ * @memord ME
+ */
+static inline TT __vatomic_or_get_MS(AA *a, TT v);
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]]);
+/**
+ * Applies bitwise or operation with v to the value of a.
+ *
+ * @param a atomic variable
+ * @param v mask value
+ * @memord ME
+ */
+static inline void __vatomic_or_MS(AA *a, TT v);
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
+/**
+ * Applies bitwise xor operation with v to the value of a and returns
+ * the old value.
+ *
+ * @param a atomic variable
+ * @param v mask value
+ * @return old value
+ * @memord ME
+ */
+static inline TT __vatomic_get_xor_MS(AA *a, TT v);
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
+/**
+ * Applies bitwise xor operation with v to the value of a and returns
+ * the new value.
+ *
+ * @param a atomic variable
+ * @param v mask value
+ * @return new value
+ * @memord ME
+ */
+static inline TT __vatomic_xor_get_MS(AA *a, TT v);
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]]);
+/**
+ * Applies bitwise xor opeation with v to the value of a.
+ *
+ * @param a atomic variable
+ * @param v mask value
+ * @memord ME
+ */
+static inline void __vatomic_xor_MS(AA *a, TT v);
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
+/**
+ * Adds v to the value of a and returns the old value.
+ *
+ * @param a atomic variable
+ * @param v addend value
+ * @return old value
+ * @memord ME
+ */
+static inline TT __vatomic_get_add_MS(AA *a, TT v);
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
+/**
+ * Adds v to the value of a and returns the new value.
+ *
+ * @param a atomic variable
+ * @param v addend value
+ * @return new value
+ * @memord ME
+ */
+static inline TT __vatomic_add_get_MS(AA *a, TT v);
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]]);
+/**
+ * Adds v to the value of a.
+ *
+ * @param a atomic variable
+ * @param v addend value
+ * @memord ME
+ */
+static inline void __vatomic_add_MS(AA *a, TT v);
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
+/**
+ * Increments the value of a and returns the old value.
+ *
+ * @param a atomic variable
+ * @return old value
+ * @memord ME
+ */
+static inline TT __vatomic_get_inc_MS(AA *a);
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
+/**
+ * Increments the value of a and returns the new value.
+ *
+ * @param a atomic variable
+ * @return  new value
+ * @memord ME
+ */
+static inline TT __vatomic_inc_get_MS(AA *a);
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]]);
+/**
+ * Increments the value of a.
+ *
+ * @param a atomic variable
+ * @memord ME
+ */
+static inline void __vatomic_inc_MS(AA *a);
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
+/**
+ * Subtracts v from a and returns the old value.
+ *
+ * @param a atomic variable
+ * @param v subtrahend value
+ * @return old value
+ * @memord ME
+ */
+static inline TT __vatomic_get_sub_MS(AA *a, TT v);
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
+/**
+ * Subtracts v from a and returns the new value.
+ *
+ * @param a atomic variable
+ * @param v subtrahend value
+ * @return new value
+ * @memord ME
+ */
+static inline TT __vatomic_sub_get_MS(AA *a, TT v);
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]]);
+/**
+ * Subtracts v from a.
+ *
+ * @param a atomic variable
+ * @param v subtrahend value
+ * @memord ME
+ */
+static inline void __vatomic_sub_MS(AA *a, TT v);
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
+/**
+ * Decrements the value of a and returns the old value.
+ *
+ * @param a atomic variable
+ * @return old value
+ * @memord ME
+ */
+static inline TT __vatomic_get_dec_MS(AA *a);
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; acq; rel; rlx]]);
+/**
+ * Decrements the value of a and returns the new value.
+ *
+ * @param a atomic variable
+ * @return new value
+ * @memord ME
+ */
+static inline TT __vatomic_dec_get_MS(AA *a);
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], MO = [[seq; rel; rlx]]);
+/**
+ * Decrements the value of a.
+ *
+ * @param a atomic variable
+ * @memord ME
+ */
+static inline void __vatomic_dec_MS(AA *a);
+_tmpl_end;
+
+#endif

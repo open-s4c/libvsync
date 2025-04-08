@@ -1,0 +1,253 @@
+name: vatomic tests and verification
+on: [push]
+env:
+  REGISTRY: ghcr.io
+
+jobs:
+  test-install:
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, ubuntu-22.04-arm, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Configure vatomic
+        run: cmake -S. -Bbuild -DCMAKE_INSTALL_PREFIX=/tmp/target
+      - name: Install library
+        run: cmake --install build
+
+      - name: Configure test project
+        run: cmake -Stest/project -Bbuild2 -DCMAKE_PREFIX_PATH=/tmp/target
+      - name: Build test project
+        run: cmake --build build2
+
+  test-native:
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, ubuntu-22.04-arm, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Configure Testing
+        run: cmake -S. -Bbuild
+      - name: Build Tests
+        run: cmake --build build
+      - name: Run Tests
+        run: ctest --test-dir build --output-on-failure
+
+  test-netbsd:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Configure, Build, Install
+        id: test
+        uses: vmactions/netbsd-vm@v1
+        with:
+          release: "10.1"
+          usesh: true
+          prepare: /usr/sbin/pkg_add curl cmake
+          run: |
+              rm -rf /tmp/target
+              cmake -S. -Bbuild
+              cmake --build build -DCMAKE_INSTALL_PREFIX=/tmp/target
+              ctest --test-dir build --output-on-failure
+              cmake --install build
+              cmake -Stest/project -Bbuild2 -DCMAKE_PREFIX_PATH=/tmp/target
+              cmake --build build2
+
+
+  check-expectations:
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        target:
+            - "clang-format-apply"
+            - "vatomic-generate"
+            - "vatomic-test-generate"
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Configure
+        run: cmake -S. -Bbuild
+      - name: Run ${{ matrix.target }}
+        run: cmake --build build --target ${{ matrix.target }}
+      - name: Check things match expectation
+        run: cmake --build build --target diff-check ||
+            (echo "Run 'make ${{ matrix.target }}' and commit" && false)
+
+  check-cmake-format:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target:
+            - "cmake-format-apply"
+    steps:
+      - name: Install cmake-format
+        run: pip install cmakelang
+      - name: Check out repository code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Configure
+        run: cmake -S. -Bbuild
+      - name: Run ${{ matrix.target }}
+        run: cmake --build build --target ${{ matrix.target }}
+      - name: Check things match expectation
+        run: cmake --build build --target diff-check ||
+            (echo "Run 'make ${{ matrix.target }}' and commit" && false)
+
+  prepare-docker:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      attestations: write
+      id-token: write
+    strategy:
+      fail-fast: true
+      max-parallel: 1
+      matrix:
+        container:
+          - name: "qemu-ci"
+            path: ".github/Dockerfile.qemu"
+          - name: "boogie-ci"
+            path: ".github/Dockerfile.boogie"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3.0.0
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/open-s4c/vatomic/${{ matrix.container.name }}
+
+          tags: |
+            type=edge,branch=dev
+            type=raw,latest
+            type=sha,format=long
+
+      - name: Setup docker buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5.1.0
+        with:
+          context: .github/docker-context
+          push: true
+          file: ${{ matrix.container.path }}
+          cache-from: type=gha,scope=${{ matrix.container }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.container }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+  test-qemu-other:
+    needs: [ prepare-docker ]
+    strategy:
+      matrix:
+        optimization_level: [ "O1", "O2", "O3" ]
+        toolchain: [ "x86_64", "riscv" ]
+    runs-on: ubuntu-latest
+    container: ghcr.io/open-s4c/vatomic/qemu-ci:sha-${{ github.sha }}
+    steps:
+      - name: Check out to run with the tests
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Configure
+        run: cmake -S . -Bbuild
+             -DCMAKE_TOOLCHAIN_FILE=".github/toolchains/${{ matrix.toolchain }}.cmake"
+             -DCMAKE_C_FLAGS="-${{ matrix.optimization_level }} ${{ matrix.flags }}"
+      - name: Build
+        run: cmake --build build
+      - name: Test
+        run: ctest --test-dir build --output-on-failure
+
+  test-qemu-arm32:
+    needs: [ prepare-docker ]
+    strategy:
+      matrix:
+        optimization_level: [ "O1", "O2", "O3" ]
+        toolchain: [ "armel", "armel8", "armeb", "armeb8" ]
+        flags: [ "-DVSYNC_BUILTINS=ON", "-DVSYNC_BUILTINS=OFF" ]
+    runs-on: ubuntu-latest
+    container: ghcr.io/open-s4c/vatomic/qemu-ci:sha-${{ github.sha }}
+    steps:
+      - name: Check out to run with the tests
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Configure
+        run: cmake -S . -Bbuild
+             -DCMAKE_TOOLCHAIN_FILE=".github/toolchains/${{ matrix.toolchain }}.cmake"
+             -DCMAKE_C_FLAGS="-${{ matrix.optimization_level }} ${{ matrix.flags }}"
+      - name: Build
+        run: cmake --build build
+      - name: Test
+        run: ctest --test-dir build --output-on-failure
+
+  test-qemu-arm64:
+    needs: [ prepare-docker ]
+    strategy:
+      matrix:
+        optimization_level: [ "O1", "O2", "O3" ]
+        options:
+          - toolchain: "arm64"
+            flags: ""
+          - toolchain: "arm64_lse"
+            flags: "-DVATOMIC_ENABLE_ARM64_LXE=ON"
+          - toolchain: "arm64_lse"
+            flags: "-DVATOMIC_ENABLE_ARM64_LXE=OFF"
+    runs-on: ubuntu-latest
+    container: ghcr.io/open-s4c/vatomic/qemu-ci:sha-${{ github.sha }}
+    steps:
+      - name: Check out to run with the tests
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Configure
+        run: cmake -S . -Bbuild
+             -DCMAKE_TOOLCHAIN_FILE=".github/toolchains/${{ matrix.options.toolchain }}.cmake"
+             -DCMAKE_C_FLAGS="-${{ matrix.optimization_level }} ${{ matrix.options.flags }}"
+      - name: Build
+        run: cmake --build build
+      - name: Test
+        run: ctest --test-dir build --output-on-failure
+
+
+  boogie-verification:
+    needs: [ prepare-docker ]
+    strategy:
+      matrix:
+        target: [ lse, llsc, lxe, no_polite_await ]
+    runs-on: ubuntu-latest
+    container: ghcr.io/open-s4c/vatomic/boogie-ci:sha-${{ github.sha }}
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Configure
+        run: cmake -S. -Bbuild -DLIBVSYNC_ATOMICS_VERIFICATION=ON
+      - name: Build
+        run: cmake --build build --target build_boogie_${{ matrix.target }}
+      - name: Verify
+        run: ctest -R ${{ matrix.target }} --test-dir build/verify
+
