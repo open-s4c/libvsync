@@ -1,0 +1,561 @@
+/*
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2025. All rights reserved.
+ * SPDX-License-Identifier: MIT
+ */
+
+_tmpl_begin(=);
+AUTOGEN
+_tmpl_end;
+#include <pthread.h>
+#include <assert.h>
+#include <vsync/atomic.h>
+/* keep number of threads even */
+_tmpl_begin(TY = [[u8; u16; u32; u64]]);
+#define IT 10
+#define V_DOUBLE(_v_) ((_v_) * 2)
+_tmpl_end;
+#define MAX_THREADS 10
+_tmpl_begin(TY = [[u64]]);
+#define VUINT64_VAL ((((vuint64_t)0xF) << 32U) | ((vuint64_t)VUINT32_MAX))
+_tmpl_end;
+_tmpl_begin(TY = [[u32]]);
+#define VUINT32_VAL ((((vuint32_t)0xF) << 16U) | ((vuint32_t)VUINT16_MAX))
+_tmpl_end;
+_tmpl_begin(TY = [[u16]]);
+#define VUINT16_VAL ((((vuint16_t)0xF) << 8U) | ((vuint16_t)VUINT8_MAX))
+_tmpl_end;
+_tmpl_begin(TY = [[u8]]);
+#define VUINT8_VAL ((((vuint8_t)0xF)))
+_tmpl_end;
+#ifndef IS_EVEN
+    #define IS_EVEN(_v_) (((_v_) & 1U) == 0U)
+#endif
+#define _tmpl_mute
+#include <vsync/atomic/tmplr.h>
+#include <vsync/atomic/core.h.in>
+#define _tmpl_unmute
+_tmpl_map(MAP_CAST_ptr, (void *)(vuintptr_t));
+_tmpl_map(MAP_CAST_u8, );
+_tmpl_map(MAP_CAST_u16, );
+_tmpl_map(MAP_CAST_u32, );
+_tmpl_map(MAP_CAST_u64, );
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // Mid vals
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_map(MAP_MID_u8, VUINT0_VAL);
+_tmpl_map(MAP_MID_u16, VUINT16_VAL);
+_tmpl_map(MAP_MID_u32, VUINT32_VAL);
+_tmpl_map(MAP_MID_u64, VUINT64_VAL);
+_tmpl_map(MAP_MID_ptr, VUINTPTR_MAX);
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // format
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_map(MAP_FMT_ptr, "p");
+_tmpl_map(MAP_FMT_u8, "u");
+_tmpl_map(MAP_FMT_u16, "u");
+_tmpl_map(MAP_FMT_u32, VUINT32_FORMAT);
+_tmpl_map(MAP_FMT_u64, VUINT64_FORMAT);
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // MAP_OP
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_map(MAP_set, =);
+_tmpl_map(MAP_add, +);
+_tmpl_map(MAP_sub, -);
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [[u8; u16; u32; u64; ptr]]);
+AA g_shared;
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // await eq
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [[u8; u16; u32; u64; ptr]], MO = [[seq]], OP = [[eq]]);
+/*****************************************************************************
+ * Multi-thread Test: __vatomic_await_OP_MS
+ *****************************************************************************/
+static inline void *
+mt_atomic_TY_await_OP_MS_run(void *args)
+{
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    (void)__vatomic_await_OP_MS(&g_shared, MAP_CAST_TY(MAP_MID_TY + (TT)tid));
+    __vatomic_write(&g_shared, MAP_CAST_TY(MAP_MID_TY + (TT)tid + 1U));
+    return NULL;
+}
+static inline void
+mt_atomic_TY_await_OP_MS(void)
+{
+    __vatomic_init(&g_shared, MAP_CAST_TY MAP_MID_TY);
+    pthread_t t[MAX_THREADS];
+    for (vsize_t i = 0; i < MAX_THREADS; i++)
+        pthread_create(&t[i], 0, mt_atomic_TY_await_OP_MS_run, (void*)i);
+    for (vsize_t i = 0; i < MAX_THREADS; i++)
+        pthread_join(t[i], 0);
+    TT cur = __vatomic_read(&g_shared);
+    assert(cur == MAP_CAST_TY(MAP_MID_TY + MAX_THREADS));
+    V_UNUSED(cur);
+}
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // await eq_add, eq_set
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_map(MAP_NEW_VAl_add, 1);
+_tmpl_map(MAP_NEW_VAl_set, (MAP_MID_TY + (TT)tid + 1));
+_tmpl_begin(TY = [[u8; u16; u32; u64; ptr]], MO = [[seq]], OP = [[add; set]],
+            $F_ptr_set = BLK_KEEP, $F_ptr = BLK_SKIP);
+$F_TY_OP;
+/*****************************************************************************
+ * Multi-thread Test: __vatomic_await_eq_OP_MS
+ *****************************************************************************/
+static inline void *
+mt_atomic_TY_await_eq_OP_MS_run(void *args)
+{
+    vsize_t tid   = (vsize_t)(vuintptr_t)args;
+    TT await_val = MAP_CAST_TY(MAP_MID_TY + (TT)tid);
+    TT new_val   = MAP_CAST_TY(MAP_NEW_VAl_OP);
+    (void)__vatomic_await_eq_OP_MS(&g_shared, await_val, new_val);
+    return NULL;
+}
+static inline void
+mt_atomic_TY_await_eq_OP_MS(void)
+{
+    __vatomic_init(&g_shared, MAP_CAST_TY MAP_MID_TY);
+    pthread_t t[MAX_THREADS];
+    for (vsize_t i = 0; i < MAX_THREADS; i++)
+        pthread_create(&t[i], 0, mt_atomic_TY_await_eq_OP_MS_run, (void*)i);
+    for (vsize_t i = 0; i < MAX_THREADS; i++)
+        pthread_join(t[i], 0);
+    TT cur = __vatomic_read(&g_shared);
+    assert(cur == MAP_CAST_TY(MAP_MID_TY + MAX_THREADS));
+    V_UNUSED(cur);
+}
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // await eq_set
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [[u8; u16; u32; u64]], MO = [[seq]], OP = [[sub]]);
+/*****************************************************************************
+ * Multi-thread Test: __vatomic_await_eq_OP_MS
+ *****************************************************************************/
+static inline void *
+mt_atomic_TY_await_eq_OP_MS_run(void *args)
+{
+    vsize_t tid  = (vsize_t)(vuintptr_t)args;
+    TT wait_val = (MAP_MID_TY + MAX_THREADS) - (TT)tid;
+    (void)__vatomic_await_eq_OP_MS(&g_shared, wait_val, 1);
+    return NULL;
+}
+static inline void
+mt_atomic_TY_await_eq_OP_MS(void)
+{
+    __vatomic_init(&g_shared, MAP_MID_TY + MAX_THREADS);
+    pthread_t t[MAX_THREADS];
+    for (vsize_t i = 0; i < MAX_THREADS; i++)
+        pthread_create(&t[i], 0, mt_atomic_TY_await_eq_OP_MS_run, (void*)i);
+    for (vsize_t i = 0; i < MAX_THREADS; i++)
+        pthread_join(t[i], 0);
+    TT cur = __vatomic_read(&g_shared);
+    assert(cur == MAP_MID_TY);
+    V_UNUSED(cur);
+}
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // await_gt, await_le, await_ge, await_neq
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_map(MAP_AWAIT_CNT_gt, __vatomic_inc);
+_tmpl_map(MAP_AWAIT_CNT_ge, __vatomic_inc);
+_tmpl_map(MAP_AWAIT_CNT_neq, __vatomic_inc);
+_tmpl_map(MAP_AWAIT_CNT_lt, __vatomic_dec);
+_tmpl_map(MAP_AWAIT_OP_gt, +);
+_tmpl_map(MAP_AWAIT_OP_ge, +);
+_tmpl_map(MAP_AWAIT_OP_neq, +);
+_tmpl_map(MAP_AWAIT_OP_lt, -);
+_tmpl_begin(TY = [[u8; u16; u32; u64]], MO = [[seq]],
+            COND = [[gt; ge; neq; lt]]);
+/*****************************************************************************
+ * Multi-thread Test: __vatomic_await_COND_MS
+ *****************************************************************************/
+static inline void
+mt_atomic_TY_await_COND_MS_waiter(void)
+{
+    for (TT i = 0; i < IT; i++) {
+        (void)__vatomic_await_COND_MS(
+            &g_shared, MAP_CAST_TY(MAP_MID_TY MAP_AWAIT_OP_COND i));
+    }
+}
+static inline void
+mt_atomic_TY_await_COND_MS_writer(void)
+{
+    for (TT i = 0; i < V_DOUBLE(IT); i++) {
+        _tmpl_dl; // maps to dec/inc
+        MAP_AWAIT_CNT_COND(&g_shared);
+    }
+}
+static inline void *
+mt_atomic_TY_await_COND_MS_run(void *args)
+{
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    if (IS_EVEN(tid)) {
+        mt_atomic_TY_await_COND_MS_waiter();
+    } else {
+        mt_atomic_TY_await_COND_MS_writer();
+    }
+    return NULL;
+}
+static inline void
+mt_atomic_TY_await_COND_MS(void)
+{
+    __vatomic_init(&g_shared, MAP_CAST_TY MAP_MID_TY);
+    pthread_t t[MAX_THREADS];
+    for (vsize_t i = 0; i < MAX_THREADS; i++)
+        pthread_create(&t[i], 0, mt_atomic_TY_await_COND_MS_run, (void*)i);
+    for (vsize_t i = 0; i < MAX_THREADS; i++)
+        pthread_join(t[i], 0);
+    TT cur      = __vatomic_read(&g_shared);
+    TT expected = MAP_CAST_TY(MAP_MID_TY MAP_AWAIT_OP_COND(MAX_THREADS * IT));
+    assert(cur == expected);
+    V_UNUSED(cur, expected);
+}
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // ptr: await_neq
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [ptr], MO = [[seq]], COND = [[neq]]);
+/*****************************************************************************
+ * Multi-thread Test: __vatomic_await_COND_MS
+ *****************************************************************************/
+static inline void *
+mt_atomic_TY_await_COND_MS_run(void *args)
+{
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    if (tid == 0) {
+        __vatomic_write(&g_shared, MAP_CAST_TY(MAP_MID_TY));
+    } else {
+        (void)__vatomic_await_COND_MS(&g_shared, NULL);
+    }
+    return NULL;
+}
+static inline void
+mt_atomic_TY_await_COND_MS(void)
+{
+    __vatomic_init(&g_shared, NULL);
+    pthread_t t[MAX_THREADS];
+    for (vsize_t i = 0; i < MAX_THREADS; i++)
+        pthread_create(&t[i], 0, mt_atomic_TY_await_COND_MS_run, (void*)i);
+    for (vsize_t i = 0; i < MAX_THREADS; i++)
+        pthread_join(t[i], 0);
+    TT cur      = __vatomic_read(&g_shared);
+    TT expected = MAP_CAST_TY(MAP_MID_TY);
+    assert(cur == expected);
+    V_UNUSED(cur, expected);
+}
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // await_gt_add, await_ge_add, await_neq_add
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [[u8; u16; u32; u64]], MO = [[seq]],
+            COND = [[gt; ge; neq; lt]]);
+/*****************************************************************************
+ * Multi-thread Test: __vatomic_await_COND_add_MS
+ *****************************************************************************/
+static inline void
+mt_atomic_TY_await_COND_add_MS_waiter(void)
+{
+    TT await_val = 0;
+    for (TT i = 0; i < IT; i++) {
+        await_val = (MAP_MID_TY MAP_AWAIT_OP_COND i) MAP_AWAIT_OP_COND 1;
+        (void)__vatomic_await_COND_add_MS(&g_shared, await_val, 1);
+    }
+}
+static inline void
+mt_atomic_TY_await_COND_add_MS_writer(void)
+{
+    for (TT i = 0; i < V_DOUBLE(IT); i++) {
+        _tmpl_dl; // MAP_AWAIT_CNT_COND dec for lt, inc for anything else
+        MAP_AWAIT_CNT_COND(&g_shared);
+    }
+}
+static inline void *
+mt_atomic_TY_await_COND_add_MS_run(void *args)
+{
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    if (IS_EVEN(tid)) {
+        mt_atomic_TY_await_COND_add_MS_waiter();
+    } else {
+        mt_atomic_TY_await_COND_add_MS_writer();
+    }
+    return NULL;
+}
+static inline void
+mt_atomic_TY_await_COND_add_MS(void)
+{
+    __vatomic_init(&g_shared, MAP_MID_TY);
+    pthread_t t[MAX_THREADS];
+    for (vsize_t i = 0; i < MAX_THREADS; i++)
+        pthread_create(&t[i], 0, mt_atomic_TY_await_COND_add_MS_run, (void*)i);
+    for (vsize_t i = 0; i < MAX_THREADS; i++)
+        pthread_join(t[i], 0);
+    TT cur = __vatomic_read(&g_shared);
+    TT expected =
+        (MAP_MID_TY MAP_AWAIT_OP_COND(MAX_THREADS * IT)) + ((MAX_THREADS / 2) * IT);
+    assert(cur == expected);
+    V_UNUSED(cur, expected);
+}
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // await_gt_sub, await_ge_sub, await_neq_sub
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [[u8; u16; u32; u64]], MO = [[seq]], COND = [[gt; ge; neq]]);
+/*****************************************************************************
+ * Multi-thread Test: __vatomic_await_COND_sub_MS
+ *****************************************************************************/
+static inline void
+mt_atomic_TY_await_COND_sub_MS_waiter(void)
+{
+    for (TT i = 0; i < IT; i++) {
+        (void)__vatomic_await_COND_sub_MS(&g_shared, MAP_MID_TY + i + 1, 1);
+    }
+}
+static inline void
+mt_atomic_TY_await_COND_sub_MS_writer(void)
+{
+    for (TT i = 0; i < V_DOUBLE(IT); i++) {
+        __vatomic_inc(&g_shared);
+    }
+}
+static inline void *
+mt_atomic_TY_await_COND_sub_MS_run(void *args)
+{
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    if (IS_EVEN(tid)) {
+        mt_atomic_TY_await_COND_sub_MS_waiter();
+    } else {
+        mt_atomic_TY_await_COND_sub_MS_writer();
+    }
+    return NULL;
+}
+static inline void
+mt_atomic_TY_await_COND_sub_MS(void)
+{
+    __vatomic_init(&g_shared, MAP_MID_TY);
+    pthread_t t[MAX_THREADS];
+    for (vsize_t i = 0; i < MAX_THREADS; i++)
+        pthread_create(&t[i], 0, mt_atomic_TY_await_COND_sub_MS_run, (void*)i);
+    for (vsize_t i = 0; i < MAX_THREADS; i++)
+        pthread_join(t[i], 0);
+    TT cur      = __vatomic_read(&g_shared);
+    TT expected = (MAP_MID_TY + (MAX_THREADS * IT)) - ((MAX_THREADS / 2) * IT);
+    assert(cur == expected);
+    V_UNUSED(cur, expected);
+}
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; //
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [[u8; u16; u32; u64]], MO = [[seq]], COND = [[lt]]);
+/*****************************************************************************
+ * Multi-thread Test: __vatomic_await_COND_sub_MS
+ *****************************************************************************/
+static inline void
+mt_atomic_TY_await_COND_sub_MS_waiter(void)
+{
+    for (TT i = 0; i < IT; i++) {
+        (void)__vatomic_await_COND_sub_MS(&g_shared, MAP_MID_TY - (i - 1), 1);
+    }
+}
+static inline void
+mt_atomic_TY_await_COND_sub_MS_writer(void)
+{
+    for (TT i = 0; i < V_DOUBLE(IT); i++) {
+        __vatomic_dec(&g_shared);
+    }
+}
+static inline void *
+mt_atomic_TY_await_COND_sub_MS_run(void *args)
+{
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    if (IS_EVEN(tid)) {
+        mt_atomic_TY_await_COND_sub_MS_waiter();
+    } else {
+        mt_atomic_TY_await_COND_sub_MS_writer();
+    }
+    return NULL;
+}
+static inline void
+mt_atomic_TY_await_COND_sub_MS(void)
+{
+    __vatomic_init(&g_shared, MAP_MID_TY);
+    pthread_t t[MAX_THREADS];
+    for (vsize_t i = 0; i < MAX_THREADS; i++)
+        pthread_create(&t[i], 0, mt_atomic_TY_await_COND_sub_MS_run, (void*)i);
+    for (vsize_t i = 0; i < MAX_THREADS; i++)
+        pthread_join(t[i], 0);
+    TT cur      = __vatomic_read(&g_shared);
+    TT expected = (MAP_MID_TY - (MAX_THREADS * IT)) - ((MAX_THREADS / 2) * IT);
+    assert(cur == expected);
+    V_UNUSED(cur, expected);
+}
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // await_gt_set
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [[u8; u16; u32; u64]], MO = [[seq]], COND = [[gt]]);
+/*****************************************************************************
+ * Multi-thread Test: __vatomic_await_COND_set_MS
+ *****************************************************************************/
+static inline void *
+mt_atomic_TY_await_COND_set_MS_run(void *args)
+{
+    vsize_t tid  = (vsize_t)(vuintptr_t)args;
+    TT wait_val = MAP_MID_TY + (TT)tid;
+    TT set_val  = wait_val + 2;
+    (void)__vatomic_await_COND_set_MS(&g_shared, wait_val, set_val);
+    return NULL;
+}
+static inline void
+mt_atomic_TY_await_COND_set_MS(void)
+{
+    TT init_val = MAP_MID_TY + 1;
+    __vatomic_init(&g_shared, init_val);
+    pthread_t t[MAX_THREADS];
+    for (vsize_t i = 0; i < MAX_THREADS; i++)
+        pthread_create(&t[i], 0, mt_atomic_TY_await_COND_set_MS_run, (void*)i);
+    for (vsize_t i = 0; i < MAX_THREADS; i++)
+        pthread_join(t[i], 0);
+    TT cur      = __vatomic_read(&g_shared);
+    TT expected = init_val + (TT)MAX_THREADS;
+    assert(cur == expected);
+    V_UNUSED(cur, expected);
+}
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // await_ge_set
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [[u8; u16; u32; u64]], MO = [[seq]], COND = [[ge]]);
+/*****************************************************************************
+ * Multi-thread Test: __vatomic_await_COND_set_MS
+ *****************************************************************************/
+static inline void *
+mt_atomic_TY_await_COND_set_MS_run(void *args)
+{
+    vsize_t tid  = (vsize_t)(vuintptr_t)args;
+    TT wait_val = MAP_MID_TY + (TT)tid;
+    TT set_val  = wait_val + 1;
+    (void)__vatomic_await_COND_set_MS(&g_shared, wait_val, set_val);
+    return NULL;
+}
+static inline void
+mt_atomic_TY_await_COND_set_MS(void)
+{
+    TT init_val = MAP_MID_TY;
+    __vatomic_init(&g_shared, init_val);
+    pthread_t t[MAX_THREADS];
+    for (vsize_t i = 0; i < MAX_THREADS; i++)
+        pthread_create(&t[i], 0, mt_atomic_TY_await_COND_set_MS_run, (void*)i);
+    for (vsize_t i = 0; i < MAX_THREADS; i++)
+        pthread_join(t[i], 0);
+    TT cur      = __vatomic_read(&g_shared);
+    TT expected = init_val + (TT)MAX_THREADS;
+    assert(cur == expected);
+    V_UNUSED(cur, expected);
+}
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // await_lt_set
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [[u8; u16; u32; u64]], MO = [[seq]], COND = [[lt]]);
+/*****************************************************************************
+ * Multi-thread Test: __vatomic_await_COND_set_MS
+ *****************************************************************************/
+static inline void *
+mt_atomic_TY_await_COND_set_MS_run(void *args)
+{
+    vsize_t tid  = (vsize_t)(vuintptr_t)args;
+    TT wait_val = MAP_MID_TY - (TT)tid;
+    TT set_val  = wait_val - 2;
+    (void)__vatomic_await_COND_set_MS(&g_shared, wait_val, set_val);
+    return NULL;
+}
+static inline void
+mt_atomic_TY_await_COND_set_MS(void)
+{
+    __vatomic_init(&g_shared, MAP_MID_TY - 1);
+    pthread_t t[MAX_THREADS];
+    for (vsize_t i = 0; i < MAX_THREADS; i++)
+        pthread_create(&t[i], 0, mt_atomic_TY_await_COND_set_MS_run, (void*)i);
+    for (vsize_t i = 0; i < MAX_THREADS; i++)
+        pthread_join(t[i], 0);
+    TT cur      = __vatomic_read(&g_shared);
+    TT expected = (MAP_MID_TY - 1) - (TT)MAX_THREADS;
+    assert(cur == expected);
+    V_UNUSED(cur, expected);
+}
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // await_neq_set
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [[u8; u16; u32; u64; ptr]], MO = [[seq]], COND = [[neq]]);
+/*****************************************************************************
+ * Multi-thread Test: __vatomic_await_COND_set_MS
+ *****************************************************************************/
+static inline void *
+mt_atomic_TY_await_COND_set_MS_run(void *args)
+{
+    vsize_t tid = (vsize_t)(vuintptr_t)args;
+    if (IS_EVEN(tid)) {
+        (void)__vatomic_await_COND_set_MS(&g_shared, MAP_CAST_TY MAP_MID_TY,
+                                         MAP_CAST_TY MAP_MID_TY);
+    } else {
+        (void)__vatomic_await_COND_set_MS(&g_shared, MAP_CAST_TY ~MAP_MID_TY,
+                                         MAP_CAST_TY ~MAP_MID_TY);
+    }
+    return NULL;
+}
+static inline void
+mt_atomic_TY_await_COND_set_MS(void)
+{
+    __vatomic_init(&g_shared, MAP_CAST_TY MAP_MID_TY);
+    pthread_t t[MAX_THREADS];
+    for (vsize_t i = 0; i < MAX_THREADS; i++)
+        pthread_create(&t[i], 0, mt_atomic_TY_await_COND_set_MS_run, (void*)i);
+    for (vsize_t i = 0; i < MAX_THREADS; i++)
+        pthread_join(t[i], 0);
+    TT cur      = __vatomic_read(&g_shared);
+    TT expected = MAP_CAST_TY MAP_MID_TY;
+    assert(cur == expected);
+    V_UNUSED(cur, expected);
+}
+_tmpl_end;
+/*****************************************************************************
+ * Entry point
+ *****************************************************************************/
+int
+main(void)
+{
+    _tmpl_begin(TY = [[u8; u16; u32; u64]], MO = [[seq]],
+                COND = [[gt; ge; lt; eq; neq]]);
+    mt_atomic_TY_await_COND_MS();
+    _tmpl_end;
+
+    _tmpl_begin(TY = [[u8; u16; u32; u64]], MO = [[seq]],
+                COND = [[gt; ge; lt; eq; neq]]);
+    mt_atomic_TY_await_COND_add_MS();
+    _tmpl_end;
+
+    _tmpl_begin(TY = [[u8; u16; u32; u64]], MO = [[seq]],
+                COND = [[gt; ge; lt; eq; neq]]);
+    mt_atomic_TY_await_COND_sub_MS();
+    _tmpl_end;
+
+    _tmpl_begin(TY = [[u8; u16; u32; u64]], MO = [[seq]],
+                COND = [[gt; ge; lt; eq; neq]]);
+    mt_atomic_TY_await_COND_set_MS();
+    _tmpl_end;
+
+    _tmpl_begin(TY = [[ptr]], MO = [[seq]], COND = [[eq; neq]]);
+    mt_atomic_TY_await_COND_MS();
+    _tmpl_end;
+    _tmpl_begin(TY = [[ptr]], MO = [[seq]], COND = [[eq; neq]]);
+    mt_atomic_TY_await_COND_set_MS();
+    _tmpl_end;
+
+    return 0;
+}

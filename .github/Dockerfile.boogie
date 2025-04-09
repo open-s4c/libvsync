@@ -1,0 +1,17 @@
+FROM ubuntu:22.04
+
+# Install useful package
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        build-essential \
+    	ca-certificates \
+        cmake \
+        ninja-build \
+        g++-aarch64-linux-gnu \
+        gcc-aarch64-linux-gnu \
+	dotnet-sdk-6.0 \
+	z3 \
+	ghc \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN dotnet tool install --tool-path /usr/local/bin boogie --version 3.4.3
+
