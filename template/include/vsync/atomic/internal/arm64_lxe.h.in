@@ -1,0 +1,272 @@
+/*
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2025. All rights reserved.
+ * SPDX-License-Identifier: MIT
+ */
+
+#ifndef VATOMIC_ARM64_LXE_H
+#define VATOMIC_ARM64_LXE_H
+_tmpl_begin(=);
+AUTOGEN
+_tmpl_end;
+
+#define _tmpl_mute
+#include <vsync/atomic/tmplr.h>
+#define _tmpl_unmute
+
+/*******************************************************************************
+ * options
+ ******************************************************************************/
+#if !defined(VATOMIC_ARM64_LXE)
+    #error "Don't include this file directly, include <vsync/atomic.h> instead"
+#endif
+
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // memory order mappings
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // note that read/load operations don't support release, and both sc
+_tmpl_dl; // and acq use acquire(a)
+_tmpl_map(<READ_seq>, a);
+_tmpl_map(<READ_acq>, a);
+_tmpl_map(<READ_rel>, );
+_tmpl_map(<READ_rlx>, );
+_tmpl_dl; // note that write/store operations don't support release, and both sc
+_tmpl_dl; // and rel use release (l)
+_tmpl_map(<WRITE_seq>, l);
+_tmpl_map(<WRITE_rel>, l);
+_tmpl_map(<WRITE_acq>, );
+_tmpl_map(<WRITE_rlx>, );
+_tmpl_dl; // read modify write that return old value support acquire
+_tmpl_map(<RMW_seq>, al);
+_tmpl_map(<RMW_rel>, l);
+_tmpl_map(<RMW_acq>, a);
+_tmpl_map(<RMW_rlx>, );
+_tmpl_dl; // read modify write that store and does not return old value does not
+_tmpl_dl; // support acquire
+_tmpl_map(<RMW_ST_seq>, l);
+_tmpl_map(<RMW_ST_rel>, l);
+_tmpl_map(<RMW_ST_rlx>, );
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // instruction mapping when LSE is not available
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_map(<and_INST>, and);
+_tmpl_map(<or_INST>, orr);
+_tmpl_map(<xor_INST>, eor);
+_tmpl_map(<add_INST>, add);
+_tmpl_map(<sub_INST>, sub);
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // instruction mapping when LSE instructions are available
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_map(<LSE_and_INST>, ldclr); // performs a bitwise AND with the complement
+                                  // of the value held in a register on it
+_tmpl_map(<LSE_or_INST>, ldset);
+_tmpl_map(<LSE_xor_INST>, ldeor);
+_tmpl_map(<LSE_add_INST>, ldadd);
+_tmpl_map(<LSE_sub_INST>, ldadd);
+_tmpl_dl; // These instructions only stores without
+_tmpl_dl; // stclr performs bitwise AND with the *complement* of the given value
+_tmpl_dl; // that's why we compute the complement (see LSE_and_PRE) on the value
+_tmpl_dl; // before calling stclr
+_tmpl_map(<LSE_and_NORET_INST>, stclr);
+_tmpl_map(<LSE_or_NORET_INST>, stset);
+_tmpl_map(<LSE_xor_NORET_INST>, steor);
+_tmpl_map(<LSE_add_NORET_INST>, stadd);
+_tmpl_map(<LSE_sub_NORET_INST>, stadd);
+
+_tmpl_dl; // Bitwise NOT (immediate) writes the bitwise inverse of an immediate
+_tmpl_dl; // value to the destination register.
+_tmpl_map(<LSE_and_PRE>, mvn %<TY_REG>[v], %<TY_REG>[v]);
+_tmpl_map(<LSE_or_PRE>, );
+_tmpl_map(<LSE_xor_PRE>, );
+_tmpl_map(<LSE_add_PRE>, );
+_tmpl_dl; // Negate (shifted register) negates an optionally-shifted register
+_tmpl_dl; // value, and writes the result to the destination register
+_tmpl_map(<LSE_sub_PRE>, neg %<TY_REG>[v], %<TY_REG>[v]);
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // instruction register mappings
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_map(<u32_REG>, w);
+_tmpl_map(<u64_REG>, x);
+_tmpl_map(<ptr_REG>, x);
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // vatomic*_xchg*
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [[u32; u64; ptr]], MO = [[seq; acq; rel; rlx]]);
+/******************************************************************************
+ * __vatomic_xchg_MS
+ ******************************************************************************/
+#ifndef _tmpl_upcase(__vatomic_xchg_MS)
+#define _tmpl_upcase(__vatomic_xchg_MS)
+static inline TT
+__vatomic_xchg_MS(AA *a, TT v)
+{
+    TT oldv;
+    vuint32_t tmp;
+    __asm__ volatile(
+        "prfm pstl1strm, %[a]\n"
+        "ld<READ_MO>xr %<TY_REG>[oldv], %[a]\n"
+        "st<WRITE_MO>xr  %w[tmp], %<TY_REG>[newv], %[a]\n"
+        "cbz %w[tmp], 2f \n"
+        "swp<RMW_MO> %<TY_REG>[newv], %<TY_REG>[oldv], %[a]\n"
+        "2:\n"
+        : [oldv] "=&r"(oldv), [tmp] "=&r"(tmp)
+        : [newv] "r"(v), [a] "Q"(a->_v)
+        : "memory");
+    return oldv;
+}
+#endif
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // vatomic*_cmpxchg*
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [[u32; u64; ptr]], MO = [[seq; acq; rel; rlx]]);
+/******************************************************************************
+ * __vatomic_cmpxchg_MS
+ ******************************************************************************/
+#ifndef _tmpl_upcase(__vatomic_cmpxchg_MS)
+#define _tmpl_upcase(__vatomic_cmpxchg_MS)
+static inline TT
+__vatomic_cmpxchg_MS(AA *a, TT e, TT v)
+{
+    TT oldv;
+    vuint32_t tmp;
+    __asm__ volatile(
+        "prfm pstl1strm, %[a]\n"
+        "ld<READ_MO>xr %<TY_REG>[oldv], %[a]\n"
+        "cmp %<TY_REG>[oldv], %<TY_REG>[exp]\n"
+        "b.ne 2f\n"
+        "st<WRITE_MO>xr  %w[tmp], %<TY_REG>[newv], %[a]\n"
+        "cbz %w[tmp], 2f\n"
+        "mov %<TY_REG>[oldv], %<TY_REG>[exp]\n"
+        "cas<RMW_MO> %<TY_REG>[oldv], %<TY_REG>[newv], %[a]\n"
+        "2:\n"
+        : [oldv] "=&r"(oldv), [tmp] "=&r"(tmp)
+        : [newv] "r"(v), [exp] "r"(e), [a] "Q"(a->_v)
+        : "memory", "cc");
+    return oldv;
+}
+#endif
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // vatomic*_get_max*
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [[u32; u64]], MO = [[seq; acq; rel; rlx]]);
+/******************************************************************************
+ * __vatomic_get_max_MS
+ ******************************************************************************/
+#ifndef _tmpl_upcase(__vatomic_get_max_MS)
+#define _tmpl_upcase(__vatomic_get_max_MS)
+static inline TT
+__vatomic_get_max_MS(AA *a, TT v)
+{
+    TT oldv;
+    vuint32_t tmp;
+    __asm__ volatile(
+        "prfm pstl1strm, %[a]\n"
+        "ld<READ_MO>xr %<TY_REG>[oldv], %[a]\n"
+        "cmp %<TY_REG>[oldv], %<TY_REG>[v]\n"
+        "b.hs 2f\n"
+        "st<WRITE_MO>xr %w[tmp], %<TY_REG>[v], %[a]\n"
+        "cbz %w[tmp], 2f\n"
+        "ldumax<RMW_MO> %<TY_REG>[v], %<TY_REG>[oldv], %[a]\n"
+        "2:\n"
+        : [oldv] "=&r"(oldv), [tmp] "=&r"(tmp), [v] "+&r"(v)
+        : [a] "Q"(a->_v)
+        : "memory", "cc");
+    return oldv;
+}
+#endif
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // vatomic*_max*
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [[u32; u64]], MO = [[seq; rel; rlx]]);
+/******************************************************************************
+ * __vatomic_max_MS
+ ******************************************************************************/
+#ifndef _tmpl_upcase(__vatomic_max_MS)
+#define _tmpl_upcase(__vatomic_max_MS)
+static inline void
+__vatomic_max_MS(AA *a, TT v)
+{
+    TT oldv;
+    vuint32_t tmp;
+    __asm__ volatile(
+        "prfm pstl1strm, %[a]\n"
+        "ld<READ_MO>xr %<TY_REG>[oldv], %[a]\n"
+        "cmp %<TY_REG>[oldv], %<TY_REG>[v]\n"
+        "b.hs 2f\n"
+        "st<WRITE_MO>xr  %w[tmp], %<TY_REG>[v], %[a]\n"
+        "cbz %w[tmp], 2f \n"
+        "stumax<RMW_ST_MO> %<TY_REG>[v], %[a]\n"
+        "2:\n"
+        : [oldv] "=&r"(oldv), [tmp] "=&r"(tmp), [v] "+&r"(v)
+        : [a] "Q"(a->_v)
+        : "memory", "cc");
+}
+#endif
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // vatomic*_get_(and/or/xor/add/sub)*
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [[u32; u64]], MO = [[seq; acq; rel; rlx]],
+            OP = [[and; or ; xor; add; sub]]);
+/******************************************************************************
+ * __vatomic_get_OP_MS
+ ******************************************************************************/
+#ifndef _tmpl_upcase(__vatomic_get_OP_MS)
+#define _tmpl_upcase(__vatomic_get_OP_MS)
+static inline TT
+__vatomic_get_OP_MS(AA *a, TT v)
+{
+    TT oldv;
+    vuint32_t tmp;
+    TT newv;
+    __asm__ volatile(
+        "prfm pstl1strm, %[a]\n"
+        "ld<READ_MO>xr %<TY_REG>[oldv], %[a]\n"
+        "<OP_INST> %<TY_REG>[newv], %<TY_REG>[oldv], %<TY_REG>[v]\n"
+        "st<WRITE_MO>xr %w[tmp], %<TY_REG>[newv], %[a]\n"
+        "cbz %w[tmp], 2f\n"
+        "<LSE_OP_PRE>\n"
+        "<LSE_OP_INST><RMW_MO> %<TY_REG>[v], %<TY_REG>[oldv], %[a]\n"
+        "2:\n"
+        : [oldv] "=&r"(oldv), [newv] "=&r"(newv), [tmp] "=&r"(tmp), [v] "+&r"(v)
+        : [a] "Q"(a->_v)
+        : "memory", "cc");
+
+    return oldv;
+}
+#endif
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // vatomic*_(and/or/xor/add/sub)*
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [[u32; u64]], MO = [[seq; rel; rlx]],
+            OP = [[and; or ; xor; add; sub]]);
+/******************************************************************************
+ * __vatomic_OP_MS
+ ******************************************************************************/
+#ifndef _tmpl_upcase(__vatomic_OP_MS)
+#define _tmpl_upcase(__vatomic_OP_MS)
+static inline void
+__vatomic_OP_MS(AA *a, TT v)
+{
+    TT oldv;
+    TT newv;
+    vuint32_t tmp;
+    __asm__ volatile(
+        "prfm pstl1strm, %[a]\n"
+        "ld<READ_MO>xr %<TY_REG>[oldv], %[a]\n"
+        "<OP_INST> %<TY_REG>[newv], %<TY_REG>[oldv], %<TY_REG>[v]\n"
+        "st<WRITE_MO>xr %w[tmp], %<TY_REG>[newv], %[a]\n"
+        "cbz %w[tmp], 2f\n"
+        "<LSE_OP_PRE>\n"
+        "<LSE_OP_NORET_INST><RMW_ST_MO> %<TY_REG>[v], %[a]\n"
+        "2:\n"
+        : [oldv] "=&r"(oldv), [newv] "=&r"(newv), [tmp] "=&r"(tmp), [v] "+&r"(v)
+        : [a] "Q"(a->_v)
+        : "memory", "cc");
+}
+#endif
+_tmpl_end;
+#endif

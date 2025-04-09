@@ -1,0 +1,155 @@
+/*
+ * Copyright (C) Huawei Technologies Co., Ltd. 2022-2025. All rights reserved.
+ * SPDX-License-Identifier: MIT
+ */
+
+/* clang-format off */
+
+#include <assert.h>
+#include <vsync/atomic/core.h>
+#include <vsync/atomic/internal/macros.h>
+#define VATOMIC_DISABLE_MACRO_UNDEF
+#include <@TC_ATOMIC_HEADER@>
+
+/*******************************************************************************
+ * atomic and corresponding type
+ ******************************************************************************/
+
+#define A V_MAP_A(@TC_TYPE_PRFX@)
+#define T V_MAP_T(@TC_TYPE_PRFX@)
+
+#define V_MAP_T_atomic8   vuint8_t
+#define V_MAP_T_atomic16  vuint16_t
+#define V_MAP_T_atomic32  vuint32_t
+#define V_MAP_T_atomic64  vuint64_t
+#define V_MAP_T_atomicsz  vsize_t
+#define V_MAP_T_atomicptr void *
+
+#define V_MAP_A_atomic8   atomic8_t
+#define V_MAP_A_atomic16  atomic16_t
+#define V_MAP_A_atomic32  atomic32_t
+#define V_MAP_A_atomic64  atomic64_t
+#define V_MAP_A_atomicsz  atomicsz_t
+#define V_MAP_A_atomicptr atomicptr_t
+
+/*******************************************************************************
+ * test case data struct contains expected results
+ ******************************************************************************/
+
+typedef struct {
+    T init; // < initial value
+    T fini; // < final value
+} tc_t;
+
+#define TC(a, b) (tc_t){.fini = (T) (a), .init = (T) (b)}
+
+/*******************************************************************************
+ * operation expected behavior
+ ******************************************************************************/
+#define OP_cmpxchg(a, b, c) (a == b) ? TC(c, a) : TC(a, a)
+#define OP_or(a, b, _)      ({(void) _; TC(a | b, a);})
+#define OP_xor(a, b, _)     ({(void) _; TC(a ^ b, a);})
+#define OP_and(a, b, _)     ({(void) _; TC(a & b, a);})
+#define OP_add(a, b, _)     ({(void) _; TC(a + b, a);})
+#define OP_sub(a, b, _)     ({(void) _; TC(a - b, a);})
+#define OP_max(a, b, _)     ({(void) _; (a > b) ? TC(a, a) : TC(b, a);})
+#define OP_xchg(a, b, _)    ({(void) _; TC(b, a);})
+#define OP_init(a, b, _)    ({(void) _; (void) b, TC(b, a);})
+#define OP_write(a, b, _)   ({(void) _; (void) b, TC(b, a);})
+#define OP_inc(a, _1, _2)   ({(void)_1; (void)_2; TC(a + 1, a);})
+#define OP_dec(a, _1, _2)   ({(void)_1; (void)_2; TC(a - 1, a);})
+#define OP_read(a, _1, _2)  ({(void)_1; (void)_2; TC(a, a);})
+
+/*******************************************************************************
+ * basic test
+ ******************************************************************************/
+void
+test(T init, T arg1, T arg2)
+{
+    /* precompute the results */
+    tc_t tc = OP_@TC_FUNC@(init, arg1, arg2);
+
+    /* create the atomic variable and initilize it */
+    A a    = VATOMIC_INIT(tc.init);
+
+    /* if the function returns something, create ret */
+#if @TC_GETX@ || @TC_XGET@
+    T ret =
+#endif
+
+    /* call function accordingly */
+#if @TC_NARGS@ == 2
+    @TC_FVARIANT@_@TC_FUNC_PRFX@@TC_FUNC@@TC_FUNC_SUFX@(&a, arg1, arg2);
+#elif @TC_NARGS@ == 1
+    @TC_FVARIANT@_@TC_FUNC_PRFX@@TC_FUNC@@TC_FUNC_SUFX@(&a, arg1);
+#else
+    @TC_FVARIANT@_@TC_FUNC_PRFX@@TC_FUNC@@TC_FUNC_SUFX@(&a);
+#endif
+
+    /* check final state in the atomic variable */
+    assert(a._v == tc.fini);
+
+    /* if function returned, compare with expected value */
+#if @TC_GETX@
+    assert(ret == tc.init);
+#elif @TC_XGET@
+    assert(ret == tc.fini);
+#endif
+}
+
+/*******************************************************************************
+ * input generation
+ ******************************************************************************/
+
+#include <stdio.h>
+#define N (sizeof(T)*8*3)
+
+T values[N];
+
+void
+values_init()
+{
+    vuint64_t last = 1;
+    vuint64_t next;
+
+    values[0] = 0;
+    for (unsigned i = 1; i < N-2; i+=3) {
+        next = last * 2;
+
+        values[i]   = V_CAST(T, last);
+        values[i+1] = V_CAST(T, next);
+        values[i+2] = V_CAST(T, next+last);
+
+        last = next;
+    }
+}
+
+int
+main(void)
+{
+    values_init();
+
+#if @TC_NARGS@ == 0
+
+    for (unsigned i = 0; i < N; i++)
+        test(values[i], 0, 0);
+
+#elif @TC_NARGS@ == 1
+
+    for (unsigned i = 0; i < N; i++)
+        for (unsigned j = 0; j < N; j++)
+            test(values[i], values[j], 0);
+
+#elif @TC_NARGS@ == 2
+
+    for (unsigned i = 0; i < N; i++)
+        for (unsigned j = 0; j < N; j++)
+            for (unsigned k = 0; k < N; k++)
+               test(values[i], values[j], values[k]);
+
+#else
+#error "max 2 arguments"
+#endif
+
+    return 0;
+}

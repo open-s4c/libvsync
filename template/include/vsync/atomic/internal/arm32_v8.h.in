@@ -1,0 +1,329 @@
+/*
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2025. All rights reserved.
+ * SPDX-License-Identifier: MIT
+ */
+
+#ifndef VATOMIC_ARM32_V8_H
+#define VATOMIC_ARM32_V8_H
+_tmpl_begin(=);
+AUTOGEN
+_tmpl_end;
+
+#define _tmpl_mute
+#include <vsync/atomic/tmplr.h>
+#define _tmpl_unmute
+/*******************************************************************************
+ * options
+ ******************************************************************************/
+#if !defined(VATOMIC_ARM32_V8)
+    #error "include <vsync/atomic.h> and don't include this file directly"
+#endif
+
+#if !defined(VATOMIC_DISABLE_POLITE_AWAIT)
+    #define vatomic_cpu_pause() __asm__ volatile("yield" ::: "memory")
+#endif
+
+#if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
+    #define VATOMIC_LI_ENDIAN
+#endif
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // this mapping is only relevant for __vatomic_read
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_map(<u64_SUFFIX>, exd);
+_tmpl_map(<ptr_SUFFIX>, );
+_tmpl_map(<u32_SUFFIX>, );
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // Relevant for arm8, implicit barriers on load
+_tmpl_dl; // ------------------------------------------------------------------
+_tmpl_map(<seq_LD_SUFFIX>, a);
+_tmpl_map(<acq_LD_SUFFIX>, a);
+_tmpl_map(<rel_LD_SUFFIX>, r);
+_tmpl_map(<rlx_LD_SUFFIX>, r);
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // Relevant for arm8, implicit barriers on store
+_tmpl_dl; // ------------------------------------------------------------------
+_tmpl_map(<seq_ST_SUFFIX>, l);
+_tmpl_map(<rel_ST_SUFFIX>, l);
+_tmpl_map(<acq_ST_SUFFIX>, r);
+_tmpl_map(<rlx_ST_SUFFIX>, r);
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // Relevant for get_op 32 bit instructions mapping
+_tmpl_dl; // ------------------------------------------------------------------
+_tmpl_map(<INST_and>, and);
+_tmpl_map(<INST_or>, orr);
+_tmpl_map(<INST_xor>, eor);
+_tmpl_map(<INST_add>, add);
+_tmpl_map(<INST_sub>, sub);
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // Relevant for get_op 64 bit instructions mapping on LSBs
+_tmpl_dl; // ------------------------------------------------------------------
+_tmpl_map(<INST_LO_and>, and);
+_tmpl_map(<INST_LO_or>, orr);
+_tmpl_map(<INST_LO_xor>, eor);
+_tmpl_map(<INST_LO_add>, adds);
+_tmpl_map(<INST_LO_sub>, subs);
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // Relevant for get_op 64 bit instructions mapping on MSBs
+_tmpl_dl; // ------------------------------------------------------------------
+_tmpl_map(<INST_HI_and>, and);
+_tmpl_map(<INST_HI_or>, orr);
+_tmpl_map(<INST_HI_xor>, eor);
+_tmpl_map(<INST_HI_add>, adc);
+_tmpl_map(<INST_HI_sub>, sbc);
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // vatomic_fence*
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [[va]], MO = [[seq; rel; acq; rlx]], F_rlx = V_FENCE_RLX_INSTRUCTION,
+     F_seq = "dmb ish", F_rel = "dmb ish", F_acq = "dmb ishld");
+/******************************************************************************
+* __vatomic_fence_MS
+******************************************************************************/
+#ifndef _tmpl_upcase(__vatomic_fence_MS)
+#define _tmpl_upcase(__vatomic_fence_MS)
+static inline void
+__vatomic_fence_MS(void)
+{
+    __asm__ volatile(F_MO ::: "memory");
+}
+#endif
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // vatomic*_read*
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [[u32; u64; ptr]], MO = [[seq; acq; rlx]], FUNC = read);
+/******************************************************************************
+ * __vatomic_read_MS
+ ******************************************************************************/
+#ifndef _tmpl_upcase(__vatomic_read_MS)
+#define _tmpl_upcase(__vatomic_read_MS)
+static inline TT
+__vatomic_read_MS(const AA *a)
+{
+    TT val;
+    __asm__ volatile(
+        "ld<MO_LD_SUFFIX><TY_SUFFIX> %[v], %[a] \n"
+        : [v] "=&r"(val)
+        : [a] "Q"(a->_v)
+        : "memory");
+    return val;
+}
+#endif
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // vatomic*_write*
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [[u32; ptr]], MO = [[seq; rel; rlx]]);
+/******************************************************************************
+ * __vatomic_write_MS
+ ******************************************************************************/
+#ifndef _tmpl_upcase(__vatomic_write_MS)
+#define _tmpl_upcase(__vatomic_write_MS)
+static inline void
+__vatomic_write_MS(AA *a, TT v)
+{
+    __asm__ volatile(
+        "st<MO_ST_SUFFIX> %[v], %[a]\n"
+        :
+        : [v] "r"(v), [a] "Q"(a->_v)
+        : "memory");
+}
+#endif
+_tmpl_end;
+_tmpl_begin(TY = [[u64]], MO = [[seq; rel; rlx]]);
+/******************************************************************************
+ * __vatomic_write_MS
+ ******************************************************************************/
+#ifndef _tmpl_upcase(__vatomic_write_MS)
+#define _tmpl_upcase(__vatomic_write_MS)
+static inline void
+__vatomic_write_MS(AA *a, TT v)
+{
+    TT old;
+    vuint32_t tmp;
+    __asm__ volatile(
+        "1:\n"
+        "ld<MO_LD_SUFFIX>exd %[oldv], %H[oldv], %[a]\n"
+        "st<MO_ST_SUFFIX>exd %[tmp], %[newv], %H[newv], %[a]\n"
+        "cmp %[tmp], #0\n"
+        "bne 1b\n"
+        : [oldv] "=&r"(old), [tmp] "=&r"(tmp)
+        : [newv] "r"(v), [a] "Q"(a->_v)
+        : "memory", "cc");
+}
+#endif
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // vatomic*_xchg*
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [[u32; ptr]], MO = [[seq; acq; rel; rlx]]);
+/******************************************************************************
+ * __vatomic_xchg_MS
+ ******************************************************************************/
+#ifndef _tmpl_upcase(__vatomic_xchg_MS)
+#define _tmpl_upcase(__vatomic_xchg_MS)
+static inline TT
+__vatomic_xchg_MS(AA *a, TT v)
+{
+    TT old;
+    vuint32_t tmp;
+    __asm__ volatile(
+        "1:\n"
+        "ld<MO_LD_SUFFIX>ex %[oldv], %[a]\n"
+        "st<MO_ST_SUFFIX>ex %[tmp], %[newv], %[a]\n"
+        "cmp %[tmp], #0 \n"
+        "bne 1b\n"
+        : [oldv] "=&r"(old), [tmp] "=&r"(tmp)
+        : [newv] "r"(v), [a] "Q"(a->_v)
+        : "memory", "cc");
+    return old;
+}
+#endif
+_tmpl_end;
+_tmpl_begin(TY = [[u64]], MO = [[seq; acq; rel; rlx]]);
+/******************************************************************************
+ * __vatomic_xchg_MS
+ ******************************************************************************/
+#ifndef _tmpl_upcase(__vatomic_xchg_MS)
+#define _tmpl_upcase(__vatomic_xchg_MS)
+static inline TT
+__vatomic_xchg_MS(AA *a, TT v)
+{
+    TT old;
+    vuint32_t tmp;
+    __asm__ volatile(
+        "1:\n"
+        "ld<MO_LD_SUFFIX>exd %[oldv], %H[oldv], %[a]\n"
+        "st<MO_ST_SUFFIX>exd %[tmp], %[newv], %H[newv], %[a]\n"
+        "cmp %[tmp], #0 \n"
+        "bne 1b\n"
+        : [oldv] "=&r"(old), [tmp] "=&r"(tmp)
+        : [newv] "r"(v), [a] "Q"(a->_v)
+        : "memory", "cc");
+    return old;
+}
+#endif
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // vatomic*_cmpxchg*
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [[u32; ptr]], MO = [[seq; acq; rel; rlx]]);
+/******************************************************************************
+ * __vatomic_cmpxchg_MS
+ ******************************************************************************/
+#ifndef _tmpl_upcase(__vatomic_cmpxchg_MS)
+#define _tmpl_upcase(__vatomic_cmpxchg_MS)
+static inline TT
+__vatomic_cmpxchg_MS(AA *a, TT e, TT v)
+{
+    TT old;
+    vuint32_t tmp;
+    __asm__ volatile(
+        "1:\n"
+        "ld<MO_LD_SUFFIX>ex %[oldv], %[a]\n"
+        "cmp %[oldv], %[expv]\n"
+        "bne 2f\n"
+        "st<MO_ST_SUFFIX>ex %[tmp], %[newv], %[a]\n"
+        "cmp %[tmp], #0 \n"
+        "bne 1b\n"
+        "2:\n"
+        : [oldv] "=&r"(old), [tmp] "=&r"(tmp)
+        : [newv] "r"(v), [expv] "r"(e), [a] "Q"(a->_v)
+        : "memory", "cc");
+    return old;
+}
+#endif
+_tmpl_end;
+_tmpl_begin(TY = [[u64]], MO = [[seq; acq; rel; rlx]]);
+/******************************************************************************
+ * __vatomic_cmpxchg_MS
+ ******************************************************************************/
+#ifndef _tmpl_upcase(__vatomic_cmpxchg_MS)
+#define _tmpl_upcase(__vatomic_cmpxchg_MS)
+static inline TT
+__vatomic_cmpxchg_MS(AA *a, TT e, TT v)
+{
+    TT old;
+    vuint32_t tmp;
+    __asm__ volatile(
+        "1:\n"
+        "ld<MO_LD_SUFFIX>exd %[oldv], %H[oldv], %[a]\n"
+        "cmp %H[oldv], %H[expv]\n"
+        "cmpeq %[oldv], %[expv]\n"
+        "bne 2f\n"
+        "st<MO_ST_SUFFIX>exd %[tmp], %[newv], %H[newv], %[a]\n"
+        "cmp %[tmp], #0 \n"
+        "bne 1b\n"
+        "2:\n"
+        : [oldv] "=&r"(old), [tmp] "=&r"(tmp)
+        : [newv] "r"(v), [expv] "r"(e), [a] "Q"(a->_v)
+        : "memory", "cc");
+    return old;
+}
+#endif
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // vatomic*_get_(and/or/xor/add/sub)*
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [[u32]], MO = [[seq; acq; rel; rlx]],
+            OP = [[and; or ; xor; add; sub]]);
+/******************************************************************************
+ * __vatomic_get_OP_MS
+ ******************************************************************************/
+#ifndef _tmpl_upcase(__vatomic_get_OP_MS)
+#define _tmpl_upcase(__vatomic_get_OP_MS)
+static inline TT
+__vatomic_get_OP_MS(AA *a, TT v)
+{
+    TT oldv;
+    TT newv;
+    vuint32_t tmp;
+    __asm__ volatile(
+        "1:\n"
+        "ld<MO_LD_SUFFIX>ex %[oldv], %[a]\n"
+        "<INST_OP> %[newv], %[oldv], %[v]\n"
+        "st<MO_ST_SUFFIX>ex %[tmp], %[newv], %[a]\n"
+        "cmp %[tmp], #0\n"
+        "bne 1b\n"
+        : [oldv] "=&r"(oldv), [newv] "=&r"(newv), [tmp] "=&r"(tmp)
+        : [v] "r"(v), [a] "Q"(a->_v)
+        : "memory", "cc");
+
+    return oldv;
+}
+#endif
+_tmpl_end;
+_tmpl_begin(TY = [[u64]], MO = [[seq; acq; rel; rlx]],
+            OP = [[and; or ; xor; add; sub]]);
+/******************************************************************************
+ * __vatomic_get_OP_MS
+ ******************************************************************************/
+#ifndef _tmpl_upcase(__vatomic_get_OP_MS)
+#define _tmpl_upcase(__vatomic_get_OP_MS)
+static inline TT
+__vatomic_get_OP_MS(AA *a, TT v)
+{
+    TT oldv;
+    TT newv;
+    vuint32_t tmp;
+    __asm__ volatile(
+        "1:\n"
+        "ld<MO_LD_SUFFIX>exd %[oldv], %H[oldv], %[a]\n"
+        #if defined(VATOMIC_LI_ENDIAN)
+        "<INST_LO_OP> %[newv], %[oldv], %[v]\n"
+        "<INST_HI_OP> %H[newv], %H[oldv], %H[v]\n"
+        #else
+        "<INST_LO_OP> %H[newv], %H[oldv], %H[v]\n"
+        "<INST_HI_OP> %[newv], %[oldv], %[v]\n"
+        #endif
+        "st<MO_ST_SUFFIX>exd %[tmp], %[newv], %H[newv], %[a]\n"
+        "cmp %[tmp], #0 \n"
+        "bne 1b\n"
+        : [oldv] "=&r"(oldv), [newv] "=&r"(newv), [tmp] "=&r"(tmp)
+        : [v] "r"(v), [a] "Q"(a->_v)
+        : "memory", "cc");
+
+    return oldv;
+}
+#endif
+_tmpl_end;
+#endif

@@ -1,0 +1,192 @@
+/*
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2025. All rights reserved.
+ * SPDX-License-Identifier: MIT
+ */
+
+#ifndef VATOMIC_ARM64_H
+#define VATOMIC_ARM64_H
+_tmpl_begin(=);
+AUTOGEN
+_tmpl_end;
+
+#if !defined(VATOMIC_DISABLE_POLITE_AWAIT)
+    #define vatomic_cpu_pause() __asm__ volatile("yield" ::: "memory")
+#endif
+
+#define _tmpl_mute
+#include <vsync/atomic/tmplr.h>
+#define _tmpl_unmute
+
+/*******************************************************************************
+ * options
+ ******************************************************************************/
+#if defined(__ARM_FEATURE_ATOMICS) && !defined(VATOMIC_DISABLE_ARM64_LSE)
+    #if defined(VATOMIC_ENABLE_ARM64_LXE)
+        #define VATOMIC_ARM64_LXE
+        #include "arm64_lxe.h"
+    #else
+        #define VATOMIC_ARM64_LSE
+        #include "arm64_lse.h"
+    #endif
+#endif
+
+#if !defined(VATOMIC_ARM64_LSE) && !defined(VATOMIC_ARM64_LXE)
+    #define VATOMIC_ARM64_LLSC
+    #include "arm64_llsc.h"
+#endif
+
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // memory order mappings
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // note that read/load operations don't support release, and both sc
+_tmpl_dl; // and acq use acquire(a)
+_tmpl_map(<READ_seq>, a);
+_tmpl_map(<READ_acq>, a);
+_tmpl_map(<READ_rel>, );
+_tmpl_map(<READ_rlx>, );
+_tmpl_dl; // note that write/store operations don't support release, and both sc
+_tmpl_dl; // and rel use release (l)
+_tmpl_map(<WRITE_seq>, l);
+_tmpl_map(<WRITE_rel>, l);
+_tmpl_map(<WRITE_acq>, );
+_tmpl_map(<WRITE_rlx>, );
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // condition instruction mapping
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_map(<eq_INST>, b.eq);
+_tmpl_map(<neq_INST>, b.ne);
+_tmpl_map(<lt_INST>, b.lo);
+_tmpl_map(<le_INST>, b.ls);
+_tmpl_map(<gt_INST>, b.hi);
+_tmpl_map(<ge_INST>, b.hs);
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // opposite condition instruction mapping
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_map(<INV_eq_INST>, b.ne);
+_tmpl_map(<INV_neq_INST>, b.eq);
+_tmpl_map(<INV_lt_INST>, b.hs);
+_tmpl_map(<INV_le_INST>, b.hi);
+_tmpl_map(<INV_gt_INST>, b.ls);
+_tmpl_map(<INV_ge_INST>, b.lo);
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // instruction register mappings
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_map(<u32_REG>, w);
+_tmpl_map(<u64_REG>, x);
+_tmpl_map(<ptr_REG>, x);
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // fence mappings
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_map(<FNC_seq>, "dmb ish");
+_tmpl_map(<FNC_rel>, "dmb ish");
+_tmpl_map(<FNC_acq>, "dmb ishld");
+_tmpl_map(<FNC_rlx>, V_FENCE_RLX_INSTRUCTION);
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // vatomic_fence*
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [[va]], MO = [[seq; acq; rel; rlx]]);
+#ifndef _tmpl_upcase(__vatomic_fence_MS)
+    #define _tmpl_upcase(__vatomic_fence_MS)
+static inline void
+__vatomic_fence_MS(void)
+{
+    __asm__ volatile(<FNC_MO>::: "memory");
+}
+#endif
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // vatomic*_read*
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [[u32; u64; ptr]], MO = [[seq; acq; rlx]], FUNC = read);
+/******************************************************************************
+ * __vatomic_read_MS
+ ******************************************************************************/
+#ifndef _tmpl_upcase(__vatomic_read_MS)
+    #define _tmpl_upcase(__vatomic_read_MS)
+static inline TT
+__vatomic_read_MS(const AA *a)
+{
+    TT val;
+    __asm__ volatile("ld<READ_MO>r %<TY_REG>[v], %[a]"
+                     : [v] "=&r"(val)
+                     : [a] "Q"(a->_v)
+                     : "memory");
+    return val;
+}
+#endif
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // vatomic*_write*
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [[u32; u64; ptr]], MO = [[seq; rel; rlx]]);
+/******************************************************************************
+ * __vatomic_write_MS
+ ******************************************************************************/
+#ifndef _tmpl_upcase(__vatomic_write_MS)
+    #define _tmpl_upcase(__vatomic_write_MS)
+static inline void
+__vatomic_write_MS(AA *a, TT v)
+{
+    __asm__ volatile("st<WRITE_MO>r %<TY_REG>[v], %[a]"
+                     :
+                     : [v] "r"(v), [a] "Q"(a->_v)
+                     : "memory");
+}
+#endif
+_tmpl_end;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // vatomic(32/64)_await_(eq/neq/lt/le/gt/ge)*
+_tmpl_dl; // vatomicptr_await_(eq/neq)*
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_begin(TY = [[u32; u64; ptr]], MO = [[seq; acq; rlx]],
+            COND = [[eq; neq; lt; le; gt; ge]], $F_ptr_eq = BLK_KEEP,
+            $F_ptr_neq = BLK_KEEP, $F_ptr = BLK_SKIP);
+$F_TY_COND;
+/******************************************************************************
+ * __vatomic_await_COND_MS
+ ******************************************************************************/
+#ifndef _tmpl_upcase(__vatomic_await_COND_MS)
+    #define _tmpl_upcase(__vatomic_await_COND_MS)
+    #if defined(VATOMIC_DISABLE_POLITE_AWAIT)
+static inline TT
+__vatomic_await_COND_MS(const AA *a, TT v)
+{
+    TT val;
+    __asm__ volatile(
+        "1:\n"
+        "ld<READ_MO>r %<TY_REG>[val], %[a]\n"
+        "cmp %<TY_REG>[val], %<TY_REG>[exp]\n"
+        "<INV_COND_INST> 1b\n"
+        : [val] "=&r"(val)
+        : [exp] "r"(v), [a] "Q"(a->_v)
+        : "memory", "cc");
+    return val;
+}
+    #else
+_tmpl_dl; // Note that in case of WFE we use ldxr instead of ldr
+_tmpl_dl; // to create an event, otherwise WFE deadlocks without event
+static inline TT
+__vatomic_await_COND_MS(const AA *a, TT v)
+{
+    TT val;
+    __asm__ volatile(
+        "ld<READ_MO>r %<TY_REG>[val], %[a]\n"
+        "cmp %<TY_REG>[val], %<TY_REG>[exp]\n"
+        "<COND_INST> 2f\n"
+        "sevl\n"
+        ".align 5\n"
+        "1:\n"
+        "wfe\n"
+        "ld<READ_MO>xr %<TY_REG>[val], %[a]\n"
+        "cmp %<TY_REG>[val],  %<TY_REG>[exp]\n"
+        "<INV_COND_INST> 1b\n"
+        "2:\n"
+        : [val] "=&r"(val)
+        : [exp] "r"(v), [a] "Q"(a->_v)
+        : "memory", "cc");
+    return val;
+}
+    #endif
+#endif
+_tmpl_end;
+#endif

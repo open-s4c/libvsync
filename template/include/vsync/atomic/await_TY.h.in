@@ -1,0 +1,113 @@
+/*
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2025. All rights reserved.
+ * SPDX-License-Identifier: MIT
+ */
+
+#define _tmpl_mute
+#include <vsync/atomic/tmplr.h>
+#include <vsync/atomic/core.h.in>
+TT __vatomic_get_OP_MS(AA *, TT);
+TT __vatomic_OP_get_MS(AA *, TT);
+TT __vatomic_get_SOP_MS(AA *);
+TT __vatomic_SOP_get_MS(AA *);
+#define static
+#define inline
+#define VATOMIC_AWAIT_H
+#define $F_TY_COND
+#define $F_TY_OP
+#define _tmpl_unmute
+_tmpl_dl;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // Text mappings for COND and OP
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_map(TXT_lt, less than);
+_tmpl_map(TXT_le, less than or equal to);
+_tmpl_map(TXT_gt, greater than);
+_tmpl_map(TXT_ge, greater than or equal to);
+_tmpl_map(TXT_neq, different than);
+_tmpl_map(TXT_eq, equal to);
+_tmpl_map(TXT_RET_eq, last value before satisfying condition);
+_tmpl_map(TXT_RET_lt, TXT_RET_DEFAULT);
+_tmpl_map(TXT_RET_le, TXT_RET_DEFAULT);
+_tmpl_map(TXT_RET_gt, TXT_RET_DEFAULT);
+_tmpl_map(TXT_RET_ge, TXT_RET_DEFAULT);
+_tmpl_map(TXT_RET_neq, TXT_RET_DEFAULT);
+_tmpl_map(TXT_RET_DEFAULT, value satisfying conditon);
+_tmpl_map(TXT_add, adding);
+_tmpl_map(TXT_sub, subtracting);
+_tmpl_map(TXT_set, setting);
+_tmpl_dl;
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // Content starts here
+_tmpl_dl; // -------------------------------------------------------------------
+_tmpl_dl; // clang-format off
+_tmpl_begin(TY = [[u8; u16; u32; u64; ptr]]);
+#ifndef VATOMIC_AWAIT_UPCASE_TY__H
+#define VATOMIC_AWAIT_UPCASE_TY__H
+/*******************************************************************************
+ * @file await_TY.h
+ * @brief Atomic await functions for AA variables.
+ *
+ * This file declares and documents the atomic await functions operating on
+ * AA variables.
+ *
+ * Please do not include this file directly, instead use:
+ * ```c
+ * #include <vsync/atomic/await.h>
+ * ```
+ ******************************************************************************/
+_tmpl_end;
+_tmpl_begin(=);
+AUTOGEN
+_tmpl_end;
+#include <vsync/atomic/internal/types.h>
+
+#ifndef VATOMIC_AWAIT_H
+    #error "File included directly. Include <vsync/atomic/await.h> instead!"
+#endif
+_tmpl_dl; // clang-format off
+_tmpl_dl; // this is just for backward-compatibility and that's why it is added only for u32 and u64
+_tmpl_begin(TY = [[u32; u64]]);
+#define MAP_P_TY_await_true(_p_)  MAP_P_TY_await_neq((_p_), 0)
+#define MAP_P_TY_await_false(_p_) MAP_P_TY_await_eq((_p_), 0)
+_tmpl_end;
+
+_tmpl_dl; // clang-format on
+_tmpl_begin(TY = [[u32; u64; ptr]], COND = [[lt; le; gt; ge; neq; eq]],
+            MO = [[seq; acq; rlx]], $F_ptr_neq = BLK_KEEP, $F_ptr_eq = BLK_KEEP,
+            $F_ptr = BLK_SKIP);
+$F_TY_COND;
+/**
+ * Politely awaits the value pointed by a to be TXT_COND v.
+ *
+ * The return value is the first read value that satisfies the condition, as if
+ * read with __vatomic_read(a).
+ *
+ * @param a atomic variable
+ * @param v value to compare
+ * @return TXT_RET_COND
+ * @memord ME
+ */
+static inline TT __vatomic_await_COND_MS(const AA *a, TT v);
+_tmpl_end;
+
+_tmpl_begin(TY = [[u32; u64; ptr]], COND = [[eq; neq; lt; le; gt; ge]],
+            OP = [[add; sub; set]], MO = [[seq; acq; rel; rlx]],
+            $F_ptr_neq = BLK_KEEP, $F_ptr_eq = BLK_KEEP, $F_ptr_set = BLK_KEEP,
+            $F_ptr = BLK_SKIP);
+$F_TY_COND;
+$F_TY_OP;
+/**
+ * Politely awaits the value pointed by a to be TXT_COND c, TXT_OP v to a once
+ * the condition is satisfied.
+ *
+ * @param a atomic variable
+ * @param c value to compare
+ * @param v value to apply the operation
+ * @return old value
+ * @memord ME
+ */
+static inline TT __vatomic_await_COND_OP_MS(AA *a, TT c, TT v);
+_tmpl_end;
+
+#endif /* VATOMIC_AWAIT_TY_H */
