@@ -1,0 +1,103 @@
+/*
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2025. All rights reserved.
+ * SPDX-License-Identifier: MIT
+ */
+
+/**
+ * This C file call all available atomic APIs
+ * It is not meant for running. It is to be used with `vsyncer info` in different
+ * Configs to ensure the used barriers match the config.
+ */
+#include <vsync/atomic.h>
+
+_tmpl_begin(=);
+AUTOGEN
+_tmpl_end;
+
+_tmpl_begin(TY = [[u8; u16; u32; u64; ptr; sz]]);
+    AA g_TY_a;
+    TT g_TY_v;
+_tmpl_end;
+
+#define _tmpl_mute
+#include <vsync/atomic/tmplr.h>
+#define _tmpl_unmute
+
+int main(void) {
+
+_tmpl_dl; // fence
+_tmpl_begin(TY = [[fnc]], MO = [[seq; acq; rel; rlx]], FUNC = [[fence]]);
+    vatomic_fence_MS();
+_tmpl_end;
+_tmpl_dl; // ------------------------------------------
+_tmpl_dl; // read
+_tmpl_begin(TY =  [[u8; u16; u32; u64; sz; ptr]], MO = [[seq; acq; rlx]], FUNC = [[read]]);
+    __vatomic_read_MS(&g_TY_a);
+_tmpl_end;
+_tmpl_dl; // ------------------------------------------
+_tmpl_dl; // write
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz; ptr]], MO = [[seq; rel; rlx]], FUNC = [[write]]);
+    __vatomic_write_MS(&g_TY_a, g_TY_v);
+_tmpl_end;
+_tmpl_dl; // ------------------------------------------
+_tmpl_dl; // xchg
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz; ptr]], MO = [[seq; acq; rel; rlx]], FUNC = [[xchg]]);
+    __vatomic_xchg_MS(&g_TY_a, g_TY_v);
+_tmpl_end;
+_tmpl_dl; // ------------------------------------------
+_tmpl_dl; // cmpxchg
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz; ptr]], MO = [[seq; acq; rel; rlx]], FUNC = [[cmpxchg]]);
+    __vatomic_cmpxchg_MS(&g_TY_a, g_TY_v, g_TY_v);
+_tmpl_end;
+_tmpl_dl; // ------------------------------------------
+_tmpl_dl; // get_op/ op_get
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz;]], MO = [[seq; acq; rel; rlx]],
+     FUNC = [[get_max; get_and; get_or; get_xor; get_add; get_sub; max_get; and_get; or_get; xor_get; add_get; sub_get]]);
+    __vatomic_FUNC_MS(&g_TY_a, g_TY_v);
+_tmpl_end;
+_tmpl_dl; // ------------------------------------------
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz;]], MO = [[seq; acq; rel; rlx]],
+     FUNC = [[get_inc; inc_get; get_dec; dec_get]]);
+    __vatomic_FUNC_MS(&g_TY_a);
+_tmpl_end;
+_tmpl_dl; // ------------------------------------------
+_tmpl_dl; // op
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz;]], MO = [[seq; rel; rlx]],
+    FUNC = [[max; and; or; xor; add; sub]]);
+    __vatomic_FUNC_MS(&g_TY_a, g_TY_v);
+_tmpl_end;
+_tmpl_dl; // ------------------------------------------
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz;]], MO = [[seq; rel; rlx]],
+    FUNC = [[inc; dec]]);
+    __vatomic_FUNC_MS(&g_TY_a);
+_tmpl_end;
+_tmpl_dl; // ------------------------------------------
+_tmpl_dl; // await_cond
+_tmpl_begin(TY = [[u32; u64; ptr]], MO = [[seq; acq; rlx]],
+     FUNC = [[await_eq; await_neq; await_lt; await_le; await_gt; await_ge]],
+     $F_ptr_await_eq = BLK_KEEP,  $F_ptr_await_neq = BLK_KEEP, $F_ptr = BLK_SKIP);
+$F_TY_FUNC;
+    __vatomic_FUNC_MS(&g_TY_a, g_TY_v);
+_tmpl_end;
+_tmpl_dl; // ------------------------------------------
+_tmpl_begin(TY = [[u32; u64]], MO = [[seq; acq; rel; rlx]],
+            FUNC = [[ await_le_add; await_lt_add; await_ge_add; await_gt_add;  await_le_sub; await_lt_sub; await_ge_sub; await_gt_sub; await_le_set; await_lt_set; await_ge_set; await_gt_set]]);
+    __vatomic_FUNC_MS(&g_TY_a, g_TY_v, g_TY_v);
+_tmpl_end;
+_tmpl_dl; // ------------------------------------------
+_tmpl_begin(TY = [[u32; u64; ptr]],
+            MO = [[seq; acq; rel; rlx]], FUNC = [[await_neq_add; await_neq_sub; await_neq_set]],
+            $F_ptr_await_neq_set = BLK_KEEP, $F_ptr = BLK_SKIP);
+$F_TY_FUNC;
+    __vatomic_FUNC_MS(&g_TY_a, g_TY_v, g_TY_v);
+_tmpl_end;
+_tmpl_dl; // ------------------------------------------
+_tmpl_begin(TY = [[u32; u64; ptr]],
+            MO = [[seq; acq; rel; rlx]], FUNC = [[await_eq_add; await_eq_sub; await_eq_set]],
+            $F_ptr_await_eq_set = BLK_KEEP, $F_ptr = BLK_SKIP);
+$F_TY_FUNC;
+    __vatomic_FUNC_MS(&g_TY_a, g_TY_v, g_TY_v);
+_tmpl_end;
+_tmpl_dl; // ------------------------------------------
+}
+
