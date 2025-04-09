@@ -1,0 +1,6 @@
+_tmpl_map(DROP_IF_cat, _tmpl_skip);
+_tmpl_begin(X=[[dog;cat;rat]]);
+DROP_IF_X
+after drop
+X is running.
+_tmpl_end;

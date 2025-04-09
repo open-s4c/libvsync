@@ -1,0 +1,8 @@
+This placeholder file guarantees git will not get rid of the docker-context
+directory.
+
+When building our ci images, we use the docker-context directory as "empty
+context", ie, a context that does not change in every commit. In this way, only
+when the Dockerfiles are modified, the docker build will actually build another
+image.  It is ok to use an empty context for our ci images because they only
+contain external tools (and no code from this repository).
