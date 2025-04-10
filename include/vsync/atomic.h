@@ -21,4 +21,5 @@
 #include <vsync/atomic/await.h>
 #include <vsync/atomic/core.h>
 #include <vsync/atomic/dispatch.h>
+
 #endif /* VSYNC_ATOMIC_H */

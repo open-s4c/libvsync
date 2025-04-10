@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.16)
 project(
     libvsync
     LANGUAGES C
-    VERSION 4.2.0
+    VERSION 0.0.0
     DESCRIPTION
         "Verified library of atomics, synchronization primitives and concurrent data structures"
 )
@@ -27,7 +27,6 @@ endif()
 add_library(vsync INTERFACE)
 # make vatomic a dependency of vsync
 target_link_libraries(vsync INTERFACE vatomic)
-
 
 target_include_directories(
     vsync INTERFACE "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
@@ -90,10 +89,10 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     include(${CMAKE_SOURCE_DIR}/cmake/v_add_test.cmake)
     include(${CMAKE_SOURCE_DIR}/cmake/check.cmake)
     include(${CMAKE_SOURCE_DIR}/cmake/lotto_test.cmake)
+    add_subdirectory(vatomic/tmplr)
     add_subdirectory(template)
     add_subdirectory(test)
     add_subdirectory(verify)
-    add_subdirectory(tmplr)
     if(LIBVSYNC_ADDRESS_SANITIZER)
         target_compile_options(vsync INTERFACE -fsanitize=address)
         target_compile_definitions(vsync INTERFACE VSYNC_ADDRESS_SANITIZER)
