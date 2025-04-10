@@ -1,3 +1,7 @@
+if(EXISTS internal)
+    add_subdirectory(internal)
+endif()
+
 # find all template inputs
 file(GLOB TARGETS *.in)
 # exclude those generated for every type
@@ -9,8 +13,7 @@ foreach(TARGET ${TARGETS})
     add_custom_target(
         ${TARGET}
         COMMAND
-            ${PROJECT_SOURCE_DIR}/tmplr/tmplr.sh
-            ${CMAKE_CURRENT_SOURCE_DIR}/vatomic.rules
+            $<TARGET_FILE:tmplr.bin> ${CMAKE_CURRENT_SOURCE_DIR}/vatomic.rules
             ${CMAKE_CURRENT_SOURCE_DIR}/${TARGET}.in >
             ${ATOMICS_DIR}/include/vsync/atomic/${TARGET})
     add_dependencies(vatomic-generate ${TARGET})
