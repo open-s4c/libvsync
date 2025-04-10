@@ -33,6 +33,7 @@ target_include_directories(
                     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
 
 install(DIRECTORY include/vsync DESTINATION include)
+install(DIRECTORY vatomic/include/vsync DESTINATION include)
 install(FILES vmm/vmm.cat DESTINATION share/vsync)
 install(TARGETS vsync EXPORT ${PROJECT_TARGETS})
 
