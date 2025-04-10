@@ -16,7 +16,18 @@ include(GNUInstallDirs)
 include(cmake/export.cmake)
 include(CheckSymbolExists)
 
+# ##############################################################################
+# add vatomic lib.
+# ##############################################################################
+find_package(vatomic 3.2 CONFIG)
+if(NOT vatomic_FOUND)
+    add_subdirectory(vatomic)
+endif()
+
 add_library(vsync INTERFACE)
+# make vatomic a dependency of vsync
+target_link_libraries(vsync INTERFACE vatomic)
+
 
 target_include_directories(
     vsync INTERFACE "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
