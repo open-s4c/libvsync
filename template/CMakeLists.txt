@@ -8,10 +8,3 @@ add_custom_command(
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR})
 
 add_subdirectory(include)
-# The following empty file helps LSP servers (eg, clangd) to figure out the
-# symbols in the .h.in template files by updating the compile_commands.json
-add_executable(empty empty.c)
-set_target_properties(empty PROPERTIES COMPILE_OPTIONS "")
-target_compile_features(empty INTERFACE c_std_99)
-target_include_directories(empty PRIVATE include)
-target_link_libraries(empty INTERFACE vsync tmplr)
