@@ -28,14 +28,12 @@ fi
 if [ -f $IGNORE ]; then
     # Apply cmake-format to all committed CMake files in the repo.
     git ls-files "$@" |
-        grep -v "vatomic/" |
         grep -E 'CMakeLists.txt$|.*\.cmake(\.in)?$' |
         grep -E --invert-match -f "${IGNORE}" |
         xargs cmake-format -c "${STYLE}" -i
 else
     echo -e "\e[33mWarning: $IGNORE does not exist!\e[0m"
     git ls-files "$@" |
-        grep -v "vatomic/" |
         grep -E 'CMakeLists.txt$|.*\.cmake(\.in)?$' |
         xargs cmake-format -c "${STYLE}" -i
 fi
