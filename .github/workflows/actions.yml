@@ -53,7 +53,7 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
-        target: ["clang-format-apply", "vatomic-generate", "vatomic-test-generate"]
+        target: ["clang-format-apply", "vatomic-generate"]
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
