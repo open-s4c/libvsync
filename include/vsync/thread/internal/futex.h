@@ -15,6 +15,7 @@
  ******************************************************************************/
 #include <vsync/atomic.h>
 #include <limits.h>
+#include <vsync/common/assert.h>
 
 #define FUTEX_WAKE_ALL INT_MAX
 #define FUTEX_WAKE_ONE 1
@@ -26,22 +27,13 @@
 
 #if defined(VSYNC_VERIFICATION) || defined(FUTEX_USERSPACE)
 
-static vatomic32_t g_signal;
-
-static inline void
-vfutex_wait(vatomic32_t *m, vuint32_t v)
-{
-    vuint32_t s = vatomic32_read_acq(&g_signal);
-    if (vatomic32_read_rlx(m) != v)
-        return;
-    vatomic32_await_neq_rlx(&g_signal, s);
-}
-
-static inline void
-vfutex_wake(vatomic32_t *m, vuint32_t v)
-{
-    vatomic32_inc_rel(&g_signal);
-}
+    #if defined(VFUTEX_LIVENESS)
+        #include <vsync/thread/internal/futex_mock_liveness.h>
+    #elif defined(VFUTEX_LIVENESS_SIMPLE)
+        #include <vsync/thread/internal/futex_mock_liveness_simple.h>
+    #else /* VFUTEX_LIVENESS_SIMPLE */
+        #include <vsync/thread/internal/futex_mock_safety.h>
+    #endif /* VFUTEX_LIVENESS */
 
 #elif defined(__linux__)
     #include <errno.h>

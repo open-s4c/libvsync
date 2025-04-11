@@ -53,6 +53,7 @@ function(add_vsyncer_check)
         APPEND
         CFLAGS #
         -I${PROJECT_SOURCE_DIR}/include #
+        -I${PROJECT_SOURCE_DIR}/vatomic/include #
         -I${PROJECT_SOURCE_DIR}/test/include #
         -I${PROJECT_SOURCE_DIR}/verify/include #
         -DVSYNC_VERIFICATION #
