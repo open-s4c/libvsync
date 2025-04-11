@@ -29,9 +29,10 @@
     #include <stdint.h>
     #include <stdbool.h>
     #include <stddef.h>
-    #if !defined(__APPLE__)
-        #include <inttypes.h>
+    #if defined(__APPLE__)
+    #define __STDC_FORMAT_MACROS
     #endif
+    #include <inttypes.h>
 typedef uint8_t vuint8_t;
 typedef uint16_t vuint16_t;
 typedef uint32_t vuint32_t;
