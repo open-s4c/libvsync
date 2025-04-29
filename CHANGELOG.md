@@ -11,6 +11,16 @@ is not guaranteed to result in increment of major version.
 Please note that the version correlates to the internal libvsync, which is a superset of
 what exists in open-s4c libvsync.
 
+## [4.2.1]
+
+### Changed
+
+- use atomics from vatomic project
+
+### Added
+
+- new futex mock implementations
+
 ## [4.2.0]
 
 ### Added

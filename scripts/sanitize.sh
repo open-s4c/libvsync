@@ -22,7 +22,7 @@ set -e
 
 echo "Running sanatize on $(pwd)"
 
-FILES=$(git ls-files '*.h' '*.c' | grep -v "vatomic/" | grep -v "/build/" | grep -v "tmplr/" | grep -vE "^$(git ls-files -d | paste -sd '|' -)$")
+FILES=$(git ls-files '*.h' '*.c' | grep -v "vatomic/" | grep -v "build/" | grep -v "tmplr/" | grep -vE "^$(git ls-files -d | paste -sd '|' -)$")
 
 #YEAR=$(date +%Y)
 
@@ -63,8 +63,8 @@ for f in ${FILES}; do
 
     # add copy write notice to public files
 
-    EXP_END=$(git log --follow  --format=%ad --date=format:'%Y' $f | head -1)
-    EXP_START=$(git log --follow  --format=%ad --date=format:'%Y' $f | tail -1)
+    EXP_END=$(git log --follow --format=%ad --date=format:'%Y' $f | head -1)
+    EXP_START=$(git log --follow --format=%ad --date=format:'%Y' $f | tail -1)
 
     if [[ "$EXP_START" == "$EXP_END" ]]; then
         REPLACEMENT="$EXP_START"
