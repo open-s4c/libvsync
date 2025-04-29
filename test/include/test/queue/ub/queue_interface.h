@@ -11,6 +11,7 @@
  *
  */
 #include <vsync/common/compiler.h>
+#include <test/trace_manager.h>
 #if defined(VQUEUE_UB_LF)
     #define VGDUMP_ENABLE_BUFF
     #include <vsync/queue/unbounded_queue_lf.h>
