@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <vsync/common/assert.h>
+#include <inttypes.h>
 #include <vsync/vtypes.h>
 #include <vsync/common/dbg.h>
 #include <vsync/utils/string.h>

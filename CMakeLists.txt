@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.16)
 project(
     libvsync
     LANGUAGES C
-    VERSION 4.2.0
+    VERSION 4.2.1
     DESCRIPTION
         "Verified library of atomics, synchronization primitives and concurrent data structures"
 )
@@ -16,13 +16,24 @@ include(GNUInstallDirs)
 include(cmake/export.cmake)
 include(CheckSymbolExists)
 
+# ##############################################################################
+# add vatomic lib.
+# ##############################################################################
+find_package(vatomic 3.2 CONFIG)
+if(NOT vatomic_FOUND)
+    add_subdirectory(vatomic)
+endif()
+
 add_library(vsync INTERFACE)
+# make vatomic a dependency of vsync
+target_link_libraries(vsync INTERFACE vatomic)
 
 target_include_directories(
     vsync INTERFACE "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
                     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
 
 install(DIRECTORY include/vsync DESTINATION include)
+install(DIRECTORY vatomic/include/vsync DESTINATION include)
 install(FILES vmm/vmm.cat DESTINATION share/vsync)
 install(TARGETS vsync EXPORT ${PROJECT_TARGETS})
 
@@ -79,10 +90,10 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     include(${CMAKE_SOURCE_DIR}/cmake/v_add_test.cmake)
     include(${CMAKE_SOURCE_DIR}/cmake/check.cmake)
     include(${CMAKE_SOURCE_DIR}/cmake/lotto_test.cmake)
+    add_subdirectory(vatomic/tmplr)
     add_subdirectory(template)
     add_subdirectory(test)
     add_subdirectory(verify)
-    add_subdirectory(tmplr)
     if(LIBVSYNC_ADDRESS_SANITIZER)
         target_compile_options(vsync INTERFACE -fsanitize=address)
         target_compile_definitions(vsync INTERFACE VSYNC_ADDRESS_SANITIZER)
