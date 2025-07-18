@@ -49,6 +49,18 @@ jobs:
           name: check-report-${{ matrix.test-dir.c }}
           path: build/logs
   ###########################################################################
+  libvsync-Install:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Configure without tests
+        run: cmake -S. -Bbuild -DLIBVSYNC_ENABLE_TESTS=OFF
+      - name: Build
+        run: cmake --build build -j
+      - name: Install
+        run: sudo cmake --install build
+  ###########################################################################
   Run-Format-Checks:
     runs-on: ubuntu-22.04
     strategy:
