@@ -50,6 +50,15 @@ if(VSYNC_MEMCPY_S_EXISTS)
 endif()
 
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+    # if top level, enable testing by default
+    set(TESTING_DEFAULT ON)
+else()
+    set(TESTING_DEFAULT OFF)
+endif()
+
+option(LIBVSYNC_ENABLE_TESTS "Enable libvsync tests" ${TESTING_DEFAULT})
+
+if(${LIBVSYNC_ENABLE_TESTS})
     # ##########################################################################
     # Important Config must be set
     # ##########################################################################
