@@ -11,6 +11,11 @@ A seqcount allows a writer to modify shared variables without being blocked by r
 
 
 ```c
+/*
+ * Copyright (C) Huawei Technologies Co., Ltd. 2025. All rights reserved.
+ * SPDX-License-Identifier: MIT
+ */
+
 
 #include <vsync/spinlock/seqcount.h>
 #include <vsync/common/assert.h>

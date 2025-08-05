@@ -9,6 +9,11 @@ _This implementation of listset uses one lock to serialize all operations._
 
 
 ```c
+/*
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2025. All rights reserved.
+ * SPDX-License-Identifier: MIT
+ */
+
 
 #include <vsync/map/listset_coarse.h>
 #include <vsync/smr/gdump.h>

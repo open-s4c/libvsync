@@ -11,6 +11,11 @@ This is a fine-grained blocking implementation, which uses [rec_spinlock.h](../s
 
 
 ```c
+/*
+ * Copyright (C) Huawei Technologies Co., Ltd. 2025. All rights reserved.
+ * SPDX-License-Identifier: MIT
+ */
+
 #include <vsync/queue/vqueue_prio_heap_based.h>
 #include <pthread.h>
 #include <assert.h>

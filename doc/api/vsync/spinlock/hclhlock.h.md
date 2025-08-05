@@ -9,6 +9,11 @@ _Hierarchical CLH Queue Lock._
 
 
 ```c
+/*
+ * Copyright (C) Huawei Technologies Co., Ltd. 2025. All rights reserved.
+ * SPDX-License-Identifier: MIT
+ */
+
 
 /* you can use the default value or redefine it to indicate how many     \
          clusters you need */

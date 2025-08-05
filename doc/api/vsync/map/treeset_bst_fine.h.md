@@ -11,6 +11,11 @@ Refer to [treeset_bst_coarse.h](treeset_bst_coarse.h.md) for more general inform
 
 
 ```c
+/*
+ * Copyright (C) Huawei Technologies Co., Ltd. 2025. All rights reserved.
+ * SPDX-License-Identifier: MIT
+ */
+
 
 #define TREESET_LOCK_RW
 #include <vsync/map/treeset_bst_fine.h>

@@ -9,6 +9,11 @@ This file includes the default mutex implementation. See [mutex/slim.h](mutex/sl
 
 
 ```c
+/*
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
+ * SPDX-License-Identifier: MIT
+ */
+
 
 #include <vsync/thread/mutex.h>
 #include <vsync/common/assert.h>

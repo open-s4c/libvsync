@@ -9,6 +9,11 @@ CAS is implemented with vatomic32_cmpxchg or a variant.
 
 
 ```c
+/*
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
+ * SPDX-License-Identifier: MIT
+ */
+
 
 #include <vsync/spinlock/caslock.h>
 #include <vsync/common/assert.h>

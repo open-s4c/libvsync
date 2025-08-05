@@ -7,6 +7,11 @@ _Slim 3-state futex._
 
 
 ```c
+/*
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
+ * SPDX-License-Identifier: MIT
+ */
+
 
 #include <vsync/thread/mutex.h>
 #include <vsync/common/assert.h>

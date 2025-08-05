@@ -11,6 +11,11 @@ Implementation of the classic single-producer, single-consumer, wait-free bounde
 
 
 ```c
+/*
+ * Copyright (C) Huawei Technologies Co., Ltd. 2025. All rights reserved.
+ * SPDX-License-Identifier: MIT
+ */
+
 
 #include <vsync/queue/bounded_spsc.h>
 #include <pthread.h>

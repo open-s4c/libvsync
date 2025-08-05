@@ -11,6 +11,11 @@ A variation of the DPDK ring buffer that uses cached variables to improve the pe
 
 
 ```c
+/*
+ * Copyright (C) Huawei Technologies Co., Ltd. 2025. All rights reserved.
+ * SPDX-License-Identifier: MIT
+ */
+
 #include <stdio.h>
 #include <pthread.h>
 #include <stdlib.h>

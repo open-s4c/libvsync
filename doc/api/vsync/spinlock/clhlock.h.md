@@ -9,6 +9,11 @@ _List-based lock attributed to Craig, Landin and Hagersten._
 
 
 ```c
+/*
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
+ * SPDX-License-Identifier: MIT
+ */
+
 #include <vsync/spinlock/clhlock.h>
 #include <vsync/common/assert.h>
 #include <pthread.h>

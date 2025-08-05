@@ -9,6 +9,11 @@ A very simple condition variable.
 
 
 ```c
+/*
+ * Copyright (C) Huawei Technologies Co., Ltd. 2025. All rights reserved.
+ * SPDX-License-Identifier: MIT
+ */
+
 
 #include <vsync/thread/mutex.h>
 #include <vsync/thread/cond.h>

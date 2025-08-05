@@ -13,6 +13,11 @@ Note that this implementation is not reentrant.
 
 
 ```c
+/*
+ * Copyright (C) Huawei Technologies Co., Ltd. 2025. All rights reserved.
+ * SPDX-License-Identifier: MIT
+ */
+
 
 /*
  * The following example shows how to use the MCS lock. Each threads needs a

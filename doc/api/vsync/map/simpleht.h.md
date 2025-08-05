@@ -21,6 +21,11 @@ There is a tradeoff between performance and the number of empty slots in the has
 
 
 ```c
+/*
+ * Copyright (C) Huawei Technologies Co., Ltd. 2025. All rights reserved.
+ * SPDX-License-Identifier: MIT
+ */
+
 
 #include <vsync/map/simpleht.h>
 #include <vsync/common/assert.h>

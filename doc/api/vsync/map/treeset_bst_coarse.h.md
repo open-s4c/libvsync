@@ -23,6 +23,11 @@ For lock-based implementations one need to choose desired lock implementation:
 
 
 ```c
+/*
+ * Copyright (C) Huawei Technologies Co., Ltd. 2025. All rights reserved.
+ * SPDX-License-Identifier: MIT
+ */
+
 
 #define TREESET_LOCK_RW
 #include <vsync/map/treeset_bst_coarse.h>

@@ -11,6 +11,11 @@ The queue has a bounded size and returns errors in case the queue is full, empty
 
 
 ```c
+/*
+ * Copyright (C) Huawei Technologies Co., Ltd. 2025. All rights reserved.
+ * SPDX-License-Identifier: MIT
+ */
+
 
 #include <vsync/queue/bounded_mpmc.h>
 #include <pthread.h>

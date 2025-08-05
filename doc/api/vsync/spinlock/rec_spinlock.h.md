@@ -11,6 +11,11 @@ see [caslock.h](caslock.h.md)
 
 
 ```c
+/*
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
+ * SPDX-License-Identifier: MIT
+ */
+
 
 #include <vsync/spinlock/rec_spinlock.h>
 #include <vsync/common/assert.h>
