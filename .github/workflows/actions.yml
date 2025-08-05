@@ -61,12 +61,14 @@ jobs:
       - name: Install
         run: sudo cmake --install build
   ###########################################################################
-  Run-Format-Checks:
+  Run-Format-Markdown-Checks:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
-        target: ["clang-format-apply", "vatomic-generate"]
+        target: ["clang-format-apply", "vatomic-generate", "markdown"]
     steps:
+      - name: Install doxygen
+        run: sudo apt-get install doxygen
       - name: Check out repository code
         uses: actions/checkout@v4
         with:
