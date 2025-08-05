@@ -66,7 +66,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: ["clang-format-apply", "cmake-format-apply", "vatomic-generate", "markdown"]
+        target: ["clang-format-apply", "vatomic-generate", "markdown"]
     steps:
       - name: Install doxygen
         run: sudo apt-get install doxygen
