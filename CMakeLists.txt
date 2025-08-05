@@ -14,6 +14,7 @@ option(LIBVSYNC_CODECHECK_BINSCOPE "Compile with necessary flags for binscope"
 
 include(GNUInstallDirs)
 include(cmake/export.cmake)
+include(cmake/doc.cmake)
 include(CheckSymbolExists)
 
 # ##############################################################################
@@ -91,6 +92,8 @@ if(${LIBVSYNC_ENABLE_TESTS})
     add_custom_target(diff-check COMMAND git --no-pager diff --exit-code)
 
     add_dependencies(clang-format-apply sanitize-vsync)
+
+    add_doc_targets()
 
     set(LIBVSYNC_OPEN_DISTRO_TESTING "on")
     enable_testing()
