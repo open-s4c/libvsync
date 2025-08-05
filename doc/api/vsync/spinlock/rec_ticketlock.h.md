@@ -1,6 +1,8 @@
 #  [vsync](../README.md) / [spinlock](README.md) / rec_ticketlock.h
 _Recursive ticketlock implementation using recursive.h._ 
 
+**Groups:** [Fair locks](GROUP_fair_lock.md), [Reentrant](GROUP_reentrant.md)
+
 `rec_ticketlock` is a ticketlock that supports recursion, i.e., is reentrant.
 
 see [vsync/spinlock/ticketlock.h](ticketlock.h.md)

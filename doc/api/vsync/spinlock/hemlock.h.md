@@ -1,6 +1,8 @@
 #  [vsync](../README.md) / [spinlock](README.md) / hemlock.h
 _Hemlock by Dice and Kogan._ 
 
+**Groups:** [Fair locks](GROUP_fair_lock.md)
+
 
 ### Example:
 

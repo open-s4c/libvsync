@@ -1,6 +1,8 @@
 #  [vsync](../README.md) / [spinlock](README.md) / rec_spinlock.h
 _Recursive spinlock implementation using recursive.h._ 
 
+**Groups:** [Reentrant](GROUP_reentrant.md)
+
 see [caslock.h](caslock.h.md)
 
 
