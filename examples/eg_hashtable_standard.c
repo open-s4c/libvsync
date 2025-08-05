@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) Huawei Technologies Co., Ltd. 2025. All rights reserved.
+ * SPDX-License-Identifier: MIT
+ */
+
 #include <vsync/smr/gdump.h>
 #include <vsync/map/hashtable_standard.h>
 #include <pthread.h>

@@ -1,3 +1,8 @@
+/*
+ * Copyright (C) Huawei Technologies Co., Ltd. 2025. All rights reserved.
+ * SPDX-License-Identifier: MIT
+ */
+
 
 #include <vsync/queue/unbounded_queue_lf.h>
 /* define VGDUMP_ENABLE_BUFF to enable thread local buffer of retired nodes */
