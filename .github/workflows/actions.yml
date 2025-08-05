@@ -64,11 +64,14 @@ jobs:
   Run-Format-Markdown-Checks:
     runs-on: ubuntu-22.04
     strategy:
+      fail-fast: false
       matrix:
         target: ["clang-format-apply", "cmake-format-apply", "vatomic-generate", "markdown"]
     steps:
       - name: Install doxygen
         run: sudo apt-get install doxygen
+      - name: Install cmake
+        run: sudo apt-get install cmake
       - name: Check out repository code
         uses: actions/checkout@v4
         with:
