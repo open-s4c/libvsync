@@ -1,25 +1,22 @@
-###############################################
-# Adds cmake targets that help generate
-# the markdown documentation
-# make doxygen
+# ##############################################################################
+# Adds cmake targets that help generate the markdown documentation make doxygen
 # make markdown
-###############################################
+# ##############################################################################
 function(add_doc_targets)
     set(DOXYGEN_DOCKER "")
-    ###############################################
+    # ##########################################################################
     # Generate doxygen config file
-    ###############################################
+    # ##########################################################################
     set(DOXYGEN_INPUT "${PROJECT_SOURCE_DIR}")
     set(DOXYGEN_OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/doxygen")
     set(DOXYGEN_FILE_IN "${PROJECT_SOURCE_DIR}/doc/Doxyfile.in")
-    set(DOXYGEN_FILE    "${CMAKE_CURRENT_BINARY_DIR}/Doxyfile")
-    # Note that this will substitute @VAR@ with the value of VAR
-    # in ${DOXYGEN_FILE_IN} and write the outout to ${DOXYGEN_FILE}
+    set(DOXYGEN_FILE "${CMAKE_CURRENT_BINARY_DIR}/Doxyfile")
+    # Note that this will substitute @VAR@ with the value of VAR in
+    # ${DOXYGEN_FILE_IN} and write the outout to ${DOXYGEN_FILE}
     configure_file(${DOXYGEN_FILE_IN} ${DOXYGEN_FILE})
-    ###############################################
-    # Add doxygen target
-    # Run with: make doxygen
-    ###############################################
+    # ##########################################################################
+    # Add doxygen target Run with: make doxygen
+    # ##########################################################################
     set(DOXYGEN_TARGET "doxygen")
     # create output directory
     file(MAKE_DIRECTORY "${DOXYGEN_OUTPUT}")
@@ -29,10 +26,9 @@ function(add_doc_targets)
         WORKING_DIRECTORY "${DOXYGEN_INPUT}"
         COMMENT "Generating Doxygen documentation for include folder."
         VERBATIM)
-    ###############################################
-    # Add markdown target
-    # Run with: make markdown
-    ###############################################
+    # ##########################################################################
+    # Add markdown target Run with: make markdown
+    # ##########################################################################
     set(DOC_OUTPUT "${PROJECT_SOURCE_DIR}/doc/api")
     set(MDOX "${PROJECT_SOURCE_DIR}/doc/mdox")
     set(MARKDOWN_TARGET "markdown")
