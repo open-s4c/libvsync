@@ -12,11 +12,6 @@ _Multi-threaded, fixed size, and fixed capacity memory pool._
 
 
 ```c
-/*
- * Copyright (C) Huawei Technologies Co., Ltd. 2025. All rights reserved.
- * SPDX-License-Identifier: MIT
- */
-
 #include <vsync/vtypes.h>
 #include <vsync/common/assert.h>
 #include <vsync/pool/cached_pool.h>

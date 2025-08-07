@@ -11,12 +11,6 @@ _This is a partially parallel implementation with lock-free get._
 
 
 ```c
-/*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023-2025. All rights reserved.
- * SPDX-License-Identifier: MIT
- */
-
-
 #include <vsync/map/listset_lazy.h>
 #include <vsync/smr/gdump.h>
 #include <pthread.h>

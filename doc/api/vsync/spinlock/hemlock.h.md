@@ -9,11 +9,6 @@ _Hemlock by Dice and Kogan._
 
 
 ```c
-/*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
- * SPDX-License-Identifier: MIT
- */
-
 #include <vsync/spinlock/hemlock.h>
 #include <vsync/common/assert.h>
 #include <pthread.h>

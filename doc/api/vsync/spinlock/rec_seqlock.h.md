@@ -12,12 +12,6 @@ This is a reentrant implementation of  (see [seqlock.h](seqlock.h.md).)
 
 
 ```c
-/*
- * Copyright (C) Huawei Technologies Co., Ltd. 2025. All rights reserved.
- * SPDX-License-Identifier: MIT
- */
-
-
 #include <vsync/spinlock/rec_seqlock.h>
 #include <pthread.h>
 #include <stdio.h>

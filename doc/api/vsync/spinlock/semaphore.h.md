@@ -9,12 +9,6 @@ see [vsync/spinlock/rwlock.h](rwlock.h.md)
 
 
 ```c
-/*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
- * SPDX-License-Identifier: MIT
- */
-
-
 #include <vsync/spinlock/semaphore.h>
 #include <vsync/common/assert.h>
 #include <pthread.h>

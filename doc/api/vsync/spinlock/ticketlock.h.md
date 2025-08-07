@@ -11,12 +11,6 @@ Ticketlock is a simple, fair lock (guarantees FIFO order).
 
 
 ```c
-/*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
- * SPDX-License-Identifier: MIT
- */
-
-
 #include <vsync/spinlock/ticketlock.h>
 #include <vsync/common/assert.h>
 #include <pthread.h>

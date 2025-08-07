@@ -9,11 +9,6 @@ Calls a callback exactly once even if concurrently called. Callback happens befo
 
 
 ```c
-/*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
- * SPDX-License-Identifier: MIT
- */
-
 #include <stdio.h>
 #include <pthread.h>
 #include <vsync/common/assert.h>

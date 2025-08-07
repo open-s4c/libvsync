@@ -13,12 +13,6 @@ Initially the first flag is set to `true` and the rest to `false`, and the tail 
 
 
 ```c
-/*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
- * SPDX-License-Identifier: MIT
- */
-
-
 #include <vsync/spinlock/arraylock.h>
 #include <vsync/common/assert.h>
 #include <pthread.h>

@@ -15,11 +15,6 @@ It requires SMR (see gdump.h)
 
 
 ```c
-/*
- * Copyright (C) Huawei Technologies Co., Ltd. 2025. All rights reserved.
- * SPDX-License-Identifier: MIT
- */
-
 #include <vsync/queue/vqueue_prio_stack_array_based.h>
 #include <vsync/smr/gdump.h>
 #include <pthread.h>

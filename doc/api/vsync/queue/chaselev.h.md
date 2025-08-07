@@ -16,11 +16,6 @@ David Chase, Yossi Lev - [Dynamic Circular Work-Stealing Deque](https://dl.acm.o
 
 
 ```c
-/*
- * Copyright (C) Huawei Technologies Co., Ltd. 2025. All rights reserved.
- * SPDX-License-Identifier: MIT
- */
-
 #include <stdlib.h>
 #include <assert.h>
 #include <pthread.h>

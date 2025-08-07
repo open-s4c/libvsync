@@ -9,12 +9,6 @@ _Hierarchical MCS lock for systems with NUMA Hierarchies._
 
 
 ```c
-/*
- * Copyright (C) Huawei Technologies Co., Ltd. 2025. All rights reserved.
- * SPDX-License-Identifier: MIT
- */
-
-
 #include <vsync/spinlock/hmcslock.h>
 #include <pthread.h>
 #include <stdio.h>

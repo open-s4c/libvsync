@@ -20,12 +20,6 @@ Note that the right configuration depends on the contention, number of threads e
 
 
 ```c
-/*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
- * SPDX-License-Identifier: MIT
- */
-
-
 #include <vsync/stack/elimination_stack.h>
 #include <vsync/smr/gdump.h>
 #include <pthread.h>

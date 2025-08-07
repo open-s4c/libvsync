@@ -11,12 +11,6 @@ It uses fine grained locking (one lock per node) to serialize all operations. Th
 
 
 ```c
-/*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023-2025. All rights reserved.
- * SPDX-License-Identifier: MIT
- */
-
-
 #include <vsync/map/listset_opt.h>
 #include <vsync/smr/gdump.h>
 #include <pthread.h>

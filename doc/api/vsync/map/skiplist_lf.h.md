@@ -11,12 +11,6 @@ _Lock-free concurrent skiplist._
 
 
 ```c
-/*
- * Copyright (C) Huawei Technologies Co., Ltd. 2025. All rights reserved.
- * SPDX-License-Identifier: MIT
- */
-
-
 #include <vsync/map/skiplist_lf.h>
 #include <vsync/smr/gdump.h>
 #include <pthread.h>

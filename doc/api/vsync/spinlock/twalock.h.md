@@ -11,12 +11,6 @@ To use the TWA lock, one must declare the global waiting array once in the progr
 
 
 ```c
-/*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
- * SPDX-License-Identifier: MIT
- */
-
-
 #include <vsync/spinlock/twalock.h>
 #include <vsync/common/assert.h>
 #include <pthread.h>

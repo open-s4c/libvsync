@@ -9,12 +9,6 @@ In seqlock writers are only blocked by writers but not by readers. Readers optim
 
 
 ```c
-/*
- * Copyright (C) Huawei Technologies Co., Ltd. 2025. All rights reserved.
- * SPDX-License-Identifier: MIT
- */
-
-
 #include <vsync/spinlock/seqlock.h>
 #include <pthread.h>
 #include <stdio.h>

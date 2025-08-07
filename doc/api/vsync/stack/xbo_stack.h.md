@@ -11,12 +11,6 @@ When an attempt to pop/push fails, the calling thread is put to sleep before it 
 
 
 ```c
-/*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
- * SPDX-License-Identifier: MIT
- */
-
-
 #include <vsync/stack/xbo_stack.h>
 #include <vsync/smr/gdump.h>
 #include <pthread.h>
