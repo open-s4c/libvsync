@@ -68,10 +68,11 @@ jobs:
       matrix:
         target: ["clang-format-apply", "vatomic-generate", "markdown"]
     steps:
-      - name: Install doxygen & curl
-        run: sudo apt update && sudo apt install -y doxygen curl
-      - name: Download and Install mdox
+      if:
+      - name: Download and Install doxygen & mdox for markdown check
+        if: ${{ matrix.target }} == "markdown"
         run: |
+          sudo apt update && sudo apt install -y doxygen curl
           sudo curl -L -o /usr/local/bin/mdox https://github.com/db7/mdox/releases/download/v0.1/mdox-v0.1-linux-amd64
           sudo chmod +x /usr/local/bin/mdox
       - name: Check out repository code
