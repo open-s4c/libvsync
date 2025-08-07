@@ -4,10 +4,21 @@
 # ##############################################################################
 function(add_doc_targets)
     set(DOXYGEN_DOCKER "")
+    set(INSTALL_TARGET "install-libvsync")
+    # Note that for now we generate the doc based on the files we install with
+    # libvsync Once we have a separate doc for vatomic&doc.h we can just use
+    # ${PROJECT_SOURCE_DIR}/include and skip the installation step.
+    set(DOXYGEN_INPUT "${CMAKE_CURRENT_BINARY_DIR}/installed")
+    add_custom_target(
+        ${INSTALL_TARGET}
+        COMMAND
+            ${CMAKE_COMMAND} -S"${PROJECT_SOURCE_DIR}"
+            -B"${CMAKE_CURRENT_BINARY_DIR}"
+            -DCMAKE_INSTALL_PREFIX="${DOXYGEN_INPUT}"
+        COMMAND ${CMAKE_COMMAND} --install "${CMAKE_CURRENT_BINARY_DIR}")
     # ##########################################################################
     # Generate doxygen config file
     # ##########################################################################
-    set(DOXYGEN_INPUT "${PROJECT_SOURCE_DIR}")
     set(DOXYGEN_OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/doxygen")
     set(DOXYGEN_FILE_IN "${PROJECT_SOURCE_DIR}/doc/Doxyfile.in")
     set(DOXYGEN_FILE "${CMAKE_CURRENT_BINARY_DIR}/Doxyfile")
@@ -25,6 +36,7 @@ function(add_doc_targets)
         COMMAND ${DOXYGEN_DOCKER} doxygen ${DOXYGEN_FILE}
         WORKING_DIRECTORY "${DOXYGEN_INPUT}"
         COMMENT "Generating Doxygen documentation for include folder."
+        DEPENDS ${INSTALL_TARGET}
         VERBATIM)
     # ##########################################################################
     # Add markdown target Run with: make markdown
