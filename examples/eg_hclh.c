@@ -1,3 +1,4 @@
+
 /* you can use the default value or redefine it to indicate how many     \
          clusters you need */
 #define HCLH_MAX_CLUSTERS 2

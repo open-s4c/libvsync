@@ -1,3 +1,4 @@
+
 #include <vsync/bitmap/bitmap.h>
 #include <vsync/common/assert.h>
 #include <pthread.h>

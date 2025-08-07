@@ -12,6 +12,7 @@ EBR relies on global and local epoch counters to determine when it is safe to re
 
 
 ```c
+
 #include <vsync/queue/unbounded_queue_lf.h>
 #include <vsync/smr/ebr.h>
 #include <pthread.h>

@@ -1,3 +1,4 @@
+
 /*
  * The following example shows how to use the MCS lock. Each threads needs a
  * context, i.e., an instance of `mcs_node_t`. When acquiring or releasing the

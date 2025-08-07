@@ -13,6 +13,7 @@ see [vsync/spinlock/ticketlock.h](ticketlock.h.md)
 
 
 ```c
+
 #include <vsync/spinlock/rec_ticketlock.h>
 #include <vsync/common/assert.h>
 #include <pthread.h>

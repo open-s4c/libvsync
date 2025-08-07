@@ -11,6 +11,7 @@ A seqcount allows a writer to modify shared variables without being blocked by r
 
 
 ```c
+
 #include <vsync/spinlock/seqcount.h>
 #include <vsync/common/assert.h>
 #include <pthread.h>

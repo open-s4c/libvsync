@@ -20,6 +20,7 @@ Note that the right configuration depends on the contention, number of threads e
 
 
 ```c
+
 #include <vsync/stack/elimination_stack.h>
 #include <vsync/smr/gdump.h>
 #include <pthread.h>

@@ -9,6 +9,7 @@ In seqlock writers are only blocked by writers but not by readers. Readers optim
 
 
 ```c
+
 #include <vsync/spinlock/seqlock.h>
 #include <pthread.h>
 #include <stdio.h>

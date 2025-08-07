@@ -11,6 +11,7 @@ The queue has a bounded size and returns errors in case the queue is full, empty
 
 
 ```c
+
 #include <vsync/queue/bounded_mpmc.h>
 #include <pthread.h>
 #include <assert.h>

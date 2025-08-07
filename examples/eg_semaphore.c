@@ -1,3 +1,4 @@
+
 #include <vsync/spinlock/semaphore.h>
 #include <vsync/common/assert.h>
 #include <pthread.h>

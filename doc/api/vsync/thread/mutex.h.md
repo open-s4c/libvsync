@@ -9,6 +9,7 @@ This file includes the default mutex implementation. See [mutex/slim.h](mutex/sl
 
 
 ```c
+
 #include <vsync/thread/mutex.h>
 #include <vsync/common/assert.h>
 #include <pthread.h>
