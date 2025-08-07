@@ -1,9 +1,3 @@
-/*
- * Copyright (C) Huawei Technologies Co., Ltd. 2025. All rights reserved.
- * SPDX-License-Identifier: MIT
- */
-
-
 #include <vsync/queue/unbounded_queue_lf_recycle.h>
 #include <pthread.h>
 #include <assert.h>

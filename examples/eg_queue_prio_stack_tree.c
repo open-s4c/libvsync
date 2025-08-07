@@ -1,8 +1,3 @@
-/*
- * Copyright (C) Huawei Technologies Co., Ltd. 2025. All rights reserved.
- * SPDX-License-Identifier: MIT
- */
-
 #include <vsync/queue/vqueue_prio_stack_tree_based.h>
 #include <vsync/smr/gdump.h>
 #include <pthread.h>

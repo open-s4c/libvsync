@@ -1,8 +1,3 @@
-/*
- * Copyright (C) Huawei Technologies Co., Ltd. 2025. All rights reserved.
- * SPDX-License-Identifier: MIT
- */
-
 #include <vsync/atomic.h>
 #include <assert.h>
 #include <stdio.h>

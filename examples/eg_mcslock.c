@@ -1,10 +1,4 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2025. All rights reserved.
- * SPDX-License-Identifier: MIT
- */
-
-
-/*
  * The following example shows how to use the MCS lock. Each threads needs a
  * context, i.e., an instance of `mcs_node_t`. When acquiring or releasing the
  * lock, one needs to pass the lock and the context as arguments. The context
