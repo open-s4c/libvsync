@@ -70,8 +70,6 @@ jobs:
     steps:
       - name: Install doxygen
         run: sudo apt-get install doxygen
-      - name: Install cmake
-        run: sudo apt-get install cmake
       - name: Check out repository code
         uses: actions/checkout@v4
         with:
