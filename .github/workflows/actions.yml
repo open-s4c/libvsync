@@ -68,8 +68,12 @@ jobs:
       matrix:
         target: ["clang-format-apply", "vatomic-generate", "markdown"]
     steps:
-      - name: Install doxygen
-        run: sudo apt-get install doxygen
+      - name: Install doxygen & curl
+        run: sudo apt update && sudo apt install -y doxygen curl
+      - name: Download and Install mdox
+        run: |
+          sudo curl -L -o /usr/local/bin/mdox https://github.com/db7/mdox/releases/download/v0.1/mdox-v0.1-linux-amd64
+          sudo chmod +x /usr/local/bin/mdox
       - name: Check out repository code
         uses: actions/checkout@v4
         with:

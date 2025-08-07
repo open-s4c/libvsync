@@ -42,7 +42,7 @@ function(add_doc_targets)
     # Add markdown target Run with: make markdown
     # ##########################################################################
     set(DOC_OUTPUT "${PROJECT_SOURCE_DIR}/doc/api")
-    set(MDOX "${PROJECT_SOURCE_DIR}/doc/mdox")
+    set(MDOX mdox)
     set(MARKDOWN_TARGET "markdown")
     add_custom_target(
         "${MARKDOWN_TARGET}"
