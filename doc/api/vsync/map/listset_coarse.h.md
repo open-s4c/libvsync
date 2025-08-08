@@ -9,7 +9,6 @@ _This implementation of listset uses one lock to serialize all operations._
 
 
 ```c
-
 #include <vsync/map/listset_coarse.h>
 #include <vsync/smr/gdump.h>
 #include <pthread.h>

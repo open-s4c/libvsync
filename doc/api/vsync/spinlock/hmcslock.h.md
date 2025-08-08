@@ -9,7 +9,6 @@ _Hierarchical MCS lock for systems with NUMA Hierarchies._
 
 
 ```c
-
 #include <vsync/spinlock/hmcslock.h>
 #include <pthread.h>
 #include <stdio.h>

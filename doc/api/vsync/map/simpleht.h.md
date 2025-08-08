@@ -21,7 +21,6 @@ There is a tradeoff between performance and the number of empty slots in the has
 
 
 ```c
-
 #include <vsync/map/simpleht.h>
 #include <vsync/common/assert.h>
 #include <pthread.h>

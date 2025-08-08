@@ -9,7 +9,6 @@ Bitmap with basic functionality.
 
 
 ```c
-
 #include <vsync/bitmap/bitmap.h>
 #include <vsync/common/assert.h>
 #include <pthread.h>

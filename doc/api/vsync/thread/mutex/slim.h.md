@@ -7,7 +7,6 @@ _Slim 3-state futex._
 
 
 ```c
-
 #include <vsync/thread/mutex.h>
 #include <vsync/common/assert.h>
 #include <pthread.h>

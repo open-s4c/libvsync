@@ -13,7 +13,6 @@ This is a non-blocking, multi-producer, multi-consumer queue protected by a spin
 
 
 ```c
-
 #include <vsync/queue/bounded_locked.h>
 #include <pthread.h>
 #include <assert.h>

@@ -23,7 +23,6 @@ For lock-based implementations one need to choose desired lock implementation:
 
 
 ```c
-
 #define TREESET_LOCK_RW
 #include <vsync/map/treeset_bst_coarse.h>
 

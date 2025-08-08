@@ -11,7 +11,6 @@ The CNA is an efficient variant of the MCS locks, which adds NUMA-awareness with
 
 
 ```c
-
 #include <vsync/spinlock/cnalock.h>
 #include <vsync/common/assert.h>
 #include <pthread.h>

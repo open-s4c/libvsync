@@ -14,7 +14,6 @@ Operating conditions
 
 
 ```c
-
 #include <vsync/queue/unbounded_queue_lf.h>
 /* define VGDUMP_ENABLE_BUFF to enable thread local buffer of retired nodes */
 #define VGDUMP_ENABLE_BUFF

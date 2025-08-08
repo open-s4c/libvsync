@@ -12,7 +12,6 @@ This is a reentrant implementation of  (see [seqlock.h](seqlock.h.md).)
 
 
 ```c
-
 #include <vsync/spinlock/rec_seqlock.h>
 #include <pthread.h>
 #include <stdio.h>

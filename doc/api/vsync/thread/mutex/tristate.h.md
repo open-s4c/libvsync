@@ -7,7 +7,6 @@ _3-state mutex._
 
 
 ```c
-
 #include <vsync/thread/mutex.h>
 #include <vsync/common/assert.h>
 #include <pthread.h>

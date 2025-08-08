@@ -11,7 +11,6 @@ To use the TWA lock, one must declare the global waiting array once in the progr
 
 
 ```c
-
 #include <vsync/spinlock/twalock.h>
 #include <vsync/common/assert.h>
 #include <pthread.h>

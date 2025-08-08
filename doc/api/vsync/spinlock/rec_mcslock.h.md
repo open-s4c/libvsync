@@ -13,7 +13,6 @@ see [mcslock.h](mcslock.h.md)
 
 
 ```c
-
 #include <vsync/spinlock/rec_mcslock.h>
 #include <vsync/common/assert.h>
 #include <pthread.h>
