@@ -11,7 +11,6 @@ When an attempt to pop/push fails, the calling thread is put to sleep before it 
 
 
 ```c
-
 #include <vsync/stack/xbo_stack.h>
 #include <vsync/smr/gdump.h>
 #include <pthread.h>

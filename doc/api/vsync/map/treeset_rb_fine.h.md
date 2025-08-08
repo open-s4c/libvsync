@@ -11,7 +11,6 @@ Refer to [treeset_bst_coarse.h](treeset_bst_coarse.h.md) for more general inform
 
 
 ```c
-
 #define TREESET_LOCK_RW
 #include <vsync/map/treeset_rb_fine.h>
 

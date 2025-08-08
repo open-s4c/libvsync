@@ -9,7 +9,6 @@ see [vsync/spinlock/rwlock.h](rwlock.h.md)
 
 
 ```c
-
 #include <vsync/spinlock/semaphore.h>
 #include <vsync/common/assert.h>
 #include <pthread.h>

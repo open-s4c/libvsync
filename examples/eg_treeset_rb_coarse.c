@@ -1,4 +1,3 @@
-
 #define TREESET_LOCK_RW
 #include <vsync/map/treeset_rb_coarse.h>
 

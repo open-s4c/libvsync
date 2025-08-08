@@ -13,7 +13,6 @@ Initially the first flag is set to `true` and the rest to `false`, and the tail 
 
 
 ```c
-
 #include <vsync/spinlock/arraylock.h>
 #include <vsync/common/assert.h>
 #include <pthread.h>

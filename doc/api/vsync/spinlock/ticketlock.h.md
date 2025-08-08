@@ -11,7 +11,6 @@ Ticketlock is a simple, fair lock (guarantees FIFO order).
 
 
 ```c
-
 #include <vsync/spinlock/ticketlock.h>
 #include <vsync/common/assert.h>
 #include <pthread.h>

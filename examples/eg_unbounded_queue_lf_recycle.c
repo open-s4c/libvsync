@@ -1,4 +1,3 @@
-
 #include <vsync/queue/unbounded_queue_lf_recycle.h>
 #include <pthread.h>
 #include <assert.h>

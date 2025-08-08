@@ -1,4 +1,3 @@
-
 #include <vsync/map/simpleht.h>
 #include <vsync/common/assert.h>
 #include <pthread.h>

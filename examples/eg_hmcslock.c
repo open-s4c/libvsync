@@ -1,4 +1,3 @@
-
 #include <vsync/spinlock/hmcslock.h>
 #include <pthread.h>
 #include <stdio.h>

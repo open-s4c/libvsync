@@ -11,7 +11,6 @@ It uses fine grained locking (one lock per node) to serialize all operations. Th
 
 
 ```c
-
 #include <vsync/map/listset_opt.h>
 #include <vsync/smr/gdump.h>
 #include <pthread.h>

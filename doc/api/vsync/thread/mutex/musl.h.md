@@ -7,7 +7,6 @@ _A simplified version of the mutex algorithm in musl libc._
 
 
 ```c
-
 #include <vsync/thread/mutex.h>
 #include <vsync/common/assert.h>
 #include <pthread.h>

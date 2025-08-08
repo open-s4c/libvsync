@@ -9,7 +9,6 @@ CAS is implemented with vatomic32_cmpxchg or a variant.
 
 
 ```c
-
 #include <vsync/spinlock/caslock.h>
 #include <vsync/common/assert.h>
 #include <pthread.h>

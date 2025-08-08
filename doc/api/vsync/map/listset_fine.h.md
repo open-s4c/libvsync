@@ -11,7 +11,6 @@ Uses one lock per node to serialize all operations.
 
 
 ```c
-
 #include <vsync/map/listset_fine.h>
 #include <vsync/smr/gdump.h>
 #include <pthread.h>

@@ -11,7 +11,6 @@ Implementation of the classic single-producer, single-consumer, wait-free bounde
 
 
 ```c
-
 #include <vsync/queue/bounded_spsc.h>
 #include <pthread.h>
 #include <assert.h>
