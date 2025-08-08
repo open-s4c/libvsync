@@ -1,7 +1,7 @@
 #  [vsync](../README.md) / [spinlock](README.md) / hmcslock.h
 _Hierarchical MCS lock for systems with NUMA Hierarchies._ 
 
-**Groups:** [Numa-aware](GROUP_numa_aware.md)
+**Groups:** [Fair locks](GROUP_fair_lock.md), [Numa-aware](GROUP_numa_aware.md)
 
 
 ### Example:

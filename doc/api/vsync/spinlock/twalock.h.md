@@ -1,6 +1,8 @@
 #  [vsync](../README.md) / [spinlock](README.md) / twalock.h
 _Ticketlock with waiting array (TWA)._ 
 
+**Groups:** [Fair locks](GROUP_fair_lock.md)
+
 To use the TWA lock, one must declare the global waiting array once in the program. Use `TWALOCK_ARRAY_DECL` to declare the array where convenient.
 
 

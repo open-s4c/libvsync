@@ -1,6 +1,8 @@
 #  [vsync](../README.md) / [spinlock](README.md) / mcslock.h
 _Mellor-Crummey Scott Lock - the well-known scalable lock._ 
 
+**Groups:** [Fair locks](GROUP_fair_lock.md)
+
 MCS lock is a scalable lock that guarantees FIFO order. The MCS lock forms a queue of waiting threads (each thread has one node in the queue), and lets them spin on local variables of their nodes.
 
 Note that this implementation is not reentrant.

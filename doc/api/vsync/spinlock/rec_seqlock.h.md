@@ -1,6 +1,8 @@
 #  [vsync](../README.md) / [spinlock](README.md) / rec_seqlock.h
 _Recursive seqlock implementation using recursive.h._ 
 
+**Groups:** [Reentrant](GROUP_reentrant.md)
+
 In a rec_seqlock writers are only blocked by writers, not by readers. Readers optimistically read the shared variables and subsequently check their consistency. If any of the shared variables has been updated while being read, the readers must retry
 
 This is a reentrant implementation of  (see [seqlock.h](seqlock.h.md).)

@@ -45,6 +45,11 @@ Your header documentation should include:
 - Authors 1 - Book [X.Y.Z]
 - Authors 2 - [Paper](http://...)
 ```
+- `@example` followed by the name of the example you want to inline. The example should be added to the examples folder,
+   and it should be a c file that compiles. The file name of your example should have the prefix `eg_`
+   followed by the name of your algorithm. E.g., your algorithm is implemented in `array.h`, then the example should be named
+   `eg_array.c`.
+
 A full example of what is expected to exist in your header file
 ```c
 /*******************************************************************************
@@ -72,6 +77,12 @@ A full example of what is expected to exist in your header file
  * Maurice Herlihy, Nir Shavit - [The Art of Multiprocessor Programming 10.5]
  ******************************************************************************/
 ```
+
+In order to generate the markdown documentation of your algorithm run
+`make markdown`
+and add and commit the generated `md` file. Note that that both [mdox](https://github.com/db7/mdox/releases/tag/v0.1) and doxygen need to be available on your machine,
+in order for the command to work.
+
 
 ## Code style and documentation
 

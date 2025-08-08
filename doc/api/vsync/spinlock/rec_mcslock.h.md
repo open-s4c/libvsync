@@ -1,6 +1,8 @@
 #  [vsync](../README.md) / [spinlock](README.md) / rec_mcslock.h
 _Recursive MCS lock implementation using recursive.h._ 
 
+**Groups:** [Fair locks](GROUP_fair_lock.md)
+
 `rec_mcslock` is a MCS lock that supports recursion, i.e., is reentrant.
 
 see [mcslock.h](mcslock.h.md)

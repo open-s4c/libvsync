@@ -75,32 +75,34 @@ for f in ${FILES}; do
     # The echo empty is neseccary for the case when there is no copyrights notice in the file
     EXISTING_COPYRIGHT=$(grep Copyright ${f} || echo "")
 
-    if [ -z "$EXISTING_COPYRIGHT" ]; then
-        NOTICE="${COPYRIGHT_TEXT/<RANGE>/$REPLACEMENT}"
-        echo "Adding copyrights to $f"
-        sed -i "1s;^;${NOTICE};" ${f}
-    else
-        REGEX="Ltd\. ([0-9]+)\-?([0-9]+)?"
-        if [[ $EXISTING_COPYRIGHT =~ $REGEX ]]; then
-            CUR_START="${BASH_REMATCH[1]}"
-            CUR_END="${BASH_REMATCH[2]}"
-
-            if [ -z "$CUR_END" ]; then
-                ORIGINAL=$CUR_START
-            else
-                ORIGINAL="$CUR_START-$CUR_END"
-                if [[ $CUR_START -lt $EXP_START ]]; then
-                    REPLACEMENT="$CUR_START-$EXP_END"
-                fi
-            fi
+    if [[ "$f" != *examples/eg*.c ]]; then
+        if [ -z "$EXISTING_COPYRIGHT" ]; then
+            NOTICE="${COPYRIGHT_TEXT/<RANGE>/$REPLACEMENT}"
+            echo "Adding copyrights to $f"
+            sed -i "1s;^;${NOTICE};" ${f}
         else
-            echo "[ERROR] there is copyrights without year digits!! in $f"
-            exit 1
-        fi
+            REGEX="Ltd\. ([0-9]+)\-?([0-9]+)?"
+            if [[ $EXISTING_COPYRIGHT =~ $REGEX ]]; then
+                CUR_START="${BASH_REMATCH[1]}"
+                CUR_END="${BASH_REMATCH[2]}"
 
-        if [[ $REPLACEMENT != $ORIGINAL ]]; then
-            echo "Updating copyrights notice in ${f} ${ORIGINAL} ==> ${REPLACEMENT}"
-            sed -i 's|Ltd. '${ORIGINAL}'\. All|Ltd. '${REPLACEMENT}'. All|g' ${f}
+                if [ -z "$CUR_END" ]; then
+                    ORIGINAL=$CUR_START
+                else
+                    ORIGINAL="$CUR_START-$CUR_END"
+                    if [[ $CUR_START -lt $EXP_START ]]; then
+                        REPLACEMENT="$CUR_START-$EXP_END"
+                    fi
+                fi
+            else
+                echo "[ERROR] there is copyrights without year digits!! in $f"
+                exit 1
+            fi
+
+            if [[ $REPLACEMENT != $ORIGINAL ]]; then
+                echo "Updating copyrights notice in ${f} ${ORIGINAL} ==> ${REPLACEMENT}"
+                sed -i 's|Ltd. '${ORIGINAL}'\. All|Ltd. '${REPLACEMENT}'. All|g' ${f}
+            fi
         fi
     fi
 
