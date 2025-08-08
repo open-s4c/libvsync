@@ -1,4 +1,3 @@
-
 #include <vsync/stack/elimination_stack.h>
 #include <vsync/smr/gdump.h>
 #include <pthread.h>

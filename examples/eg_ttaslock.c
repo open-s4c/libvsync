@@ -1,4 +1,3 @@
-
 #include <vsync/spinlock/ttaslock.h>
 #include <vsync/common/assert.h>
 #include <pthread.h>

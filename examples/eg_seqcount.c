@@ -1,4 +1,3 @@
-
 #include <vsync/spinlock/seqcount.h>
 #include <vsync/common/assert.h>
 #include <pthread.h>

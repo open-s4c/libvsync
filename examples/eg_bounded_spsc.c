@@ -1,4 +1,3 @@
-
 #include <vsync/queue/bounded_spsc.h>
 #include <pthread.h>
 #include <assert.h>

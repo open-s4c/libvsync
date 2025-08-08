@@ -1,4 +1,3 @@
-
 #include <vsync/queue/unbounded_queue_total.h>
 #include <pthread.h>
 #include <assert.h>
