@@ -3,6 +3,26 @@
 # make markdown
 # ##############################################################################
 function(add_doc_targets)
+    find_program(MDOX_INSTALLED mdox DOC "mdox")
+    find_program(DOXYGEN_INSTALLED doxygen DOC "doxygen")
+    set(MARKDOWN_TARGET "markdown")
+
+    if(NOT DOXYGEN_INSTALLED)
+        message(
+            WARNING
+                "Target `${MARKDOWN_TARGET}` was not added! doxygen is not installed. Please install https://doxygen.nl/download.html"
+        )
+        return()
+    endif()
+
+    if(NOT MDOX_INSTALLED)
+        message(
+            WARNING
+                "Target `${MARKDOWN_TARGET}` was not added! mdox is not installed. Please install https://github.com/db7/mdox/releases/tag/v0.1"
+        )
+        return()
+    endif()
+
     set(DOXYGEN_DOCKER "")
     set(INSTALL_TARGET "install-libvsync")
     # Note that for now we generate the doc based on the files we install with
@@ -43,7 +63,6 @@ function(add_doc_targets)
     # ##########################################################################
     set(DOC_OUTPUT "${PROJECT_SOURCE_DIR}/doc/api")
     set(MDOX mdox)
-    set(MARKDOWN_TARGET "markdown")
     add_custom_target(
         "${MARKDOWN_TARGET}"
         COMMAND "${CMAKE_COMMAND}" -E rm -rf "${DOC_OUTPUT}"
