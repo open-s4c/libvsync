@@ -68,7 +68,6 @@ jobs:
       matrix:
         target: ["clang-format-apply", "vatomic-generate", "markdown"]
     steps:
-      if:
       - name: Download and Install doxygen & mdox for markdown check
         if: ${{ matrix.target }} == "markdown"
         run: |
