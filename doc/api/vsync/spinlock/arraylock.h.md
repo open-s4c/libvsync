@@ -1,6 +1,8 @@
 #  [vsync](../README.md) / [spinlock](README.md) / arraylock.h
 _Simple array-based queue lock._ 
 
+**Groups:** [Fair locks](GROUP_fair_lock.md)
+
 The array lock has an array of flags, each slot is associated with a thread. If we have `N` threads then the array has `N` slots. Each slot represents a boolean flag indicating the associated thread's permission to acquire the lock. The thread waits on its flag to become `true` to acquire the lock. The thread releases the lock, by giving away its permission to the next thread, i.e. sets its own flag to `false` and the flag of the one next in line to `true`.
 
 Initially the first flag is set to `true` and the rest to `false`, and the tail holds the index of the first slot.

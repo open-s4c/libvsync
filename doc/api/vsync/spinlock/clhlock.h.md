@@ -1,6 +1,8 @@
 #  [vsync](../README.md) / [spinlock](README.md) / clhlock.h
 _List-based lock attributed to Craig, Landin and Hagersten._ 
 
+**Groups:** [Fair locks](GROUP_fair_lock.md)
+
 
 ### Example:
 

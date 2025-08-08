@@ -1,7 +1,7 @@
 #  [vsync](../README.md) / [spinlock](README.md) / hclhlock.h
 _Hierarchical CLH Queue Lock._ 
 
-**Groups:** [Numa-aware](GROUP_numa_aware.md)
+**Groups:** [Fair locks](GROUP_fair_lock.md), [Numa-aware](GROUP_numa_aware.md)
 
 
 ### Example:

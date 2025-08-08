@@ -1,7 +1,7 @@
 #  [vsync](../README.md) / [spinlock](README.md) / cnalock.h
 _Compact NUMA-aware Lock._ 
 
-**Groups:** [Numa-aware](GROUP_numa_aware.md)
+**Groups:** [Fair locks](GROUP_fair_lock.md), [Numa-aware](GROUP_numa_aware.md)
 
 The CNA is an efficient variant of the MCS locks, which adds NUMA-awareness without a hierarchical approach.
 

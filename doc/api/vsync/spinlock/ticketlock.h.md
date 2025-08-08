@@ -1,6 +1,8 @@
 #  [vsync](../README.md) / [spinlock](README.md) / ticketlock.h
 _Classic ticketlock with two 32-bit variables (owner and next)._ 
 
+**Groups:** [Fair locks](GROUP_fair_lock.md)
+
 Ticketlock is a simple, fair lock (guarantees FIFO order).
 
 

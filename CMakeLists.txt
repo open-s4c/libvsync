@@ -14,6 +14,7 @@ option(LIBVSYNC_CODECHECK_BINSCOPE "Compile with necessary flags for binscope"
 
 include(GNUInstallDirs)
 include(cmake/export.cmake)
+include(cmake/doc.cmake)
 include(CheckSymbolExists)
 
 # ##############################################################################
@@ -92,6 +93,8 @@ if(${LIBVSYNC_ENABLE_TESTS})
 
     add_dependencies(clang-format-apply sanitize-vsync)
 
+    add_doc_targets()
+
     set(LIBVSYNC_OPEN_DISTRO_TESTING "on")
     enable_testing()
     include(CTest)
@@ -103,6 +106,7 @@ if(${LIBVSYNC_ENABLE_TESTS})
     add_subdirectory(template)
     add_subdirectory(test)
     add_subdirectory(verify)
+    add_subdirectory(examples)
     if(LIBVSYNC_ADDRESS_SANITIZER)
         target_compile_options(vsync INTERFACE -fsanitize=address)
         target_compile_definitions(vsync INTERFACE VSYNC_ADDRESS_SANITIZER)
