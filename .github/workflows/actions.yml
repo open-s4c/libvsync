@@ -66,14 +66,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: ["clang-format-apply", "vatomic-generate", "markdown"]
+        target: [clang-format-apply, vatomic-generate, cmake-format-apply, markdown]
     steps:
       - name: Download and Install doxygen & mdox for markdown check
-        if: ${{ matrix.target }} == "markdown"
+        if: matrix.target == 'markdown'
         run: |
           sudo apt update && sudo apt install -y doxygen curl
           sudo curl -L -o /usr/local/bin/mdox https://github.com/db7/mdox/releases/download/v0.1/mdox-v0.1-linux-amd64
           sudo chmod +x /usr/local/bin/mdox
+      - name: Install cmake-format for cmake-format-check
+        if: matrix.target == 'cmake-format-apply'
+        run: pip install cmakelang
       - name: Check out repository code
         uses: actions/checkout@v4
         with:
