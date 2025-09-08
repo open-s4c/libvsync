@@ -16,6 +16,7 @@
  ******************************************************************************/
 
 #include <vsync/atomic.h>
+#include <vsync/common/macros.h>
 
 static vatomic32_t g_signal;
 
@@ -31,6 +32,7 @@ vfutex_wait(vatomic32_t *m, vuint32_t v)
 static inline void
 vfutex_wake(vatomic32_t *m, vuint32_t v)
 {
+    V_UNUSED(m, v);
     vatomic32_inc_rel(&g_signal);
 }
 
