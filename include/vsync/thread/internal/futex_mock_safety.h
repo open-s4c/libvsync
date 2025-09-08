@@ -31,6 +31,8 @@ vfutex_wait(vatomic32_t *m, vuint32_t v)
 static inline void
 vfutex_wake(vatomic32_t *m, vuint32_t v)
 {
+    (void)m;
+    (void)v;
     vatomic32_inc_rel(&g_signal);
 }
 
