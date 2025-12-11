@@ -157,35 +157,30 @@ endif()
 # ##############################################################################
 separate_arguments(CFLAGS UNIX_COMMAND "${CMAKE_C_FLAGS}")
 
-if(NOT LIBVSYNC_OPEN_DISTRO_TESTING)
-    add_custom_command(
-        OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/vatomic_expand.h"
-        COMMAND
-            ${CMAKE_C_COMPILER} -E ${CFLAGS} "${VATOMIC_INC}" -include
-            vsync/atomic.h ${CMAKE_CURRENT_SOURCE_DIR}/dispatcher_test.c >
-            "${CMAKE_CURRENT_BINARY_DIR}/vatomic_expand.h"
-        DEPENDS vatomic "${CMAKE_CURRENT_SOURCE_DIR}/dispatcher_test.c"
-        COMMAND_EXPAND_LISTS VERBATIM)
-
-    add_custom_target(expand ALL
-                      DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/vatomic_expand.h")
-
-    # ##########################################################################
-    # test vatomic dispatcher
-    # ##########################################################################
-    add_executable(dispatcher_test dispatcher_test.c)
-    target_compile_options(dispatcher_test PUBLIC ${TEST_OPTS})
-    target_link_libraries(dispatcher_test vatomic)
-    v_add_bin_test(NAME dispatcher_test COMMAND dispatcher_test)
-
-    # ##########################################################################
-    # test freestanding
-    # ##########################################################################
-    add_executable(freestanding_test freestanding_test.c)
-    target_compile_options(freestanding_test PUBLIC ${TEST_OPTS} -nostdinc)
-    configure_file(include/vfreestanding.h.tpl include/vfreestanding.h)
-    target_include_directories(freestanding_test
-                               PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/include)
-    target_link_libraries(freestanding_test vatomic)
-    v_add_bin_test(NAME freestanding_test COMMAND freestanding_test)
-endif()
+add_custom_command(
+    OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/vatomic_expand.h"
+    COMMAND
+        ${CMAKE_C_COMPILER} -E ${CFLAGS} "${VATOMIC_INC}" -include
+        vsync/atomic.h ${CMAKE_CURRENT_SOURCE_DIR}/dispatcher_test.c >
+        "${CMAKE_CURRENT_BINARY_DIR}/vatomic_expand.h"
+    DEPENDS vatomic "${CMAKE_CURRENT_SOURCE_DIR}/dispatcher_test.c"
+    COMMAND_EXPAND_LISTS VERBATIM)
+add_custom_target(expand ALL
+                  DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/vatomic_expand.h")
+# ##############################################################################
+# test vatomic dispatcher
+# ##############################################################################
+add_executable(dispatcher_test dispatcher_test.c)
+target_compile_options(dispatcher_test PUBLIC ${TEST_OPTS})
+target_link_libraries(dispatcher_test vatomic)
+v_add_bin_test(NAME dispatcher_test COMMAND dispatcher_test)
+# ##############################################################################
+# test freestanding
+# ##############################################################################
+add_executable(freestanding_test freestanding_test.c)
+target_compile_options(freestanding_test PUBLIC ${TEST_OPTS} -nostdinc)
+configure_file(include/vfreestanding.h.tpl include/vfreestanding.h)
+target_include_directories(freestanding_test
+                           PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/include)
+target_link_libraries(freestanding_test vatomic)
+v_add_bin_test(NAME freestanding_test COMMAND freestanding_test)

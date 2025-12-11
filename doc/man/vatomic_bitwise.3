@@ -1,0 +1,47 @@
+.\" SPDX-License-Identifier: MIT
+.TH VATOMIC_BITWISE 3 "@__DATE__@" "vatomic @__VERSION__@" "Library Functions Manual"
+.SH NAME
+vatomic_xor, vatomic_and, vatomic_or \- bitwise vatomic operations
+.SH SYNOPSIS
+.nf
+.B #include <vsync/atomic.h>
+.PP
+.BI "void vatomic_xor(A *" obj ", T " mask );
+.BI "T vatomic_get_xor(A *" obj ", T " mask );
+.BI "T vatomic_xor_get(A *" obj ", T " mask );
+.PP
+.BI "void vatomic_and(A *" obj ", T " mask );
+.BI "T vatomic_get_and(A *" obj ", T " mask );
+.BI "T vatomic_and_get(A *" obj ", T " mask );
+.PP
+.BI "void vatomic_or(A *" obj ", T " mask );
+.BI "T vatomic_get_or(A *" obj ", T " mask );
+.BI "T vatomic_or_get(A *" obj ", T " mask );
+.fi
+.SH DESCRIPTION
+These macros provide bitwise read/modify/write operations.
+\fBvatomic_xor\fP, \fBvatomic_and\fP, and \fBvatomic_or\fP apply the specified
+mask to \fIobj\fP.
+As with other vatomic helpers, each macro dispatches to the size-specific
+implementation (\fBvatomic32_get_and\fP, \fBvatomic64_max\fP, etc.) based on the
+pointer type.
+.PP
+Sequential consistency is the default ordering; acquire, release, and relaxed
+variants are available via the `_acq`, `_rel`, and `_rlx` suffixes (see the
+corresponding macros in \fB<vsync/atomic/dispatch.h>\fP).
+`get_*` versions return the previous value, while `*_get` versions return the
+value after applying the operation.
+.SH RETURN VALUE
+.PP
+The plain \fBvatomic_xor\fP/\fB_and\fP/\fB_or\fP functions return no
+value.
+`get_*` variants return the prior contents of \fIobj\fP and `*_get` variants
+return the updated contents.
+.SH TYPES AND VARIANTS
+.PP
+See \fBvatomic_basic(3)\fP for the notation of \fBA\fP/\fBT\fP and for guidance
+on calling the explicit typed functions, e.g. \fBvatomic64_or_get\fP.
+.PP
+For the \fBmax\fP family, refer to \fBvatomic_arith(3)\fP.
+.SH SEE ALSO
+\fBvatomic_arith(3)\fP, \fBvatomic(7)\fP

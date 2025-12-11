@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -29,9 +29,15 @@
     #include <stdint.h>
     #include <stdbool.h>
     #include <stddef.h>
-    #if !defined(__APPLE__)
-        #include <inttypes.h>
+    #if defined(__APPLE__) && !defined(__STDC_FORMAT_MACROS)
+        // For the github's runner this is not really needed.
+        // However, there has been cases mentioned on the internet
+        // where one needs to define this for e.g. PRIuPTR
+        // is defined in `inttypes.h`.
+        // https://stackoverflow.com/questions/26182336/priuptr-preprocessor-bug-in-gcc
+        #define __STDC_FORMAT_MACROS
     #endif
+    #include <inttypes.h>
 typedef uint8_t vuint8_t;
 typedef uint16_t vuint16_t;
 typedef uint32_t vuint32_t;
@@ -107,10 +113,28 @@ typedef bool vbool_t;
     #define VUINTPTR_WIDTH (sizeof(vuintptr_t) * 8)
 #endif
 
+#if defined(INT8_MAX)
+    #define VINT8_MAX INT8_MAX
+#else
+    #define VINT8_MAX V_SIGNED_INT_MAX(vint8_t)
+#endif
+
+#if defined(INT16_MAX)
+    #define VINT16_MAX INT16_MAX
+#else
+    #define VINT16_MAX V_SIGNED_INT_MAX(vint16_t)
+#endif
+
 #if defined(INT32_MAX)
     #define VINT32_MAX INT32_MAX
 #else
     #define VINT32_MAX V_SIGNED_INT_MAX(vint32_t)
+#endif
+
+#if defined(INT64_MAX)
+    #define VINT64_MAX INT64_MAX
+#else
+    #define VINT64_MAX V_SIGNED_INT_MAX(vint64_t)
 #endif
 
 /* Format */

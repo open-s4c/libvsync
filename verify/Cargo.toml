@@ -1,0 +1,18 @@
+[package]
+name = "asm2boogie"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+nom = "8.0.0"
+clap = { version = "4.5.32", features = ["derive"] }
+env_logger = "0.11.7"
+log = "0.4.26"
+regex = "1.11.1"
+lazy_static = "1.5.0"
+phf = { version = "0.11.3", features = ["macros"] }
+petgraph = "0.7.1"
+nohash = "0.2.0"
+itertools = "0.14.0"
+head-tail-iter = "1.0.1"
+graph-cycles = "0.3"

@@ -1,0 +1,53 @@
+.\" SPDX-License-Identifier: MIT
+.TH VATOMIC_AWAIT_OP 3 "@__DATE__@" "vatomic @__VERSION__@" "Library Functions Manual"
+.SH NAME
+vatomic_await_*_op \- polite wait operations combined with updates
+.SH SYNOPSIS
+.nf
+.B #include <vsync/atomic/await.h>
+.PP
+.BI "T vatomic_await_eq_add (A *" obj ", T " cond ", T " value );
+.BI "T vatomic_await_eq_sub (A *" obj ", T " cond ", T " value );
+.BI "T vatomic_await_eq_set (A *" obj ", T " cond ", T " value );
+.PP
+.BI "T vatomic_await_neq_add (A *" obj ", T " cond ", T " value );
+.BI "T vatomic_await_neq_sub (A *" obj ", T " cond ", T " value );
+.BI "T vatomic_await_neq_set (A *" obj ", T " cond ", T " value );
+.PP
+.BI "T vatomic_await_lt_add (A *" obj ", T " cond ", T " value );
+\fI...and analogous lt/le variants with *_add, *_sub, *_set\fP
+.PP
+.BI "T vatomic_await_eq_add_acq (A *" obj ", T " cond ", T " value );
+\fI...acquire / release / relaxed suffixes for each operation\fP
+.fi
+.SH DESCRIPTION
+Await-op helpers combine an await condition with a single update applied once
+the condition succeeds. The condition naming follows \fBvatomic_await(3)\fP
+(\fB_eq\fP, \fB_neq\fP, \fB_lt\fP, \fB_le\fP) while the operation suffix
+indicates the action performed after the wait:
+.IP \(bu 2
+\fB_add\fP – add \fIvalue\fP to the atomic object.
+.IP \(bu 2
+\fB_sub\fP – subtract \fIvalue\fP from the atomic object.
+.IP \(bu 2
+\fB_set\fP – write \fIvalue\fP into the atomic object.
+.PP
+Each macro dispatches to the width-specific implementation
+(\fBvatomic32_await_eq_add\fP, \fBvatomicptr_await_neq_set\fP, etc.) based on
+the pointer supplied. Unsuffixed forms are sequentially consistent; `_acq`,
+`_rel`, and `_rlx` request acquire, release, and relaxed variants where
+provided.
+.SH RETURN VALUE
+Returns the value observed while checking the condition (i.e., before the
+update is applied). This matches the behavior of the underlying vatomic await
+routines and allows callers to inspect the original contents.
+.SH TYPES AND VARIANTS
+.PP
+\fBA\fP/\fBT\fP follow the same conventions as in \fBvatomic_basic(3)\fP.
+Typed entry points exist for every supported width, for example
+\fBvatomic64_await_eq_sub_rel\fP and \fBvatomicptr_await_eq_set_acq\fP.
+.PP
+Note that currently the API only offers await functions for the types
+indicated above (32, 64 and ptr).
+.SH SEE ALSO
+\fBvatomic_await(3)\fP, \fBvatomic_arith(3)\fP, \fBvatomic(7)\fP

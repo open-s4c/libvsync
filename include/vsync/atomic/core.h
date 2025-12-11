@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -114,24 +114,24 @@ static inline void vatomic_fence_rlx(void);
 #include <vsync/atomic/core_ptr.h>
 
 /* *****************************************************************************
- * config
+ * Barrier remap
  * ****************************************************************************/
 #if defined(VATOMIC_ENABLE_ATOMIC_SC)
-    #include <vsync/atomic/internal/config/fnc_sc.h>
-    #include <vsync/atomic/internal/config/u8_sc.h>
-    #include <vsync/atomic/internal/config/u16_sc.h>
-    #include <vsync/atomic/internal/config/u32_sc.h>
-    #include <vsync/atomic/internal/config/u64_sc.h>
-    #include <vsync/atomic/internal/config/sz_sc.h>
-    #include <vsync/atomic/internal/config/ptr_sc.h>
+    #include <vsync/atomic/internal/remap_fnc_sc.h>
+    #include <vsync/atomic/internal/remap_u8_sc.h>
+    #include <vsync/atomic/internal/remap_u16_sc.h>
+    #include <vsync/atomic/internal/remap_u32_sc.h>
+    #include <vsync/atomic/internal/remap_u64_sc.h>
+    #include <vsync/atomic/internal/remap_sz_sc.h>
+    #include <vsync/atomic/internal/remap_ptr_sc.h>
 #elif defined(VATOMIC_ENABLE_ATOMIC_RLX)
-    #include <vsync/atomic/internal/config/fnc_rlx.h>
-    #include <vsync/atomic/internal/config/u8_rlx.h>
-    #include <vsync/atomic/internal/config/u16_rlx.h>
-    #include <vsync/atomic/internal/config/u32_rlx.h>
-    #include <vsync/atomic/internal/config/u64_rlx.h>
-    #include <vsync/atomic/internal/config/sz_rlx.h>
-    #include <vsync/atomic/internal/config/ptr_rlx.h>
+    #include <vsync/atomic/internal/remap_fnc_rlx.h>
+    #include <vsync/atomic/internal/remap_u8_rlx.h>
+    #include <vsync/atomic/internal/remap_u16_rlx.h>
+    #include <vsync/atomic/internal/remap_u32_rlx.h>
+    #include <vsync/atomic/internal/remap_u64_rlx.h>
+    #include <vsync/atomic/internal/remap_sz_rlx.h>
+    #include <vsync/atomic/internal/remap_ptr_rlx.h>
 #endif
 /* *****************************************************************************
  * Select vatomic implementation and include definitions
