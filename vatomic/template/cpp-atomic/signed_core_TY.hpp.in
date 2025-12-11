@@ -1,0 +1,150 @@
+/*
+ * Copyright (C) Huawei Technologies Co., Ltd. 2025. All rights reserved.
+ * SPDX-License-Identifier: MIT
+ */
+#define _tmpl_mute
+#include <vsync/atomic/tmplr.h>
+#define _tmpl_unmute
+_tmpl_map(MAP_MIRROR_s8, vuint8_t);
+_tmpl_map(MAP_MIRROR_s16, vuint16_t);
+_tmpl_map(MAP_MIRROR_s32, vuint32_t);
+_tmpl_map(MAP_MIRROR_s64, vuint64_t);
+_tmpl_dl; //--------------------------------------
+_tmpl_map(MAP_VOL, volatile);
+_tmpl_map(MAP_NON_VOL, );
+_tmpl_begin(TY = [[s8; s16; s32; s64;]]);
+extern "C" {
+#include <vsync/atomic.h>
+}
+namespace vsync
+{
+    template <> struct atomic<TT> {
+        atomic(const atomic &)                     = delete;
+        atomic &operator=(const atomic &)          = delete;
+        atomic &operator=(const atomic &) volatile = delete;
+        atomic() : _a()
+        {
+        }
+        atomic(TT v) : _a(static_cast<MAP_MIRROR_TY>(v))
+        {
+        }
+_tmpl_end;
+_tmpl_begin(TY = [[s8; s16; s32; s64;]], VL =[[VOL; NON_VOL]]);
+        TT load(memory_order order = memory_order_seq_cst) MAP_VL const noexcept
+        {
+            return _a.load(order);
+        }
+        void store(TT v, memory_order order = memory_order_seq_cst) MAP_VL noexcept
+        {
+            _a.store(static_cast<MAP_MIRROR_TY>(v), order);
+        }
+
+        TT operator=(TT v) MAP_VL noexcept
+        {
+            store(v);
+            return v;
+        }
+
+        operator TT() MAP_VL const noexcept
+        {
+            return load();
+        }
+
+        TT exchange(TT v, memory_order order = memory_order_seq_cst) MAP_VL noexcept
+        {
+            return static_cast<TT>(
+                _a.exchange(static_cast<MAP_MIRROR_TY>(v), order));
+        }
+
+
+        bool compare_exchange_strong(
+            TT &expected, TT desired, memory_order order = memory_order_seq_cst,
+            memory_order failure = memory_order_seq_cst) MAP_VL noexcept
+        {
+            // TODO: find a way to make the cast on expected safe!
+            return _a.compare_exchange_strong(
+                (MAP_MIRROR_TY &)(expected),
+                static_cast<MAP_MIRROR_TY>(desired), order, failure);
+        }
+        bool compare_exchange_weak(
+            TT &expected, TT desired,
+            memory_order order   = memory_order_seq_cst,
+            memory_order failure = memory_order_seq_cst) MAP_VL noexcept
+        {
+            return compare_exchange_strong(expected, desired, order, failure);
+        }
+
+        TT fetch_add(TT v, memory_order order = memory_order_seq_cst) MAP_VL noexcept
+        {
+            return static_cast<TT>(_a.fetch_add(static_cast<MAP_MIRROR_TY>(v), order));
+        }
+        TT operator+=(TT v) MAP_VL noexcept
+        {
+            return fetch_add(v);
+        }
+        // v++
+        TT operator++(int) MAP_VL noexcept
+        {
+            return static_cast<TT>(_a++);
+        }
+        // ++v
+        TT operator++() MAP_VL noexcept
+        {
+             return static_cast<TT>(++_a);
+        }
+
+        TT fetch_sub(TT v, memory_order order = memory_order_seq_cst) MAP_VL noexcept
+        {
+            return static_cast<TT>(_a.fetch_sub(static_cast<MAP_MIRROR_TY>(v), order));
+        }
+        TT operator-=(TT v) MAP_VL noexcept
+        {
+            return fetch_sub(v);
+        }
+        // v--
+        TT operator--(int) MAP_VL noexcept
+        {
+            return static_cast<TT>(_a--);
+        }
+        // --v
+        TT operator--() MAP_VL noexcept
+        {
+            return static_cast<TT>(--_a);
+        }
+
+        TT fetch_and(TT v, memory_order order = memory_order_seq_cst) MAP_VL noexcept
+        {
+            return static_cast<TT>(_a.fetch_and(static_cast<MAP_MIRROR_TY>(v), order));
+        }
+
+        TT operator&=(TT v) MAP_VL noexcept
+        {
+            return fetch_and(v);
+        }
+
+        TT fetch_or(TT v, memory_order order = memory_order_seq_cst) MAP_VL noexcept
+        {
+            return static_cast<TT>(_a.fetch_or(static_cast<MAP_MIRROR_TY>(v), order));
+        }
+
+        TT operator|=(TT v) MAP_VL noexcept
+        {
+            return fetch_or(v);
+        }
+
+        TT fetch_xor(TT v, memory_order order = memory_order_seq_cst) MAP_VL noexcept
+        {
+            return static_cast<TT>(_a.fetch_xor(static_cast<MAP_MIRROR_TY>(v), order));
+        }
+
+        TT operator^=(TT v) MAP_VL noexcept
+        {
+            return fetch_xor(v);
+        }
+_tmpl_end;
+_tmpl_begin(TY = [[s8; s16; s32; s64;]]);
+      private:
+        vsync::atomic<MAP_MIRROR_TY> _a;
+    };
+} // namespace vsync
+_tmpl_end;
