@@ -12,6 +12,9 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       - name: Configure Testing
         run: cmake -S. -Bbuild ${{ matrix.config }}
       - name: Build Tests
@@ -36,6 +39,8 @@ jobs:
         run: vsyncer version
       - name: Check out repository code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Configure Verification
         run: cmake -S. -Bbuild -DVSYNCER_CHECK=ON -DVSYNCER_CHECK_FULL=OFF
       - name: Build Verification Clients for ${{ matrix.test-dir }}
@@ -54,6 +59,9 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       - name: Configure without tests
         run: cmake -S. -Bbuild -DLIBVSYNC_ENABLE_TESTS=OFF
       - name: Build
