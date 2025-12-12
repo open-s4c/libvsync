@@ -1,0 +1,57 @@
+.\" SPDX-License-Identifier: MIT
+.TH VATOMIC_BASIC 3 "@__DATE__@" "vatomic @__VERSION__@" "Library Functions Manual"
+.SH NAME
+vatomic_read, vatomic_write, vatomic_init \- basic vatomic operations
+.SH SYNOPSIS
+.nf
+.B #include <vsync/atomic.h>
+.PP
+.BI "T vatomic_read(A *" obj );
+.BI "T vatomic_read_acq(A *" obj );
+.BI "T vatomic_read_rlx(A *" obj );
+.PP
+.BI "void vatomic_write(A *" obj ", T " value );
+.BI "void vatomic_write_rel(A *" obj ", T " value );
+.BI "void vatomic_write_rlx(A *" obj ", T " value );
+.PP
+.BI "void vatomic_init(A *" obj ", T " value );
+.fi
+.SH DESCRIPTION
+.SS vatomic_read()
+Reads the current value stored in \fIobj\fP and returns it.
+The unsuffixed form uses sequentially consistent ordering; the `_acq` and `_rlx`
+variants apply acquire and relaxed orderings respectively.
+Each macro invocation dispatches to the concrete typed function
+(\fBvatomic8_read\fP, \fBvatomic16_read\fP, etc.) based on the size of
+\fIobj\fP, so callers only need to pass the appropriate atomic type.
+.SS vatomic_write()
+Writes \fIvalue\fP into \fIobj\fP.
+The default (unsuffixed) form uses a sequentially consistent orddering, while
+the `_rel` and `_rlx` suffixes restrict the ordering to release or relaxed,
+respectively.
+.SS vatomic_init()
+Initialises \fIobj\fP with \fIvalue\fP.
+It is an  alias for \fBvatomic_write\fP and is convenient when highlighting
+initialization sites (including static helpers such as \fBVATOMIC_INIT\fP).
+.SH RETURN VALUE
+.PP
+\fBvatomic_read\fP returns the current value stored in \fIobj\fP.
+\fBvatomic_write\fP and \fBvatomic_init\fP return no value.
+.SH TYPES AND VARIANTS
+.PP
+\fBA\fP denotes one of the vatomic storage types (\fBvatomic8_t\fP,
+\fBvatomic16_t\fP, \fBvatomic32_t\fP, \fBvatomic64_t\fP, \fBvatomicsz_t\fP, or
+\fBvatomicptr_t\fP), while \fBT\fP is the corresponding non-atomic type
+(\fBvuint8_t\fP, \fBvuint16_t\fP, \fBvuint32_t\fP, \fBvuint64_t\fP,
+\fBvsize_t\fP, or \fBvoid *\fP).
+The dispatcher macros select the appropriate typed implementation based on the
+pointer you pass.
+.PP
+When you need to lock a call to a specific width (for example, inside a public
+header) include \fB<vsync/atomic/core.h>\fP and use the concrete prefix,
+e.g. \fBvatomic32_read_acq\fP, \fBvatomic64_write_rel\fP, or
+\fBvatomicptr_init\fP.
+These variants bypass the dispatcher in \fB<vsync/atomic/dispatch.h>\fP and can
+help catch mismatched types during compilation.
+.SH SEE ALSO
+\fBvatomic(7)\fP, \fBvsync/atomic/core.h\fP, \fBvsync/atomic/dispatch.h\fP

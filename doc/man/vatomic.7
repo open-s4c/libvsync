@@ -1,0 +1,89 @@
+.\" SPDX-License-Identifier: MIT
+.TH VATOMIC 7 "@__DATE__@" "vatomic @__VERSION__@" "Miscellaneous Information Manual"
+.SH NAME
+vatomic \- formally-verified atomic operations library
+.SH DESCRIPTION
+.PP
+vatomic is a header-only library that provides a rich set of atomic operations
+for mainstream architectures, including ARMv7, ARMv8 (AArch32 and AArch64),
+RISC-V, and x86_64.
+Its interface matches the guarantees described by the VSync Memory Model
+(VMM) in \fBvmm.cat\fP), allowing developers to reason about memory ordering
+using the same formal description employed by the library itself.
+.PP
+The library exposes both a low-level core interface and higher-level await and
+dispatch helpers, all implemented in portable C with architecture-specific
+backends when required.
+Because the headers adhere to VMM, programs that rely on vatomic can be
+verified with the Dartagnan model checker by reusing the provided cat
+specification.
+.PP
+All operations have the form \fBprefix_\fPoperation\fB_suffix\fP, where
+\fBprefix_\fP indicates the \fIatomic type\fP and \fB_suffix\fP indicates
+the \fImemory ordering\fP as described below..
+.SH ATOMIC TYPES
+.PP
+vatomic defines fixed-width atomic operations matching their unsigned integral
+counterparts: \fBvatomic8_t\fP, \fBvatomic16_t\fP, \fBvatomic32_t\fP,
+\fBvatomic64_t\fP, and \fBvatomicsz_t\fP for size_t.
+Pointer atomics are represented by \fBvatomicptr_t\fP while
+\fBvatomicptr(T)\fP documents the pointee type at the declaration site.
+Each type pairs with a non-atomic counterpart
+(\fBvuint8_t\fP, \fBvuint16_t\fP, etc.) to describe the underlying storage used
+by the read/modify/write helpers.
+These types map by default to \fBuint8_t\fP, \fBuint16_t\fP, etc, but can be
+overwritten when \fBVSYNC_ENABLE_FREESTANDING\fP is defined.
+.SH MEMORY ORDERING
+The memory ordering suffixes in vatomic are:
+\fB_rlx\fP (relaxed), \fB_acq\fP (acquire), and \fB_rel\fP (release).
+Operations without such a suffix are sequentially consistent.
+.SH CONFIGURATION
+.PP
+The header \fBvsync/atomic/config.h\fP defines project-wide switches that can be
+set before including the core header:
+.TP
+.B VATOMIC_DISABLE_POLITE_AWAIT
+Forces busy-wait loops to spin without issuing PAUSE/WFE instructions on x86_64
+and arm64, overriding the default polite behavior.
+.TP
+.B VATOMIC_BUILTINS
+Builds every atomic primitive using the compiler's \fB__atomic\fP builtins.
+When unset, the library selects hand-written assembly backends for arm32/arm64
+when appropriate.
+.TP
+.B VATOMIC_ENABLE_ATOMIC_SC
+Turns the memory ordering of every operation to sequentially consistent,
+regardless of function suffixes.
+This configuration comes in handy when debugging: developers can use it to
+ensure certain bugs are not due to weak memory orderings. The configuration is
+also useful to measure the overhead of turning off weak memory optimizations.
+.TP
+.B VATOMIC_ENABLE_ATOMIC_RLX
+Turns the memory ordering of every operation to relaxed. This configuration
+is only relevant for benchmarking and it can potentially introduce weak
+memory bugs. Use it with care.
+.TP
+.B VATOMIC_DISABLE_ARM64_LSE
+Disables use of ARMv8 LSE instructions even when the toolchain advertises them.
+.TP
+.B VATOMIC_ENABLE_ARM64_LXE
+Enables ARMv8 LSE instructions in the slow path of LLSC operations whenever the
+compiler is configured with \fB-march=armv8-a+lse\fP or equivalent.
+.PP
+vatomic is a component of the broader VSync effort and is also used by
+libvsync.
+Refer to the project documentation and ASPLOS'21 publication for more detail on
+the research behind the library.
+.SH REFERENCES
+.IP \(bu 2
+Oberhauser et al., "VSync: push-button verification and optimization for
+synchronization primitives on weak memory models," ASPLOS 2021,
+<https://dl.acm.org/doi/10.1145/3445814.3446748>.
+.SH FILES
+.TP
+.B vmm.cat
+VSync Memory Model (VMM) specification referenced throughout the interface.
+.SH SEE ALSO
+\fBvmm.cat\fP,
+\fBvsync/atomic/core.h\fP,
+the project README, and the VSync documentation hosted in the \fBdoc/\fP tree.

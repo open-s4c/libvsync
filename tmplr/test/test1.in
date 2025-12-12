@@ -1,3 +1,0 @@
-_tmpl_begin(X=[[dog;cat;rat]]);
-X is an animal.
-_tmpl_end;

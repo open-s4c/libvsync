@@ -5,6 +5,15 @@ This project partially comply with [Semantic Versioning][].
 
 [Semantic Versioning]: https://semver.org/spec/v2.0.0.html
 
+## Unreleased
+
+- Introduced vsync::atomic for C++ (vsync/atomic.hpp)
+- Added new verification pipeline in `verify/`
+- Introduced RISCV verification
+- Improved documentation on verification and contributing to the project
+- Reorganization of template files
+- Minor refactoring of internal headers (not user facing)
+
 ## [2.3.1]
 
 - Added verification of AArch64 atomic implementation

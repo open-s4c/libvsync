@@ -1,0 +1,24 @@
+.\" SPDX-License-Identifier: MIT
+.TH VATOMIC_FENCE 3 "@__DATE__@" "vatomic @__VERSION__@" "Library Functions Manual"
+.SH NAME
+vatomic_fence, vatomic_fence_acq, vatomic_fence_rel, vatomic_fence_rlx
+\- VSync atomic fences
+.SH SYNOPSIS
+.nf
+.B #include <vsync/atomic.h>
+.PP
+.BI "void vatomic_fence(void);"
+.BI "void vatomic_fence_acq(void);"
+.BI "void vatomic_fence_rel(void);"
+.BI "void vatomic_fence_rlx(void);"
+.fi
+.SH DESCRIPTION
+Issues a full memory fence with the requested ordering.
+The default \fBvatomic_fence\fP emits a sequentially consistent barrier.
+\fBvatomic_fence_acq\fP and \fBvatomic_fence_rel\fP implement acquire and
+release semantics, while \fBvatomic_fence_rlx\fP expands to a relaxed fence
+(typically a compiler barrier or NOP depending on configuration).
+.SH RETURN VALUE
+None.
+.SH SEE ALSO
+\fBvatomic_read(3)\fP, \fBvatomic(7)\fP, \fBvsync/atomic/config.h\fP

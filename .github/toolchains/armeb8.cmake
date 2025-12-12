@@ -9,7 +9,6 @@ set(CMAKE_CXX_COMPILER ${ARMEB_PATH}/armeb-linux-gnueabi-g++)
 set(CMAKE_CROSSCOMPILING_EMULATOR qemu-armeb -L /usr/armeb-linux-gnueabi/libc)
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mbig-endian")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -static")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -march=armv8-a -marm")
 set(CMAKE_C_FLAGS
     "${CMAKE_C_FLAGS} -mno-thumb-interwork -mfpu=vfp -msoft-float")

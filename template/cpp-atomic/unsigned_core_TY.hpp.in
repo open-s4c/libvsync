@@ -1,0 +1,395 @@
+/*
+ * Copyright (C) Huawei Technologies Co., Ltd. 2025. All rights reserved.
+ * SPDX-License-Identifier: MIT
+ */
+#define _tmpl_mute
+#include <vsync/atomic/tmplr.h>
+#define _tmpl_unmute
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz; bool; ptr]]);
+#ifndef VATOMIC_CORE_UPCASE_TY__HPP
+#define VATOMIC_CORE_UPCASE_TY__HPP
+_tmpl_end;
+_tmpl_dl; //--------------------------------------
+_tmpl_begin(=);
+AUTOGEN
+_tmpl_end;
+_tmpl_dl; //--------------------------------------
+extern "C" {
+    #include <vsync/atomic.h>
+}
+_tmpl_map(MAP_TMPL_T_ptr, PTR *);
+_tmpl_map(MAP_TMPL_N_ptr, typename PTR);
+_tmpl_map(MAP_CAST_ptr, static_cast<PTR *>);
+_tmpl_map(MAP_INIT_ptr, nullptr);
+_tmpl_dl; //--------------------------------------
+_tmpl_map(MAP_TMPL_T_u8, TT);
+_tmpl_map(MAP_TMPL_N_u8, );
+_tmpl_map(MAP_INIT_u8, 0U);
+_tmpl_map(MAP_CAST_u8, );
+_tmpl_dl; //--------------------------------------
+_tmpl_map(MAP_TMPL_T_bool, TT);
+_tmpl_map(MAP_TMPL_N_bool, );
+_tmpl_map(MAP_INIT_bool, false);
+_tmpl_map(MAP_CAST_bool, static_cast<vbool_t>);
+_tmpl_dl; //--------------------------------------
+_tmpl_map(MAP_TMPL_T_u16, TT);
+_tmpl_map(MAP_TMPL_N_u16, );
+_tmpl_map(MAP_INIT_u16, 0U);
+_tmpl_map(MAP_CAST_u16, );
+_tmpl_dl; //--------------------------------------
+_tmpl_map(MAP_TMPL_T_u32, TT);
+_tmpl_map(MAP_TMPL_N_u32, );
+_tmpl_map(MAP_CAST_u32, );
+_tmpl_map(MAP_INIT_u32, 0U);
+_tmpl_dl; //--------------------------------------
+_tmpl_map(MAP_TMPL_T_u64, TT);
+_tmpl_map(MAP_TMPL_N_u64, );
+_tmpl_map(MAP_CAST_u64, );
+_tmpl_map(MAP_INIT_u64, 0U);
+_tmpl_dl; //--------------------------------------
+_tmpl_map(MAP_TMPL_T_sz, TT);
+_tmpl_map(MAP_TMPL_N_sz, );
+_tmpl_map(MAP_CAST_sz, );
+_tmpl_map(MAP_INIT_sz, 0U);
+_tmpl_dl; //--------------------------------------
+_tmpl_map(MAP_VOL, volatile);
+_tmpl_map(MAP_NON_VOL, );
+_tmpl_map(MAP_CAST_VOL, const_cast<AA*>);
+_tmpl_map(MAP_CAST_NON_VOL, );
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz; bool; ptr]]);
+namespace vsync
+{
+template <MAP_TMPL_N_TY> struct atomic<MAP_TMPL_T_TY> {
+    atomic(const atomic &)                     = delete;
+    atomic &operator=(const atomic &)          = delete;
+    atomic &operator=(const atomic &) volatile = delete;
+
+    atomic()
+    {
+        __vatomic_init(&_v, MAP_INIT_TY);
+    }
+    atomic(MAP_TMPL_T_TY v)
+    {
+        __vatomic_init(&_v, v);
+    }
+_tmpl_end;
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz; bool; ptr]], VL =[[VOL; NON_VOL]]);
+    MAP_TMPL_T_TY load(memory_order order = memory_order_seq_cst) MAP_VL const noexcept
+    {
+        switch (order) {
+            case memory_order_consume:
+            case memory_order_acquire:
+                return MAP_CAST_TY(__vatomic_read_acq(MAP_CAST_VL(&_v)));
+            case memory_order_relaxed:
+                return MAP_CAST_TY(__vatomic_read_rlx(MAP_CAST_VL(&_v)));
+            case memory_order_release:
+            case memory_order_acq_rel:
+            case memory_order_seq_cst:
+            default:
+                return MAP_CAST_TY(__vatomic_read(MAP_CAST_VL(&_v)));
+        }
+    }
+    void store(MAP_TMPL_T_TY v, memory_order order = memory_order_seq_cst) MAP_VL noexcept
+    {
+        switch (order) {
+            case memory_order_release:
+                __vatomic_write_rel(MAP_CAST_VL(&_v), v);
+                break;
+            case memory_order_relaxed:
+                __vatomic_write_rlx(MAP_CAST_VL(&_v), v);
+                break;
+            case memory_order_acquire:
+            case memory_order_acq_rel:
+            case memory_order_consume:
+            case memory_order_seq_cst:
+            default:
+                return __vatomic_write(MAP_CAST_VL(&_v), v);
+        }
+    }
+
+    MAP_TMPL_T_TY operator=(MAP_TMPL_T_TY v) MAP_VL noexcept
+    {
+        store(v);
+        return v;
+    }
+
+    operator MAP_TMPL_T_TY() MAP_VL const noexcept
+    {
+        return load();
+    }
+
+    MAP_TMPL_T_TY exchange(MAP_TMPL_T_TY v,
+                       memory_order order = memory_order_seq_cst) MAP_VL noexcept
+    {
+        switch (order) {
+            case memory_order_release:
+                return MAP_CAST_TY(__vatomic_xchg_rel(MAP_CAST_VL(&_v), v));
+            case memory_order_relaxed:
+                return MAP_CAST_TY(__vatomic_xchg_rlx(MAP_CAST_VL(&_v), v));
+            case memory_order_consume:
+            case memory_order_acquire:
+                return MAP_CAST_TY(__vatomic_xchg_acq(MAP_CAST_VL(&_v), v));
+            case memory_order_acq_rel:
+            case memory_order_seq_cst:
+            default:
+                return MAP_CAST_TY(__vatomic_xchg(MAP_CAST_VL(&_v), v));
+        }
+    }
+
+    bool compare_exchange_strong(
+        MAP_TMPL_T_TY &expected, MAP_TMPL_T_TY desired,
+        memory_order order   = memory_order_seq_cst,
+        memory_order failure = memory_order_seq_cst) MAP_VL noexcept
+    {
+        MAP_TMPL_T_TY old = 0;
+        switch (order) {
+            case memory_order_release:
+                old = MAP_CAST_TY(__vatomic_cmpxchg_rel(MAP_CAST_VL(&_v), expected, desired));
+                break;
+            case memory_order_relaxed:
+                old = MAP_CAST_TY(__vatomic_cmpxchg_rlx(MAP_CAST_VL(&_v), expected, desired));
+                break;
+            case memory_order_consume:
+            case memory_order_acquire:
+                old = MAP_CAST_TY(__vatomic_cmpxchg_acq(MAP_CAST_VL(&_v), expected, desired));
+                break;
+            case memory_order_acq_rel:
+            case memory_order_seq_cst:
+            default:
+                old = MAP_CAST_TY(__vatomic_cmpxchg(MAP_CAST_VL(&_v), expected, desired));
+                break;
+        }
+        if (old == expected) {
+            return true;
+        } else {
+            expected = old;
+            return false;
+        }
+    }
+    bool
+    compare_exchange_weak(MAP_TMPL_T_TY &expected, MAP_TMPL_T_TY desired,
+                          memory_order order   = memory_order_seq_cst,
+                          memory_order failure = memory_order_seq_cst) MAP_VL noexcept
+    {
+        return compare_exchange_strong(expected, desired, order, failure);
+    }
+
+_tmpl_end;
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz]], VL =[[VOL; NON_VOL]]);
+    TT fetch_add(TT v,
+                        memory_order order = memory_order_seq_cst) MAP_VL noexcept
+    {
+        switch (order) {
+            case memory_order_release:
+                return MAP_CAST_TY(__vatomic_get_add_rel(MAP_CAST_VL(&_v), v));
+            case memory_order_relaxed:
+                return MAP_CAST_TY(__vatomic_get_add_rlx(MAP_CAST_VL(&_v), v));
+            case memory_order_consume:
+            case memory_order_acquire:
+                return MAP_CAST_TY(__vatomic_get_add_acq(MAP_CAST_VL(&_v), v));
+            case memory_order_acq_rel:
+            case memory_order_seq_cst:
+            default:
+                return MAP_CAST_TY(__vatomic_get_add(MAP_CAST_VL(&_v), v));
+        }
+    }
+    TT operator+=(TT v) MAP_VL noexcept
+    {
+        return fetch_add(v);
+    }
+    // v++
+    TT operator++(int) MAP_VL noexcept
+    {
+        return __vatomic_get_inc(MAP_CAST_VL(&_v));
+    }
+    // ++v
+    TT operator++() MAP_VL noexcept
+    {
+        return __vatomic_inc_get(MAP_CAST_VL(&_v));
+    }
+
+    TT fetch_sub(TT v,
+                        memory_order order = memory_order_seq_cst) MAP_VL noexcept
+    {
+        switch (order) {
+            case memory_order_release:
+                return __vatomic_get_sub_rel(MAP_CAST_VL(&_v), v);
+            case memory_order_relaxed:
+                return __vatomic_get_sub_rlx(MAP_CAST_VL(&_v), v);
+            case memory_order_consume:
+            case memory_order_acquire:
+                return __vatomic_get_sub_acq(MAP_CAST_VL(&_v), v);
+            case memory_order_acq_rel:
+            case memory_order_seq_cst:
+            default:
+                return __vatomic_get_sub(MAP_CAST_VL(&_v), v);
+        }
+    }
+    TT operator-=(TT v) MAP_VL noexcept
+    {
+        return fetch_sub(v);
+    }
+    // v--
+    TT operator--(int) MAP_VL noexcept
+    {
+        return __vatomic_get_dec(MAP_CAST_VL(&_v));
+    }
+    // --v
+    TT operator--() MAP_VL noexcept
+    {
+        return __vatomic_dec_get(MAP_CAST_VL(&_v));
+    }
+
+    TT fetch_and(TT v,
+                        memory_order order = memory_order_seq_cst) MAP_VL noexcept
+    {
+        switch (order) {
+            case memory_order_release:
+                return __vatomic_get_and_rel(MAP_CAST_VL(&_v), v);
+            case memory_order_relaxed:
+                return __vatomic_get_and_rlx(MAP_CAST_VL(&_v), v);
+            case memory_order_consume:
+            case memory_order_acquire:
+                return __vatomic_get_and_acq(MAP_CAST_VL(&_v), v);
+            case memory_order_acq_rel:
+            case memory_order_seq_cst:
+            default:
+                return __vatomic_get_and(MAP_CAST_VL(&_v), v);
+        }
+    }
+
+    TT operator&=(TT v) MAP_VL noexcept
+    {
+        return fetch_and(v);
+    }
+
+    TT fetch_or(TT v,
+                       memory_order order = memory_order_seq_cst) MAP_VL noexcept
+    {
+        switch (order) {
+            case memory_order_release:
+                return __vatomic_get_or_rel(MAP_CAST_VL(&_v), v);
+            case memory_order_relaxed:
+                return __vatomic_get_or_rlx(MAP_CAST_VL(&_v), v);
+            case memory_order_consume:
+            case memory_order_acquire:
+                return __vatomic_get_or_acq(MAP_CAST_VL(&_v), v);
+            case memory_order_acq_rel:
+            case memory_order_seq_cst:
+            default:
+                return __vatomic_get_or(MAP_CAST_VL(&_v), v);
+        }
+    }
+
+    TT operator|=(TT v) MAP_VL noexcept
+    {
+        return fetch_or(v);
+    }
+
+    TT fetch_xor(TT v,
+                        memory_order order = memory_order_seq_cst) MAP_VL noexcept
+    {
+        switch (order) {
+            case memory_order_release:
+                return __vatomic_get_xor_rel(MAP_CAST_VL(&_v), v);
+            case memory_order_relaxed:
+                return __vatomic_get_xor_rlx(MAP_CAST_VL(&_v), v);
+            case memory_order_consume:
+            case memory_order_acquire:
+                return __vatomic_get_xor_acq(MAP_CAST_VL(&_v), v);
+            case memory_order_acq_rel:
+            case memory_order_seq_cst:
+            default:
+                return __vatomic_get_xor(MAP_CAST_VL(&_v), v);
+        }
+    }
+
+    TT operator^=(TT v) MAP_VL noexcept
+    {
+        return fetch_xor(v);
+    }
+_tmpl_end;
+_tmpl_begin(TY = [[ptr]], VL =[[VOL; NON_VOL]]);
+        MAP_TMPL_T_TY fetch_add(ptrdiff_t v,
+                       memory_order order = memory_order_seq_cst) MAP_VL noexcept
+        {
+            switch (order) {
+                case memory_order_release:
+                    return add_rel(v, true);
+                case memory_order_relaxed:
+                    return add_rlx(v, true);
+                case memory_order_consume:
+                case memory_order_acquire:
+                    return add_acq(v, true);
+                case memory_order_acq_rel:
+                case memory_order_seq_cst:
+                default:
+                    return add(v, true);
+            }
+        }
+        MAP_TMPL_T_TY operator+=(ptrdiff_t v) MAP_VL noexcept
+        {
+            return add(v, true);
+        }
+        // ptr++
+        MAP_TMPL_T_TY operator++(int) MAP_VL noexcept
+        {
+            return add(1, true);
+        }
+        // ++ptr
+        MAP_TMPL_T_TY operator++() MAP_VL noexcept
+        {
+            return add(1, false);
+        }
+
+        MAP_TMPL_T_TY fetch_sub(ptrdiff_t v,
+                       memory_order order = memory_order_seq_cst) MAP_VL noexcept
+        {
+            return fetch_add(-v, order);
+        }
+
+        MAP_TMPL_T_TY operator-=(ptrdiff_t v) MAP_VL noexcept
+        {
+            return add(-v, true);
+        }
+        // ptr--
+        MAP_TMPL_T_TY operator--(int) MAP_VL noexcept
+        {
+            return add(-1, true);
+        }
+        // --ptr
+        MAP_TMPL_T_TY operator--() MAP_VL noexcept
+        {
+            return add(-1, false);
+        }
+_tmpl_end;
+_tmpl_begin(TY = [[ptr]], MO = [[seq; acq; rel; rlx]], VL =[[VOL; NON_VOL]]);
+inline MAP_TMPL_T_TY add_MS(ptrdiff_t v, bool return_old) MAP_VL
+{
+    MAP_TMPL_T_TY old      = nullptr;
+    MAP_TMPL_T_TY expected = nullptr;
+    MAP_TMPL_T_TY desired  = nullptr;
+    old = MAP_CAST_TY(vatomicptr_read(MAP_CAST_VL(&_v)));
+    do {
+        expected = old;
+        desired  = expected + v;
+        old      = MAP_CAST_TY(
+            __vatomic_cmpxchg_MS(MAP_CAST_VL(&_v), expected, desired));
+    } while (old != expected);
+    return return_old ? old : desired;
+}
+_tmpl_end;
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz; bool; ptr]], VL =[[VOL; NON_VOL]]);
+    bool is_lock_free() MAP_VL const noexcept
+    {
+        return true;
+    }
+_tmpl_end;
+_tmpl_begin(TY = [[u8; u16; u32; u64; sz; bool; ptr]]);
+  private:
+    AA _v;
+};
+_tmpl_end;
+};
+
+#endif

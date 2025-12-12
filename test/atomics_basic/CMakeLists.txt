@@ -71,22 +71,10 @@ set(FATOMIC_xor atomic8 atomic16 atomic32 atomic64 atomicsz)
 set(FATOMIC_and atomic8 atomic16 atomic32 atomic64 atomicsz)
 set(FATOMIC_max atomic8 atomic16 atomic32 atomic64 atomicsz)
 
-# interface variants
-#
-# * core: main interface with vatomic32, vatomic64 and vatomicptr
-# * dispatch: core + dispatcher-based vatomic_ interface
-# * compat: dispatch + backwards-compatible atomic*_ interface
-if(LIBVSYNC_OPEN_DISTRO_TESTING)
-    set(TC_VARIANTS core)
-elseif(LIBVSYNC_DRC_DISTRO_TESTING)
-    set(TC_VARIANTS core dispatch)
-else()
-    set(TC_VARIANTS core dispatch compat)
-endif()
+set(TC_VARIANTS core dispatch)
 
 set(HEADER_core vsync/atomic/core.h)
 set(HEADER_dispatch vsync/atomic/dispatch.h)
-set(HEADER_compat vsync/atomic/compat.h)
 
 foreach(TC_VARIANT ${TC_VARIANTS})
     set(TC_ATOMIC_HEADER ${HEADER_${TC_VARIANT}})
@@ -94,22 +82,7 @@ foreach(TC_VARIANT ${TC_VARIANTS})
     foreach(TC_FUNC ${TC_FUNCS})
         foreach(TC_ATOMIC ${FATOMIC_${TC_FUNC}})
 
-            if(${TC_VARIANT} STREQUAL compat)
-                if(${TC_ATOMIC} STREQUAL atomic8)
-                    continue()
-                endif()
-                if(${TC_ATOMIC} STREQUAL atomic16)
-                    continue()
-                endif()
-                if(${TC_ATOMIC} STREQUAL atomicsz)
-                    continue()
-                endif()
-                if(${TC_FUNC} STREQUAL max)
-                    continue()
-                endif()
-                set(TC_TYPE_PRFX ${TC_ATOMIC})
-                set(TC_FVARIANT ${TC_ATOMIC})
-            elseif(${TC_VARIANT} STREQUAL core)
+            if(${TC_VARIANT} STREQUAL core)
                 set(TC_TYPE_PRFX v${TC_ATOMIC})
                 set(TC_FVARIANT v${TC_ATOMIC})
             else()
@@ -143,23 +116,11 @@ foreach(TC_VARIANT ${TC_VARIANTS})
                     set(TC_GETX 1)
                 endif()
 
-                if(${TC_VARIANT} STREQUAL compat)
-                    if(${FT} STREQUAL XGET)
-                        continue()
-                    elseif(${FT} STREQUAL X)
-                        set(TC_XGET 1)
-                    endif()
-                endif()
-
                 set(TC
                     ${TC_VARIANT}-v${TC_ATOMIC}_${TC_FUNC_PRFX}${TC_FUNC}${TC_FUNC_SUFX}
                 )
                 configure_file(vatomic_basic.c.in ${TC}.c)
                 add_executable(${TC} ${TC}.c)
-                if(${TC_VARIANT} STREQUAL compat)
-                    target_compile_definitions(
-                        ${TC} PRIVATE VSYNC_DISABLE_DEPRECATED_WARNING)
-                endif()
                 target_link_libraries(${TC} vatomic pthread)
 
                 v_add_bin_test(NAME ${TC} COMMAND ${TC})
