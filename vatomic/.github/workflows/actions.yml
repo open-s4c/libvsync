@@ -1,9 +1,52 @@
 name: vatomic tests and verification
-on: [push]
+on:
+    - push
+    - pull_request
+
 env:
   REGISTRY: ghcr.io
 
 jobs:
+  changed:
+    name: Detect changed files
+    runs-on: ubuntu-latest
+    outputs:
+      workflows: ${{ steps.workflows.outputs.changed }}
+      include:   ${{ steps.include.outputs.changed }}
+      verify:    ${{ steps.verify.outputs.changed }}
+      test:      ${{ steps.test.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: dorny/paths-filter@v3
+        id: include
+        with:
+          filters: |
+            changed:
+              - 'include/**'
+      - uses: dorny/paths-filter@v3
+        id: workflows
+        with:
+          filters: |
+            changed:
+              - '.github/**'
+      - uses: dorny/paths-filter@v3
+        id: verify
+        with:
+          filters: |
+            changed:
+              - 'verify/**.bpl'
+              - 'verify/**.rs'
+              - 'verify/**.sh'
+              - 'verify/**.txt'
+      - uses: dorny/paths-filter@v3
+        id: test
+        with:
+          filters: |
+            changed:
+              - 'test/**'
+
   test-install:
     strategy:
       matrix:
@@ -32,8 +75,19 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Configure Testing
-        run: cmake -S. -Bbuild
+      - name: Prep Env for macos
+        if: matrix.os == 'macos-latest'
+        run: |
+          sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
+      - name: Configure Testing Ubuntu
+        run: |
+          cmake -S. -Bbuild
+        if: matrix.os != 'macos-latest'
+      - name: Configure Testing Mac
+        run: |
+          export SDK_ROOT=$(xcrun --sdk macosx --show-sdk-path)
+          cmake -S. -Bbuild -DCMAKE_C_FLAGS="-isysroot $SDK_ROOT" -DCMAKE_CXX_FLAGS="-isysroot $SDK_ROOT"
+        if: matrix.os == 'macos-latest'
       - name: Build Tests
         run: cmake --build build
       - name: Run Tests
@@ -53,44 +107,35 @@ jobs:
           usesh: true
           prepare: /usr/sbin/pkg_add curl cmake
           run: |
+              set -eux
               rm -rf /tmp/target
-              cmake -S. -Bbuild
-              cmake --build build -DCMAKE_INSTALL_PREFIX=/tmp/target
+              cmake -S. -Bbuild -DCMAKE_INSTALL_PREFIX=/tmp/target
+              cmake --build build
               ctest --test-dir build --output-on-failure
               cmake --install build
               cmake -Stest/project -Bbuild2 -DCMAKE_PREFIX_PATH=/tmp/target
               cmake --build build2
 
-
   check-expectations:
     runs-on: ubuntu-22.04
     strategy:
+      fail-fast: false
       matrix:
         target:
-            - "clang-format-apply"
-            - "vatomic-generate"
-            - "vatomic-test-generate"
+            - clang-format-apply
+            - cmake-format-apply
+            - markdown
+            - vatomic-generate
+            - vatomic-test-generate
     steps:
-      - name: Check out repository code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Configure
-        run: cmake -S. -Bbuild
-      - name: Run ${{ matrix.target }}
-        run: cmake --build build --target ${{ matrix.target }}
-      - name: Check things match expectation
-        run: cmake --build build --target diff-check ||
-            (echo "Run 'make ${{ matrix.target }}' and commit" && false)
-
-  check-cmake-format:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        target:
-            - "cmake-format-apply"
-    steps:
-      - name: Install cmake-format
+      - name: Download and Install doxygen & mdox for markdown check
+        if: matrix.target == 'markdown'
+        run: |
+          sudo apt update && sudo apt install -y doxygen curl
+          sudo curl -L -o /usr/local/bin/mdox https://github.com/db7/mdox/releases/download/v0.1/mdox-v0.1-linux-amd64
+          sudo chmod +x /usr/local/bin/mdox
+      - name: Install cmake-format for cmake-format-check
+        if: matrix.target == 'cmake-format-apply'
         run: pip install cmakelang
       - name: Check out repository code
         uses: actions/checkout@v4
@@ -104,68 +149,15 @@ jobs:
         run: cmake --build build --target diff-check ||
             (echo "Run 'make ${{ matrix.target }}' and commit" && false)
 
-  prepare-docker:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-      attestations: write
-      id-token: write
-    strategy:
-      fail-fast: true
-      max-parallel: 1
-      matrix:
-        container:
-          - name: "qemu-ci"
-            path: ".github/Dockerfile.qemu"
-          - name: "boogie-ci"
-            path: ".github/Dockerfile.boogie"
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Log in to the Container registry
-        uses: docker/login-action@v3.0.0
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ghcr.io/open-s4c/vatomic/${{ matrix.container.name }}
-
-          tags: |
-            type=edge,branch=dev
-            type=raw,latest
-            type=sha,format=long
-
-      - name: Setup docker buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v5.1.0
-        with:
-          context: .github/docker-context
-          push: true
-          file: ${{ matrix.container.path }}
-          cache-from: type=gha,scope=${{ matrix.container }}
-          cache-to: type=gha,mode=max,scope=${{ matrix.container }}
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-
   test-qemu-other:
-    needs: [ prepare-docker ]
+    needs: changed
+    if: ${{ (needs.changed.outputs.include == 'true') || (needs.changed.outputs.test == 'true') }}
     strategy:
       matrix:
         optimization_level: [ "O1", "O2", "O3" ]
         toolchain: [ "x86_64", "riscv" ]
     runs-on: ubuntu-latest
-    container: ghcr.io/open-s4c/vatomic/qemu-ci:sha-${{ github.sha }}
+    container: ghcr.io/${{ github.repository }}/qemu-ci:latest
     steps:
       - name: Check out to run with the tests
         uses: actions/checkout@v4
@@ -175,20 +167,22 @@ jobs:
         run: cmake -S . -Bbuild
              -DCMAKE_TOOLCHAIN_FILE=".github/toolchains/${{ matrix.toolchain }}.cmake"
              -DCMAKE_C_FLAGS="-${{ matrix.optimization_level }} ${{ matrix.flags }}"
+             -DVATOMIC_DEV=OFF
       - name: Build
         run: cmake --build build
       - name: Test
         run: ctest --test-dir build --output-on-failure
 
   test-qemu-arm32:
-    needs: [ prepare-docker ]
+    needs: changed
+    if: ${{ (needs.changed.outputs.include == 'true') || (needs.changed.outputs.test == 'true') }}
     strategy:
       matrix:
         optimization_level: [ "O1", "O2", "O3" ]
         toolchain: [ "armel", "armel8", "armeb", "armeb8" ]
         flags: [ "-DVSYNC_BUILTINS=ON", "-DVSYNC_BUILTINS=OFF" ]
     runs-on: ubuntu-latest
-    container: ghcr.io/open-s4c/vatomic/qemu-ci:sha-${{ github.sha }}
+    container: ghcr.io/${{ github.repository }}/qemu-ci:latest
     steps:
       - name: Check out to run with the tests
         uses: actions/checkout@v4
@@ -198,13 +192,15 @@ jobs:
         run: cmake -S . -Bbuild
              -DCMAKE_TOOLCHAIN_FILE=".github/toolchains/${{ matrix.toolchain }}.cmake"
              -DCMAKE_C_FLAGS="-${{ matrix.optimization_level }} ${{ matrix.flags }}"
+             -DVATOMIC_DEV=OFF
       - name: Build
         run: cmake --build build
       - name: Test
         run: ctest --test-dir build --output-on-failure
 
   test-qemu-arm64:
-    needs: [ prepare-docker ]
+    needs: changed
+    if: ${{ (needs.changed.outputs.include == 'true') || (needs.changed.outputs.test == 'true') }}
     strategy:
       matrix:
         optimization_level: [ "O1", "O2", "O3" ]
@@ -216,7 +212,7 @@ jobs:
           - toolchain: "arm64_lse"
             flags: "-DVATOMIC_ENABLE_ARM64_LXE=OFF"
     runs-on: ubuntu-latest
-    container: ghcr.io/open-s4c/vatomic/qemu-ci:sha-${{ github.sha }}
+    container: ghcr.io/${{ github.repository }}/qemu-ci:latest
     steps:
       - name: Check out to run with the tests
         uses: actions/checkout@v4
@@ -226,28 +222,50 @@ jobs:
         run: cmake -S . -Bbuild
              -DCMAKE_TOOLCHAIN_FILE=".github/toolchains/${{ matrix.options.toolchain }}.cmake"
              -DCMAKE_C_FLAGS="-${{ matrix.optimization_level }} ${{ matrix.options.flags }}"
+             -DVATOMIC_DEV=OFF
       - name: Build
         run: cmake --build build
       - name: Test
         run: ctest --test-dir build --output-on-failure
 
 
-  boogie-verification:
-    needs: [ prepare-docker ]
+  verify-armv8:
+    needs: changed
+    if: ${{ (needs.changed.outputs.include == 'true') || (needs.changed.outputs.verify == 'true') }}
     strategy:
       matrix:
-        target: [ lse, llsc, lxe, no_polite_await ]
+        target: [ builtin, llsc, lse, lxe ]
+        group: [ vatomic8, vatomic16, vatomic32, vatomic64, vatomicsz, vatomicptr, vatomic_fence ]
     runs-on: ubuntu-latest
-    container: ghcr.io/open-s4c/vatomic/boogie-ci:sha-${{ github.sha }}
+    container: ghcr.io/${{ github.repository }}/boogie-ci:latest
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Configure
-        run: cmake -S. -Bbuild -DLIBVSYNC_ATOMICS_VERIFICATION=ON
+        run: cmake -S. -Bbuild -DVATOMIC_DEV=OFF
       - name: Build
-        run: cmake --build build --target build_boogie_${{ matrix.target }}
+        run: cmake --build build --target build_boogie_armv8_${{ matrix.target }}_${{ matrix.group }}
       - name: Verify
-        run: ctest -R ${{ matrix.target }} --test-dir build/verify
+        run: ctest -j 4 -L armv8_${{ matrix.target }}_${{ matrix.group }} --test-dir build/verify
 
+  verify-riscv:
+    needs: changed
+    if: ${{ (needs.changed.outputs.include == 'true') || (needs.changed.outputs.verify == 'true') }}
+    strategy:
+      matrix:
+        group: [ vatomic8, vatomic16, vatomic32, vatomic64, vatomicsz, vatomicptr, vatomic_fence ]
+    runs-on: ubuntu-latest
+    container: ghcr.io/${{ github.repository }}/boogie-ci:latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Configure
+        run: cmake -S. -Bbuild -DVATOMIC_DEV=OFF
+      - name: Build
+        run: cmake --build build --target build_boogie_riscv_builtin_${{ matrix.group }}
+      - name: Verify
+        run: ctest -j 4 -L riscv_builtin_${{ matrix.group }} --test-dir build/verify

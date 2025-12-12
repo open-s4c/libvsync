@@ -1,0 +1,60 @@
+.\" SPDX-License-Identifier: MIT
+.TH VATOMIC_AWAIT 3 "@__DATE__@" "vatomic @__VERSION__@" "Library Functions Manual"
+.SH NAME
+vatomic_await_* \- polite wait operations for basic conditions
+.SH SYNOPSIS
+.nf
+.B #include <vsync/atomic/await.h>
+.PP
+.BI "T vatomic_await_eq  (const A *" obj ", T " value );
+.BI "T vatomic_await_neq (const A *" obj ", T " value );
+.BI "T vatomic_await_lt  (const A *" obj ", T " value );
+.BI "T vatomic_await_le  (const A *" obj ", T " value );
+.BI "T vatomic_await_gt  (const A *" obj ", T " value );
+.BI "T vatomic_await_ge  (const A *" obj ", T " value );
+.PP
+.BI "T vatomic_await_eq_acq (const A *" obj ", T " value );
+.BI "T vatomic_await_eq_rlx (const A *" obj ", T " value );
+\fI...and analogous *_acq / *_rlx variants for each condition\fP
+.fi
+.SH DESCRIPTION
+Await helpers spin politely (issuing PAUSE/WFE unless
+\fBVATOMIC_DISABLE_POLITE_AWAIT\fP is defined) until the specified condition on
+\fIobj\fP becomes true.
+Each macro family dispatches to the correctly sized implementation
+(\fBvatomic32_await_eq\fP, \fBvatomicptr_await_lt\fP, etc.) based on the atomic
+pointer passed in.
+.PP
+Conditions:
+.IP \(bu 2
+\fB_eq\fP / \fB_neq\fP – wait for equality or inequality with \fIvalue\fP.
+.IP \(bu 2
+\fB_lt\fP / \fB_le\fP – wait until the atomic is strictly / weakly less than
+\fIvalue\fP.
+.IP \(bu 2
+\fB_gt\fP / \fB_ge\fP – wait until the atomic is strictly / weakly greater than
+\fIvalue\fP.
+.PP
+Suffixes `_acq` and `_rlx` request acquire or relaxed semantics; when absent,
+the default is sequential consistency. Pointer-specific convenience macros such
+as \fBvatomicptr_await_eq\fP follow the same contract. Boolean helpers
+(\fBvatomic64_await_true\fP, etc.) are aliases for the respective equality
+variants.
+.SH RETURN VALUE
+Each await function returns the value observed when the condition became
+true except for \fBvatomic_await_eq\fP, which returns the last value read
+before satisfying the condition.
+.SH TYPES AND VARIANTS
+.PP
+\fBA\fP is a vatomic storage type (\fBvatomic32_t\fP, \fBvatomic64_t\fP,
+and \fBvatomicptr_t\fP).
+\fBT\fP is the corresponding plain type (integer or pointer).
+All helpers can be called either through the dispatcher macros
+(\fBvatomic_await_eq\fP) or by explicitly selecting a width-specific version
+such as \fBvatomic32_await_eq\fP.
+.PP
+Note that currently the API only offers await functions for the types
+indicated above (32, 64 and ptr).
+.SH SEE ALSO
+\fBvatomic_await_op(3)\fP, \fBvatomic_basic(3)\fP, \fBvatomic(7)\fP,
+\fBvsync/atomic/config.h\fP

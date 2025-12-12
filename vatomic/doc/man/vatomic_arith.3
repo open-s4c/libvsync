@@ -1,0 +1,54 @@
+.\" SPDX-License-Identifier: MIT
+.TH VATOMIC_ARITH 3 "@__DATE__@" "vatomic @__VERSION__@" "Library Functions Manual"
+.SH NAME
+vatomic_inc, vatomic_dec, vatomic_add, vatomic_sub, vatomic_max
+\- arithmetic vatomic operations
+.SH SYNOPSIS
+.nf
+.B #include <vsync/atomic.h>
+.PP
+.BI "void vatomic_inc(A *" obj );
+.BI "T vatomic_get_inc(A *" obj );
+.BI "T vatomic_inc_get(A *" obj );
+.PP
+.BI "void vatomic_dec(A *" obj );
+.BI "T vatomic_get_dec(A *" obj );
+.BI "T vatomic_dec_get(A *" obj );
+.PP
+.BI "void vatomic_add(A *" obj ", T " value );
+.BI "T vatomic_get_add(A *" obj ", T " value );
+.BI "T vatomic_add_get(A *" obj ", T " value );
+.PP
+.BI "void vatomic_sub(A *" obj ", T " value );
+.BI "T vatomic_get_sub(A *" obj ", T " value );
+.BI "T vatomic_sub_get(A *" obj ", T " value );
+.PP
+.BI "void vatomic_max(A *" obj ", T " value );
+.BI "T vatomic_get_max(A *" obj ", T " value );
+.BI "T vatomic_max_get(A *" obj ", T " value );
+.fi
+.SH DESCRIPTION
+These helpers perform the common arithmetic read/modify/write sequences on a
+vatomic object \fIobj\fP.
+\fBvatomic_inc\fP/\fBvatomic_dec\fP increment/decrement the value by one,
+\fBvatomic_add\fP/\fBvatomic_sub\fP add/subtract the operand \fIvalue\fP, and
+\fBvatomic_max\fP updates \fIobj\fP to \fIvalue\fP when \fIvalue\fP is
+greater than the current content of \fIobj\fP.
+Each macro dispatches to the width-specific implementation
+(\fBvatomic32_add\fP, \fBvatomic64_inc_get\fP, etc.) based on the atomic pointer
+provided.
+.PP
+Unsuffixed forms use sequential consistency; suffixes `_acq`, `_rel`, and `_rlx`
+offer acquire, release, or relaxed semantics when the variant exists.
+.SH RETURN VALUE
+.PP
+\fBvatomic_inc\fP, \fBvatomic_dec\fP, \fBvatomic_add\fP, \fBvatomic_sub\fP, and
+\fBvatomic_max\fP return no value.
+Their `get_*` forms return the old contents of \fIobj\fP before the update.
+Their `*_get` forms return the value after the update.
+.SH TYPES AND VARIANTS
+.PP
+Refer to \fBvatomic_basic(3)\fP for the \fBA\fP/\fBT\fP notation and guidance on
+bypassing the dispatcher via explicit prefixes such as \fBvatomic32_add_get\fP.
+.SH SEE ALSO
+\fBvatomic_basic(3)\fP, \fBvatomic_bitwise(3)\fP, \fBvatomic(7)\fP
