@@ -20,7 +20,7 @@ include(CheckSymbolExists)
 # ##############################################################################
 # add vatomic lib.
 # ##############################################################################
-find_package(vatomic 3.2 CONFIG)
+find_package(vatomic 2.3 CONFIG)
 if(NOT vatomic_FOUND)
     add_subdirectory(vatomic)
 endif()
