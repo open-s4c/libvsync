@@ -1,0 +1,63 @@
+name: vatomic dockers build
+on:
+  push:
+    paths:
+      - '.github/Dockerfile*'
+  pull_request:
+    paths:
+      - '.github/Dockerfile*'
+env:
+  REGISTRY: ghcr.io
+jobs:
+  prepare-docker:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      attestations: write
+      id-token: write
+    strategy:
+      fail-fast: true
+      max-parallel: 1
+      matrix:
+        container:
+          - name: "qemu-ci"
+            path: ".github/Dockerfile.qemu"
+          - name: "boogie-ci"
+            path: ".github/Dockerfile.boogie"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3.0.0
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository }}/${{ matrix.container.name }}
+
+          tags: |
+            type=edge,branch=dev
+            type=raw,latest
+            type=sha,format=long
+
+      - name: Setup docker buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5.1.0
+        with:
+          context: .github/docker-context
+          push: true
+          file: ${{ matrix.container.path }}
+          cache-from: type=gha,scope=${{ matrix.container }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.container }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}

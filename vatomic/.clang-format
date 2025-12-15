@@ -52,6 +52,7 @@ SpacesInParentheses                       : false
 SpacesInSquareBrackets                    : false
 TabWidth                                  : 4
 UseTab                                    : Never
+NamespaceIndentation                      : All
 ForEachMacros:
 - await_while
 - await_do

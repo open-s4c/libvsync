@@ -1,6 +1,11 @@
 # Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
 # SPDX-License-Identifier: MIT
+if(NOT VATOMIC_DEV)
+    return()
+endif()
+
 add_custom_target(vatomic-generate)
+
 # after running vatomic-generate, run clang-format-apply, in order to fix format
 # in autogenerted files.
 add_custom_command(
@@ -9,7 +14,11 @@ add_custom_command(
     COMMAND cmake --build "${CMAKE_BINARY_DIR}" --target clang-format-apply
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR})
 
-add_subdirectory(include)
+set(VATOMIC_RULES ${CMAKE_CURRENT_SOURCE_DIR}/vatomic.rules)
+
+add_subdirectory(atomic)
+add_subdirectory(cpp-atomic)
+add_subdirectory(test-atomic)
 
 # The following empty file helps LSP servers (eg, clangd) to figure out the
 # symbols in the .h.in template files by updating the compile_commands.json

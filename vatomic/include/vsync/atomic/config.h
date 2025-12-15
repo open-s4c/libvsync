@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2025. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -93,7 +93,7 @@
 
 /*******************************************************************************
  * @def VATOMIC_ENABLE_ARM64_LXE
- * @brief use ARM64 LSE instructions in slow path of LXSX for atomic operations.
+ * @brief use ARM64 LSE instructions in slow path of LLSC for atomic operations.
  *
  * To use this option, the compiler must be configured to emit LSE instructions
  * with some flag such as -march=armv8-a+lse.

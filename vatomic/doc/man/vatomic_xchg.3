@@ -1,0 +1,30 @@
+.\" SPDX-License-Identifier: MIT
+.TH VATOMIC_XCHG 3 "@__DATE__@" "vatomic @__VERSION__@" "Library Functions Manual"
+.SH NAME
+vatomic_xchg \- vatomic exchange operations
+.SH SYNOPSIS
+.nf
+.B #include <vsync/atomic.h>
+.PP
+.BI "T vatomic_xchg(A *" obj ", T " value );
+.BI "T vatomic_xchg_acq(A *" obj ", T " value );
+.BI "T vatomic_xchg_rel(A *" obj ", T " value );
+.BI "T vatomic_xchg_rlx(A *" obj ", T " value );
+.fi
+.SH DESCRIPTION
+Atomically writes \fIvalue\fP into \fIobj\fP and returns the previous contents.
+The unsuffixed form enforces sequential consistency;
+`_acq`, `_rel`, and `_rlx` restrict the exchange to acquire, release, or relaxed
+orderings respectively.
+Each macro dispatches to the width-specific function
+(\fBvatomic8_xchg\fP, \fBvatomic16_xchg\fP, etc.) based on the atomic pointer
+you pass.
+.SH RETURN VALUE
+Returns the value that was stored in \fIobj\fP immediately before the exchange.
+.SH TYPES AND VARIANTS
+.PP
+See \fBvatomic_basic(3)\fP for the notation of \fBA\fP and \fBT\fP and guidance
+on bypassing the dispatcher with explicit prefixes (for example,
+\fBvatomic32_xchg_rel\fP).
+.SH SEE ALSO
+\fBvatomic_basic(3)\fP, \fBvatomic_cmpxchg(3)\fP, \fBvatomic(7)\fP

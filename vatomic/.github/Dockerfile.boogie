@@ -1,17 +1,38 @@
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
-# Install useful package
+ENV DEBIAN_FRONTEND=noninteractive \
+    RUSTUP_HOME=/usr/local/rustup \
+    CARGO_HOME=/usr/local/cargo \
+    PATH=/usr/local/cargo/bin:/opt/z3:/opt/boogie:$PATH
+
+# Install dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
-        build-essential \
-    	ca-certificates \
-        cmake \
-        ninja-build \
-        g++-aarch64-linux-gnu \
-        gcc-aarch64-linux-gnu \
-	dotnet-sdk-6.0 \
-	z3 \
-	ghc \
+    curl \
+    wget \
+    unzip \
+    git \
+    build-essential \
+    ca-certificates \
+    cmake \
+    ninja-build \
+    g++-aarch64-linux-gnu \
+    gcc-aarch64-linux-gnu \
+    gcc-riscv64-linux-gnu \
+    libc6-dev-riscv64-cross \
+    python3 \
+    python3-pip \
+    dotnet-sdk-8.0 \
     && rm -rf /var/lib/apt/lists/*
 
-RUN dotnet tool install --tool-path /usr/local/bin boogie --version 3.4.3
+# Set default encoding to UTF-8
+ENV LANG=C.UTF-8
+ENV LC_ALL=C.UTF-8
 
+#Install z3 via pip
+RUN pip install z3-solver --break-system-packages
+
+# Install Rust
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+
+# Install boogie via dotnet
+RUN dotnet tool install --tool-path /usr/local/bin boogie --version 3.5.5
