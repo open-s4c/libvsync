@@ -111,7 +111,6 @@ main(void)
 | [vsync/atomic/await_ptr.h](await_ptr.h.md)|Atomic await functions for vatomicptr_t variables. |
 | [vsync/atomic/await_u32.h](await_u32.h.md)|Atomic await functions for vatomic32_t variables. |
 | [vsync/atomic/await_u64.h](await_u64.h.md)|Atomic await functions for vatomic64_t variables. |
-| [vsync/atomic/compat.h](compat.h.md)|Set of functions backward compatible with libvsync 1.0. |
 | [vsync/atomic/config.h](config.h.md)|Global configuration of vatomics. |
 | [vsync/atomic/core.h](core.h.md)|Atomic types, core atomic operations and fences. |
 | [vsync/atomic/core_ptr.h](core_ptr.h.md)|Atomic functions for vatomicptr_t variables. |

@@ -14,7 +14,7 @@ The configuration defined in this file is typically applied to the whole project
 | [VATOMIC_ENABLE_ATOMIC_SC](config.h.md#macro-vatomic_enable_atomic_sc) | turns barrier mode of all atomic operations and fences to seq_cst.  |
 | [VATOMIC_ENABLE_ATOMIC_RLX](config.h.md#macro-vatomic_enable_atomic_rlx) | turns barrier mode of all atomic operations and fences to relaxed.  |
 | [VATOMIC_DISABLE_ARM64_LSE](config.h.md#macro-vatomic_disable_arm64_lse) | Do not use ARM64 LSE instructions for atomic operations.  |
-| [VATOMIC_ENABLE_ARM64_LXE](config.h.md#macro-vatomic_enable_arm64_lxe) | use ARM64 LSE instructions in slow path of LXSX for atomic operations.  |
+| [VATOMIC_ENABLE_ARM64_LXE](config.h.md#macro-vatomic_enable_arm64_lxe) | use ARM64 LSE instructions in slow path of LLSC for atomic operations.  |
 
 ##  Macro `VATOMIC_ENABLE_FENCE_RLX_NOP`
 
@@ -67,7 +67,7 @@ If the compiler is configured to emit LSE instructions with some flag such as -m
 ##  Macro `VATOMIC_ENABLE_ARM64_LXE`
 
  
-_use ARM64 LSE instructions in slow path of LXSX for atomic operations._ 
+_use ARM64 LSE instructions in slow path of LLSC for atomic operations._ 
 
 
 To use this option, the compiler must be configured to emit LSE instructions with some flag such as -march=armv8-a+lse. 

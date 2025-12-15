@@ -20,13 +20,16 @@ function(add_doc_targets)
     endif()
 
     set(DOXYGEN_INPUT "${CMAKE_CURRENT_BINARY_DIR}/installed")
+    set(LIBVSYNC_BUILD "${CMAKE_CURRENT_BINARY_DIR}/libvsync-build")
     add_custom_target(
         ${INSTALL_TARGET}
+        COMMAND ${CMAKE_COMMAND} -S${PROJECT_SOURCE_DIR} -B${LIBVSYNC_BUILD}
+                -DCMAKE_INSTALL_PREFIX=${DOXYGEN_INPUT}
+        COMMAND ${CMAKE_COMMAND} --install ${LIBVSYNC_BUILD}
         COMMAND
-            ${CMAKE_COMMAND} -S"${PROJECT_SOURCE_DIR}"
-            -B"${CMAKE_CURRENT_BINARY_DIR}"
-            -DCMAKE_INSTALL_PREFIX="${DOXYGEN_INPUT}"
-        COMMAND ${CMAKE_COMMAND} --install "${CMAKE_CURRENT_BINARY_DIR}")
+            ${CMAKE_COMMAND} -E copy
+            "${PROJECT_SOURCE_DIR}/include/vsync/doc.h"
+            "${DOXYGEN_INPUT}/include/vsync/")
 
     # ##########################################################################
     # Generate doxygen config file and add target
