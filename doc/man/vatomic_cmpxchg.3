@@ -1,0 +1,54 @@
+.\" SPDX-License-Identifier: MIT
+.TH VATOMIC_CMPXCHG 3 "@__DATE__@" "vatomic @__VERSION__@" "Library Functions Manual"
+.SH NAME
+vatomic_cmpxchg \- vatomic compare-and-exchange operations
+.SH SYNOPSIS
+.nf
+.B #include <vsync/atomic.h>
+.PP
+.BI "T vatomic_cmpxchg(A *" obj ", T " expect ", T " value );
+.BI "T vatomic_cmpxchg_acq(A *" obj ", T " expect ", T " value );
+.BI "T vatomic_cmpxchg_rel(A *" obj ", T " expect ", T " value );
+.BI "T vatomic_cmpxchg_rlx(A *" obj ", T " expect ", T " value );
+.fi
+.SH DESCRIPTION
+Reads \fIobj\fP and compares it against \fIexpect\fP.
+If they match, writes \fIvalue\fP into \fIobj\fP.
+Either way, the previous contents are returned so callers can detect whether the
+operation succeeded.
+The unsuffixed form uses sequential consistency; `_acq`, `_rel`, and `_rlx`
+provide acquire, release, and relaxed semantics respectively.
+Each dispatcher macro invokes the appropriate typed implementation
+(\fBvatomic32_cmpxchg\fP, \fBvatomic64_cmpxchg\fP, etc.) according to the atomic
+pointer.
+.SH RETURN VALUE
+Returns the old contents of \fIobj\fP before the comparison.
+If the return value equals \fIexpect\fP, the exchange succeeded.
+.SH TYPES AND VARIANTS
+.PP
+See \fBvatomic_basic(3)\fP for the \fBA\fP/\fBT\fP notation and for explicit
+typed alternatives such as \fBvatomic32_cmpxchg_acq\fP.
+.SH EXAMPLES
+.PP
+Here are some typical usage patterns.
+.PP
+Checking for success:
+.nf
+    if (vatomic_cmpxchg(&obj, exp, new) == exp) {
+      // success
+    } else {
+      // failure
+    }
+.fi
+.PP
+Retry until the compare-exchange succeeds:
+.nf
+    vatomic32_t obj;
+    uint32_t old = exp = 0;
+    uint32-t new = 123;
+    do {
+        exp = old;
+        old = vatomic_cmpxchg(&obj, exp, new);
+    } while (old != exp);
+.SH SEE ALSO
+\fBvatomic_basic(3)\fP, \fBvatomic_xchg(3)\fP, \fBvatomic(7)\fP

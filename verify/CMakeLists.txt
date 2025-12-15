@@ -1,133 +1,150 @@
 # Copyright (C) Huawei Technologies Co., Ltd. 2025. All rights reserved.
 # SPDX-License-Identifier: MIT
 
-find_program(GHC ghc DOC "Haskell compiler")
+find_program(CARGO cargo DOC "Rust installation")
 find_program(BPL boogie DOC "Boogie installation")
 
-if(NOT GHC OR NOT BPL)
+if(NOT BPL OR NOT CARGO)
+    message("Skipping verification. Some dependencies are missing")
     return()
 endif()
+
+set(ARMV8_CMAKE_C_COMPILER aarch64-linux-gnu-gcc)
+set(RISCV_CMAKE_C_COMPILER riscv64-linux-gnu-gcc)
 
 set(VSYNC_INCLUDE
     "-I$<JOIN:$<TARGET_PROPERTY:vatomic,INTERFACE_INCLUDE_DIRECTORIES>,;-I>")
 
+set(ARCHS ARMV8 RISCV)
+
 add_custom_command(
-    OUTPUT parser
-    COMMAND ghc Main.hs -odir ${CMAKE_CURRENT_BINARY_DIR} -hidir
-            ${CMAKE_CURRENT_BINARY_DIR} -o ${CMAKE_CURRENT_BINARY_DIR}/parser
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    COMMENT "Compiling the parser")
+    OUTPUT BUILTIN_SCRIPTS
+    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}
+            ${CMAKE_CURRENT_BINARY_DIR}
+    COMMENT "Copy verification scripts for the builtin atomics")
 
-set(CMAKE_C_COMPILER aarch64-linux-gnu-gcc)
-set(TARGETS LSE LLSC LXE NO_POLITE_AWAIT)
+add_custom_command(
+    OUTPUT PERMISSION_SCRIPTS
+    COMMAND
+        chmod +x ${CMAKE_CURRENT_BINARY_DIR}/cleaner.sh && chmod +x
+        ${CMAKE_CURRENT_BINARY_DIR}/verify.sh && chmod +x
+        ${CMAKE_CURRENT_BINARY_DIR}/generate.sh
+    DEPENDS BUILTIN_SCRIPTS
+    COMMENT "Give scripts permissions")
 
-set(LSE_FLAGS -march=armv8-a+lse)
+add_custom_command(
+    OUTPUT ATOMIC_LIST
+    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/lists/*
+            ${CMAKE_CURRENT_BINARY_DIR}
+    DEPENDS BUILTIN_SCRIPTS
+    COMMENT "Copy the batches to the parent folder")
+
+set(BUILTIN_FLAGS -DVATOMIC_DISABLE_ARM64_LSE -DVATOMIC_BUILTINS)
 set(LLSC_FLAGS -DVATOMIC_DISABLE_ARM64_LSE)
+set(LSE_FLAGS -march=armv8-a+lse)
 set(LXE_FLAGS -march=armv8-a+lse -DVATOMIC_ENABLE_ARM64_LXE)
-set(NO_POLITE_AWAIT_FLAGS -DVATOMIC_DISABLE_POLITE_AWAIT)
 
-# Add tests for the above defined targets
-foreach(TARGET ${TARGETS})
+set(RISCV_TARGETS BUILTIN)
+set(ARMV8_TARGETS LLSC BUILTIN LSE LXE)
 
-    string(TOLOWER "${TARGET}" SUB_DIR)
+set(ARMV8_FLAGS -O2 -x c -fkeep-inline-functions -S -mno-outline-atomics)
+set(RISCV_FLAGS -O2 -x c -fkeep-inline-functions -S)
+
+set(ATOMIC_CORE_GROUPS vatomic8 vatomic16 vatomic32 vatomic64 vatomicsz)
+set(ATOMIC_AWAIT_GROUPS vatomic32 vatomic64)
+set(ATOMIC_PTR_GROUPS vatomicptr)
+set(LISTS CORE AWAIT PTR)
+set(ORDERINGS acq rel rlx "")
+
+set(ALL_ATOMIC_GROUPS
+    vatomic8
+    vatomic16
+    vatomic32
+    vatomic64
+    vatomicsz
+    vatomicptr
+    vatomic_fence)
+
+foreach(GRP ${ALL_ATOMIC_GROUPS})
+    set(${GRP}_ATOMICS "")
+endforeach()
+
+# Fences
+foreach(ORD ${ORDERINGS})
+    list(APPEND vatomic_fence_ATOMICS vatomic_fence_${ORD})
+endforeach()
+
+# Core, Await, ptr
+foreach(LIST ${LISTS})
+    foreach(ATM_GRP ${ATOMIC_${LIST}_GROUPS})
+        string(TOLOWER "lists/vatomic_${LIST}.txt" LIST_FILE)
+        file(STRINGS ${LIST_FILE} ATM_LIST)
+        foreach(ATM ${ATM_LIST})
+            set(ATM_PREF ${ATM_GRP}_${ATM})
+            list(APPEND ${ATM_GRP}_ATOMICS ${ATM_PREF})
+        endforeach()
+    endforeach()
+endforeach()
+
+foreach(ARCH ${ARCHS})
+    string(TOLOWER "${ARCH}" SUB_DIR)
     set(SUFFIX ${SUB_DIR})
     set(SUB_DIR ${CMAKE_CURRENT_BINARY_DIR}/${SUB_DIR})
+    set(ASM_FILE ${SUB_DIR}/atomics.s)
 
-    # create a subdirectory for each target to isolate the generated files/logs
-    file(MAKE_DIRECTORY ${SUB_DIR})
+    foreach(TARGET ${${ARCH}_TARGETS})
+        string(TOLOWER "${SUFFIX}_${TARGET}" COMPOSED_TARGET)
 
-    set(EXPANDED_FILE ${SUB_DIR}/atomic.s)
-    set(CFLAGS ${${TARGET}_FLAGS})
+        if(${ARCH} STREQUAL "ARMV8")
+            add_custom_command(
+                OUTPUT ASM_${COMPOSED_TARGET}
+                COMMAND
+                    ${${ARCH}_CMAKE_C_COMPILER} ${${TARGET}_FLAGS}
+                    ${${ARCH}_FLAGS} "${VSYNC_INCLUDE}"
+                    ${CMAKE_SOURCE_DIR}/include/vsync/atomic.h -o ${ASM_FILE} &&
+                    ${CMAKE_CURRENT_BINARY_DIR}/cleaner.sh ${ASM_FILE}
+                COMMAND_EXPAND_LISTS
+                DEPENDS vatomic BUILTIN_SCRIPTS PERMISSION_SCRIPTS
+                COMMENT
+                    "Generating ${COMPOSED_TARGET} builtin atomics (with cleaner)"
+            )
+        else()
+            add_custom_command(
+                OUTPUT ASM_${COMPOSED_TARGET}
+                COMMAND
+                    ${${ARCH}_CMAKE_C_COMPILER} ${${TARGET}_FLAGS}
+                    ${${ARCH}_FLAGS} "${VSYNC_INCLUDE}"
+                    ${CMAKE_SOURCE_DIR}/include/vsync/atomic.h -o ${ASM_FILE}
+                COMMAND_EXPAND_LISTS
+                DEPENDS vatomic BUILTIN_SCRIPTS PERMISSION_SCRIPTS
+                COMMENT "Generating ${COMPOSED_TARGET} builtin atomics")
+        endif()
+        foreach(GRP ${ALL_ATOMIC_GROUPS})
+            set(DEPS_VAR "${GRP}_${COMPOSED_TARGET}_DEPS")
+            set(${DEPS_VAR} "")
 
-    # Expand the atomics for atomic.s passing the flags associated with the
-    # target
-    add_custom_command(
-        OUTPUT ${EXPANDED_FILE}
-        COMMAND ${CMAKE_C_COMPILER} ${CFLAGS} "${VSYNC_INCLUDE}" -E -include
-                vsync/atomic.h - < /dev/null > ${EXPANDED_FILE}
-        COMMAND_EXPAND_LISTS
-        DEPENDS vatomic ${SUB_DIR}
-        COMMENT "Preprocessing vsync/atomic.h")
+            foreach(ATM ${${GRP}_ATOMICS})
+                add_test(NAME check_${COMPOSED_TARGET}_${ATM}
+                         COMMAND ${CMAKE_CURRENT_BINARY_DIR}/verify.sh ${ATM}
+                                 ${SUFFIX})
+                set_tests_properties(
+                    check_${COMPOSED_TARGET}_${ATM}
+                    PROPERTIES LABELS ${COMPOSED_TARGET}_${GRP})
 
-    # copy the parser to the target subdir
-    add_custom_command(
-        OUTPUT copy_${SUFFIX}
-        COMMAND cp parser ${SUB_DIR}
-        DEPENDS parser ${SUB_DIR}
-        COMMENT "Copy parser to ${SUB_DIR}")
+                add_custom_command(
+                    OUTPUT GEN_${COMPOSED_TARGET}_${ATM}
+                    COMMAND ${CMAKE_CURRENT_BINARY_DIR}/generate.sh ${ATM}
+                            ${SUFFIX}
+                    DEPENDS ASM_${COMPOSED_TARGET} ATOMIC_LIST
+                    COMMENT "Generating Boogie for ${ATM} (${COMPOSED_TARGET})")
 
-    # Add test for running the parser on the expanded file
-    add_test(NAME test_${SUFFIX}_parsing COMMAND ./parser ${EXPANDED_FILE})
+                list(APPEND ${DEPS_VAR} GEN_${COMPOSED_TARGET}_${ATM})
+            endforeach()
 
-    # Run the parser on the expanded file
-    add_custom_command(
-        OUTPUT parsed_${SUFFIX}
-        COMMAND ./parser ${EXPANDED_FILE}
-        DEPENDS copy_${SUFFIX} ${EXPANDED_FILE}
-        WORKING_DIRECTORY ${SUB_DIR}
-        COMMENT "Running parser on ${EXPANDED_FILE}")
-
-    # read the atomic functions' list from a file and load it into ATOMICS
-    set(ATOMICS_LIST_FILE "atomics_list.txt")
-    file(READ ${ATOMICS_LIST_FILE} FILE_CONTENT)
-    string(STRIP ${FILE_CONTENT} FILE_CONTENT)
-    string(REPLACE "\n" ";" ATOMICS ${FILE_CONTENT})
-
-    # define the atomic groups and the files related to them some of these files
-    # exist in the source dir and some are autogenerated by the parser in the
-    # target's subdirectory
-    set(ATOMIC_GROUPS RW AWAIT RMW XCHG)
-    set(RW_FILES
-        "${CMAKE_CURRENT_SOURCE_DIR}/read.bpl ${CMAKE_CURRENT_SOURCE_DIR}/write.bpl ${SUB_DIR}/reads_writes.bpl"
-    )
-    set(AWAIT_FILES
-        "${CMAKE_CURRENT_SOURCE_DIR}/await.bpl ${SUB_DIR}/awaits.bpl")
-    set(RMW_FILES "${CMAKE_CURRENT_SOURCE_DIR}/rmw.bpl ${SUB_DIR}/rmws.bpl")
-    set(XCHG_FILES "${CMAKE_CURRENT_SOURCE_DIR}/xchg.bpl  ${SUB_DIR}/xchgs.bpl")
-    set(LIB_FILE "${CMAKE_CURRENT_SOURCE_DIR}/library.bpl")
-
-    # ##########################################################################
-    # Atomic groups tests
-    # ##########################################################################
-    foreach(grp ${ATOMIC_GROUPS})
-        string(TOLOWER "${grp}" GRP_NAME)
-        set(LOG_NAME ${SUB_DIR}/${GRP_NAME}.log)
-        # generate group log command
-        add_custom_command(
-            OUTPUT ${grp}_${SUFFIX}
-            COMMAND bash -c "boogie ${LIB_FILE} ${${grp}_FILES} >${LOG_NAME}"
-            DEPENDS parsed_${SUFFIX}
-            COMMENT
-                "Run boogie for ${GRP_NAME} on ${SUFFIX} generate ${LOG_NAME}")
-
-        # add test parsing for errors
-        add_test(NAME test_${GRP_NAME}_${SUFFIX}_file_compiles
-                 COMMAND awk "/Error:/ { exit 1 }" ${LOG_NAME})
-    endforeach(grp)
-    list(TRANSFORM ATOMIC_GROUPS APPEND _${SUFFIX})
-
-    # ##########################################################################
-    # Atomic functions tests
-    # ##########################################################################
-    foreach(ATOMIC ${ATOMICS})
-
-        add_custom_command(
-            OUTPUT ${ATOMIC}_${SUFFIX}
-            COMMAND
-                bash -c
-                "boogie ${LIB_FILE} ${RW_FILES} ${AWAIT_FILES} ${RMW_FILES} ${XCHG_FILES} /proc:${ATOMIC} >${SUB_DIR}/${ATOMIC}.log"
-            DEPENDS ${ATOMIC_GROUPS} ${SUB_DIR}
-            COMMENT "Run boogie for function ${ATOMIC}_${SUFFIX}")
-
-        add_test(
-            NAME check_vatomic_${ATOMIC}_${SUFFIX}
-            COMMAND
-                bash -c
-                "grep -i 'Boogie program verifier finished with' ${SUB_DIR}/${ATOMIC}.log | awk '{if (\$(NF-1) != \"0\") exit 1}'"
-        )
+            add_custom_target(
+                build_boogie_${COMPOSED_TARGET}_${GRP}
+                DEPENDS ${${DEPS_VAR}} ASM_${COMPOSED_TARGET}
+                        PERMISSION_SCRIPTS)
+        endforeach()
     endforeach()
-    list(TRANSFORM ATOMICS APPEND _${SUFFIX})
-
-    # Add build target
-    add_custom_target(build_boogie_${SUFFIX} DEPENDS ${ATOMICS} ${SUB_DIR})
 endforeach()
