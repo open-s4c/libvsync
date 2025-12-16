@@ -29,15 +29,29 @@ function(add_doc_targets)
     # libvsync Once we have a separate doc for vatomic&doc.h we can just use
     # ${PROJECT_SOURCE_DIR}/include and skip the installation step.
     set(DOXYGEN_INPUT "${CMAKE_CURRENT_BINARY_DIR}/installed")
+
+    set(VATOMIC_SOURCE "${PROJECT_SOURCE_DIR}/vatomic")
+    set(VATOMIC_BUILD "${CMAKE_CURRENT_BINARY_DIR}/doc/vatomic")
+    set(LIBVSYNC_SOURCE "${PROJECT_SOURCE_DIR}")
+    set(LIBVSYNC_BUILD "${CMAKE_CURRENT_BINARY_DIR}/doc/libvsync")
+    add_custom_target(
+        ${INSTALL_TARGET}-vatomic
+        COMMAND ${CMAKE_COMMAND} -S${VATOMIC_SOURCE} -B${VATOMIC_BUILD}
+                -DCMAKE_INSTALL_PREFIX="${DOXYGEN_INPUT}"
+        COMMAND ${CMAKE_COMMAND} --install ${VATOMIC_BUILD})
+
     add_custom_target(
         ${INSTALL_TARGET}
         COMMAND
-            ${CMAKE_COMMAND} -S"${PROJECT_SOURCE_DIR}"
-            -B"${CMAKE_CURRENT_BINARY_DIR}"
+            ${CMAKE_COMMAND} -S${LIBVSYNC_SOURCE} -B${LIBVSYNC_BUILD}
+            -Dvatomic_DIR=${DOXYGEN_INPUT}/lib/cmake
             -DCMAKE_INSTALL_PREFIX="${DOXYGEN_INPUT}"
-        COMMAND ${CMAKE_COMMAND} --install "${CMAKE_CURRENT_BINARY_DIR}"
-        COMMAND ${CMAKE_COMMAND} copy "${CMAKE_SOURCE_DIR}/include/vsync/doc.h"
-                "${DOXYGEN_INPUT}/include/vsync")
+        COMMAND ${CMAKE_COMMAND} --install ${LIBVSYNC_BUILD}
+        COMMAND
+            ${CMAKE_COMMAND} -E copy "${CMAKE_SOURCE_DIR}/include/vsync/doc.h"
+            "${DOXYGEN_INPUT}/include/vsync"
+        DEPENDS ${INSTALL_TARGET}-vatomic)
+
     # ##########################################################################
     # Generate doxygen config file
     # ##########################################################################
