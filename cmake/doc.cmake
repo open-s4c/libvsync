@@ -35,7 +35,9 @@ function(add_doc_targets)
             ${CMAKE_COMMAND} -S"${PROJECT_SOURCE_DIR}"
             -B"${CMAKE_CURRENT_BINARY_DIR}"
             -DCMAKE_INSTALL_PREFIX="${DOXYGEN_INPUT}"
-        COMMAND ${CMAKE_COMMAND} --install "${CMAKE_CURRENT_BINARY_DIR}")
+        COMMAND ${CMAKE_COMMAND} --install "${CMAKE_CURRENT_BINARY_DIR}"
+        COMMAND ${CMAKE_COMMAND} copy "${CMAKE_SOURCE_DIR}/include/vsync/doc.h"
+                "${DOXYGEN_INPUT}/include/vsync")
     # ##########################################################################
     # Generate doxygen config file
     # ##########################################################################
