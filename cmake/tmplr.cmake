@@ -9,6 +9,10 @@ set(TMPLR_SHA256
     "ab6b67cd9894afbd8f262a7739598902c873c89007bcddb818afe65b405294ea")
 set(TMPLR_PROGRAM "${CMAKE_BINARY_DIR}/tmplr/tmplr")
 
+if(CMAKE_VERSION VERSION_GREATER_EQUAL "3.24")
+    cmake_policy(SET CMP0135 NEW)
+endif()
+
 ExternalProject_Add(
     tmplr-build
     URL ${TMPLR_URL}
