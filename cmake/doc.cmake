@@ -15,13 +15,9 @@ function(add_doc_targets)
         return()
     endif()
 
-    if(NOT MDOX_INSTALLED)
-        message(
-            WARNING
-                "Target `${MARKDOWN_TARGET}` was not added! mdox is not installed. Please install https://github.com/db7/mdox/releases/tag/v0.1"
-        )
-        return()
-    endif()
+    # if(NOT MDOX_INSTALLED) message( WARNING "Target `${MARKDOWN_TARGET}` was
+    # not added! mdox is not installed. Please install
+    # https://github.com/db7/mdox/releases/tag/v0.1" ) return() endif()
 
     set(DOXYGEN_DOCKER "")
     set(INSTALL_TARGET "install-libvsync")
@@ -30,27 +26,16 @@ function(add_doc_targets)
     # ${PROJECT_SOURCE_DIR}/include and skip the installation step.
     set(DOXYGEN_INPUT "${CMAKE_CURRENT_BINARY_DIR}/installed")
 
-    set(VATOMIC_SOURCE "${PROJECT_SOURCE_DIR}/vatomic")
-    set(VATOMIC_BUILD "${CMAKE_CURRENT_BINARY_DIR}/doc/vatomic")
     set(LIBVSYNC_SOURCE "${PROJECT_SOURCE_DIR}")
     set(LIBVSYNC_BUILD "${CMAKE_CURRENT_BINARY_DIR}/doc/libvsync")
     add_custom_target(
-        ${INSTALL_TARGET}-vatomic
-        COMMAND ${CMAKE_COMMAND} -S${VATOMIC_SOURCE} -B${VATOMIC_BUILD}
-                -DCMAKE_INSTALL_PREFIX="${DOXYGEN_INPUT}"
-        COMMAND ${CMAKE_COMMAND} --install ${VATOMIC_BUILD})
-
-    add_custom_target(
         ${INSTALL_TARGET}
-        COMMAND
-            ${CMAKE_COMMAND} -S${LIBVSYNC_SOURCE} -B${LIBVSYNC_BUILD}
-            -Dvatomic_DIR=${DOXYGEN_INPUT}/lib/cmake
-            -DCMAKE_INSTALL_PREFIX="${DOXYGEN_INPUT}"
+        COMMAND ${CMAKE_COMMAND} -S${LIBVSYNC_SOURCE} -B${LIBVSYNC_BUILD}
+                -DCMAKE_INSTALL_PREFIX="${DOXYGEN_INPUT}"
         COMMAND ${CMAKE_COMMAND} --install ${LIBVSYNC_BUILD}
         COMMAND
             ${CMAKE_COMMAND} -E copy "${CMAKE_SOURCE_DIR}/include/vsync/doc.h"
-            "${DOXYGEN_INPUT}/include/vsync"
-        DEPENDS ${INSTALL_TARGET}-vatomic)
+            "${DOXYGEN_INPUT}/include/vsync")
 
     # ##########################################################################
     # Generate doxygen config file
