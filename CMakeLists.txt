@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.16)
 project(
     libvsync
     LANGUAGES C
-    VERSION 4.2.1
+    VERSION 4.2.2
     DESCRIPTION
         "Verified library of atomics, synchronization primitives and concurrent data structures"
 )
@@ -20,7 +20,7 @@ include(CheckSymbolExists)
 # ##############################################################################
 # add vatomic lib.
 # ##############################################################################
-find_package(vatomic 2.3 CONFIG)
+find_package(vatomic 2.4 CONFIG)
 if(NOT vatomic_FOUND)
     add_subdirectory(vatomic)
 endif()

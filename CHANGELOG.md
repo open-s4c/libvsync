@@ -11,6 +11,12 @@ is not guaranteed to result in increment of major version.
 Please note that the version correlates to the internal libvsync, which is a superset of
 what exists in open-s4c libvsync.
 
+## [4.2.2]
+
+### Changed
+
+- update vatomic to 2.4.0
+
 ## [4.2.1]
 
 ### Changed
