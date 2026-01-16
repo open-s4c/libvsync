@@ -19,6 +19,7 @@ _Group of algorithms linearizable algorithms._
 | [vsync/map/treeset_bst_fine.h](map/treeset_bst_fine.h.md)|This implementation of treeset uses unbalanced binary search tree (BST) and fine-grained locking. | &#x2714; | &#x274C; | &#x274C; | &#x274C; |
 | [vsync/map/treeset_rb_coarse.h](map/treeset_rb_coarse.h.md)|This implementation of treeset uses balanced red-black tree (RB) and coarse-grained locking. | &#x2714; | &#x274C; | &#x274C; | &#x274C; |
 | [vsync/map/treeset_rb_fine.h](map/treeset_rb_fine.h.md)|This implementation of treeset uses balanced red-black tree (RB) and fine-grained locking. | &#x2714; | &#x274C; | &#x274C; | &#x274C; |
+| [vsync/queue/bbq_spsc.h](queue/bbq_spsc.h.md)|Block-based Bounded Queue single-producer/single-consumer. | &#x2714; | &#x2714; | &#x274C; | &#x274C; |
 | [vsync/queue/bounded_locked.h](queue/bounded_locked.h.md)|Multi-producer, multi-consumer bounded queue protected by a spinlock. | &#x2714; | &#x274C; | &#x274C; | &#x274C; |
 | [vsync/queue/bounded_mpmc.h](queue/bounded_mpmc.h.md)|Lockless, multi-producer, multi-consumer bounded queue. | &#x2714; | &#x274C; | &#x274C; | &#x274C; |
 | [vsync/queue/bounded_spsc.h](queue/bounded_spsc.h.md)|Single-producer, single-consumer, wait-free bounded queue. | &#x2714; | &#x2714; | &#x274C; | &#x274C; |

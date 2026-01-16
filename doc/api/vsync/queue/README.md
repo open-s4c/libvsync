@@ -7,6 +7,8 @@ _Queues, priority queues and ringbuffers._
 
 | File|Description|Linearizable|Lock-free|SMR-required|Unbounded-Queue|
 | --- | --- | --- | --- | --- | --- |
+| [vsync/queue/bbq_mpmc.h](bbq_mpmc.h.md)|Block-based Bounded Queue multi-producer/multi-consumer. | &#x274C; | &#x274C; | &#x274C; | &#x274C; |
+| [vsync/queue/bbq_spsc.h](bbq_spsc.h.md)|Block-based Bounded Queue single-producer/single-consumer. | &#x2714; | &#x2714; | &#x274C; | &#x274C; |
 | [vsync/queue/bounded_locked.h](bounded_locked.h.md)|Multi-producer, multi-consumer bounded queue protected by a spinlock. | &#x2714; | &#x274C; | &#x274C; | &#x274C; |
 | [vsync/queue/bounded_mpmc.h](bounded_mpmc.h.md)|Lockless, multi-producer, multi-consumer bounded queue. | &#x2714; | &#x274C; | &#x274C; | &#x274C; |
 | [vsync/queue/bounded_spsc.h](bounded_spsc.h.md)|Single-producer, single-consumer, wait-free bounded queue. | &#x2714; | &#x2714; | &#x274C; | &#x274C; |
