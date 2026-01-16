@@ -14,7 +14,7 @@
 #include <vsync/common/dbg.h>
 #include <vsync/utils/string.h>
 
-#define VTRACE_EXTEND_FACTOR 2
+#define VTRACE_EXTEND_FACTOR 2U
 
 typedef struct trace_unit_s {
     vuintptr_t key;
@@ -29,6 +29,81 @@ typedef struct trace_s {
 } trace_t;
 
 typedef vbool_t (*trace_verify_unit)(trace_unit_t *unit);
+
+#if defined(VSYNC_VERIFICATION_DAT3M)
+/* DAT3M cannot handle this at the moment! */
+static inline void
+trace_init(trace_t *trace, vsize_t capacity)
+{
+    V_UNUSED(trace, capacity);
+}
+static inline void
+trace_reset(trace_t *trace)
+{
+    V_UNUSED(trace);
+}
+static inline vsize_t
+trace_get_length(trace_t *trace)
+{
+    V_UNUSED(trace);
+    return 0;
+}
+static inline vbool_t
+trace_is_subtrace(trace_t *super_trace, trace_t *sub_trace,
+                  void (*print)(vuintptr_t k))
+{
+    V_UNUSED(super_trace, sub_trace, print);
+    return true;
+}
+static inline vbool_t
+trace_are_eq(trace_t *trace_a, trace_t *trace_b, void (*print)(vuintptr_t k))
+{
+    V_UNUSED(trace_a, trace_b, print);
+    return true;
+}
+static inline vbool_t
+trace_verify(trace_t *trace, trace_verify_unit verify_fun)
+{
+    V_UNUSED(trace, verify_fun);
+    return true;
+}
+static inline void
+trace_print(trace_t *trace, char *trace_name)
+{
+    V_UNUSED(trace, trace_name);
+}
+static inline void
+trace_subtract_from(trace_t *trace_container, trace_t *trace)
+{
+    V_UNUSED(trace_container, trace);
+}
+static inline void
+trace_merge_into(trace_t *trace_container, trace_t *trace)
+{
+    V_UNUSED(trace_container, trace);
+}
+static inline void
+trace_add(trace_t *trace, vuintptr_t key)
+{
+    V_UNUSED(trace, key);
+}
+static inline vbool_t
+trace_find_unit_idx(trace_t *trace, vuintptr_t key, vsize_t *out_idx)
+{
+    V_UNUSED(trace, key, out_idx);
+    return true;
+}
+static inline void
+trace_destroy(trace_t *trace)
+{
+    V_UNUSED(trace);
+}
+static inline void
+trace_extend(trace_t *trace)
+{
+    V_UNUSED(trace);
+}
+#else
 
 static inline void
 trace_init(trace_t *trace, vsize_t capacity)
@@ -307,11 +382,12 @@ trace_is_subtrace(trace_t *super_trace, trace_t *sub_trace,
 
             ASSERT(unit_a->key == unit_b->key);
 
-            if (unit_a->count != unit_b->count) {
+            if (unit_a->count > unit_b->count) {
                 if (print) {
-                    printf("key[%" VUINTPTR_FORMAT
-                           "] count is different %zu != %zu\n",
-                           unit_a->key, unit_a->count, unit_b->count);
+                    printf(
+                        "key[%" VUINTPTR_FORMAT
+                        "] count in subtrace %zu > count in super-trace %zu\n",
+                        unit_a->key, unit_a->count, unit_b->count);
                     print(unit_a->key);
                 }
                 return false;
@@ -327,4 +403,5 @@ trace_is_subtrace(trace_t *super_trace, trace_t *sub_trace,
 
     return true;
 }
+#endif
 #endif
