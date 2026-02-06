@@ -24,7 +24,7 @@ jobs:
   ###########################################################################
   Run-Checks:
     runs-on: ubuntu-22.04
-    container: ghcr.io/open-s4c/vsyncer-ci:sha-25de355efbbb7bf9d85523aeb50864b118755392
+    container: ghcr.io/open-s4c/vsyncer-ci:sha-76569f0d2ee9a688da95b8025116b3a202e67321
     strategy:
       matrix:
         test-dir: [ {p: "test", c: "spinlock"}, {p: "test", c: "quack"},  {p: "test", c: "queue"},
@@ -32,7 +32,8 @@ jobs:
                     {p: "verify", c: "stack"}, {p: "verify", c: "thread"}, {p: "verify", c: "simpleht"},
                     {p: "verify", c: "bitmap"}, {p: "verify", c: "treeset"},  {p: "verify", c: "pool"},
                     {p: "verify", c: "cachedq"}, {p: "verify", c: "chaselev"} , {p: "verify", c: "priority_queue"},
-                    {p: "verify", c: "skiplist"}, {p: "verify", c: "smr"}
+                    {p: "verify", c: "skiplist"}, {p: "verify", c: "smr"}, {p: "verify", c: "bbq"},
+                    {p: "verify", c: "mpsc"}
                   ]
     steps:
       - name: Print vsyncer version
