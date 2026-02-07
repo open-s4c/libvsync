@@ -5,7 +5,7 @@ A highly performant bounded queue that splits the buffer in multiple blocks.
 
 ### Remarks:
 
-In this implementations, values have the fixed size (pointer size). This implementation does not support DROP_OLD mode as described in the original paper.
+In this implementation, values have the fixed size (pointer size). This implementation does not support `DROP_OLD` mode as described in the original paper.
 
 
 ### References:
@@ -154,19 +154,19 @@ static vuint32_t bbq_mpmc_enqueue(bbq_mpmc_t *q, vuintptr_t *buf, vuint32_t coun
 _Enqueues one or more entries._ 
 
 
-Multiple entries can be enqueued if `src` points to an array. Use `count` to indicate how many entries should be enqueueed, starting from `src`.
+Multiple entries can be enqueued if `src` points to an array. Use `count` to indicate how many entries should be enqueued, starting from `src`.
 
 
 
 **Parameters:**
 
-- `q`: pointer to bbq_mpmc data structure 
-- `src`: pointer to first entry 
-- `count`: number of entries to enqueue 
-- `wait`: should wait for space to be available
+- `q`: address of `bbq_mpmc_t` object. 
+- `src`: pointer to first entry. 
+- `count`: number of entries to enqueue. 
+- `wait`: should wait for space to be available.
 
 
-**Returns:** number of enqueued entries 
+**Returns:** number of enqueued entries. 
 
 
 
@@ -184,13 +184,13 @@ Multiple entries can be dequeued if `src` points to an array. Use `count` to ind
 
 **Parameters:**
 
-- `q`: pointer to bbq_mpmc data structure 
-- `src`: pointer to preallocated memory for the first entry 
-- `count`: number of entries to dequeue 
-- `wait`: should wait for entries to be available
+- `q`: address of `bbq_mpmc_t` object. 
+- `src`: pointer to preallocated memory for the first entry. 
+- `count`: number of entries to dequeue. 
+- `wait`: should wait for entries to be available.
 
 
-**Returns:** number of dequeued entries 
+**Returns:** number of dequeued entries. 
 
 
 
@@ -206,17 +206,17 @@ _Calculates the size of the bbq queue._
 
 **Parameters:**
 
-- `capacity`: maximum number of entries that can fit in the queue 
+- `capacity`: maximum number of entries that can fit in the queue. 
 
 
-**Returns:** size to be allocated in bytes 
+**Returns:** size to be allocated in bytes. 
 
 
 
 ##  Function `bbq_mpmc_init`
 
 ```c
-static vbool_t bbq_mpmc_init(bbq_mpmc_t *rb, vsize_t size)
+static vbool_t bbq_mpmc_init(bbq_mpmc_t *q, vsize_t size)
 ``` 
 _Initializes a bbq data structure._ 
 
@@ -225,8 +225,8 @@ _Initializes a bbq data structure._
 
 **Parameters:**
 
-- `buf`: pointer to bbq data structure 
-- `size`: number of bytes allocated for bbq data structure 
+- `q`: pointer to bbq data structure. 
+- `size`: number of bytes allocated for bbq data structure. 
 
 
 **Returns:** true initialization succeeded. 

@@ -14,7 +14,7 @@
 /* utils */
 
 /* size related */
-/* mininum and maxinum entry size, block size and block number */
+/* minimum and maximum entry size, block size and block number */
 #define BBQ_ENTRY_SIZE         (1ULL << BBQ_ENTRY_SIZE_LOG)
 #define BBQ_MIN_BLOCK_NUM_LOG  0U
 #define BBQ_MAX_BLOCK_NUM_LOG  16U

@@ -258,7 +258,7 @@ static vuint32_t bbq_spsc_enqueue(bbq_spsc_t *q, vuintptr_t *buf, vuint32_t coun
 _Enqueues one or more entries._ 
 
 
-Multiple entries can be enqueued if `src` points to an array. Use `count` to indicate how many entries should be enqueueed, starting from `src`.
+Multiple entries can be enqueued if `src` points to an array. Use `count` to indicate how many entries should be enqueued, starting from `src`.
 
 
 
@@ -320,7 +320,7 @@ _Calculates the size of bbq_spsc_t object based on the given capacity._
 ##  Function `bbq_spsc_init`
 
 ```c
-static vbool_t bbq_spsc_init(bbq_spsc_t *rb, vsize_t size)
+static vbool_t bbq_spsc_init(bbq_spsc_t *q, vsize_t size)
 ``` 
 _Initializes a bbq data structure._ 
 
@@ -329,8 +329,8 @@ _Initializes a bbq data structure._
 
 **Parameters:**
 
-- `rb`: address of bbq_spsc_t object. 
-- `size`: size of the given bbq_spsc_t object `rb`.
+- `q`: address of bbq_spsc_t object. 
+- `size`: size of the given bbq_spsc_t object `q`.
 
 
 **Returns:** true initialization succeeded. 

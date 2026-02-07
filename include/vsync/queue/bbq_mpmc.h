@@ -13,8 +13,8 @@
  *
  * ### Remarks:
  *
- * In this implementations, values have the fixed size (pointer size).
- * This implementation does not support DROP_OLD mode as described in the
+ * In this implementation, values have the fixed size (pointer size).
+ * This implementation does not support `DROP_OLD` mode as described in the
  * original paper.
  *
  * @cite [BBQ: A Block-based Bounded Queue for Exchanging Data and
@@ -96,14 +96,14 @@ static inline void _bbq_mpmc_block_init(bbq_mpmc_block_t *blk, vsize_t idx,
  * Enqueues one or more entries.
  *
  * Multiple entries can be enqueued if `src` points to an array. Use `count` to
- * indicate how many entries should be enqueueed, starting from `src`.
+ * indicate how many entries should be enqueued, starting from `src`.
  *
- * @param q     pointer to bbq_mpmc data structure
- * @param src   pointer to first entry
- * @param count number of entries to enqueue
- * @param wait  should wait for space to be available
+ * @param q     address of `bbq_mpmc_t` object.
+ * @param src   pointer to first entry.
+ * @param count number of entries to enqueue.
+ * @param wait  should wait for space to be available.
  *
- * @return number of enqueued entries
+ * @return number of enqueued entries.
  */
 static inline vuint32_t
 bbq_mpmc_enqueue(bbq_mpmc_t *q, vuintptr_t *buf, vuint32_t count, vbool_t wait)
@@ -139,12 +139,12 @@ bbq_mpmc_enqueue(bbq_mpmc_t *q, vuintptr_t *buf, vuint32_t count, vbool_t wait)
  * Multiple entries can be dequeued if `src` points to an array. Use `count` to
  * indicate how many entries should be dequeued.
  *
- * @param q     pointer to bbq_mpmc data structure
- * @param src   pointer to preallocated memory for the first entry
- * @param count number of entries to dequeue
- * @param wait  should wait for entries to be available
+ * @param q     address of `bbq_mpmc_t` object.
+ * @param src   pointer to preallocated memory for the first entry.
+ * @param count number of entries to dequeue.
+ * @param wait  should wait for entries to be available.
  *
- * @return number of dequeued entries
+ * @return number of dequeued entries.
  */
 static inline vuint32_t
 bbq_mpmc_dequeue(bbq_mpmc_t *q, vuintptr_t *buf, vuint32_t count, vbool_t wait)
@@ -177,8 +177,8 @@ bbq_mpmc_dequeue(bbq_mpmc_t *q, vuintptr_t *buf, vuint32_t count, vbool_t wait)
 /**
  * Calculates the size of the bbq queue.
  *
- * @param capacity maximum number of entries that can fit in the queue
- * @return size to be allocated in bytes
+ * @param capacity maximum number of entries that can fit in the queue.
+ * @return size to be allocated in bytes.
  */
 static inline vsize_t
 bbq_mpmc_memsize(vsize_t capacity)
@@ -198,15 +198,15 @@ bbq_mpmc_memsize(vsize_t capacity)
 /**
  * Initializes a bbq data structure.
  *
- * @param buf pointer to bbq data structure
- * @param size number of bytes allocated for bbq data structure
+ * @param q pointer to bbq data structure.
+ * @param size number of bytes allocated for bbq data structure.
  * @return true initialization succeeded.
  * @return false initialization failed.
  */
 static inline vbool_t
-bbq_mpmc_init(bbq_mpmc_t *rb, vsize_t size)
+bbq_mpmc_init(bbq_mpmc_t *q, vsize_t size)
 {
-    if (unlikely(rb == NULL) || unlikely(BBQ_ENTRY_SIZE < BBQ_MIN_ENTRY_SIZE) ||
+    if (unlikely(q == NULL) || unlikely(BBQ_ENTRY_SIZE < BBQ_MIN_ENTRY_SIZE) ||
         unlikely(BBQ_ENTRY_SIZE > BBQ_MAX_ENTRY_SIZE) ||
         unlikely(BBQ_BLOCK_NUM_LOG < BBQ_MIN_BLOCK_NUM_LOG) ||
         unlikely(BBQ_BLOCK_NUM_LOG > BBQ_MAX_BLOCK_NUM_LOG)) {
@@ -224,13 +224,13 @@ bbq_mpmc_init(bbq_mpmc_t *rb, vsize_t size)
         unlikely(blk_size_log >= BBQ_MAX_BLOCK_SIZE_LOG)) {
         return false;
     }
-    (rb)->config.blk_size     = blk_size;
-    (rb)->config.blk_size_log = blk_size_log;
-    BBQ_MPMC_WRITE_PROD((rb)->widx, 0);
-    BBQ_MPMC_WRITE_CONS((rb)->ridx, 0);
+    (q)->config.blk_size     = blk_size;
+    (q)->config.blk_size_log = blk_size_log;
+    BBQ_MPMC_WRITE_PROD((q)->widx, 0);
+    BBQ_MPMC_WRITE_CONS((q)->ridx, 0);
     for (vsize_t i = 0; i < (1UL << BBQ_BLOCK_NUM_LOG); i++) {
         _bbq_mpmc_block_init(
-            (bbq_mpmc_block_t *)((rb)->blk + (i << blk_size_log)), i, blk_size);
+            (bbq_mpmc_block_t *)((q)->blk + (i << blk_size_log)), i, blk_size);
     }
     return true;
 }

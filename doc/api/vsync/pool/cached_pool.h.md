@@ -96,7 +96,7 @@ _Calculate the needed memory space for creating a pool._
 
 **Parameters:**
 
-- `thread_num`: maxinum thread number 
+- `thread_num`: maximum thread number 
 - `entry_num`: minimal number of entires 
 - `entry_size`: size of each entry
 
@@ -129,7 +129,7 @@ Make sure the buffer has enough size (calculated by cached_pool_memsize)
 **Parameters:**
 
 - `buf`: pointer to the buffer 
-- `thread_num`: maxinum thread number 
+- `thread_num`: maximum thread number 
 - `entry_num`: minimal number of entires 
 - `entry_size`: size of each entry
 

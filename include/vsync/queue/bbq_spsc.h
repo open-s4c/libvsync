@@ -8,7 +8,7 @@
 
 /*******************************************************************************
  * @file bbq_spsc.h
- * @brief Block-based Bounded Queue single-producer/single-consumer
+ * @brief Block-based Bounded Queue single-producer/single-consumer.
  * @ingroup linearizable lock_free
  *
  * A highly performant bounded queue that splits the buffer in multiple blocks.
@@ -100,7 +100,7 @@ static inline void _bbq_spsc_block_init(bbq_spsc_block_t *blk, vsize_t idx,
  * Enqueues one or more entries.
  *
  * Multiple entries can be enqueued if `src` points to an array. Use `count` to
- * indicate how many entries should be enqueueed, starting from `src`.
+ * indicate how many entries should be enqueued, starting from `src`.
  *
  * @param q     address of bbq_spsc_t object.
  * @param buf   address of the first entry.
@@ -217,14 +217,14 @@ bbq_spsc_memsize(vsize_t capacity)
 /**
  * Initializes a bbq data structure.
  *
- * @param rb address of bbq_spsc_t object.
- * @param size size of the given bbq_spsc_t object `rb`.
+ * @param q address of bbq_spsc_t object.
+ * @param size size of the given bbq_spsc_t object `q`.
  *
  * @return true initialization succeeded.
  * @return false initialization failed.
  */
 static inline vbool_t
-bbq_spsc_init(bbq_spsc_t *rb, vsize_t size)
+bbq_spsc_init(bbq_spsc_t *q, vsize_t size)
 {
     // we shift vuint16_t by BBQ_ENTRY_SIZE_LOG, we need to make sure the
     // behavior is defined
@@ -232,7 +232,7 @@ bbq_spsc_init(bbq_spsc_t *rb, vsize_t size)
         BBQ_ENTRY_SIZE_LOG < 16U &&
         "must have width less than vuint16_t because to be able to shift it");
 
-    if (unlikely(rb == NULL) || unlikely(BBQ_ENTRY_SIZE < BBQ_MIN_ENTRY_SIZE) ||
+    if (unlikely(q == NULL) || unlikely(BBQ_ENTRY_SIZE < BBQ_MIN_ENTRY_SIZE) ||
         unlikely(BBQ_ENTRY_SIZE > BBQ_MAX_ENTRY_SIZE) ||
         unlikely(BBQ_BLOCK_NUM_LOG < BBQ_MIN_BLOCK_NUM_LOG) ||
         unlikely(BBQ_BLOCK_NUM_LOG > BBQ_MAX_BLOCK_NUM_LOG)) {
@@ -250,14 +250,14 @@ bbq_spsc_init(bbq_spsc_t *rb, vsize_t size)
         unlikely(blk_size_log >= BBQ_MAX_BLOCK_SIZE_LOG)) {
         return false;
     }
-    (rb)->config.blk_size     = blk_size;
-    (rb)->config.blk_size_log = blk_size_log;
-    BBQ_SPSC_WRITE_PROD((rb)->widx, 0);
-    BBQ_SPSC_WRITE_CONS((rb)->ridx, 0);
+    (q)->config.blk_size     = blk_size;
+    (q)->config.blk_size_log = blk_size_log;
+    BBQ_SPSC_WRITE_PROD((q)->widx, 0);
+    BBQ_SPSC_WRITE_CONS((q)->ridx, 0);
 
     for (vsize_t i = 0; i < (1UL << BBQ_BLOCK_NUM_LOG); i++) {
         _bbq_spsc_block_init(
-            (bbq_spsc_block_t *)((rb)->blk + (i << blk_size_log)), i, blk_size);
+            (bbq_spsc_block_t *)((q)->blk + (i << blk_size_log)), i, blk_size);
     }
     return true;
 }

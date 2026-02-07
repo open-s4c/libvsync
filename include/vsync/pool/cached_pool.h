@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2025. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2025-2026. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -193,7 +193,7 @@ _cached_pool_vunit_find(cached_pool_t *a, vuint32_t id)
 /**
  * Calculate the needed memory space for creating a pool
  *
- * @param thread_num    maxinum thread number
+ * @param thread_num    maximum thread number
  * @param entry_num     minimal number of entires
  * @param entry_size    size of each entry
  *
@@ -211,7 +211,7 @@ _cached_pool_vunit_find(cached_pool_t *a, vuint32_t id)
  * Make sure the buffer has enough size (calculated by cached_pool_memsize)
  *
  * @param buf           pointer to the buffer
- * @param thread_num    maxinum thread number
+ * @param thread_num    maximum thread number
  * @param entry_num     minimal number of entires
  * @param entry_size    size of each entry
  *

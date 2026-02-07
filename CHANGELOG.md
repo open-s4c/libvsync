@@ -15,7 +15,7 @@ what exists in open-s4c libvsync.
 
 ### Added
 
-- level_queue and mpsc queues
+- mpsc queue
 - bbq_mpmc and bbq_spsc
 
 ## [4.2.2]
