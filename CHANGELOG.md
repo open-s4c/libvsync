@@ -11,6 +11,13 @@ is not guaranteed to result in increment of major version.
 Please note that the version correlates to the internal libvsync, which is a superset of
 what exists in open-s4c libvsync.
 
+## [4.3.0]
+
+### Added
+
+- level_queue and mpsc queues
+- bbq_mpmc and bbq_spsc
+
 ## [4.2.2]
 
 ### Changed
