@@ -141,7 +141,7 @@ function(add_vsyncer_check)
             --timeout
             ${TIMEOUT}s)
         add_test(NAME ${TEST_NAME} COMMAND ${VSYNCER_CMD} ${VSYNCER_CHECK_LL})
-        set_property(TEST ${TEST_NAME} PROPERTY SKIP_RETURN_CODE 1)
+        # set_property(TEST ${TEST_NAME} PROPERTY SKIP_RETURN_CODE 1)
         math(EXPR CTEST_TIMEOUT "${TIMEOUT} + 5")
         set_tests_properties(${TEST_NAME} PROPERTIES TIMEOUT ${CTEST_TIMEOUT})
     endforeach()
