@@ -11,6 +11,7 @@ _Group of algorithms with lock-free progress condition._
 | [vsync/map/listset_lf.h](map/listset_lf.h.md)|Lock-free implementation of listset. | &#x2714; | &#x2714; | &#x2714; | &#x274C; |
 | [vsync/map/simpleht.h](map/simpleht.h.md)|Simple lock-free hashtable. | &#x2714; | &#x2714; | &#x274C; | &#x274C; |
 | [vsync/map/skiplist_lf.h](map/skiplist_lf.h.md)|Lock-free concurrent skiplist. | &#x2714; | &#x2714; | &#x2714; | &#x274C; |
+| [vsync/queue/bbq_spsc.h](queue/bbq_spsc.h.md)|Block-based Bounded Queue single-producer/single-consumer. | &#x2714; | &#x2714; | &#x274C; | &#x274C; |
 | [vsync/queue/bounded_spsc.h](queue/bounded_spsc.h.md)|Single-producer, single-consumer, wait-free bounded queue. | &#x2714; | &#x2714; | &#x274C; | &#x274C; |
 | [vsync/queue/chaselev.h](queue/chaselev.h.md)|Chase-Lev Work-Stealing bounded deque. | &#x274C; | &#x2714; | &#x274C; | &#x274C; |
 | [vsync/queue/unbounded_queue_lf.h](queue/unbounded_queue_lf.h.md)|Lock-free unbounded queue. | &#x2714; | &#x2714; | &#x2714; | &#x2714; |

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2023-2024. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2023-2026. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -9,13 +9,9 @@
 #include <vsync/common/assert.h>
 #include <vsync/vtypes.h>
 
-#ifdef VSYNC_VERIFICATION
-    #include <vsync/utils/internal/math.h>
-#else
-
-    /* We define a few constants to make the linter happy. */
-    #define V_NUM_8  8U
-    #define V_NUM_32 32U
+/* We define a few constants to make the linter happy. */
+#define V_NUM_8  8U
+#define V_NUM_32 32U
 
 static inline vuint32_t
 v_log2(vuint32_t v)
@@ -40,10 +36,8 @@ v_pow2_round_down(vuint32_t v)
     return 1U << ((V_NUM_32 - (vuint32_t)__builtin_clz(v)) - 1U);
 }
 
-    #undef V_NUM_8
-    #undef V_NUM_32
-
-#endif
+#undef V_NUM_8
+#undef V_NUM_32
 
 #ifndef V_IS_POWER_OF_TWO
     /**
