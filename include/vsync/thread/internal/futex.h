@@ -1,5 +1,5 @@
 /*
- * Copyright (C) Huawei Technologies Co., Ltd. 2024-2025. All rights reserved.
+ * Copyright (C) Huawei Technologies Co., Ltd. 2024-2026. All rights reserved.
  * SPDX-License-Identifier: MIT
  */
 
@@ -9,7 +9,8 @@
  * futex syscalls
  *
  * If the macros are not defined, we mock the futex syscall with a simple
- * spinning mechanism.
+ * spinning mechanism. Define `FUTEX_CUSTOM` to provide `vfutex_wait` and
+ * `vfutex_wake` in user code, even on Linux.
  *
  * @note on linux compile with `-D_GNU_SOURCE`.
  ******************************************************************************/
@@ -25,7 +26,12 @@
     #define FUTEX_USERSPACE
 #endif
 
-#if defined(VSYNC_VERIFICATION) || defined(FUTEX_USERSPACE)
+#if defined(FUTEX_CUSTOM)
+
+void vfutex_wait(vatomic32_t *m, vuint32_t v);
+void vfutex_wake(vatomic32_t *m, vuint32_t v);
+
+#elif defined(VSYNC_VERIFICATION) || defined(FUTEX_USERSPACE)
 
     #if defined(VFUTEX_LIVENESS)
         #include <vsync/thread/internal/futex_mock_liveness.h>
